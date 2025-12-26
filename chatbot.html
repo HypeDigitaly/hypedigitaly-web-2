@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="cs" class="antialiased dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Chatbot | HypeDigitaly - Nejlepší AI chatbot v ČR</title>
+  <meta name="description" content="Inteligentní AI chatbot s 90%+ přesností odpovědí. První v ČR nasazený na krajských webech. Automatizujte zákaznickou podporu 24/7.">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="HypeDigitaly">
+  <meta property="og:title" content="AI Chatbot | HypeDigitaly">
+  <meta property="og:description" content="Nejlepší AI chatbot v ČR s 90%+ přesností. Automatizujte zákaznickou podporu 24/7.">
+  <meta property="og:image" content="assets/images/og-image.jpg">
+  <meta property="og:url" content="https://hypedigitaly.ai/chatbot">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="assets/images/favicon.ico">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Iconify -->
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'geist': ['Geist', 'sans-serif'],
+          },
+          colors: {
+            'primary': '#00A39A',
+            'primary-light': '#00C4B4',
+            'primary-dark': '#008B84',
+            'accent': '#f97316',
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    body {
+      background-color: #050505;
+      color: #e5e5e5;
+      font-family: 'Geist', sans-serif;
+    }
+    
+    .grid-lines {
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 33.33% 100%;
+    }
+    
+    @keyframes animationIn {
+      0% { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+      100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .animate-float { animation: float 6s ease-in-out infinite; }
+    
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    
+    .faq-item.active .faq-answer { max-height: 500px; }
+    .faq-item.active .faq-icon { transform: rotate(180deg); }
+    
+    html { scroll-behavior: smooth; }
+    
+    .digital-rain {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+      background: linear-gradient(180deg, rgba(0, 163, 154, 0.15) 0%, rgba(0, 163, 154, 0.05) 5%, transparent 20%);
+    }
+    
+    .digital-rain::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(180deg, rgba(0, 196, 180, 0.6) 0%, rgba(0, 163, 154, 0.4) 20%, rgba(0, 163, 154, 0.2) 40%, transparent 100%);
+      filter: blur(20px);
+    }
+    
+    .rain-particles { position: absolute; inset: 0; overflow: hidden; }
+    
+    .rain-particle {
+      position: absolute;
+      width: 2px; height: 2px;
+      background: #00A39A;
+      border-radius: 50%;
+      opacity: 0;
+      animation: rain-fall linear infinite;
+      box-shadow: 0 0 6px 1px rgba(0, 196, 180, 0.8);
+    }
+    
+    .rain-particle:nth-child(odd) { width: 3px; height: 3px; box-shadow: 0 0 8px 2px rgba(0, 196, 180, 0.9); }
+    .rain-particle:nth-child(3n) { width: 1px; height: 1px; box-shadow: 0 0 4px 1px rgba(94, 234, 212, 0.6); }
+    
+    .rain-particle:nth-child(1) { left: 5%; animation-duration: 4s; animation-delay: 0s; }
+    .rain-particle:nth-child(2) { left: 15%; animation-duration: 5s; animation-delay: 0.5s; }
+    .rain-particle:nth-child(3) { left: 25%; animation-duration: 4.5s; animation-delay: 1s; }
+    .rain-particle:nth-child(4) { left: 35%; animation-duration: 6s; animation-delay: 0.2s; }
+    .rain-particle:nth-child(5) { left: 45%; animation-duration: 5.5s; animation-delay: 1.5s; }
+    .rain-particle:nth-child(6) { left: 55%; animation-duration: 4s; animation-delay: 0.8s; }
+    .rain-particle:nth-child(7) { left: 65%; animation-duration: 5s; animation-delay: 2s; }
+    .rain-particle:nth-child(8) { left: 75%; animation-duration: 6.5s; animation-delay: 0.3s; }
+    .rain-particle:nth-child(9) { left: 85%; animation-duration: 4.5s; animation-delay: 1.2s; }
+    .rain-particle:nth-child(10) { left: 95%; animation-duration: 5s; animation-delay: 0.7s; }
+    
+    @keyframes rain-fall {
+      0% { transform: translateY(-10px); opacity: 0; }
+      5% { opacity: 1; }
+      80% { opacity: 0.6; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .rain-particle { animation: none; opacity: 0.3; transform: translateY(20vh); }
+    }
+    
+    .animate-on-scroll { animation-play-state: paused !important; }
+    .animate-on-scroll.animate { animation-play-state: running !important; }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, #00A39A 0%, #00C4B4 50%, #00A39A 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    @property --gradient-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+    
+    .shiny-cta {
+      --gradient-angle: 0deg;
+      --gradient-shine: #5EEAD4;
+      --gradient-base: #00A39A;
+      --shadow-color: rgba(0, 163, 154, 0.4);
+      position: relative;
+      overflow: hidden;
+      border-radius: 9999px;
+      padding: 1.25rem 2.5rem;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #ffffff;
+      background: linear-gradient(#000000, #000000) padding-box,
+        conic-gradient(from var(--gradient-angle), transparent 0%, var(--gradient-base) 5%, var(--gradient-shine) 15%, var(--gradient-base) 30%, transparent 40%, transparent 100%) border-box;
+      border: 2px solid transparent;
+      box-shadow: inset 0 0 0 1px #1a1818;
+      cursor: pointer;
+      animation: border-spin 2.5s linear infinite;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    
+    @keyframes border-spin { to { --gradient-angle: 360deg; } }
+    .shiny-cta:hover { box-shadow: inset 0 0 0 1px #1a1818, 0 0 30px var(--shadow-color); }
+    .shiny-cta .btn-content { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 0.5rem; }
+  </style>
+</head>
+<body class="relative min-h-screen overflow-x-hidden selection:bg-primary/20 selection:text-white font-geist">
+  
+  <!-- Digital Rain Background -->
+  <div class="digital-rain" aria-hidden="true">
+    <div class="rain-particles">
+      <div class="rain-particle"></div><div class="rain-particle"></div><div class="rain-particle"></div>
+      <div class="rain-particle"></div><div class="rain-particle"></div><div class="rain-particle"></div>
+      <div class="rain-particle"></div><div class="rain-particle"></div><div class="rain-particle"></div>
+      <div class="rain-particle"></div>
+    </div>
+  </div>
+  
+  <!-- Background Grid Lines -->
+  <div class="fixed inset-0 pointer-events-none z-0 mx-auto max-w-7xl grid-lines hidden md:block border-r border-l border-white/[0.03]"></div>
+
+  <!-- Navigation -->
+  <div class="fixed z-50 flex animate-on-scroll [animation:animationIn_0.8s_ease-out_0s_both] pr-4 pl-4 top-6 right-0 left-0 justify-center">
+    <nav class="flex md:gap-8 bg-neutral-950/90 w-full h-14 max-w-5xl border-white/10 border mr-auto ml-auto pr-3 pl-6 shadow-lg backdrop-blur-xl gap-x-4 gap-y-4 items-center justify-between rounded-lg">
+      <div class="flex items-center gap-2">
+        <a href="index.html" class="flex items-center gap-2">
+          <img src="assets/images/logo.png" alt="HypeDigitaly" class="h-8 w-auto">
+        </a>
+      </div>
+
+      <div class="hidden lg:flex items-center gap-6 text-sm font-medium text-neutral-400">
+        <a href="index.html#sluzby" class="hover:text-white transition-colors" data-i18n="nav_services">Služby</a>
+        <a href="index.html#pripadove-studie" class="hover:text-white transition-colors" data-i18n="nav_cases">Případové studie</a>
+        <a href="index.html#ragus" class="hover:text-white transition-colors">RAGus.ai</a>
+        <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+        <a href="#kontakt" class="hover:text-white transition-colors" data-i18n="nav_contact">Kontakt</a>
+      </div>
+
+      <div class="flex items-center gap-3 text-sm font-medium">
+        <!-- Language Switcher -->
+        <div class="relative" id="lang-switcher">
+          <button id="lang-trigger" class="hidden sm:flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-neutral-300 hover:bg-neutral-800 transition">
+            <span class="text-base" id="lang-flag">🇨🇿</span>
+            <span id="lang-text">Čeština</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div id="lang-dropdown" class="hidden absolute right-0 mt-2 w-36 rounded-lg bg-neutral-900/95 ring-1 ring-white/10 backdrop-blur-xl shadow-xl overflow-hidden">
+            <button class="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-white hover:bg-white/5" data-lang="cs">
+              <span class="text-base">🇨🇿</span>
+              <span>Čeština</span>
+            </button>
+            <button class="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-neutral-300 hover:bg-white/5" data-lang="en">
+              <span class="text-base">🇬🇧</span>
+              <span>English</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- CTA Button -->
+        <a href="#kontakt" class="hover:bg-white/10 transition-all flex text-sm font-medium text-neutral-200 bg-gradient-to-b from-primary/30 via-primary/10 to-primary/20 px-4 py-2 shadow-[0px_1px_0px_0px_rgba(0,163,154,0.3)_inset] gap-x-2 items-center rounded-lg relative">
+          <span class="text-xs font-semibold tracking-tight" data-i18n="nav_cta">Získat demo</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary">
+            <path d="M5 12h14"></path>
+            <path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </a>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="lg:hidden p-2 text-neutral-400 hover:text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" x2="21" y1="6" y2="6"></line>
+            <line x1="3" x2="21" y1="12" y2="12"></line>
+            <line x1="3" x2="21" y1="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="fixed inset-0 z-[60] bg-neutral-950/98 backdrop-blur-xl hidden">
+    <div class="flex flex-col h-full pt-24 px-6 pb-8">
+      <button id="mobile-menu-close" class="absolute top-6 right-6 p-2 text-neutral-400 hover:text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" x2="6" y1="6" y2="18"></line>
+          <line x1="6" x2="18" y1="6" y2="18"></line>
+        </svg>
+      </button>
+      
+      <div class="flex gap-4 mb-8">
+        <button class="flex-1 flex items-center justify-center gap-2 py-3 bg-white/5 rounded-lg text-white" data-lang="cs">
+          <span>🇨🇿</span> Čeština
+        </button>
+        <button class="flex-1 flex items-center justify-center gap-2 py-3 bg-white/5 rounded-lg text-neutral-400" data-lang="en">
+          <span>🇬🇧</span> English
+        </button>
+      </div>
+      
+      <nav class="flex flex-col gap-4">
+        <a href="index.html#sluzby" class="text-xl text-neutral-300 hover:text-white py-3 border-b border-white/5">Služby</a>
+        <a href="index.html#pripadove-studie" class="text-xl text-neutral-300 hover:text-white py-3 border-b border-white/5">Případové studie</a>
+        <a href="index.html#ragus" class="text-xl text-neutral-300 hover:text-white py-3 border-b border-white/5">RAGus.ai</a>
+        <a href="#faq" class="text-xl text-neutral-300 hover:text-white py-3 border-b border-white/5">FAQ</a>
+        <a href="#kontakt" class="text-xl text-neutral-300 hover:text-white py-3 border-b border-white/5">Kontakt</a>
+      </nav>
+      
+      <div class="mt-auto">
+        <a href="#kontakt" class="w-full flex items-center justify-center gap-2 py-4 bg-primary text-white font-semibold rounded-lg">
+          Domluvit konzultaci
+        </a>
+        <div class="flex flex-col gap-2 mt-6 text-sm text-neutral-500">
+          <a href="mailto:info@hypedigitaly.ai" class="flex items-center gap-2">
+            <iconify-icon icon="solar:letter-linear" class="text-lg"></iconify-icon>
+            info@hypedigitaly.ai
+          </a>
+          <a href="tel:+420774996248" class="flex items-center gap-2">
+            <iconify-icon icon="solar:phone-linear" class="text-lg"></iconify-icon>
+            +420 774 996 248
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="z-10 relative pt-32">
+    
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="relative max-w-7xl mx-auto px-6 pt-12 pb-24 overflow-hidden">
+      <div class="text-center max-w-5xl mx-auto relative z-10">
+        
+        <!-- Badge -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.1s_both] inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8">
+          <iconify-icon icon="solar:cup-star-bold" class="text-primary text-lg"></iconify-icon>
+          <span class="text-sm font-medium text-primary" data-i18n="chatbot_hero_badge">Nejlepší AI chatbot v ČR</span>
+        </div>
+        
+        <!-- Headline -->
+        <h1 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[0.95] md:text-6xl lg:text-7xl text-4xl font-medium text-white tracking-tighter mb-8">
+          <span data-i18n="chatbot_hero_headline_1">AI Chatbot</span>
+          <br class="hidden md:block">
+          <span class="text-neutral-600 transition-colors hover:text-primary duration-500" data-i18n="chatbot_hero_headline_2">pro váš web</span>
+        </h1>
+        
+        <!-- Subheadline -->
+        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg md:text-xl text-neutral-400 font-light max-w-3xl mx-auto leading-relaxed tracking-tight mb-6" data-i18n="chatbot_hero_subheadline">
+          Probuďte svoji společnost či instituci k životu s AI chatbotem přesně na míru. Zautomatizujte rutinní, opakující se komunikaci a zákaznickou podporu.
+        </p>
+        
+        <!-- Sub-subheadline -->
+        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.35s_both] text-base text-neutral-500 font-medium max-w-2xl mx-auto leading-relaxed mb-12" data-i18n="chatbot_hero_subheadline_2">
+          90%+ přesnost odpovědí • 24/7/365 dostupnost • 150+ jazyků
+        </p>
+        
+        <!-- Hero CTA -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] max-w-md mx-auto mb-8">
+          <a href="#kontakt" class="shiny-cta group">
+            <span class="btn-content">
+              <span class="text-lg font-semibold tracking-tight" data-i18n="chatbot_hero_cta">Chci AI chatbota</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white/80 group-hover:translate-x-1 transition-transform">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </span>
+          </a>
+        </div>
+        
+        <!-- Trust Signals -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] flex flex-wrap items-center justify-center gap-6 text-sm text-neutral-500 font-medium mb-16">
+          <div class="flex items-center gap-2">
+            <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
+            <span data-i18n="chatbot_trust_1">5 krajů v ČR</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
+            <span data-i18n="chatbot_trust_2">35 000+ odpovědí</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
+            <span data-i18n="chatbot_trust_3">Bez závazku</span>
+          </div>
+        </div>
+
+        <!-- Video Demo -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] max-w-4xl mx-auto">
+          <div class="aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-gray-900">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/cECRY6dQ0NA?si=4aTCdPwD1zfKlJjw" title="AI Chatbot Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          
+          <!-- First in CZ Badge -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both] mt-8 flex items-center gap-4 p-5 bg-gradient-to-r from-primary/10 to-transparent border border-primary/20 rounded-xl">
+            <div class="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center text-primary flex-shrink-0">
+              <iconify-icon icon="solar:cup-star-bold" class="text-2xl"></iconify-icon>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white mb-1" data-i18n="first_title">První v České republice</h3>
+              <p class="text-sm text-neutral-400 leading-relaxed" data-i18n="first_desc">Jsme první společnost v ČR, která úspěšně nasadila AI asistenta na webové stránky krajských úřadů. Naše řešení dnes pomáhá občanům 5 českých krajů s více než 35 000 zodpovězenými dotazy.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FEATURES SECTION ==================== -->
+    <section class="bg-[#050505] border-t border-white/5 py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
+          <div class="flex items-center gap-2">
+            <span class="text-white">01</span>
+            <span class="w-12 h-px bg-white/10"></span>
+          </div>
+          <div class="text-white/40" data-i18n="chatbot_features_tag">// UNIKÁTNÍ VLASTNOSTI</div>
+          <div class="hidden md:block text-right" data-i18n="chatbot_features_label">PROČ NÁŠ CHATBOT</div>
+        </div>
+
+        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] text-4xl md:text-5xl font-medium text-white tracking-tight mb-6">
+          <span data-i18n="chatbot_features_headline_1">V čem je náš</span>
+          <br>
+          <span class="text-neutral-600" data-i18n="chatbot_features_headline_2">AI chatbot unikátní?</span>
+        </h2>
+        
+        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg text-neutral-400 max-w-3xl mb-16" data-i18n="chatbot_features_desc">
+          V dnešní době největší problém s AI chatboty je neaktuálnost informací a přesnost odpovědí. V HypeDigitaly jsme oba tyto problémy vyřešili.
+        </p>
+
+        <!-- Features Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Feature 1 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
+              <iconify-icon icon="solar:target-bold" class="text-2xl"></iconify-icon>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-2" data-i18n="chatbot_f1_title">90%+ přesnost odpovědí</h3>
+            <p class="text-sm text-neutral-500" data-i18n="chatbot_f1_desc">Dosahujeme nejvyšší přesnosti na trhu díky vlastní RAG technologii a kontinuálnímu vylepšování.</p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
+              <iconify-icon icon="solar:refresh-bold" class="text-2xl"></iconify-icon>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-2" data-i18n="chatbot_f2_title">Automatické aktualizace</h3>
+            <p class="text-sm text-neutral-500" data-i18n="chatbot_f2_desc">Jediné řešení v ČR s automatickou synchronizací znalostí z vašeho webu bez manuálních zásahů.</p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
+              <iconify-icon icon="solar:clock-circle-bold" class="text-2xl"></iconify-icon>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-2" data-i18n="chatbot_f3_title">24/7/365 dostupnost</h3>
+            <p class="text-sm text-neutral-500" data-i18n="chatbot_f3_desc">Chatbot je k dispozici nepřetržitě, zákazníci dostanou odpovědi i mimo běžnou pracovní dobu.</p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
+              <iconify-icon icon="solar:globus-bold" class="text-2xl"></iconify-icon>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-2" data-i18n="chatbot_f4_title">150+ jazyků</h3>
+            <p class="text-sm text-neutral-500" data-i18n="chatbot_f4_desc">Automatická detekce jazyka a odpověď v jazyce zákazníka. Komunikujte s celým světem.</p>
+          </div>
+
+          <!-- Feature 5 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
+              <iconify-icon icon="solar:chart-bold" class="text-2xl"></iconify-icon>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-2" data-i18n="chatbot_f5_title">Pokročilá analytika</h3>
+            <p class="text-sm text-neutral-500" data-i18n="chatbot_f5_desc">Dashboard s trendy, tématy, spokojeností a časovými vzorci pro data-driven rozhodování.</p>
+          </div>
+
+          <!-- Feature 6 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.8s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
+              <iconify-icon icon="solar:shield-check-bold" class="text-2xl"></iconify-icon>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-2" data-i18n="chatbot_f6_title">Nadstandardní zabezpečení</h3>
+            <p class="text-sm text-neutral-500" data-i18n="chatbot_f6_desc">Ochrana proti DDOS, spamu, jailbreakingu a prompt injection. Kontrola IP adres.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== BENEFITS SECTION ==================== -->
+    <section class="bg-[#080808] border-t border-white/5 py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
+          <div class="flex items-center gap-2">
+            <span class="text-white">02</span>
+            <span class="w-12 h-px bg-white/10"></span>
+          </div>
+          <div class="text-white/40" data-i18n="chatbot_benefits_tag">// CO ZÍSKÁTE</div>
+          <div class="hidden md:block text-right" data-i18n="chatbot_benefits_label">HLAVNÍ VÝHODY</div>
+        </div>
+
+        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] text-4xl md:text-5xl font-medium text-white tracking-tight mb-6">
+          <span data-i18n="chatbot_benefits_headline_1">Odemkněte potenciál</span>
+          <br>
+          <span class="text-neutral-600" data-i18n="chatbot_benefits_headline_2">své firmy s AI Chatbotem</span>
+        </h2>
+
+        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg text-neutral-400 max-w-3xl mb-16" data-i18n="chatbot_benefits_desc">
+          Hlavní výhody, které získáte implementací AI chatbota na vaše webové stránky.
+        </p>
+
+        <!-- Benefits Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Benefit 1 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both]">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                <iconify-icon icon="solar:wallet-money-bold" class="text-primary text-xl"></iconify-icon>
+              </div>
+              <h3 class="text-xl font-semibold text-white" data-i18n="benefit_1_title">Úspora nákladů</h3>
+            </div>
+            <p class="text-neutral-400 text-sm leading-relaxed" data-i18n="benefit_1_desc">
+              AI Chatbot dokáže nahradit nebo doplnit lidskou zákaznickou podporu. Není potřeba platit za školení, platy a benefity dalších zaměstnanců.
+            </p>
+          </div>
+
+          <!-- Benefit 2 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both]">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                <iconify-icon icon="solar:clock-circle-bold" class="text-primary text-xl"></iconify-icon>
+              </div>
+              <h3 class="text-xl font-semibold text-white" data-i18n="benefit_2_title">Nepřetržitá dostupnost</h3>
+            </div>
+            <p class="text-neutral-400 text-sm leading-relaxed" data-i18n="benefit_2_desc">
+              AI Chatbot je k dispozici 24/7/365. Zákazníci dostanou odpovědi kdykoli je potřebují, i mimo běžnou pracovní dobu.
+            </p>
+          </div>
+
+          <!-- Benefit 3 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both]">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                <iconify-icon icon="solar:emoji-funny-circle-bold" class="text-primary text-xl"></iconify-icon>
+              </div>
+              <h3 class="text-xl font-semibold text-white" data-i18n="benefit_3_title">Zvýšení spokojenosti</h3>
+            </div>
+            <p class="text-neutral-400 text-sm leading-relaxed" data-i18n="benefit_3_desc">
+              AI Chatbot dokáže rychle a efektivně řešit běžné dotazy. Zákazníci ocení, když dostanou pomoc okamžitě.
+            </p>
+          </div>
+
+          <!-- Benefit 4 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both]">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                <iconify-icon icon="solar:settings-minimalistic-bold" class="text-primary text-xl"></iconify-icon>
+              </div>
+              <h3 class="text-xl font-semibold text-white" data-i18n="benefit_4_title">Automatizace rutiny</h3>
+            </div>
+            <p class="text-neutral-400 text-sm leading-relaxed" data-i18n="benefit_4_desc">
+              AI Chatbot převezme rutinní úkoly jako odpovídání na FAQ. Zaměstnanci se mohou věnovat kreativnějším činnostem.
+            </p>
+          </div>
+
+          <!-- Benefit 5 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both]">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                <iconify-icon icon="solar:graph-up-bold" class="text-primary text-xl"></iconify-icon>
+              </div>
+              <h3 class="text-xl font-semibold text-white" data-i18n="benefit_5_title">Zvýšení prodejů</h3>
+            </div>
+            <p class="text-neutral-400 text-sm leading-relaxed" data-i18n="benefit_5_desc">
+              AI Chatbot může navádět zákazníky k nákupu, odpovídat na dotazy a automaticky nabízet související produkty.
+            </p>
+          </div>
+
+          <!-- Benefit 6 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.8s_both]">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                <iconify-icon icon="solar:medal-star-bold" class="text-primary text-xl"></iconify-icon>
+              </div>
+              <h3 class="text-xl font-semibold text-white" data-i18n="benefit_6_title">Konkurenční výhoda</h3>
+            </div>
+            <p class="text-neutral-400 text-sm leading-relaxed" data-i18n="benefit_6_desc">
+              Nasazení chatbota vás odliší od konkurence. Zákazníci ocení moderní způsob komunikace.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FAQ SECTION ==================== -->
+    <section id="faq" class="bg-[#050505] border-t border-white/5 py-24">
+      <div class="max-w-4xl mx-auto px-6">
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
+          <div class="flex items-center gap-2">
+            <span class="text-white">03</span>
+            <span class="w-12 h-px bg-white/10"></span>
+          </div>
+          <div class="text-white/40" data-i18n="chatbot_faq_tag">// ČASTÉ DOTAZY</div>
+          <div class="hidden md:block text-right">FAQ</div>
+        </div>
+
+        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] text-4xl md:text-5xl font-medium text-white tracking-tight mb-16">
+          <span data-i18n="chatbot_faq_headline">Často kladené dotazy</span>
+        </h2>
+
+        <!-- FAQ Items -->
+        <div class="space-y-4">
+          <!-- FAQ 1 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] faq-item bg-[#0A0A0A] border border-white/5 rounded-xl overflow-hidden">
+            <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+              <span class="text-lg font-medium text-white" data-i18n="chatbot_faq_1_q">Kolik to stojí?</span>
+              <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon text-neutral-400 text-xl transition-transform duration-300"></iconify-icon>
+            </button>
+            <div class="faq-answer">
+              <div class="px-6 pb-6 text-neutral-400" data-i18n="chatbot_faq_1_a">
+                Nabízíme dva cenové modely. Za implementaci a údržbu účtujeme živnostníkům a malým a středním firmám od 35 000 Kč, institucím a úřadům od 100 000 Kč, plus měsíční údržbu 3 500 Kč (technická podpora, údržba a AI kredity za průměrnou cenu 4 Kč/odpověď). Alternativně poskytujeme měsíční paušál od 6 000 Kč bez implementačního poplatku.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] faq-item bg-[#0A0A0A] border border-white/5 rounded-xl overflow-hidden">
+            <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+              <span class="text-lg font-medium text-white" data-i18n="chatbot_faq_2_q">Co mi implementace chatbota přinese?</span>
+              <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon text-neutral-400 text-xl transition-transform duration-300"></iconify-icon>
+            </button>
+            <div class="faq-answer">
+              <div class="px-6 pb-6 text-neutral-400" data-i18n="chatbot_faq_2_a">
+                Automatizaci zákaznické podpory 24/7, úsporu nákladů na lidské zdroje, zvýšení spokojenosti zákazníků díky okamžitým odpovědím, více času pro váš tým na důležitější úkoly a konkurenční výhodu díky modernímu přístupu ke komunikaci.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] faq-item bg-[#0A0A0A] border border-white/5 rounded-xl overflow-hidden">
+            <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+              <span class="text-lg font-medium text-white" data-i18n="chatbot_faq_3_q">Čím se váš chatbot liší od ostatních?</span>
+              <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon text-neutral-400 text-xl transition-transform duration-300"></iconify-icon>
+            </button>
+            <div class="faq-answer">
+              <div class="px-6 pb-6 text-neutral-400" data-i18n="chatbot_faq_3_a">
+                Dvěma klíčovými vlastnostmi: 1) Dosahujeme přesnosti nad 90%, protože vyvíjíme produkt na míru každému klientovi. 2) Jako jediní v ČR nabízíme řešení s automatickou aktualizací znalostí - AI chatbot sám skenuje obsah webu a pravidelně doplňuje nová data bez nutnosti manuálních zásahů.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] faq-item bg-[#0A0A0A] border border-white/5 rounded-xl overflow-hidden">
+            <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+              <span class="text-lg font-medium text-white" data-i18n="chatbot_faq_4_q">Jak dlouho trvá implementace?</span>
+              <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon text-neutral-400 text-xl transition-transform duration-300"></iconify-icon>
+            </button>
+            <div class="faq-answer">
+              <div class="px-6 pb-6 text-neutral-400" data-i18n="chatbot_faq_4_a">
+                Standardní implementace AI chatbota trvá 2-4 týdny v závislosti na komplexitě projektu a rozsahu znalostní databáze. Během této doby provedeme analýzu vašeho webu, nastavíme chatbota, naplníme znalostní bázi a otestujeme funkčnost.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CONTACT SECTION ==================== -->
+    <section id="kontakt" class="bg-[#080808] border-t border-white/5 py-24">
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
+          <div class="flex items-center gap-2">
+            <span class="text-white">04</span>
+            <span class="w-12 h-px bg-white/10"></span>
+          </div>
+          <div class="text-white/40" data-i18n="chatbot_contact_tag">// KONTAKT</div>
+          <div class="hidden md:block text-right" data-i18n="chatbot_contact_label">NEZÁVAZNÁ KONZULTACE</div>
+        </div>
+
+        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] text-4xl md:text-5xl font-medium text-white tracking-tight mb-6" data-i18n="chatbot_contact_headline">
+          Chci AI chatbota pro svůj byznys
+        </h2>
+
+        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg text-neutral-400 max-w-2xl mx-auto mb-12" data-i18n="chatbot_contact_desc">
+          Domluvte si krátkou nezávaznou konzultaci na 30 minut online přes Google Meet, nebo nás kontaktujte emailem či telefonicky.
+        </p>
+
+        <!-- CTA Button -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] max-w-md mx-auto mb-12">
+          <a href="https://calendly.com/hypedigitaly-ai/30min" target="_blank" class="shiny-cta group">
+            <span class="btn-content">
+              <span class="text-lg font-semibold tracking-tight" data-i18n="chatbot_contact_cta">Domluvit schůzku</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white/80 group-hover:translate-x-1 transition-transform">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </span>
+          </a>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] flex flex-wrap items-center justify-center gap-8 text-neutral-400">
+          <a href="mailto:info@hypedigitaly.ai" class="flex items-center gap-2 hover:text-primary transition-colors">
+            <iconify-icon icon="solar:letter-bold" class="text-xl"></iconify-icon>
+            <span>info@hypedigitaly.ai</span>
+          </a>
+          <a href="tel:+420774996248" class="flex items-center gap-2 hover:text-primary transition-colors">
+            <iconify-icon icon="solar:phone-bold" class="text-xl"></iconify-icon>
+            <span>+420 774 996 248</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-[#050505] border-t border-white/5">
+    <div class="max-w-7xl mx-auto relative">
+      <!-- Top Section -->
+      <div class="grid grid-cols-1 md:grid-cols-3 border-b border-white/5">
+        <!-- Brand & Socials -->
+        <div class="p-8 md:p-12 md:border-r border-white/5">
+          <a href="index.html" class="flex items-center gap-2 mb-6">
+            <img src="assets/images/logo.png" alt="HypeDigitaly" class="h-10">
+          </a>
+          <p class="text-neutral-400 text-sm leading-relaxed mb-8" data-i18n="footer_desc">
+            HypeDigitaly je strategický AI partner pro firmy a státní správu. První softwarová společnost v Česku, která nasadila AI chatboty na krajských webech.
+          </p>
+          <div class="flex items-center gap-4">
+            <a href="https://linkedin.com/company/hypedigitaly" target="_blank" class="w-10 h-10 border border-white/10 rounded-lg flex items-center justify-center text-white hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all">
+              <iconify-icon icon="mdi:linkedin" class="text-xl"></iconify-icon>
+            </a>
+            <a href="https://www.instagram.com/hypedigitaly_ai/" target="_blank" class="w-10 h-10 border border-white/10 rounded-lg flex items-center justify-center text-white hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all">
+              <iconify-icon icon="mdi:instagram" class="text-xl"></iconify-icon>
+            </a>
+            <a href="https://www.facebook.com/HypeDigitalyAI/" target="_blank" class="w-10 h-10 border border-white/10 rounded-lg flex items-center justify-center text-white hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all">
+              <iconify-icon icon="mdi:facebook" class="text-xl"></iconify-icon>
+            </a>
+          </div>
+        </div>
+
+        <!-- Company Info -->
+        <div class="p-8 md:p-12 md:border-r border-white/5 text-neutral-400 text-sm">
+          <h4 class="text-white font-medium mb-6 uppercase tracking-wider text-xs" data-i18n="footer_company_title">Informace o firmě</h4>
+          <div class="space-y-4">
+            <div>
+              <p class="text-white font-medium">HypeDigitaly s.r.o.</p>
+              <p>Velká Hradební 2800/54</p>
+              <p>400 01 Ústí nad Labem</p>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div>
+                <span class="text-neutral-500 block">IČO</span>
+                <span class="text-neutral-300">17665655</span>
+              </div>
+              <div>
+                <span class="text-neutral-500 block">DIČ</span>
+                <span class="text-neutral-300">CZ17665655</span>
+              </div>
+            </div>
+            <div class="pt-4 border-t border-white/5">
+              <span class="text-neutral-500 block text-xs uppercase mb-2" data-i18n="footer_executives">Jednatelé</span>
+              <div class="space-y-4">
+                <div>
+                  <p class="text-neutral-300 leading-tight mb-1">Pavel Čermák</p>
+                  <p class="text-neutral-500 text-[10px] uppercase tracking-wider mb-2">Jednatel, Technický ředitel</p>
+                  <div class="space-y-1 text-xs">
+                    <a href="mailto:pavelcermak@hypedigitaly.ai" class="block text-neutral-400 hover:text-primary transition-colors flex items-center gap-2">
+                      <iconify-icon icon="mdi:email-outline"></iconify-icon>
+                      pavelcermak@hypedigitaly.ai
+                    </a>
+                    <a href="tel:+420774996248" class="block text-neutral-400 hover:text-primary transition-colors flex items-center gap-2">
+                      <iconify-icon icon="mdi:phone-outline"></iconify-icon>
+                      +420 774 996 248
+                    </a>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-neutral-300 leading-tight mb-1">Miroslava Čermáková</p>
+                  <p class="text-neutral-500 text-[10px] uppercase tracking-wider mb-2">Jednatelka, Obchodní ředitelka</p>
+                  <div class="space-y-1 text-xs">
+                    <a href="mailto:cermakova@hypedigitaly.ai" class="block text-neutral-400 hover:text-primary transition-colors flex items-center gap-2">
+                      <iconify-icon icon="mdi:email-outline"></iconify-icon>
+                      cermakova@hypedigitaly.ai
+                    </a>
+                    <a href="tel:+420775197255" class="block text-neutral-400 hover:text-primary transition-colors flex items-center gap-2">
+                      <iconify-icon icon="mdi:phone-outline"></iconify-icon>
+                      +420 775 197 255
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="h-[300px] md:h-auto min-h-[300px]">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2529.1398449927765!2d14.040413!3d50.661664!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x688f4a5bfff74331%3A0x10f2174a0a9d55ac!2sHypeDigitaly%20s.r.o.!5e0!3m2!1scs!2scz!4v1766687583203!5m2!1scs!2scz" 
+            width="100%" 
+            height="100%" 
+            style="border:0; filter: grayscale(1) invert(0.9) contrast(1.2);" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="grid grid-cols-2 md:grid-cols-7 border-b border-white/5 text-sm">
+        <a href="index.html#sluzby" class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors" data-i18n="footer_services">Služby</a>
+        <a href="index.html#reference" class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors" data-i18n="footer_references">Reference</a>
+        <a href="index.html#faq" class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">FAQ</a>
+        <a href="index.html#ragus" class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">RAGus.ai</a>
+        <a href="#kontakt" class="px-6 py-6 border-r border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors" data-i18n="footer_contact">Kontakt</a>
+        <a href="privacy-policy.html" class="px-6 py-6 border-r border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors" data-i18n="footer_privacy">Ochrana soukromí</a>
+        <a href="recommendation.html" class="px-6 py-6 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors" data-i18n="footer_recommendation">Doporučení na web</a>
+      </div>
+
+      <!-- Bottom -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-6 md:p-8 text-xs text-neutral-500">
+        <div>
+          © 2025 HypeDigitaly s.r.o.
+        </div>
+        <div class="md:text-right">
+          <span data-i18n="footer_rights">Všechna práva vyhrazena</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ==================== TRANSLATIONS ====================
+    const translations = {
+      cs: {
+        nav_services: "Služby",
+        nav_cases: "Reference",
+        nav_contact: "Kontakt",
+        nav_cta: "Získat demo",
+        chatbot_hero_badge: "Nejlepší AI chatbot v ČR",
+        chatbot_hero_headline_1: "AI Chatbot",
+        chatbot_hero_headline_2: "pro váš web",
+        chatbot_hero_subheadline: "Probuďte svoji společnost či instituci k životu s AI chatbotem přesně na míru. Zautomatizujte rutinní, opakující se komunikaci a zákaznickou podporu.",
+        chatbot_hero_subheadline_2: "90%+ přesnost odpovědí • 24/7/365 dostupnost • 150+ jazyků",
+        chatbot_hero_cta: "Chci AI chatbota",
+        chatbot_trust_1: "5 krajů v ČR",
+        chatbot_trust_2: "35 000+ odpovědí",
+        chatbot_trust_3: "Bez závazku",
+        first_title: "První v České republice",
+        first_desc: "Jsme první společnost v ČR, která úspěšně nasadila AI asistenta na webové stránky krajských úřadů. Naše řešení dnes pomáhá občanům 5 českých krajů s více než 35 000 zodpovězenými dotazy.",
+        chatbot_features_tag: "// UNIKÁTNÍ VLASTNOSTI",
+        chatbot_features_label: "PROČ NÁŠ CHATBOT",
+        chatbot_features_headline_1: "V čem je náš",
+        chatbot_features_headline_2: "AI chatbot unikátní?",
+        chatbot_features_desc: "V dnešní době největší problém s AI chatboty je neaktuálnost informací a přesnost odpovědí. V HypeDigitaly jsme oba tyto problémy vyřešili.",
+        chatbot_f1_title: "90%+ přesnost odpovědí",
+        chatbot_f1_desc: "Dosahujeme nejvyšší přesnosti na trhu díky vlastní RAG technologii a kontinuálnímu vylepšování.",
+        chatbot_f2_title: "Automatické aktualizace",
+        chatbot_f2_desc: "Jediné řešení v ČR s automatickou synchronizací znalostí z vašeho webu bez manuálních zásahů.",
+        chatbot_f3_title: "24/7/365 dostupnost",
+        chatbot_f3_desc: "Chatbot je k dispozici nepřetržitě, zákazníci dostanou odpovědi i mimo běžnou pracovní dobu.",
+        chatbot_f4_title: "150+ jazyků",
+        chatbot_f4_desc: "Automatická detekce jazyka a odpověď v jazyce zákazníka. Komunikujte s celým světem.",
+        chatbot_f5_title: "Pokročilá analytika",
+        chatbot_f5_desc: "Dashboard s trendy, tématy, spokojeností a časovými vzorci pro data-driven rozhodování.",
+        chatbot_f6_title: "Nadstandardní zabezpečení",
+        chatbot_f6_desc: "Ochrana proti DDOS, spamu, jailbreakingu a prompt injection. Kontrola IP adres.",
+        chatbot_benefits_tag: "// CO ZÍSKÁTE",
+        chatbot_benefits_label: "HLAVNÍ VÝHODY",
+        chatbot_benefits_headline_1: "Odemkněte potenciál",
+        chatbot_benefits_headline_2: "své firmy s AI Chatbotem",
+        chatbot_benefits_desc: "Hlavní výhody, které získáte implementací AI chatbota na vaše webové stránky.",
+        benefit_1_title: "Úspora nákladů",
+        benefit_1_desc: "AI Chatbot dokáže nahradit nebo doplnit lidskou zákaznickou podporu. Není potřeba platit za školení, platy a benefity dalších zaměstnanců.",
+        benefit_2_title: "Nepřetržitá dostupnost",
+        benefit_2_desc: "AI Chatbot je k dispozici 24/7/365. Zákazníci dostanou odpovědi kdykoli je potřebují, i mimo běžnou pracovní dobu.",
+        benefit_3_title: "Zvýšení spokojenosti",
+        benefit_3_desc: "AI Chatbot dokáže rychle a efektivně řešit běžné dotazy. Zákazníci ocení, když dostanou pomoc okamžitě.",
+        benefit_4_title: "Automatizace rutiny",
+        benefit_4_desc: "AI Chatbot převezme rutinní úkoly jako odpovídání na FAQ. Zaměstnanci se mohou věnovat kreativnějším činnostem.",
+        benefit_5_title: "Zvýšení prodejů",
+        benefit_5_desc: "AI Chatbot může navádět zákazníky k nákupu, odpovídat na dotazy a automaticky nabízet související produkty.",
+        benefit_6_title: "Konkurenční výhoda",
+        benefit_6_desc: "Nasazení chatbota vás odliší od konkurence. Zákazníci ocení moderní způsob komunikace.",
+        chatbot_faq_tag: "// ČASTÉ DOTAZY",
+        chatbot_faq_headline: "Často kladené dotazy",
+        chatbot_faq_1_q: "Kolik to stojí?",
+        chatbot_faq_1_a: "Nabízíme dva cenové modely. Za implementaci a údržbu účtujeme živnostníkům a malým a středním firmám od 35 000 Kč, institucím a úřadům od 100 000 Kč, plus měsíční údržbu 3 500 Kč (technická podpora, údržba a AI kredity za průměrnou cenu 4 Kč/odpověď). Alternativně poskytujeme měsíční paušál od 6 000 Kč bez implementačního poplatku.",
+        chatbot_faq_2_q: "Co mi implementace chatbota přinese?",
+        chatbot_faq_2_a: "Automatizaci zákaznické podpory 24/7, úsporu nákladů na lidské zdroje, zvýšení spokojenosti zákazníků díky okamžitým odpovědím, více času pro váš tým na důležitější úkoly a konkurenční výhodu díky modernímu přístupu ke komunikaci.",
+        chatbot_faq_3_q: "Čím se váš chatbot liší od ostatních?",
+        chatbot_faq_3_a: "Dvěma klíčovými vlastnostmi: 1) Dosahujeme přesnosti nad 90%, protože vyvíjíme produkt na míru každému klientovi. 2) Jako jediní v ČR nabízíme řešení s automatickou aktualizací znalostí - AI chatbot sám skenuje obsah webu a pravidelně doplňuje nová data bez nutnosti manuálních zásahů.",
+        chatbot_faq_4_q: "Jak dlouho trvá implementace?",
+        chatbot_faq_4_a: "Standardní implementace AI chatbota trvá 2-4 týdny v závislosti na komplexitě projektu a rozsahu znalostní databáze. Během této doby provedeme analýzu vašeho webu, nastavíme chatbota, naplníme znalostní bázi a otestujeme funkčnost.",
+        chatbot_contact_tag: "// KONTAKT",
+        chatbot_contact_label: "NEZÁVAZNÁ KONZULTACE",
+        chatbot_contact_headline: "Chci AI chatbota pro svůj byznys",
+        chatbot_contact_desc: "Domluvte si krátkou nezávaznou konzultaci na 30 minut online přes Google Meet, nebo nás kontaktujte emailem či telefonicky.",
+        chatbot_contact_cta: "Domluvit schůzku",
+        footer_desc: "HypeDigitaly je strategický AI partner pro firmy a státní správu. První softwarová společnost v Česku, která nasadila AI chatboty na krajských webech.",
+        footer_services: "Služby",
+        footer_references: "Reference",
+        footer_contact: "Kontakt",
+        footer_privacy: "Ochrana soukromí",
+        footer_recommendation: "Doporučení na web",
+        footer_company_title: "Informace o firmě",
+        footer_executives: "Jednatelé",
+        footer_rights: "Všechna práva vyhrazena"
+      },
+      en: {
+        nav_services: "Services",
+        nav_cases: "References",
+        nav_contact: "Contact",
+        nav_cta: "Get demo",
+        chatbot_hero_badge: "Best AI chatbot in Czech Republic",
+        chatbot_hero_headline_1: "AI Chatbot",
+        chatbot_hero_headline_2: "for your website",
+        chatbot_hero_subheadline: "Bring your company or institution to life with a custom AI chatbot. Automate routine, repetitive communication and customer support.",
+        chatbot_hero_subheadline_2: "90%+ answer accuracy • 24/7/365 availability • 150+ languages",
+        chatbot_hero_cta: "I want AI chatbot",
+        chatbot_trust_1: "5 Czech regions",
+        chatbot_trust_2: "35,000+ responses",
+        chatbot_trust_3: "No obligation",
+        first_title: "First in Czech Republic",
+        first_desc: "We are the first company in the Czech Republic to successfully deploy an AI assistant on regional government websites. Our solution now helps citizens of 5 Czech regions with more than 35,000 answered queries.",
+        chatbot_features_tag: "// UNIQUE FEATURES",
+        chatbot_features_label: "WHY OUR CHATBOT",
+        chatbot_features_headline_1: "What makes our",
+        chatbot_features_headline_2: "AI chatbot unique?",
+        chatbot_features_desc: "Today's biggest problem with AI chatbots is outdated information and answer accuracy. At HypeDigitaly, we've solved both of these issues.",
+        chatbot_f1_title: "90%+ answer accuracy",
+        chatbot_f1_desc: "We achieve the highest accuracy on the market thanks to our proprietary RAG technology and continuous improvement.",
+        chatbot_f2_title: "Automatic updates",
+        chatbot_f2_desc: "The only solution in CZ with automatic knowledge synchronization from your website without manual intervention.",
+        chatbot_f3_title: "24/7/365 availability",
+        chatbot_f3_desc: "The chatbot is available around the clock, customers get answers even outside business hours.",
+        chatbot_f4_title: "150+ languages",
+        chatbot_f4_desc: "Automatic language detection and response in the customer's language. Communicate with the whole world.",
+        chatbot_f5_title: "Advanced analytics",
+        chatbot_f5_desc: "Dashboard with trends, topics, satisfaction and time patterns for data-driven decision making.",
+        chatbot_f6_title: "Enhanced security",
+        chatbot_f6_desc: "Protection against DDOS, spam, jailbreaking and prompt injection. IP address control.",
+        chatbot_benefits_tag: "// WHAT YOU GET",
+        chatbot_benefits_label: "KEY BENEFITS",
+        chatbot_benefits_headline_1: "Unlock the potential",
+        chatbot_benefits_headline_2: "of your business with AI Chatbot",
+        chatbot_benefits_desc: "Key benefits you'll gain by implementing an AI chatbot on your website.",
+        benefit_1_title: "Cost savings",
+        benefit_1_desc: "AI Chatbot can replace or supplement human customer support. No need to pay for training, salaries and benefits of additional employees.",
+        benefit_2_title: "24/7 availability",
+        benefit_2_desc: "AI Chatbot is available 24/7/365. Customers get answers whenever they need them, even outside business hours.",
+        benefit_3_title: "Increased satisfaction",
+        benefit_3_desc: "AI Chatbot can quickly and efficiently handle common queries. Customers appreciate getting help immediately.",
+        benefit_4_title: "Routine automation",
+        benefit_4_desc: "AI Chatbot takes over routine tasks like answering FAQs. Employees can focus on more creative activities.",
+        benefit_5_title: "Increased sales",
+        benefit_5_desc: "AI Chatbot can guide customers to purchase, answer questions and automatically offer related products.",
+        benefit_6_title: "Competitive advantage",
+        benefit_6_desc: "Deploying a chatbot will differentiate you from competitors. Customers appreciate modern communication.",
+        chatbot_faq_tag: "// FREQUENTLY ASKED",
+        chatbot_faq_headline: "Frequently asked questions",
+        chatbot_faq_1_q: "How much does it cost?",
+        chatbot_faq_1_a: "We offer two pricing models. For implementation and maintenance, we charge freelancers and SMBs from 35,000 CZK, institutions from 100,000 CZK, plus monthly maintenance of 3,500 CZK (technical support, maintenance and AI credits at an average price of 4 CZK/response). Alternatively, we offer a monthly subscription from 6,000 CZK without implementation fee.",
+        chatbot_faq_2_q: "What will chatbot implementation bring me?",
+        chatbot_faq_2_a: "24/7 customer support automation, human resource cost savings, increased customer satisfaction through instant responses, more time for your team on important tasks, and competitive advantage through modern communication approach.",
+        chatbot_faq_3_q: "What makes your chatbot different?",
+        chatbot_faq_3_a: "Two key features: 1) We achieve over 90% accuracy because we develop custom products for each client. 2) We're the only company in CZ offering a solution with automatic knowledge updates - the AI chatbot scans website content and regularly adds new data without manual intervention.",
+        chatbot_faq_4_q: "How long does implementation take?",
+        chatbot_faq_4_a: "Standard AI chatbot implementation takes 2-4 weeks depending on project complexity and knowledge base scope. During this time, we analyze your website, set up the chatbot, populate the knowledge base and test functionality.",
+        chatbot_contact_tag: "// CONTACT",
+        chatbot_contact_label: "FREE CONSULTATION",
+        chatbot_contact_headline: "I want AI chatbot for my business",
+        chatbot_contact_desc: "Schedule a short 30-minute consultation via Google Meet, or contact us by email or phone.",
+        chatbot_contact_cta: "Schedule meeting",
+        footer_desc: "HypeDigitaly is a strategic AI partner for businesses and public administration. The first software company in Czechia to deploy AI chatbots on regional government websites.",
+        footer_services: "Services",
+        footer_references: "References",
+        footer_contact: "Contact",
+        footer_privacy: "Privacy Policy",
+        footer_recommendation: "Web Recommendations",
+        footer_company_title: "Company Information",
+        footer_executives: "Executives",
+        footer_rights: "All rights reserved"
+      }
+    };
+
+    // ==================== LANGUAGE FUNCTIONS ====================
+    const defaultLang = 'cs';
+    let currentLang = localStorage.getItem('preferredLanguage') || defaultLang;
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('preferredLanguage', lang);
+      document.documentElement.lang = lang;
+      
+      const langFlag = document.getElementById('lang-flag');
+      const langText = document.getElementById('lang-text');
+      if (langFlag && langText) {
+        langFlag.textContent = lang === 'cs' ? '🇨🇿' : '🇬🇧';
+        langText.textContent = lang === 'cs' ? 'Čeština' : 'English';
+      }
+      
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+    }
+
+    // ==================== SCROLL ANIMATIONS ====================
+    (function () {
+      const once = true;
+      if (!window.__inViewIO) {
+        window.__inViewIO = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("animate");
+              if (once) window.__inViewIO.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1, rootMargin: "0px 0px -5% 0px" });
+      }
+      window.initInViewAnimations = function (selector = ".animate-on-scroll") {
+        document.querySelectorAll(selector).forEach((el) => {
+          window.__inViewIO.observe(el);
+        });
+      };
+      document.addEventListener("DOMContentLoaded", () => {
+        initInViewAnimations();
+        setLanguage(currentLang);
+      });
+    })();
+
+    // ==================== MOBILE MENU ====================
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+
+    function openMobileMenu() {
+      mobileMenu?.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileMenu() {
+      mobileMenu?.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    mobileMenuBtn?.addEventListener('click', openMobileMenu);
+    mobileMenuClose?.addEventListener('click', closeMobileMenu);
+    mobileMenu?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+    mobileMenu?.addEventListener('click', (e) => {
+      if (e.target === mobileMenu) closeMobileMenu();
+    });
+
+    // ==================== LANGUAGE SWITCHER ====================
+    const langTrigger = document.getElementById('lang-trigger');
+    const langDropdown = document.getElementById('lang-dropdown');
+
+    langTrigger?.addEventListener('click', () => {
+      langDropdown.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('#lang-switcher')) {
+        langDropdown?.classList.add('hidden');
+      }
+    });
+
+    document.querySelectorAll('[data-lang]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lang = btn.getAttribute('data-lang');
+        setLanguage(lang);
+        langDropdown?.classList.add('hidden');
+      });
+    });
+
+    // ==================== FAQ ACCORDION ====================
+    document.querySelectorAll('.faq-trigger').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const faqItem = trigger.closest('.faq-item');
+        const isActive = faqItem.classList.contains('active');
+        
+        document.querySelectorAll('.faq-item').forEach(item => {
+          item.classList.remove('active');
+        });
+        
+        if (!isActive) {
+          faqItem.classList.add('active');
+        }
+      });
+    });
+
+    // ==================== SMOOTH SCROLL ====================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // ==================== NAVBAR SCROLL EFFECT ====================
+    let lastScroll = 0;
+    const navbar = document.querySelector('nav');
+    
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll > 100) {
+        navbar?.classList.add('bg-neutral-950/95', 'shadow-lg');
+      } else {
+        navbar?.classList.remove('bg-neutral-950/95', 'shadow-lg');
+      }
+      
+      lastScroll = currentScroll;
+    });
+  </script>
+
+</body>
+</html>
+
