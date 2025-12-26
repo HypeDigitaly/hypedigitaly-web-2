@@ -2,45 +2,73 @@
   "items": [
     {
       "id": "faq-1",
+      "question_cs": "Co když máme roztroušená a nekvalitní data?",
+      "question_en": "What if we have scattered and poor-quality data?",
+      "answer_cs": "Přesně toto řešíme. Součástí naší práce je datová příprava – propojíme vaše systémy, vyčistíme duplicity, sjednotíme formáty a strukturujeme data tak, aby AI pracovala přesně a bez halucinací. Kvalitní vstup = kvalitní výstup. Naše RAG technologie dosahuje 99% přesnosti právě díky důkladné přípravě dat.",
+      "answer_en": "This is exactly what we solve. Data preparation is part of our work – we connect your systems, clean duplicates, unify formats and structure data so AI works accurately without hallucinations. Quality input = quality output. Our RAG technology achieves 99% accuracy precisely thanks to thorough data preparation."
+    },
+    {
+      "id": "faq-2",
+      "question_cs": "Jak zajistíte, že AI nebude halucinovat?",
+      "question_en": "How do you ensure AI won't hallucinate?",
+      "answer_cs": "Halucinace vznikají z nekvalitních nebo neúplných dat. Používáme RAG technologii s vlastním administračním panelem RAGus.ai, který zajišťuje: 1) Čistá a strukturovaná data bez duplicit. 2) Automatickou synchronizaci znalostní báze. 3) Monitoring odpovědí a kontinuální vylepšování. 4) Zpětnou vazbu od uživatelů pro trénování AI. Díky tomu dosahujeme 90%+ přesnosti ihned a až 99% do 3 měsíců.",
+      "answer_en": "Hallucinations arise from poor-quality or incomplete data. We use RAG technology with our proprietary admin panel RAGus.ai, which ensures: 1) Clean and structured data without duplicates. 2) Automatic knowledge base synchronization. 3) Response monitoring and continuous improvement. 4) User feedback for AI training. This allows us to achieve 90%+ accuracy immediately and up to 99% within 3 months."
+    },
+    {
+      "id": "faq-3",
       "question_cs": "Co když ve firmě nemáme IT specialistu?",
       "question_en": "What if we don't have an IT specialist?",
       "answer_cs": "Navrhujeme řešení tak, aby fungovala i bez technických expertů. Podstatné je správně nastavit procesy a nástroje – a přesně to za vás vyřešíme.",
       "answer_en": "We design solutions to work even without technical experts. What matters is properly setting up processes and tools – and that's exactly what we'll handle for you."
     },
     {
-      "id": "faq-2",
+      "id": "faq-4",
       "question_cs": "Co když náš tým s AI neumí pracovat?",
       "question_en": "What if our team can't work with AI?",
       "answer_cs": "Školení a průběžná podpora adopce jsou součástí spolupráce. Zaměstnanci se učí přímo při práci – na reálných úkolech, ne z teoretických materiálů.",
       "answer_en": "Training and ongoing adoption support are part of the collaboration. Employees learn directly on the job – on real tasks, not from theoretical materials."
     },
     {
-      "id": "faq-3",
+      "id": "faq-5",
       "question_cs": "Jak brzy uvidíme výsledky?",
       "question_en": "How soon will we see results?",
       "answer_cs": "Zpravidla během 2–4 týdnů. Začínáme rychlými výhrami s okamžitým efektem. Vyhýbáme se dlouhým analýzám bez hmatatelných výstupů.",
       "answer_en": "Typically within 2–4 weeks. We start with quick wins delivering immediate impact. We avoid lengthy analyses without tangible outputs."
     },
     {
-      "id": "faq-4",
+      "id": "faq-6",
       "question_cs": "Co když nebudeme s výsledky spokojeni?",
       "question_en": "What if we're not satisfied with results?",
       "answer_cs": "Máme aktivní záruku – pokud do 30 dnů neuvidíte konkrétní časovou úsporu a funkční AI workflow, pokračujeme další měsíc bez příplatku.",
       "answer_en": "We have an active guarantee – if you don't see specific time savings and functional AI workflow within 30 days, we continue the next month at no extra charge."
     },
     {
-      "id": "faq-5",
+      "id": "faq-7",
       "question_cs": "V čem se odlišujete od jiných AI poradců?",
       "question_en": "How do you differ from other AI consultants?",
       "answer_cs": "Jsme první česká softwarová firma, která úspěšně spustila AI chatboty na krajských webech. Máme reálná čísla – přes 35 000 AI odpovědí, 5 krajů, prokazatelné ROI. Neděláme jen prezentace, ale praktickou realizaci.",
       "answer_en": "We're the first Czech software company that successfully launched AI chatbots on regional government websites. We have real numbers – over 35,000 AI responses, 5 regions, proven ROI. We don't just do presentations, but practical implementation."
     },
     {
-      "id": "faq-6",
+      "id": "faq-8",
       "question_cs": "Co je RAGus.ai?",
       "question_en": "What is RAGus.ai?",
       "answer_cs": "RAGus.ai je naše specializovaná RAG-as-a-Service platforma určená AI agenturám, enterprise AI týmům, RAG vývojářům a no-code builderům využívajícím Voiceflow, Botpress či podobné nástroje. Nabízí enterprise-grade infrastrukturu pro vyhledávání znalostí s 99% přesností.",
       "answer_en": "RAGus.ai is our specialized RAG-as-a-Service platform designed for AI agencies, enterprise AI teams, RAG developers and no-code builders using Voiceflow, Botpress or similar tools. It offers enterprise-grade knowledge retrieval infrastructure with 99% accuracy."
+    },
+    {
+      "id": "faq-9",
+      "question_cs": "Dokážeme AI trénovat a učit sami?",
+      "question_en": "Can we train and teach the AI ourselves?",
+      "answer_cs": "Ano, součástí dodávky je přístup do administračního panelu, kde můžete samostatně: přidávat a upravovat znalosti v databázi, prohlížet historii konverzací, označovat správné a špatné odpovědi AI, zadávat opravy a zpětnou vazbu. Není potřeba žádných technických znalostí – rozhraní je intuitivní a uživatelsky přívětivé.",
+      "answer_en": "Yes, delivery includes access to an admin panel where you can independently: add and edit knowledge in the database, view conversation history, mark correct and incorrect AI responses, submit corrections and feedback. No technical knowledge required – the interface is intuitive and user-friendly."
+    },
+    {
+      "id": "faq-10",
+      "question_cs": "Jakým způsobem můžeme zadávat zpětnou vazbu?",
+      "question_en": "How can we provide feedback?",
+      "answer_cs": "Zpětnou vazbu lze zadávat několika způsoby: 1) Přímo v administračním panelu – u každé konverzace můžete označit kvalitu odpovědi a přidat korekci. 2) Uživatelé chatbota mohou hodnotit odpovědi palcem nahoru/dolů. 3) Pravidelné reporty nám umožňují identifikovat oblasti pro vylepšení. Veškerá zpětná vazba se automaticky promítá do trénování AI pro vyšší přesnost.",
+      "answer_en": "Feedback can be provided in several ways: 1) Directly in the admin panel – you can rate response quality and add corrections for each conversation. 2) Chatbot users can rate responses with thumbs up/down. 3) Regular reports help us identify areas for improvement. All feedback is automatically incorporated into AI training for higher accuracy."
     }
   ]
 }

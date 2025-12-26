@@ -4,6 +4,7 @@ export interface TranslationKeys {
   // Navigation
   nav_services: string;
   nav_cases: string;
+  nav_data_prep: string;
   nav_contact: string;
   nav_cta: string;
   
@@ -154,6 +155,8 @@ export interface TranslationKeys {
   ragus_label: string;
   ragus_badge: string;
   ragus_tagline: string;
+  ragus_headline_1: string;
+  ragus_headline_2: string;
   ragus_desc: string;
   ragus_cta: string;
   ragus_feature_1: string;
@@ -193,7 +196,6 @@ export interface TranslationKeys {
   about_desc_1: string;
   about_desc_2: string;
   about_cta: string;
-  pavel_position: string;
   pavel_position: string;
   youtube_label: string;
 
@@ -292,6 +294,42 @@ export interface TranslationKeys {
   chatbot_faq_3_a: string;
   chatbot_faq_4_q: string;
   chatbot_faq_4_a: string;
+  chatbot_faq_5_q: string;
+  chatbot_faq_5_a: string;
+  chatbot_faq_6_q: string;
+  chatbot_faq_6_a: string;
+  chatbot_faq_7_q: string;
+  chatbot_faq_7_a: string;
+  chatbot_faq_8_q: string;
+  chatbot_faq_8_a: string;
+  chatbot_faq_9_q: string;
+  chatbot_faq_9_a: string;
+  chatbot_faq_10_q: string;
+  chatbot_faq_10_a: string;
+  chatbot_faq_11_q: string;
+  chatbot_faq_11_a: string;
+  chatbot_faq_12_q: string;
+  chatbot_faq_12_a: string;
+  // Proven Results section
+  chatbot_results_tag: string;
+  chatbot_results_label: string;
+  chatbot_results_headline_1: string;
+  chatbot_results_headline_2: string;
+  chatbot_results_desc: string;
+  chatbot_results_stat_1: string;
+  chatbot_results_stat_1_label: string;
+  chatbot_results_stat_2: string;
+  chatbot_results_stat_2_label: string;
+  chatbot_results_stat_3: string;
+  chatbot_results_stat_3_label: string;
+  chatbot_results_stat_4: string;
+  chatbot_results_stat_4_label: string;
+  chatbot_results_note: string;
+  // Additional features
+  chatbot_f7_title: string;
+  chatbot_f7_desc: string;
+  chatbot_f8_title: string;
+  chatbot_f8_desc: string;
   chatbot_contact_tag: string;
   chatbot_contact_label: string;
   chatbot_contact_headline: string;
@@ -335,6 +373,7 @@ export const translations: Record<Language, TranslationKeys> = {
     // Navigation
     nav_services: "Služby",
     nav_cases: "Reference",
+    nav_data_prep: "Příprava dat pro AI",
     nav_contact: "Kontakt",
     nav_cta: "Bezplatná konzultace",
     
@@ -483,19 +522,21 @@ export const translations: Record<Language, TranslationKeys> = {
     cases_metric_4: "Měsíců payback",
 
     // RAGus.ai
-    ragus_label: "NÁŠ PRODUKT",
-    ragus_badge: "Náš produkt",
+    ragus_label: "ADMINISTRAČNÍ PANEL",
+    ragus_badge: "Administrační panel",
     ragus_tagline: "RAG-as-a-Service platforma pro AI agentury a enterprise týmy",
-    ragus_desc: "RAGus.ai je komplexní administrační panel pro správu a monitoring všech vašich AI produktů. Od scrapování webu přes inteligentní chunking až po nahrání do knowledge base - vše na jednom místě s 99% přesností.",
-    ragus_cta: "Zjistit více o RAGus.ai",
-    ragus_feature_1: "99% přesnost vyhledávání v knowledge base",
-    ragus_feature_2: "Automatické scrapování a aktualizace dat",
-    ragus_feature_3: "Inteligentní chunking s metadata managementem",
-    ragus_feature_4: "Real-time monitoring a analytika",
-    ragus_target_1: "AI agentury",
-    ragus_target_2: "Enterprise AI týmy",
-    ragus_target_3: "RAG vývojáři",
-    ragus_target_4: "No-code buildeři",
+    ragus_headline_1: "Čistá a strukturovaná data",
+    ragus_headline_2: "— základ úspěšné AI",
+    ragus_desc: "Kvalitní AI asistent je jen tak dobrý, jak dobrá jsou data, která mu dáte. RAGus.ai je náš vlastní administrační panel, který slouží jako centrální mozek pro všechny vaše AI produkty. Stará se o to, aby vaše znalostní báze byla vždy aktuální, přehledná a bez chyb.",
+    ragus_cta: "Zjistit více",
+    ragus_feature_1: "99% přesnost díky vyčištěným datům",
+    ragus_feature_2: "Centrální správa všech AI produktů na jednom místě",
+    ragus_feature_3: "Automatická synchronizace vaší znalostní báze",
+    ragus_feature_4: "Efektivní monitoring a dohled nad 'mozkem' AI",
+    ragus_target_1: "Administrační panel",
+    ragus_target_2: "Správa a trénování AI",
+    ragus_target_3: "Monitorování konverzací",
+    ragus_target_4: "Zadávání zpětné vazby",
 
     // Voiceflow Partner
     vf_badge: "Certifikovaný partner",
@@ -616,13 +657,49 @@ export const translations: Record<Language, TranslationKeys> = {
     chatbot_faq_tag: "// ČASTÉ DOTAZY",
     chatbot_faq_headline: "Často kladené dotazy",
     chatbot_faq_1_q: "Kolik to stojí?",
-    chatbot_faq_1_a: "Nabízíme dva cenové modely. Za implementaci a údržbu účtujeme živnostníkům a malým a středním firmám od 35 000 Kč, institucím a úřadům od 100 000 Kč, plus měsíční údržbu 3 500 Kč (technická podpora, údržba a AI kredity za průměrnou cenu 4 Kč/odpověď). Alternativně poskytujeme měsíční paušál od 6 000 Kč bez implementačního poplatku.",
+    chatbot_faq_1_a: "Cena závisí na velikosti organizace: Do 10 000 obyvatel od 10 000 Kč za vývoj + 3 500 Kč/měsíc. Pro 10-30 tisíc obyvatel od 35 000 Kč + 4 000 Kč/měsíc. Pro 30-60 tisíc od 65 000 Kč + 4 500 Kč/měsíc. Pro větší města, krajská města a kraje od 150 000 Kč + 5 000 Kč/měsíc. Měsíční poplatek zahrnuje technickou podporu, údržbu a AI kredity.",
     chatbot_faq_2_q: "Co mi implementace chatbota přinese?",
-    chatbot_faq_2_a: "Automatizaci zákaznické podpory 24/7, úsporu nákladů na lidské zdroje, zvýšení spokojenosti zákazníků díky okamžitým odpovědím, více času pro váš tým na důležitější úkoly a konkurenční výhodu díky modernímu přístupu ke komunikaci.",
+    chatbot_faq_2_a: "Nepřetržitou komunikaci 24/7, neomezenou kapacitu pro tisíce dotazů současně, inteligentního průvodce webem, analytické přehledy nejčastějších dotazů a vícejazyčnost (čeština, angličtina, němčina, ukrajinština a další). Naši klienti průměrně ušetří 150-425 hodin práce měsíčně.",
     chatbot_faq_3_q: "Čím se váš chatbot liší od ostatních?",
-    chatbot_faq_3_a: "Dvěma klíčovými vlastnostmi: 1) Dosahujeme přesnosti nad 90%, protože vyvíjíme produkt na míru každému klientovi. 2) Jako jediní v ČR nabízíme řešení s automatickou aktualizací znalostí - AI chatbot sám skenuje obsah webu a pravidelně doplňuje nová data bez nutnosti manuálních zásahů.",
+    chatbot_faq_3_a: "Jsme jediná společnost v ČR s nasazeným AI chatbotem na webech tří krajských úřadů. Dosahujeme přesnosti 90%+ ihned po nasazení a až 99% do 3 měsíců. Nabízíme plně na míru vyvíjené řešení – žádné šablonovité produkty. Součástí je vlastní administrační panel pro trénování AI a sběr zpětné vazby.",
     chatbot_faq_4_q: "Jak dlouho trvá implementace?",
-    chatbot_faq_4_a: "Standardní implementace AI chatbota trvá 2-4 týdny v závislosti na komplexitě projektu a rozsahu znalostní databáze. Během této doby provedeme analýzu vašeho webu, nastavíme chatbota, naplníme znalostní bázi a otestujeme funkčnost.",
+    chatbot_faq_4_a: "Celková doba implementace je 4-5 týdnů. Fáze vývoje a integrace trvá 3-4 týdny (vizuální identita, vývoj, příprava kódu). Testování a nasazení pak 1-2 týdny. Testujeme důkladně interně, takže od vás nepotřebujeme žádné kapacity na testování.",
+    chatbot_faq_5_q: "Co od nás budete potřebovat?",
+    chatbot_faq_5_a: "Pouze tři věci: 1) Mapu stránek v XML formátu s hodnotou lastmod. 2) Odsouhlasení vizuálního vzhledu chatbota. 3) Nasazení dodaného kódu na web. Vše ostatní zajistíme my – včetně kompletního testování.",
+    chatbot_faq_6_q: "Jaké technologie používáte?",
+    chatbot_faq_6_a: "Využíváme RAG technologii s živým napojením na váš web a automatickými aktualizacemi. Chatbot umí vyhledávat i ve webových vyhledávačích (Google atd.). Vše je v plném souladu s GDPR – dokumentaci zpracovala advokátní kancelář LEGITAS. Součástí je ochrana proti zneužívání s automatickou detekcí nevhodného chování.",
+    chatbot_faq_7_q: "Nabízíte nějaké rozšiřující moduly?",
+    chatbot_faq_7_a: "Ano, nabízíme volitelné moduly: Usnesení rad a zastupitelstev (40 000 Kč), Úřední deska (40 000 Kč), Dotační tituly (od 35 000 Kč), Dopravní data a informace (od 35 000 Kč), Sociální služby a zdravotnická zařízení (od 40 000 Kč). Implementace modulů trvá 5-10 dnů navíc.",
+    chatbot_faq_8_q: "Jaká je návratnost investice?",
+    chatbot_faq_8_a: "Na základě analýzy 35 095 AI odpovědí z 5 krajů (leden–červenec 2025): Návratnost investice je 2–5 měsíců. Roční úspory dosahují 370 000–1 020 000 Kč. Měsíční úspora času činí 150–425 hodin. Hodnocení spokojenosti uživatelů je 4,6/5.",
+    chatbot_faq_9_q: "Co když máme roztroušená a nekvalitní data?",
+    chatbot_faq_9_a: "Přesně toto řešíme. Součástí implementace je datová příprava – propojíme vaše systémy, vyčistíme duplicity, sjednotíme formáty a strukturujeme data tak, aby chatbot pracoval přesně. Naše RAG technologie s automatickou synchronizací zajistí, že data budou vždy aktuální. Kvalitní vstup = kvalitní výstup.",
+    chatbot_faq_10_q: "Jak zajistíte, že chatbot nebude halucinovat?",
+    chatbot_faq_10_a: "Halucinace vznikají z nekvalitních nebo neúplných dat. Používáme vlastní administrační panel RAGus.ai, který zajišťuje: čistá data bez duplicit, automatickou synchronizaci znalostní báze, monitoring odpovědí a kontinuální vylepšování, zpětnou vazbu od uživatelů pro trénování AI. Proto dosahujeme 90%+ přesnosti ihned a až 99% do 3 měsíců.",
+    chatbot_faq_11_q: "Dokážeme AI trénovat a učit sami?",
+    chatbot_faq_11_a: "Ano, součástí dodávky je přístup do administračního panelu, kde můžete samostatně: přidávat a upravovat znalosti v databázi, prohlížet historii konverzací, označovat správné a špatné odpovědi AI, zadávat opravy a zpětnou vazbu. Není potřeba žádných technických znalostí – rozhraní je intuitivní a uživatelsky přívětivé.",
+    chatbot_faq_12_q: "Jakým způsobem můžeme zadávat zpětnou vazbu?",
+    chatbot_faq_12_a: "Zpětnou vazbu lze zadávat několika způsoby: 1) Přímo v administračním panelu – u každé konverzace můžete označit kvalitu odpovědi a přidat korekci. 2) Uživatelé chatbota mohou hodnotit odpovědi palcem nahoru/dolů. 3) Pravidelné reporty nám umožňují identifikovat oblasti pro vylepšení. Veškerá zpětná vazba se automaticky promítá do trénování AI.",
+    // Proven Results section
+    chatbot_results_tag: "// PROKAZATELNÉ VÝSLEDKY",
+    chatbot_results_label: "REÁLNÁ DATA",
+    chatbot_results_headline_1: "Ověřené výsledky",
+    chatbot_results_headline_2: "z praxe",
+    chatbot_results_desc: "Analýza 35 095 AI odpovědí z 5 regionů za leden–červenec 2025 ukazuje konkrétní přínosy nasazení AI chatbota.",
+    chatbot_results_stat_1: "8 800",
+    chatbot_results_stat_1_label: "hodin ušetřené práce",
+    chatbot_results_stat_2: "1,76M Kč",
+    chatbot_results_stat_2_label: "celková úspora",
+    chatbot_results_stat_3: "2-5",
+    chatbot_results_stat_3_label: "měsíců návratnost",
+    chatbot_results_stat_4: "4,6/5",
+    chatbot_results_stat_4_label: "hodnocení spokojenosti",
+    chatbot_results_note: "15–25 % dotazů přichází mimo pracovní dobu – chatbot je zodpoví i v noci a o víkendech.",
+    // Additional features
+    chatbot_f7_title: "Hlasový vstup",
+    chatbot_f7_desc: "Převod řeči na text umožňuje uživatelům mluvit místo psaní. Ideální pro mobilní zařízení.",
+    chatbot_f8_title: "Plný soulad s GDPR",
+    chatbot_f8_desc: "Kompletní dokumentace zpracovaná advokátní kanceláří LEGITAS. Bezpečné a právně ošetřené řešení.",
     chatbot_contact_tag: "// KONTAKT",
     chatbot_contact_label: "NEZÁVAZNÁ KONZULTACE",
     chatbot_contact_headline: "Chci AI chatbota pro svůj byznys",
@@ -662,6 +739,7 @@ export const translations: Record<Language, TranslationKeys> = {
     // Navigation
     nav_services: "Services",
     nav_cases: "References",
+    nav_data_prep: "AI Data Prep",
     nav_contact: "Contact",
     nav_cta: "Free consultation",
     
@@ -810,19 +888,21 @@ export const translations: Record<Language, TranslationKeys> = {
     cases_metric_4: "Months payback",
 
     // RAGus.ai
-    ragus_label: "OUR PRODUCT",
-    ragus_badge: "Our product",
+    ragus_label: "ADMIN PANEL",
+    ragus_badge: "Admin panel",
     ragus_tagline: "RAG-as-a-Service platform for AI agencies and enterprise teams",
-    ragus_desc: "RAGus.ai is a comprehensive admin panel for managing and monitoring all your AI products. From web scraping through intelligent chunking to knowledge base upload - everything in one place with 99% accuracy.",
-    ragus_cta: "Learn more about RAGus.ai",
-    ragus_feature_1: "99% accuracy in knowledge base retrieval",
-    ragus_feature_2: "Automated scraping and data updates",
-    ragus_feature_3: "Intelligent chunking with metadata management",
-    ragus_feature_4: "Real-time monitoring and analytics",
-    ragus_target_1: "AI agencies",
-    ragus_target_2: "Enterprise AI teams",
-    ragus_target_3: "RAG developers",
-    ragus_target_4: "No-code builders",
+    ragus_headline_1: "Clean and Structured Data",
+    ragus_headline_2: "— the Core of Successful AI",
+    ragus_desc: "A quality AI assistant is only as good as the data you feed it. RAGus.ai is our proprietary admin panel that serves as the central brain for all your AI products. It ensures your knowledge base is always up-to-date, clear, and accurate.",
+    ragus_cta: "Learn more",
+    ragus_feature_1: "99% accuracy through cleaned data",
+    ragus_feature_2: "Central management of all AI products in one place",
+    ragus_feature_3: "Automated knowledge base synchronization",
+    ragus_feature_4: "Efficient monitoring and oversight of the AI 'brain'",
+    ragus_target_1: "Admin panel",
+    ragus_target_2: "AI Management & Training",
+    ragus_target_3: "Conversation Monitoring",
+    ragus_target_4: "Feedback Entry",
 
     // Voiceflow Partner
     vf_badge: "Certified Partner",
@@ -943,13 +1023,49 @@ export const translations: Record<Language, TranslationKeys> = {
     chatbot_faq_tag: "// FREQUENTLY ASKED",
     chatbot_faq_headline: "Frequently asked questions",
     chatbot_faq_1_q: "How much does it cost?",
-    chatbot_faq_1_a: "We offer two pricing models. For implementation and maintenance, we charge freelancers and SMBs from 35,000 CZK, institutions from 100,000 CZK, plus monthly maintenance of 3,500 CZK (technical support, maintenance and AI credits at an average price of 4 CZK/response). Alternatively, we offer a monthly subscription from 6,000 CZK without implementation fee.",
+    chatbot_faq_1_a: "Pricing depends on organization size: Up to 10,000 residents from 10,000 CZK development + 3,500 CZK/month. For 10-30k residents from 35,000 CZK + 4,000 CZK/month. For 30-60k from 65,000 CZK + 4,500 CZK/month. For larger cities, regional capitals and regions from 150,000 CZK + 5,000 CZK/month. Monthly fee includes technical support, maintenance and AI credits.",
     chatbot_faq_2_q: "What will chatbot implementation bring me?",
-    chatbot_faq_2_a: "24/7 customer support automation, human resource cost savings, increased customer satisfaction through instant responses, more time for your team on important tasks, and competitive advantage through modern communication approach.",
+    chatbot_faq_2_a: "24/7 communication, unlimited capacity for thousands of queries simultaneously, intelligent website guide, analytical insights of most common questions, and multilingual support (Czech, English, German, Ukrainian and more). Our clients save an average of 150-425 work hours monthly.",
     chatbot_faq_3_q: "What makes your chatbot different?",
-    chatbot_faq_3_a: "Two key features: 1) We achieve over 90% accuracy because we develop custom products for each client. 2) We're the only company in CZ offering a solution with automatic knowledge updates - the AI chatbot scans website content and regularly adds new data without manual intervention.",
+    chatbot_faq_3_a: "We're the only company in CZ with AI chatbots deployed on three regional government websites. We achieve 90%+ accuracy immediately after deployment and up to 99% within 3 months. We offer fully custom-developed solutions – no template products. Includes proprietary admin panel for AI training and feedback collection.",
     chatbot_faq_4_q: "How long does implementation take?",
-    chatbot_faq_4_a: "Standard AI chatbot implementation takes 2-4 weeks depending on project complexity and knowledge base scope. During this time, we analyze your website, set up the chatbot, populate the knowledge base and test functionality.",
+    chatbot_faq_4_a: "Total implementation time is 4-5 weeks. Development and integration phase takes 3-4 weeks (visual identity, development, code preparation). Testing and deployment then 1-2 weeks. We test thoroughly internally, so you don't need any testing capacity.",
+    chatbot_faq_5_q: "What do you need from us?",
+    chatbot_faq_5_a: "Only three things: 1) Sitemap in XML format with lastmod value. 2) Approval of chatbot visual design. 3) Deployment of provided code on website. We handle everything else – including complete testing.",
+    chatbot_faq_6_q: "What technologies do you use?",
+    chatbot_faq_6_a: "We use RAG technology with live connection to your website and automatic updates. The chatbot can also search web search engines (Google etc.). Everything is fully GDPR compliant – documentation prepared by law firm LEGITAS. Includes abuse protection with automatic detection of inappropriate behavior.",
+    chatbot_faq_7_q: "Do you offer extension modules?",
+    chatbot_faq_7_a: "Yes, we offer optional modules: Council and assembly resolutions (40,000 CZK), Official bulletin board (40,000 CZK), Grant titles (from 35,000 CZK), Traffic data and information (from 35,000 CZK), Social and healthcare services (from 40,000 CZK). Module implementation takes 5-10 additional days.",
+    chatbot_faq_8_q: "What is the return on investment?",
+    chatbot_faq_8_a: "Based on analysis of 35,095 AI responses from 5 regions (January–July 2025): ROI is 2–5 months. Annual savings reach 370,000–1,020,000 CZK. Monthly time savings are 150–425 hours. User satisfaction rating is 4.6/5.",
+    chatbot_faq_9_q: "What if we have scattered and poor-quality data?",
+    chatbot_faq_9_a: "This is exactly what we solve. Data preparation is part of implementation – we connect your systems, clean duplicates, unify formats and structure data so the chatbot works accurately. Our RAG technology with automatic synchronization ensures data is always up-to-date. Quality input = quality output.",
+    chatbot_faq_10_q: "How do you ensure the chatbot won't hallucinate?",
+    chatbot_faq_10_a: "Hallucinations arise from poor-quality or incomplete data. We use our proprietary admin panel RAGus.ai, which ensures: clean data without duplicates, automatic knowledge base synchronization, response monitoring and continuous improvement, user feedback for AI training. This is why we achieve 90%+ accuracy immediately and up to 99% within 3 months.",
+    chatbot_faq_11_q: "Can we train and teach the AI ourselves?",
+    chatbot_faq_11_a: "Yes, delivery includes access to an admin panel where you can independently: add and edit knowledge in the database, view conversation history, mark correct and incorrect AI responses, submit corrections and feedback. No technical knowledge required – the interface is intuitive and user-friendly.",
+    chatbot_faq_12_q: "How can we provide feedback?",
+    chatbot_faq_12_a: "Feedback can be provided in several ways: 1) Directly in the admin panel – you can rate response quality and add corrections for each conversation. 2) Chatbot users can rate responses with thumbs up/down. 3) Regular reports help us identify areas for improvement. All feedback is automatically incorporated into AI training.",
+    // Proven Results section
+    chatbot_results_tag: "// PROVEN RESULTS",
+    chatbot_results_label: "REAL DATA",
+    chatbot_results_headline_1: "Verified results",
+    chatbot_results_headline_2: "from practice",
+    chatbot_results_desc: "Analysis of 35,095 AI responses from 5 regions (January–July 2025) shows concrete benefits of AI chatbot deployment.",
+    chatbot_results_stat_1: "8,800",
+    chatbot_results_stat_1_label: "hours of work saved",
+    chatbot_results_stat_2: "1.76M CZK",
+    chatbot_results_stat_2_label: "total savings",
+    chatbot_results_stat_3: "2-5",
+    chatbot_results_stat_3_label: "months ROI",
+    chatbot_results_stat_4: "4.6/5",
+    chatbot_results_stat_4_label: "satisfaction rating",
+    chatbot_results_note: "15–25% of queries come outside working hours – the chatbot answers them even at night and on weekends.",
+    // Additional features
+    chatbot_f7_title: "Voice Input",
+    chatbot_f7_desc: "Speech-to-text conversion allows users to speak instead of typing. Ideal for mobile devices.",
+    chatbot_f8_title: "Full GDPR Compliance",
+    chatbot_f8_desc: "Complete documentation prepared by law firm LEGITAS. Secure and legally sound solution.",
     chatbot_contact_tag: "// CONTACT",
     chatbot_contact_label: "FREE CONSULTATION",
     chatbot_contact_headline: "I want AI chatbot for my business",

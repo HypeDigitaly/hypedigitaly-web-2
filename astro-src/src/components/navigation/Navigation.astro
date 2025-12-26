@@ -22,12 +22,14 @@ const t = translations[lang];
       <div class="hidden lg:flex items-center gap-6 text-sm font-medium text-neutral-400">
         <!-- Services Dropdown -->
         <div class="relative" id="services-dropdown">
-          <button id="services-trigger" class="flex items-center gap-1.5 hover:text-white transition-colors py-2">
-            <span>{t.nav_services}</span>
-            <svg id="services-arrow" class="w-4 h-4 transition-transform duration-300 ease-out" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
-            </svg>
-          </button>
+          <div class="flex items-center gap-1.5 py-2">
+            <a href="/#sluzby" class="hover:text-white transition-colors">{t.nav_services}</a>
+            <button id="services-trigger" class="hover:text-white transition-colors p-1 -m-1">
+              <svg id="services-arrow" class="w-4 h-4 transition-transform duration-300 ease-out" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+          </div>
           <div id="services-menu" class="absolute left-0 top-full pt-2 opacity-0 invisible transition-all duration-200 pointer-events-none">
             <div class="w-56 rounded-xl bg-neutral-900/95 ring-1 ring-white/10 backdrop-blur-xl shadow-2xl overflow-hidden">
               <a href="/chatbot" class="flex items-center gap-3 px-4 py-3 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">
@@ -47,9 +49,8 @@ const t = translations[lang];
             </div>
           </div>
         </div>
-        <a href="/#pripadove-studie" class="hover:text-white transition-colors">{t.nav_cases}</a>
-        <a href="/#ragus" class="hover:text-white transition-colors">RAGus.ai</a>
-        <a href="/#faq" class="hover:text-white transition-colors">FAQ</a>
+        <a href="/#reference" class="hover:text-white transition-colors">{t.nav_cases}</a>
+        <a href="/#priprava-dat" class="hover:text-white transition-colors">{t.nav_data_prep}</a>
         <a href="/#kontakt" class="hover:text-white transition-colors">{t.nav_contact}</a>
       </div>
     )}

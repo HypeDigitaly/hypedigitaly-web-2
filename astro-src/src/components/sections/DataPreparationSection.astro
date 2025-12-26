@@ -1,0 +1,445 @@
+---
+import { translations, type Language } from '../../scripts/translations';
+
+export interface Props {
+  lang: Language;
+  sectionNumber?: string;
+  id?: string;
+}
+
+const { lang, sectionNumber = "07", id = "priprava-dat" } = Astro.props;
+const t = translations[lang];
+---
+
+<section id={id} class="bg-[#050505] border-t border-white/5 py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
+      <div class="flex items-center gap-2">
+        <span class="text-white">{sectionNumber}</span>
+        <span class="w-12 h-px bg-white/10"></span>
+      </div>
+      <div class="text-white/40">// {lang === 'cs' ? 'Příprava dat pro AI' : 'AI Data Preparation'}</div>
+      <div class="hidden md:block text-right">{t.ragus_label}</div>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] mb-6 inline-flex items-center gap-2 px-3 py-1.5 bg-orange-500/10 rounded-lg text-orange-400 text-sm font-medium">
+          <iconify-icon icon="solar:stars-bold"></iconify-icon>
+          <span>{t.ragus_badge}</span>
+        </div>
+
+        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] leading-[0.95] md:text-5xl lg:text-6xl text-3xl font-medium text-white tracking-tighter mb-8">
+          <span>{t.ragus_headline_1}</span>
+          <span class="text-neutral-600"> {t.ragus_headline_2}</span>
+        </h2>
+
+        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] text-lg text-neutral-400 mb-8 leading-relaxed">
+          {t.ragus_desc}
+        </p>
+
+        <ul class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] space-y-4 mb-8">
+          <li class="flex items-start gap-3">
+            <iconify-icon icon="solar:check-circle-bold" class="text-primary text-xl mt-0.5"></iconify-icon>
+            <span class="text-neutral-300">{t.ragus_feature_1}</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <iconify-icon icon="solar:check-circle-bold" class="text-primary text-xl mt-0.5"></iconify-icon>
+            <span class="text-neutral-300">{t.ragus_feature_2}</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <iconify-icon icon="solar:check-circle-bold" class="text-primary text-xl mt-0.5"></iconify-icon>
+            <span class="text-neutral-300">{t.ragus_feature_3}</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <iconify-icon icon="solar:check-circle-bold" class="text-primary text-xl mt-0.5"></iconify-icon>
+            <span class="text-neutral-300">{t.ragus_feature_4}</span>
+          </li>
+        </ul>
+
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] flex flex-wrap gap-4">
+          <a href="https://ragus.ai" target="_blank" class="shiny-cta group">
+            <span class="btn-content">
+              <span class="text-base font-semibold">{t.ragus_cta}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-white/80 group-hover:translate-x-1 transition-transform">
+                <path d="M7 7h10v10"></path>
+                <path d="M7 17 17 7"></path>
+              </svg>
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <!-- RAGus Slideshow -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both]">
+        <div class="ragus-slideshow relative aspect-[16/9] overflow-hidden bg-[#0d0d0d] rounded-2xl shadow-2xl cursor-pointer group/slideshow">
+          <!-- Slides -->
+          <div class="ragus-slide active">
+            <img src="/assets/images/ragus/01.PNG" alt="RAGus.ai Dashboard" class="w-full h-full object-contain rounded-xl">
+          </div>
+          <div class="ragus-slide">
+            <img src="/assets/images/ragus/02.PNG" alt="RAGus.ai Features" class="w-full h-full object-contain rounded-xl">
+          </div>
+          <div class="ragus-slide">
+            <img src="/assets/images/ragus/03.PNG" alt="RAGus.ai Analytics" class="w-full h-full object-contain rounded-xl">
+          </div>
+          <div class="ragus-slide">
+            <img src="/assets/images/ragus/04.PNG" alt="RAGus.ai Management" class="w-full h-full object-contain rounded-xl">
+          </div>
+          
+          <!-- Zoom Indicator Overlay -->
+          <div class="absolute inset-0 bg-black/20 opacity-0 group-hover/slideshow:opacity-100 transition-opacity flex items-center justify-center pointer-events-none z-0">
+            <div class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/70">
+              <iconify-icon icon="solar:magnifer-zoom-in-linear" class="text-2xl"></iconify-icon>
+            </div>
+          </div>
+
+          <!-- Navigation Arrows -->
+          <button class="ragus-prev absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-black/80 transition-all z-10">
+            <iconify-icon icon="solar:arrow-left-linear" class="text-2xl"></iconify-icon>
+          </button>
+          <button class="ragus-next absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-black/80 transition-all z-10">
+            <iconify-icon icon="solar:arrow-right-linear" class="text-2xl"></iconify-icon>
+          </button>
+        </div>
+        
+        <!-- Dots Indicator - Below Image -->
+        <div class="flex justify-center gap-2 mt-5">
+          <button class="ragus-dot active w-2.5 h-2.5 rounded-full bg-white transition-all" data-slide="0"></button>
+          <button class="ragus-dot w-2.5 h-2.5 rounded-full bg-white/30 transition-all" data-slide="1"></button>
+          <button class="ragus-dot w-2.5 h-2.5 rounded-full bg-white/30 transition-all" data-slide="2"></button>
+          <button class="ragus-dot w-2.5 h-2.5 rounded-full bg-white/30 transition-all" data-slide="3"></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Target Audience -->
+    <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both] grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
+      <div class="p-4 bg-white/5 rounded-xl text-center border border-white/5">
+        <iconify-icon icon="solar:settings-bold" class="text-2xl text-orange-400 mb-2"></iconify-icon>
+        <div class="text-sm text-neutral-400">{t.ragus_target_1}</div>
+      </div>
+      <div class="p-4 bg-white/5 rounded-xl text-center border border-white/5">
+        <iconify-icon icon="hugeicons:ai-brain-02" class="text-2xl text-orange-400 mb-2"></iconify-icon>
+        <div class="text-sm text-neutral-400">{t.ragus_target_2}</div>
+      </div>
+      <div class="p-4 bg-white/5 rounded-xl text-center border border-white/5">
+        <iconify-icon icon="solar:chart-square-bold" class="text-2xl text-orange-400 mb-2"></iconify-icon>
+        <div class="text-sm text-neutral-400">{t.ragus_target_3}</div>
+      </div>
+      <div class="p-4 bg-white/5 rounded-xl text-center border border-white/5">
+        <iconify-icon icon="solar:pen-bold" class="text-2xl text-orange-400 mb-2"></iconify-icon>
+        <div class="text-sm text-neutral-400">{t.ragus_target_4}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Fullscreen Modal - OUTSIDE section to avoid z-index issues -->
+<div id="ragus-fullscreen-modal" class="ragus-modal fixed inset-0 z-[9999] hidden">
+  <!-- Backdrop - clickable to close -->
+  <div class="ragus-modal-backdrop absolute inset-0 bg-black/95 cursor-pointer"></div>
+
+  <div class="ragus-modal-content absolute inset-0 flex items-center justify-center pointer-events-none">
+    <div class="w-[90vw] max-w-6xl h-[80vh] relative pointer-events-auto">
+      <!-- Modal Arrows -->
+      <button class="ragus-modal-prev absolute left-4 md:-left-20 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all" type="button">
+        <iconify-icon icon="solar:arrow-left-linear" class="text-3xl"></iconify-icon>
+      </button>
+      <button class="ragus-modal-next absolute right-4 md:-right-20 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all" type="button">
+        <iconify-icon icon="solar:arrow-right-linear" class="text-3xl"></iconify-icon>
+      </button>
+
+      <!-- Modal Slides Container -->
+      <div class="ragus-modal-slides w-full h-full flex items-center justify-center relative">
+        <!-- Images will be cloned here -->
+      </div>
+
+      <!-- Modal Dots -->
+      <div class="flex justify-center gap-3 mt-6">
+        <button class="ragus-modal-dot w-3 h-3 rounded-full bg-white transition-all" data-slide="0" type="button"></button>
+        <button class="ragus-modal-dot w-3 h-3 rounded-full bg-white/30 transition-all" data-slide="1" type="button"></button>
+        <button class="ragus-modal-dot w-3 h-3 rounded-full bg-white/30 transition-all" data-slide="2" type="button"></button>
+        <button class="ragus-modal-dot w-3 h-3 rounded-full bg-white/30 transition-all" data-slide="3" type="button"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .ragus-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none;
+  }
+  .ragus-slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .ragus-modal-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ragus-modal-slide.active {
+    opacity: 1;
+  }
+  .ragus-modal-slide img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+</style>
+
+<script is:inline>
+  // RAGus Slideshow Logic
+  (function() {
+    let initialized = false;
+    
+    function initRagusSlideshow() {
+      if (initialized) return;
+      
+      const slideshow = document.querySelector('.ragus-slideshow');
+      const modal = document.getElementById('ragus-fullscreen-modal');
+      
+      if (!slideshow || !modal) return;
+      
+      initialized = true;
+      
+      const modalSlidesContainer = modal.querySelector('.ragus-modal-slides');
+      const modalBackdrop = modal.querySelector('.ragus-modal-backdrop');
+      
+      const parent = slideshow.parentElement;
+      const slides = slideshow.querySelectorAll('.ragus-slide');
+      const prevBtn = slideshow.querySelector('.ragus-prev');
+      const nextBtn = slideshow.querySelector('.ragus-next');
+      const dots = parent.querySelectorAll('.ragus-dot');
+      
+      let currentSlide = 0;
+      let slideInterval;
+      
+      // Initialize modal slides by cloning
+      if (modalSlidesContainer && modalSlidesContainer.children.length === 0) {
+        slides.forEach((slide, i) => {
+          const clone = slide.cloneNode(true);
+          clone.className = 'ragus-modal-slide';
+          if (i === 0) clone.classList.add('active');
+          // Make image larger in modal
+          const img = clone.querySelector('img');
+          if (img) {
+            img.className = 'max-w-full max-h-full object-contain rounded-xl';
+          }
+          modalSlidesContainer.appendChild(clone);
+        });
+      }
+
+      const modalSlides = modalSlidesContainer ? modalSlidesContainer.querySelectorAll('.ragus-modal-slide') : [];
+      const modalDots = modal.querySelectorAll('.ragus-modal-dot');
+      
+      function showSlide(index) {
+        if (index >= slides.length) currentSlide = 0;
+        else if (index < 0) currentSlide = slides.length - 1;
+        else currentSlide = index;
+        
+        // Update main slideshow
+        slides.forEach((slide, i) => {
+          slide.classList.toggle('active', i === currentSlide);
+        });
+        
+        // Update modal slideshow
+        modalSlides.forEach((slide, i) => {
+          slide.classList.toggle('active', i === currentSlide);
+        });
+        
+        // Update main dots
+        dots.forEach((dot, i) => {
+          if (i === currentSlide) {
+            dot.classList.remove('bg-white/30');
+            dot.classList.add('bg-white');
+          } else {
+            dot.classList.remove('bg-white');
+            dot.classList.add('bg-white/30');
+          }
+        });
+
+        // Update modal dots
+        modalDots.forEach((dot, i) => {
+          if (i === currentSlide) {
+            dot.classList.remove('bg-white/30');
+            dot.classList.add('bg-white');
+          } else {
+            dot.classList.remove('bg-white');
+            dot.classList.add('bg-white/30');
+          }
+        });
+      }
+      
+      function nextSlide() {
+        showSlide(currentSlide + 1);
+      }
+      
+      function prevSlide() {
+        showSlide(currentSlide - 1);
+      }
+      
+      function startAutoplay() {
+        if (!slideInterval) {
+          slideInterval = setInterval(nextSlide, 5000);
+        }
+      }
+      
+      function stopAutoplay() {
+        clearInterval(slideInterval);
+        slideInterval = null;
+      }
+
+      // Open modal
+      function openModal() {
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+
+      // Close modal
+      function closeModal() {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+      
+      // Event listeners for main slideshow
+      if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => { 
+          e.stopPropagation();
+          stopAutoplay(); 
+          prevSlide(); 
+          startAutoplay(); 
+        });
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => { 
+          e.stopPropagation();
+          stopAutoplay(); 
+          nextSlide(); 
+          startAutoplay(); 
+        });
+      }
+      
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          stopAutoplay();
+          showSlide(index);
+          startAutoplay();
+        });
+      });
+
+      // Click on slideshow to open modal
+      slideshow.addEventListener('click', (e) => {
+        if (e.target.closest('.ragus-prev') || e.target.closest('.ragus-next')) return;
+        openModal();
+      });
+      
+      // Backdrop click to close
+      if (modalBackdrop) {
+        modalBackdrop.onclick = function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          closeModal();
+        };
+      }
+
+      // Modal dot listeners
+      modalDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          stopAutoplay();
+          showSlide(index);
+          startAutoplay();
+        });
+      });
+
+      // Modal Navigation
+      const modalPrevBtns = modal.querySelectorAll('.ragus-modal-prev');
+      const modalNextBtns = modal.querySelectorAll('.ragus-modal-next');
+
+      modalPrevBtns.forEach(btn => {
+        btn.onclick = function(e) {
+          e.stopPropagation();
+          stopAutoplay();
+          prevSlide();
+          startAutoplay();
+        };
+      });
+
+      modalNextBtns.forEach(btn => {
+        btn.onclick = function(e) {
+          e.stopPropagation();
+          stopAutoplay();
+          nextSlide();
+          startAutoplay();
+        };
+      });
+
+      // Keyboard support
+      document.addEventListener('keydown', (e) => {
+        if (modal.classList.contains('hidden')) return;
+        
+        if (e.key === 'Escape') closeModal();
+        if (e.key === 'ArrowLeft') { stopAutoplay(); prevSlide(); startAutoplay(); }
+        if (e.key === 'ArrowRight') { stopAutoplay(); nextSlide(); startAutoplay(); }
+      });
+      
+      // Touch support for modal
+      let modalTouchStartX = 0;
+      if (modalSlidesContainer) {
+        modalSlidesContainer.addEventListener('touchstart', (e) => { modalTouchStartX = e.touches[0].clientX; }, { passive: true });
+        modalSlidesContainer.addEventListener('touchend', (e) => {
+          const touchEndX = e.changedTouches[0].clientX;
+          const diff = modalTouchStartX - touchEndX;
+          if (Math.abs(diff) > 50) {
+            stopAutoplay();
+            diff > 0 ? nextSlide() : prevSlide();
+            startAutoplay();
+          }
+        }, { passive: true });
+      }
+      
+      // Main slideshow Touch support
+      let touchStartX = 0;
+      slideshow.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+      slideshow.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].clientX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 50) {
+          stopAutoplay();
+          diff > 0 ? nextSlide() : prevSlide();
+          startAutoplay();
+        }
+      }, { passive: true });
+      
+      // Hover to pause
+      slideshow.addEventListener('mouseenter', stopAutoplay);
+      slideshow.addEventListener('mouseleave', startAutoplay);
+      
+      // Start autoplay
+      startAutoplay();
+      
+      console.log('RAGus slideshow initialized');
+    }
+
+    // Handle both initial load and view transitions
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initRagusSlideshow);
+    } else {
+      initRagusSlideshow();
+    }
+    document.addEventListener('astro:page-load', function() {
+      initialized = false;
+      initRagusSlideshow();
+    });
+  })();
+</script>
+

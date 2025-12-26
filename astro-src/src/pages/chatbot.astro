@@ -1,6 +1,8 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import ClientsMarquee from '../components/sections/ClientsMarquee.astro';
+import DataPreparationSection from '../components/sections/DataPreparationSection.astro';
+import TestimonialsSection from '../components/sections/TestimonialsSection.astro';
 import { translations, type Language } from '../scripts/translations';
 
 const lang: Language = 'cs';
@@ -71,7 +73,7 @@ const t = translations[lang];
       <!-- Video Demo -->
       <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] max-w-4xl mx-auto">
         <div class="aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-gray-900">
-          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/cECRY6dQ0NA?si=4aTCdPwD1zfKlJjw" title="AI Chatbot Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/cECRY6dQ0NA?si=X2KP-eES5s3jNVm7&amp;start=11" title="AI Chatbot Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
         </div>
         
         <!-- First in CZ Badge -->
@@ -90,6 +92,60 @@ const t = translations[lang];
 
   <!-- ==================== TRUSTED BY SECTION ==================== -->
   <ClientsMarquee lang={lang} title="NASAZENO NA WEBECH ČESKÝCH KRAJŮ" />
+
+  <!-- ==================== PROVEN RESULTS SECTION ==================== -->
+  <section class="bg-[#080808] border-t border-white/5 py-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
+        <div class="flex items-center gap-2">
+          <iconify-icon icon="solar:chart-2-bold" class="text-primary text-lg"></iconify-icon>
+        </div>
+        <div class="text-white/40" data-i18n="chatbot_results_tag">{t.chatbot_results_tag}</div>
+        <div class="hidden md:block text-right" data-i18n="chatbot_results_label">{t.chatbot_results_label}</div>
+      </div>
+
+      <div class="text-center mb-10">
+        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] text-3xl md:text-4xl font-medium text-white tracking-tight mb-4">
+          <span data-i18n="chatbot_results_headline_1">{t.chatbot_results_headline_1}</span>
+          <span class="text-neutral-600" data-i18n="chatbot_results_headline_2"> {t.chatbot_results_headline_2}</span>
+        </h2>
+        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-neutral-400 max-w-2xl mx-auto" data-i18n="chatbot_results_desc">
+          {t.chatbot_results_desc}
+        </p>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
+        <!-- Stat 1 -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] p-6 bg-[#0A0A0A] border border-white/5 rounded-xl text-center hover:border-primary/30 transition-all duration-300">
+          <div class="text-3xl md:text-4xl font-bold text-primary mb-2" data-i18n="chatbot_results_stat_1">{t.chatbot_results_stat_1}</div>
+          <div class="text-sm text-neutral-500" data-i18n="chatbot_results_stat_1_label">{t.chatbot_results_stat_1_label}</div>
+        </div>
+        <!-- Stat 2 -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] p-6 bg-[#0A0A0A] border border-white/5 rounded-xl text-center hover:border-primary/30 transition-all duration-300">
+          <div class="text-3xl md:text-4xl font-bold text-primary mb-2" data-i18n="chatbot_results_stat_2">{t.chatbot_results_stat_2}</div>
+          <div class="text-sm text-neutral-500" data-i18n="chatbot_results_stat_2_label">{t.chatbot_results_stat_2_label}</div>
+        </div>
+        <!-- Stat 3 -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] p-6 bg-[#0A0A0A] border border-white/5 rounded-xl text-center hover:border-primary/30 transition-all duration-300">
+          <div class="text-3xl md:text-4xl font-bold text-primary mb-2" data-i18n="chatbot_results_stat_3">{t.chatbot_results_stat_3}</div>
+          <div class="text-sm text-neutral-500" data-i18n="chatbot_results_stat_3_label">{t.chatbot_results_stat_3_label}</div>
+        </div>
+        <!-- Stat 4 -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] p-6 bg-[#0A0A0A] border border-white/5 rounded-xl text-center hover:border-primary/30 transition-all duration-300">
+          <div class="text-3xl md:text-4xl font-bold text-primary mb-2" data-i18n="chatbot_results_stat_4">{t.chatbot_results_stat_4}</div>
+          <div class="text-sm text-neutral-500" data-i18n="chatbot_results_stat_4_label">{t.chatbot_results_stat_4_label}</div>
+        </div>
+      </div>
+
+      <!-- Note -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both] flex items-center justify-center gap-3 text-sm text-neutral-500">
+        <iconify-icon icon="solar:moon-bold" class="text-primary text-lg"></iconify-icon>
+        <span data-i18n="chatbot_results_note">{t.chatbot_results_note}</span>
+      </div>
+    </div>
+  </section>
 
   <!-- ==================== FEATURES SECTION ==================== -->
   <section class="bg-[#050505] border-t border-white/5 py-24">
@@ -114,61 +170,111 @@ const t = translations[lang];
         {t.chatbot_features_desc}
       </p>
 
-      <!-- Features Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Feature 1 -->
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
-            <iconify-icon icon="solar:target-bold" class="text-2xl"></iconify-icon>
+      <!-- Horizontal Layout: Features Grid + Video -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+        
+        <!-- LEFT: Features Grid (2x4 on desktop) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Feature 1 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] group relative p-5 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-3">
+              <iconify-icon icon="solar:target-bold" class="text-xl"></iconify-icon>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-1" data-i18n="chatbot_f1_title">{t.chatbot_f1_title}</h3>
+            <p class="text-xs text-neutral-500 leading-relaxed" data-i18n="chatbot_f1_desc">{t.chatbot_f1_desc}</p>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2" data-i18n="chatbot_f1_title">{t.chatbot_f1_title}</h3>
-          <p class="text-sm text-neutral-500" data-i18n="chatbot_f1_desc">{t.chatbot_f1_desc}</p>
+
+          <!-- Feature 2 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] group relative p-5 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-3">
+              <iconify-icon icon="solar:refresh-bold" class="text-xl"></iconify-icon>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-1" data-i18n="chatbot_f2_title">{t.chatbot_f2_title}</h3>
+            <p class="text-xs text-neutral-500 leading-relaxed" data-i18n="chatbot_f2_desc">{t.chatbot_f2_desc}</p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] group relative p-5 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-3">
+              <iconify-icon icon="solar:clock-circle-bold" class="text-xl"></iconify-icon>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-1" data-i18n="chatbot_f3_title">{t.chatbot_f3_title}</h3>
+            <p class="text-xs text-neutral-500 leading-relaxed" data-i18n="chatbot_f3_desc">{t.chatbot_f3_desc}</p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] group relative p-5 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-3">
+              <iconify-icon icon="solar:globus-bold" class="text-xl"></iconify-icon>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-1" data-i18n="chatbot_f4_title">{t.chatbot_f4_title}</h3>
+            <p class="text-xs text-neutral-500 leading-relaxed" data-i18n="chatbot_f4_desc">{t.chatbot_f4_desc}</p>
+          </div>
+
+          <!-- Feature 5 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both] group relative p-5 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-3">
+              <iconify-icon icon="solar:chart-bold" class="text-xl"></iconify-icon>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-1" data-i18n="chatbot_f5_title">{t.chatbot_f5_title}</h3>
+            <p class="text-xs text-neutral-500 leading-relaxed" data-i18n="chatbot_f5_desc">{t.chatbot_f5_desc}</p>
+          </div>
+
+          <!-- Feature 6 -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.8s_both] group relative p-5 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-3">
+              <iconify-icon icon="solar:shield-check-bold" class="text-xl"></iconify-icon>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-1" data-i18n="chatbot_f6_title">{t.chatbot_f6_title}</h3>
+            <p class="text-xs text-neutral-500 leading-relaxed" data-i18n="chatbot_f6_desc">{t.chatbot_f6_desc}</p>
+          </div>
+
+          <!-- Feature 7 - Voice Input -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.9s_both] group relative p-5 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-3">
+              <iconify-icon icon="solar:microphone-bold" class="text-xl"></iconify-icon>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-1" data-i18n="chatbot_f7_title">{t.chatbot_f7_title}</h3>
+            <p class="text-xs text-neutral-500 leading-relaxed" data-i18n="chatbot_f7_desc">{t.chatbot_f7_desc}</p>
+          </div>
+
+          <!-- Feature 8 - GDPR -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_1s_both] group relative p-5 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-3">
+              <iconify-icon icon="solar:document-bold" class="text-xl"></iconify-icon>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-1" data-i18n="chatbot_f8_title">{t.chatbot_f8_title}</h3>
+            <p class="text-xs text-neutral-500 leading-relaxed" data-i18n="chatbot_f8_desc">{t.chatbot_f8_desc}</p>
+          </div>
         </div>
 
-        <!-- Feature 2 -->
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
-            <iconify-icon icon="solar:refresh-bold" class="text-2xl"></iconify-icon>
+        <!-- RIGHT: Video Demo -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] lg:sticky lg:top-32 flex justify-center">
+          <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl w-fit mx-auto">
+            <!-- Video Container with aspect ratio -->
+            <div class="aspect-[9/16] max-h-[600px] lg:max-h-[800px]">
+              <video 
+                class="w-full h-full object-cover"
+                autoplay 
+                muted 
+                loop 
+                playsinline
+                poster="/assets/images/clients/KralovehradeckyKraj_Logo_Krakonos.png"
+              >
+                <source src="/assets/videos/krakonos.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <!-- Video Overlay Gradient -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
+            <!-- Video Badge -->
+            <div class="absolute bottom-6 left-6 flex items-center gap-2 px-4 py-2 rounded-full bg-black/40 backdrop-blur-xl border border-white/5">
+              <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+              <span class="text-xs font-medium text-white/90 uppercase tracking-wider">Krakonoš AI</span>
+            </div>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2" data-i18n="chatbot_f2_title">{t.chatbot_f2_title}</h3>
-          <p class="text-sm text-neutral-500" data-i18n="chatbot_f2_desc">{t.chatbot_f2_desc}</p>
         </div>
 
-        <!-- Feature 3 -->
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
-            <iconify-icon icon="solar:clock-circle-bold" class="text-2xl"></iconify-icon>
-          </div>
-          <h3 class="text-xl font-semibold text-white mb-2" data-i18n="chatbot_f3_title">{t.chatbot_f3_title}</h3>
-          <p class="text-sm text-neutral-500" data-i18n="chatbot_f3_desc">{t.chatbot_f3_desc}</p>
-        </div>
-
-        <!-- Feature 4 -->
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
-            <iconify-icon icon="solar:globus-bold" class="text-2xl"></iconify-icon>
-          </div>
-          <h3 class="text-xl font-semibold text-white mb-2" data-i18n="chatbot_f4_title">{t.chatbot_f4_title}</h3>
-          <p class="text-sm text-neutral-500" data-i18n="chatbot_f4_desc">{t.chatbot_f4_desc}</p>
-        </div>
-
-        <!-- Feature 5 -->
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
-            <iconify-icon icon="solar:chart-bold" class="text-2xl"></iconify-icon>
-          </div>
-          <h3 class="text-xl font-semibold text-white mb-2" data-i18n="chatbot_f5_title">{t.chatbot_f5_title}</h3>
-          <p class="text-sm text-neutral-500" data-i18n="chatbot_f5_desc">{t.chatbot_f5_desc}</p>
-        </div>
-
-        <!-- Feature 6 -->
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.8s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
-            <iconify-icon icon="solar:shield-check-bold" class="text-2xl"></iconify-icon>
-          </div>
-          <h3 class="text-xl font-semibold text-white mb-2" data-i18n="chatbot_f6_title">{t.chatbot_f6_title}</h3>
-          <p class="text-sm text-neutral-500" data-i18n="chatbot_f6_desc">{t.chatbot_f6_desc}</p>
-        </div>
       </div>
     </div>
   </section>
@@ -279,13 +385,19 @@ const t = translations[lang];
     </div>
   </section>
 
+  <!-- ==================== TESTIMONIALS SECTION ==================== -->
+  <TestimonialsSection lang={lang} sectionNumber="03" id="reference" />
+
+  <!-- ==================== DATA PREPARATION SECTION ==================== -->
+  <DataPreparationSection lang={lang} sectionNumber="04" id="priprava-dat" />
+
   <!-- ==================== FAQ SECTION ==================== -->
   <section id="faq" class="bg-[#050505] border-t border-white/5 py-24">
     <div class="max-w-4xl mx-auto px-6">
       <!-- Section Header -->
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
         <div class="flex items-center gap-2">
-          <span class="text-white">03</span>
+          <span class="text-white">05</span>
           <span class="w-12 h-px bg-white/10"></span>
         </div>
         <div class="text-white/40" data-i18n="chatbot_faq_tag">{t.chatbot_faq_tag}</div>
@@ -349,73 +461,261 @@ const t = translations[lang];
             </div>
           </div>
         </div>
+
+        <!-- FAQ 5 -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both] faq-item bg-[#0A0A0A] border border-white/5 rounded-xl overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+            <span class="text-lg font-medium text-white" data-i18n="chatbot_faq_5_q">{t.chatbot_faq_5_q}</span>
+            <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon text-neutral-400 text-xl transition-transform duration-300"></iconify-icon>
+          </button>
+          <div class="faq-answer">
+            <div class="px-6 pb-6 text-neutral-400" data-i18n="chatbot_faq_5_a">
+              {t.chatbot_faq_5_a}
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 6 -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.8s_both] faq-item bg-[#0A0A0A] border border-white/5 rounded-xl overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+            <span class="text-lg font-medium text-white" data-i18n="chatbot_faq_6_q">{t.chatbot_faq_6_q}</span>
+            <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon text-neutral-400 text-xl transition-transform duration-300"></iconify-icon>
+          </button>
+          <div class="faq-answer">
+            <div class="px-6 pb-6 text-neutral-400" data-i18n="chatbot_faq_6_a">
+              {t.chatbot_faq_6_a}
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 7 -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.9s_both] faq-item bg-[#0A0A0A] border border-white/5 rounded-xl overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+            <span class="text-lg font-medium text-white" data-i18n="chatbot_faq_7_q">{t.chatbot_faq_7_q}</span>
+            <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon text-neutral-400 text-xl transition-transform duration-300"></iconify-icon>
+          </button>
+          <div class="faq-answer">
+            <div class="px-6 pb-6 text-neutral-400" data-i18n="chatbot_faq_7_a">
+              {t.chatbot_faq_7_a}
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 8 -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_1s_both] faq-item bg-[#0A0A0A] border border-white/5 rounded-xl overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+            <span class="text-lg font-medium text-white" data-i18n="chatbot_faq_8_q">{t.chatbot_faq_8_q}</span>
+            <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon text-neutral-400 text-xl transition-transform duration-300"></iconify-icon>
+          </button>
+          <div class="faq-answer">
+            <div class="px-6 pb-6 text-neutral-400" data-i18n="chatbot_faq_8_a">
+              {t.chatbot_faq_8_a}
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 9 - Data Quality -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_1.1s_both] faq-item bg-[#0A0A0A] border border-white/5 rounded-xl overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+            <span class="text-lg font-medium text-white" data-i18n="chatbot_faq_9_q">{t.chatbot_faq_9_q}</span>
+            <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon text-neutral-400 text-xl transition-transform duration-300"></iconify-icon>
+          </button>
+          <div class="faq-answer">
+            <div class="px-6 pb-6 text-neutral-400" data-i18n="chatbot_faq_9_a">
+              {t.chatbot_faq_9_a}
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 10 - Hallucinations -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_1.2s_both] faq-item bg-[#0A0A0A] border border-white/5 rounded-xl overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+            <span class="text-lg font-medium text-white" data-i18n="chatbot_faq_10_q">{t.chatbot_faq_10_q}</span>
+            <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon text-neutral-400 text-xl transition-transform duration-300"></iconify-icon>
+          </button>
+          <div class="faq-answer">
+            <div class="px-6 pb-6 text-neutral-400" data-i18n="chatbot_faq_10_a">
+              {t.chatbot_faq_10_a}
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 11 - Self Training -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_1.3s_both] faq-item bg-[#0A0A0A] border border-white/5 rounded-xl overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+            <span class="text-lg font-medium text-white" data-i18n="chatbot_faq_11_q">{t.chatbot_faq_11_q}</span>
+            <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon text-neutral-400 text-xl transition-transform duration-300"></iconify-icon>
+          </button>
+          <div class="faq-answer">
+            <div class="px-6 pb-6 text-neutral-400" data-i18n="chatbot_faq_11_a">
+              {t.chatbot_faq_11_a}
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 12 - Feedback -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_1.4s_both] faq-item bg-[#0A0A0A] border border-white/5 rounded-xl overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+            <span class="text-lg font-medium text-white" data-i18n="chatbot_faq_12_q">{t.chatbot_faq_12_q}</span>
+            <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon text-neutral-400 text-xl transition-transform duration-300"></iconify-icon>
+          </button>
+          <div class="faq-answer">
+            <div class="px-6 pb-6 text-neutral-400" data-i18n="chatbot_faq_12_a">
+              {t.chatbot_faq_12_a}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ==================== CONTACT SECTION ==================== -->
   <section id="kontakt" class="bg-[#080808] border-t border-white/5 py-24">
-    <div class="max-w-4xl mx-auto px-6 text-center">
+    <div class="max-w-4xl mx-auto px-6">
       <!-- Section Header -->
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
         <div class="flex items-center gap-2">
-          <span class="text-white">04</span>
+          <span class="text-white">06</span>
           <span class="w-12 h-px bg-white/10"></span>
         </div>
         <div class="text-white/40" data-i18n="chatbot_contact_tag">{t.chatbot_contact_tag}</div>
         <div class="hidden md:block text-right" data-i18n="chatbot_contact_label">{t.chatbot_contact_label}</div>
       </div>
 
-      <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] text-4xl md:text-5xl font-medium text-white tracking-tight mb-6" data-i18n="chatbot_contact_headline">
-        {t.chatbot_contact_headline}
-      </h2>
+      <div class="text-center max-w-5xl mx-auto mb-16">
+        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] text-4xl md:text-5xl font-medium text-white tracking-tight mb-6" data-i18n="chatbot_contact_headline">
+          {t.chatbot_contact_headline}
+        </h2>
 
-      <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg text-neutral-400 max-w-2xl mx-auto mb-12" data-i18n="chatbot_contact_desc">
-        {t.chatbot_contact_desc}
-      </p>
-
-      <!-- CTA Button -->
-      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] max-w-md mx-auto mb-12">
-        <a href="https://calendly.com/hypedigitaly-ai/30min" target="_blank" class="shiny-cta group">
-          <span class="btn-content">
-            <span class="text-lg font-semibold tracking-tight" data-i18n="chatbot_contact_cta">{t.chatbot_contact_cta}</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white/80 group-hover:translate-x-1 transition-transform">
-              <path d="M5 12h14"></path>
-              <path d="m12 5 7 7-7 7"></path>
-            </svg>
-          </span>
-        </a>
+        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg text-neutral-400 max-w-2xl mx-auto" data-i18n="chatbot_contact_desc">
+          {t.chatbot_contact_desc}
+        </p>
       </div>
 
-      <!-- Contact Info -->
-      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] flex flex-wrap items-center justify-center gap-8 text-neutral-400">
-        <a href="mailto:info@hypedigitaly.ai" class="flex items-center gap-2 hover:text-primary transition-colors">
-          <iconify-icon icon="solar:letter-bold" class="text-xl"></iconify-icon>
-          <span>info@hypedigitaly.ai</span>
-        </a>
-        <a href="tel:+420774996248" class="flex items-center gap-2 hover:text-primary transition-colors">
-          <iconify-icon icon="solar:phone-bold" class="text-xl"></iconify-icon>
-          <span>+420 774 996 248</span>
-        </a>
+      <!-- Cal.com Widget -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] max-w-4xl mx-auto mb-12">
+        <div class="bg-[#0A0A0A] border border-white/5 rounded-2xl p-8">
+          <div class="text-center mb-8">
+            <h3 class="text-2xl font-bold text-white mb-2" data-i18n="cal_title">{t.cal_title}</h3>
+            <p class="text-neutral-500" data-i18n="cal_desc">{t.cal_desc}</p>
+          </div>
+          <!-- Cal inline embed code begins -->
+          <div style="width:100%;height:630px;overflow:scroll" id="chatbot-cal-inline"></div>
+        </div>
+      </div>
+
+      <!-- Alternative Contact -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] text-center">
+        <p class="text-neutral-500 mb-6" data-i18n="contact_alt">{t.contact_alt}</p>
+        <div class="flex flex-wrap items-center justify-center gap-6">
+          <a href="mailto:info@hypedigitaly.ai" class="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-neutral-300 hover:text-white hover:border-white/20 transition-colors">
+            <iconify-icon icon="solar:letter-bold" class="text-primary"></iconify-icon>
+            <span>info@hypedigitaly.ai</span>
+          </a>
+          <a href="tel:+420774996248" class="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-neutral-300 hover:text-white hover:border-white/20 transition-colors">
+            <iconify-icon icon="solar:phone-bold" class="text-primary"></iconify-icon>
+            <span>+420 774 996 248</span>
+          </a>
+          <a href="https://linkedin.com/company/hypedigitaly" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-neutral-300 hover:text-white hover:border-white/20 transition-colors">
+            <iconify-icon icon="mdi:linkedin" class="text-primary"></iconify-icon>
+            <span>LinkedIn</span>
+          </a>
+        </div>
+        
+        <!-- Trust badges -->
+        <div class="flex flex-wrap items-center justify-center gap-6 mt-8 text-sm text-neutral-500">
+          <span class="flex items-center gap-2">
+            <iconify-icon icon="solar:shield-check-bold" class="text-primary"></iconify-icon>
+            <span data-i18n="cta_trust_1">{t.cta_trust_1}</span>
+          </span>
+          <span class="flex items-center gap-2">
+            <iconify-icon icon="solar:clock-circle-bold" class="text-primary"></iconify-icon>
+            <span data-i18n="cta_trust_2">{t.cta_trust_2}</span>
+          </span>
+          <span class="flex items-center gap-2">
+            <iconify-icon icon="solar:map-point-bold" class="text-primary"></iconify-icon>
+            <span data-i18n="cta_trust_3">{t.cta_trust_3}</span>
+          </span>
+        </div>
       </div>
     </div>
   </section>
 
   <script is:inline>
-    // FAQ Accordion
-    document.querySelectorAll('.faq-trigger').forEach(trigger => {
-      trigger.addEventListener('click', () => {
-        const faqItem = trigger.closest('.faq-item');
-        const isActive = faqItem.classList.contains('active');
+    // FAQ Accordion - handle both DOM ready states
+    function initFAQAccordion() {
+      const triggers = document.querySelectorAll('.faq-trigger');
+      if (triggers.length === 0) return;
+      
+      triggers.forEach(trigger => {
+        // Remove existing listeners to prevent duplicates
+        const newTrigger = trigger.cloneNode(true);
+        trigger.parentNode.replaceChild(newTrigger, trigger);
         
-        document.querySelectorAll('.faq-item').forEach(item => {
-          item.classList.remove('active');
+        newTrigger.addEventListener('click', function(e) {
+          e.preventDefault();
+          const faqItem = this.closest('.faq-item');
+          if (!faqItem) return;
+          
+          const isActive = faqItem.classList.contains('active');
+          
+          // Close all other FAQ items
+          document.querySelectorAll('.faq-item').forEach(item => {
+            item.classList.remove('active');
+          });
+          
+          // Toggle current item
+          if (!isActive) {
+            faqItem.classList.add('active');
+          }
         });
-        
-        if (!isActive) {
-          faqItem.classList.add('active');
-        }
       });
+    }
+    
+    // Initialize immediately if DOM ready, otherwise wait
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initFAQAccordion);
+    } else {
+      // DOM is already ready, run immediately
+      initFAQAccordion();
+    }
+    
+    // Also run on page show (for back/forward cache)
+    window.addEventListener('pageshow', initFAQAccordion);
+
+    // Cal.com embed
+    (function (C, A, L) { 
+      let p = function (a, ar) { a.q.push(ar); }; 
+      let d = C.document; 
+      C.Cal = C.Cal || function () { 
+        let cal = C.Cal; 
+        let ar = arguments; 
+        if (!cal.loaded) { 
+          cal.ns = {}; 
+          cal.q = cal.q || []; 
+          d.head.appendChild(d.createElement("script")).src = A; 
+          cal.loaded = true; 
+        } 
+        if (ar[0] === L) { 
+          const api = function () { p(api, arguments); }; 
+          const namespace = ar[1]; 
+          api.q = api.q || []; 
+          if(typeof namespace === "string"){ 
+            cal.ns[namespace] = cal.ns[namespace] || api; 
+            p(cal.ns[namespace], ar); 
+            p(cal, ["initNamespace", namespace]); 
+          } else p(cal, ar); 
+          return;
+        } 
+        p(cal, ar); 
+      }; 
+    })(window, "https://app.cal.com/embed/embed.js", "init");
+    Cal("init", "chatbot-cal", {origin:"https://app.cal.com"});
+    Cal.ns["chatbot-cal"]("inline", {
+      elementOrSelector:"#chatbot-cal-inline",
+      config: {"layout":"month_view","theme":"light"},
+      calLink: "hypedigitaly-pavelcermak/30-min-online",
     });
+    Cal.ns["chatbot-cal"]("ui", {"theme":"light","cssVarsPerTheme":{"light":{"cal-brand":"#00A39A"}},"hideEventTypeDetails":false,"layout":"month_view"});
   </script>
 </PageLayout>
