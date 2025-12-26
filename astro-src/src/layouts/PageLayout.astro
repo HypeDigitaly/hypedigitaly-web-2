@@ -1,0 +1,219 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Navigation from '../components/navigation/Navigation.astro';
+import MobileMenu from '../components/navigation/MobileMenu.astro';
+import Footer from '../components/sections/Footer.astro';
+import DigitalRain from '../components/ui/DigitalRain.astro';
+import GridBackground from '../components/ui/GridBackground.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  ogUrl?: string;
+  lang?: 'cs' | 'en';
+  showDigitalRain?: boolean;
+  showGrid?: boolean;
+  simpleNav?: boolean;
+  simpleFooter?: boolean;
+}
+
+const { 
+  title, 
+  description,
+  ogImage,
+  ogUrl,
+  lang = 'cs',
+  showDigitalRain = true,
+  showGrid = true,
+  simpleNav = false,
+  simpleFooter = false,
+} = Astro.props;
+---
+
+<BaseLayout title={title} description={description} ogImage={ogImage} ogUrl={ogUrl} lang={lang}>
+  {showDigitalRain && <DigitalRain />}
+  {showGrid && <GridBackground />}
+  
+  <Navigation lang={lang} simple={simpleNav} />
+  <MobileMenu lang={lang} />
+  
+  <main class="z-10 relative pt-32">
+    <slot />
+  </main>
+  
+  <Footer lang={lang} simple={simpleFooter} />
+  
+  <Fragment slot="scripts">
+    <script>
+      // ==================== LANGUAGE FUNCTIONS ====================
+      const defaultLang = 'cs';
+      let currentLang = localStorage.getItem('preferredLanguage') || defaultLang;
+
+      function setLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('preferredLanguage', lang);
+        document.documentElement.lang = lang;
+        
+        // Update flag and text in switcher
+        const langFlag = document.getElementById('lang-flag');
+        const langText = document.getElementById('lang-text');
+        if (langFlag && langText) {
+          langFlag.textContent = lang === 'cs' ? '🇨🇿' : '🇬🇧';
+          langText.textContent = lang === 'cs' ? 'Čeština' : 'English';
+        }
+        
+        // Reload the page to get correct translations from server
+        if (window.location.search.includes('lang=')) {
+          window.location.search = `lang=${lang}`;
+        }
+      }
+
+      // Initialize language on page load
+      document.addEventListener('DOMContentLoaded', () => {
+        // Language buttons
+        document.querySelectorAll('[data-lang]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const lang = btn.getAttribute('data-lang');
+            setLanguage(lang);
+          });
+        });
+
+        // Language dropdown
+        const langTrigger = document.getElementById('lang-trigger');
+        const langDropdown = document.getElementById('lang-dropdown');
+
+        langTrigger?.addEventListener('click', () => {
+          langDropdown?.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!e.target.closest('#lang-switcher')) {
+            langDropdown?.classList.add('hidden');
+          }
+        });
+      });
+
+      // ==================== MOBILE MENU ====================
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenuClose = document.getElementById('mobile-menu-close');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      function openMobileMenu() {
+        mobileMenu?.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMobileMenu() {
+        mobileMenu?.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+
+      mobileMenuBtn?.addEventListener('click', () => {
+        if (mobileMenu?.classList.contains('hidden')) {
+          openMobileMenu();
+        } else {
+          closeMobileMenu();
+        }
+      });
+
+      mobileMenuClose?.addEventListener('click', closeMobileMenu);
+
+      mobileMenu?.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+      });
+
+      mobileMenu?.addEventListener('click', (e) => {
+        if (e.target === mobileMenu) {
+          closeMobileMenu();
+        }
+      });
+
+      // ==================== DESKTOP SERVICES DROPDOWN ====================
+      const servicesTrigger = document.getElementById('services-trigger');
+      const servicesMenu = document.getElementById('services-menu');
+      const servicesArrow = document.getElementById('services-arrow');
+      const servicesDropdown = document.getElementById('services-dropdown');
+      let servicesOpen = false;
+
+      function openServicesDropdown() {
+        servicesOpen = true;
+        servicesMenu?.classList.remove('opacity-0', 'invisible', 'pointer-events-none');
+        servicesMenu?.classList.add('opacity-100', 'visible', 'pointer-events-auto');
+        servicesArrow?.classList.add('rotate-180');
+        servicesTrigger?.classList.add('text-white');
+      }
+
+      function closeServicesDropdown() {
+        servicesOpen = false;
+        servicesMenu?.classList.add('opacity-0', 'invisible', 'pointer-events-none');
+        servicesMenu?.classList.remove('opacity-100', 'visible', 'pointer-events-auto');
+        servicesArrow?.classList.remove('rotate-180');
+        servicesTrigger?.classList.remove('text-white');
+      }
+
+      servicesTrigger?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (servicesOpen) {
+          closeServicesDropdown();
+        } else {
+          openServicesDropdown();
+        }
+      });
+
+      servicesDropdown?.addEventListener('mouseenter', openServicesDropdown);
+      servicesDropdown?.addEventListener('mouseleave', closeServicesDropdown);
+
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('#services-dropdown')) {
+          closeServicesDropdown();
+        }
+      });
+
+      // ==================== MOBILE SERVICES SUBMENU ====================
+      const mobileServicesToggle = document.getElementById('mobile-services-toggle');
+      const mobileServicesSubmenu = document.getElementById('mobile-services-submenu');
+      const mobileServicesArrow = document.getElementById('mobile-services-arrow');
+
+      mobileServicesToggle?.addEventListener('click', () => {
+        mobileServicesSubmenu?.classList.toggle('hidden');
+        mobileServicesArrow?.classList.toggle('rotate-180');
+      });
+
+      // ==================== NAVBAR SCROLL EFFECT ====================
+      let lastScroll = 0;
+      const navbar = document.querySelector('nav');
+      
+      window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll > 100) {
+          navbar?.classList.add('bg-neutral-950/95', 'shadow-lg');
+        } else {
+          navbar?.classList.remove('bg-neutral-950/95', 'shadow-lg');
+        }
+        
+        lastScroll = currentScroll;
+      });
+
+      // ==================== FAQ ACCORDION ====================
+      document.querySelectorAll('.faq-trigger').forEach(trigger => {
+        trigger.addEventListener('click', () => {
+          const faqItem = trigger.closest('.faq-item');
+          const isActive = faqItem?.classList.contains('active');
+          
+          // Close all other items
+          document.querySelectorAll('.faq-item').forEach(item => {
+            item.classList.remove('active');
+          });
+          
+          // Toggle current item
+          if (!isActive) {
+            faqItem?.classList.add('active');
+          }
+        });
+      });
+    </script>
+  </Fragment>
+</BaseLayout>
+

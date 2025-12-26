@@ -1,0 +1,71 @@
+{
+  "clients": [
+    {
+      "id": "ustecky",
+      "name_cs": "Ústecký kraj",
+      "name_en": "Ústí Region",
+      "logo": "/assets/images/clients/UsteckyKrajLogo.png",
+      "chatbot_logo": "/assets/images/clients/UsteckyKraj_Logo_UKBot.png",
+      "url": "https://www.kr-ustecky.cz/",
+      "grayscale_class": "logo-grayscale",
+      "stats": {
+        "ai_responses": 12847,
+        "accuracy": 91,
+        "satisfaction": 4.6
+      }
+    },
+    {
+      "id": "vysocina",
+      "name_cs": "Kraj Vysočina",
+      "name_en": "Vysočina Region",
+      "logo": "/assets/images/clients/KrajVysocina_Logo.png",
+      "chatbot_logo": "/assets/images/clients/KrajVysocina_Chatbot_Logo_panJerabek.png",
+      "url": "https://www.kr-vysocina.cz/",
+      "grayscale_class": "logo-grayscale",
+      "stats": {
+        "ai_responses": 8234,
+        "accuracy": 89,
+        "satisfaction": 4.5
+      }
+    },
+    {
+      "id": "kralovehradecky",
+      "name_cs": "Královéhradecký kraj",
+      "name_en": "Hradec Králové Region",
+      "logo": "/assets/images/clients/KralovehradeckyKraj_Logo_Krakonos.png",
+      "chatbot_logo": "/assets/images/clients/KralovehradeckyKraj_Chatbot_Logo.png",
+      "url": "https://www.khk.cz/",
+      "grayscale_class": "logo-grayscale",
+      "invert": true,
+      "stats": {
+        "ai_responses": 9512,
+        "accuracy": 92,
+        "satisfaction": 4.7
+      }
+    },
+    {
+      "id": "karlovarsky",
+      "name_cs": "Karlovarský kraj",
+      "name_en": "Karlovy Vary Region",
+      "logo": "/assets/images/clients/KarlovarskyKraj_Logo.png",
+      "chatbot_logo": "/assets/images/clients/KarlovarskyKraj_Chatbot_Logo_Praminek.png",
+      "url": "https://www.kr-karlovarsky.cz/",
+      "grayscale_class": "logo-grayscale"
+    },
+    {
+      "id": "stredocesky",
+      "name_cs": "Středočeský kraj",
+      "name_en": "Central Bohemian Region",
+      "logo": "/assets/images/clients/Stredocesky_kraj_logo.jpg",
+      "chatbot_logo": "/assets/images/clients/StredocekyKraj_Chatbot_Logo_Stredobot.png",
+      "url": "https://www.kr-stredocesky.cz/",
+      "grayscale_class": "logo-grayscale-jpg",
+      "stats": {
+        "ai_responses": 4502,
+        "accuracy": 90,
+        "satisfaction": 4.5
+      }
+    }
+  ]
+}
+

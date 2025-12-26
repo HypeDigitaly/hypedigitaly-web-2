@@ -1,0 +1,157 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { translations, type Language } from '../scripts/translations';
+
+const lang: Language = 'cs';
+const t = translations[lang];
+---
+
+<PageLayout 
+  title="AI Chatbot | HypeDigitaly - Inteligentní konverzační AI"
+  description="AI Chatbot řešení, které zpracovává dotazy a kvalifikuje leady za vás 24/7. Web, Instagram, WhatsApp, Messenger. 90%+ přesnost s RAG technologií."
+  lang={lang}
+>
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="relative max-w-7xl mx-auto px-6 pt-12 pb-24 overflow-hidden">
+    <div class="text-center max-w-5xl mx-auto relative z-10">
+      
+      <!-- Badge -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.1s_both] inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8">
+        <iconify-icon icon="solar:chat-round-dots-bold" class="text-primary text-lg"></iconify-icon>
+        <span class="text-sm font-medium text-primary">{t.chatbot_hero_badge}</span>
+      </div>
+      
+      <!-- Headline -->
+      <h1 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[0.95] md:text-6xl lg:text-7xl text-4xl font-medium text-white tracking-tighter mb-8">
+        <span>{t.chatbot_hero_headline_1}</span>
+        <br class="hidden md:block">
+        <span class="text-neutral-600 transition-colors hover:text-primary duration-500">{t.chatbot_hero_headline_2}</span>
+      </h1>
+      
+      <!-- Subheadline -->
+      <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg md:text-xl text-neutral-400 font-light max-w-3xl mx-auto leading-relaxed tracking-tight mb-12">
+        {t.chatbot_hero_subheadline}
+      </p>
+      
+      <!-- Hero CTA -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] max-w-md mx-auto mb-8">
+        <a href="#kontakt" class="shiny-cta group">
+          <span class="btn-content">
+            <span class="text-lg font-semibold tracking-tight">{t.chatbot_hero_cta}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white/80 group-hover:translate-x-1 transition-transform">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </span>
+        </a>
+      </div>
+      
+      <!-- Trust Signals -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] flex flex-wrap items-center justify-center gap-6 text-sm text-neutral-500 font-medium mb-16">
+        <span class="flex items-center gap-2">
+          <iconify-icon icon="solar:verified-check-bold" class="text-primary text-lg"></iconify-icon>
+          <span>{t.chatbot_trust_1}</span>
+        </span>
+        <span class="flex items-center gap-2">
+          <iconify-icon icon="solar:clock-circle-bold" class="text-primary text-lg"></iconify-icon>
+          <span>{t.chatbot_trust_2}</span>
+        </span>
+        <span class="flex items-center gap-2">
+          <iconify-icon icon="solar:global-bold" class="text-primary text-lg"></iconify-icon>
+          <span>{t.chatbot_trust_3}</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FEATURES SECTION ==================== -->
+  <section class="bg-[#050505] border-t border-white/5 py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-5xl mx-auto mb-16">
+        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[0.95] md:text-5xl lg:text-6xl text-3xl font-medium text-white tracking-tighter mb-8">
+          Klíčové funkce
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Feature 1 -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
+            <iconify-icon icon="solar:database-bold" class="text-2xl"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">RAG Technologie</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">Přesné odpovědi založené na vašich datech s 90%+ přesností. Žádné halucinace.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
+            <iconify-icon icon="solar:refresh-circle-bold" class="text-2xl"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">Automatické aktualizace</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">Knowledge base se automaticky aktualizuje podle změn na vašem webu.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
+            <iconify-icon icon="solar:global-bold" class="text-2xl"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">150+ jazyků</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">Automatický překlad a multijazyčná podpora pro globální dosah.</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
+            <iconify-icon icon="solar:share-bold" class="text-2xl"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">Multi-channel</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">Web, Instagram, WhatsApp, Messenger - jeden chatbot, všechny kanály.</p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
+            <iconify-icon icon="solar:chart-2-bold" class="text-2xl"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">Analytics & Reporting</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">Detailní přehledy konverzací, spokojenosti a výkonu chatbota.</p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.8s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
+            <iconify-icon icon="solar:settings-bold" class="text-2xl"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">Integrace</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">Napojení na CRM, helpdesk, rezervační systémy a další nástroje.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CTA SECTION ==================== -->
+  <section id="kontakt" class="bg-[#050505] border-t border-white/5 py-24">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] text-4xl md:text-5xl font-bold text-white mb-8">
+        Připraveni na vlastního AI chatbota?
+      </h2>
+      <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg text-neutral-400 mb-12 max-w-2xl mx-auto">
+        Domluvte si bezplatnou konzultaci a zjistěte, jak může AI chatbot pomoci vašemu byznysu.
+      </p>
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] max-w-md mx-auto">
+        <a href="/#kontakt" class="shiny-cta group">
+          <span class="btn-content">
+            <span class="text-lg font-semibold tracking-tight">Získat demo</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white/80 group-hover:translate-x-1 transition-transform">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+

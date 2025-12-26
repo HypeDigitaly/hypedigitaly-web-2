@@ -1,0 +1,124 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+
+const lang = 'cs';
+---
+
+<PageLayout 
+  title="Ochrana osobních údajů | HypeDigitaly"
+  description="Zásady ochrany osobních údajů společnosti HypeDigitaly s.r.o. Informace o zpracování osobních údajů."
+  lang={lang}
+  showDigitalRain={false}
+  simpleNav={true}
+  simpleFooter={true}
+>
+  <section class="max-w-4xl mx-auto px-6 py-12">
+    <h1 class="text-4xl md:text-5xl font-bold text-white mb-8">Zásady ochrany osobních údajů</h1>
+    <p class="text-neutral-400 mb-12">Poslední aktualizace: 1. ledna 2025</p>
+
+    <div class="prose prose-invert prose-neutral max-w-none">
+      <div class="space-y-8 text-neutral-300">
+        
+        <section>
+          <h2 class="text-2xl font-semibold text-white mb-4">1. Úvod</h2>
+          <p class="leading-relaxed">
+            Společnost HypeDigitaly s.r.o., IČO: 17665655, se sídlem Velká Hradební 2800/54, 400 01 Ústí nad Labem (dále jen „HypeDigitaly" nebo „my"), zpracovává osobní údaje v souladu s Nařízením Evropského parlamentu a Rady (EU) 2016/679 (GDPR) a zákonem č. 110/2019 Sb., o zpracování osobních údajů.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-white mb-4">2. Správce osobních údajů</h2>
+          <p class="leading-relaxed mb-4">
+            Správcem vašich osobních údajů je:
+          </p>
+          <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+            <p><strong class="text-white">HypeDigitaly s.r.o.</strong></p>
+            <p>Velká Hradební 2800/54</p>
+            <p>400 01 Ústí nad Labem</p>
+            <p>IČO: 17665655</p>
+            <p>E-mail: <a href="mailto:info@hypedigitaly.ai" class="text-primary hover:underline">info@hypedigitaly.ai</a></p>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-white mb-4">3. Jaké údaje zpracováváme</h2>
+          <p class="leading-relaxed mb-4">
+            Zpracováváme následující kategorie osobních údajů:
+          </p>
+          <ul class="list-disc pl-6 space-y-2">
+            <li><strong class="text-white">Identifikační údaje:</strong> jméno, příjmení, e-mailová adresa</li>
+            <li><strong class="text-white">Kontaktní údaje:</strong> telefonní číslo, adresa</li>
+            <li><strong class="text-white">Údaje o komunikaci:</strong> obsah zpráv, historie konverzací s AI chatbotem</li>
+            <li><strong class="text-white">Technické údaje:</strong> IP adresa, cookies, údaje o prohlížeči</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-white mb-4">4. Účely zpracování</h2>
+          <p class="leading-relaxed mb-4">
+            Vaše osobní údaje zpracováváme pro následující účely:
+          </p>
+          <ul class="list-disc pl-6 space-y-2">
+            <li>Poskytování našich služeb a produktů</li>
+            <li>Komunikace s vámi (odpovědi na dotazy, zasílání informací)</li>
+            <li>Zlepšování kvality našich AI chatbotů a služeb</li>
+            <li>Plnění právních povinností</li>
+            <li>Ochrana našich oprávněných zájmů</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-white mb-4">5. Právní základ zpracování</h2>
+          <p class="leading-relaxed mb-4">
+            Osobní údaje zpracováváme na základě:
+          </p>
+          <ul class="list-disc pl-6 space-y-2">
+            <li><strong class="text-white">Plnění smlouvy</strong> – pro poskytování objednaných služeb</li>
+            <li><strong class="text-white">Souhlasu</strong> – pro marketingovou komunikaci</li>
+            <li><strong class="text-white">Oprávněného zájmu</strong> – pro zlepšování služeb a ochranu před zneužitím</li>
+            <li><strong class="text-white">Právní povinnosti</strong> – pro splnění zákonných požadavků</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-white mb-4">6. Doba uchovávání</h2>
+          <p class="leading-relaxed">
+            Osobní údaje uchováváme po dobu nezbytně nutnou k naplnění účelů, pro které byly shromážděny, nebo po dobu stanovenou právními předpisy. Po uplynutí této doby jsou údaje bezpečně smazány nebo anonymizovány.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-white mb-4">7. Vaše práva</h2>
+          <p class="leading-relaxed mb-4">
+            V souvislosti se zpracováním osobních údajů máte následující práva:
+          </p>
+          <ul class="list-disc pl-6 space-y-2">
+            <li><strong class="text-white">Právo na přístup</strong> k vašim osobním údajům</li>
+            <li><strong class="text-white">Právo na opravu</strong> nepřesných údajů</li>
+            <li><strong class="text-white">Právo na výmaz</strong> („právo být zapomenut")</li>
+            <li><strong class="text-white">Právo na omezení zpracování</strong></li>
+            <li><strong class="text-white">Právo na přenositelnost údajů</strong></li>
+            <li><strong class="text-white">Právo vznést námitku</strong> proti zpracování</li>
+            <li><strong class="text-white">Právo odvolat souhlas</strong> se zpracováním</li>
+            <li><strong class="text-white">Právo podat stížnost</strong> u Úřadu pro ochranu osobních údajů</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-white mb-4">8. Kontakt</h2>
+          <p class="leading-relaxed">
+            Pro uplatnění vašich práv nebo s jakýmikoliv dotazy ohledně zpracování osobních údajů nás kontaktujte na e-mailu <a href="mailto:info@hypedigitaly.ai" class="text-primary hover:underline">info@hypedigitaly.ai</a>.
+          </p>
+        </section>
+
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .prose h2 {
+    margin-top: 2rem;
+  }
+</style>
+

@@ -1,0 +1,47 @@
+{
+  "items": [
+    {
+      "id": "faq-1",
+      "question_cs": "Co když ve firmě nemáme IT specialistu?",
+      "question_en": "What if we don't have an IT specialist?",
+      "answer_cs": "Navrhujeme řešení tak, aby fungovala i bez technických expertů. Podstatné je správně nastavit procesy a nástroje – a přesně to za vás vyřešíme.",
+      "answer_en": "We design solutions to work even without technical experts. What matters is properly setting up processes and tools – and that's exactly what we'll handle for you."
+    },
+    {
+      "id": "faq-2",
+      "question_cs": "Co když náš tým s AI neumí pracovat?",
+      "question_en": "What if our team can't work with AI?",
+      "answer_cs": "Školení a průběžná podpora adopce jsou součástí spolupráce. Zaměstnanci se učí přímo při práci – na reálných úkolech, ne z teoretických materiálů.",
+      "answer_en": "Training and ongoing adoption support are part of the collaboration. Employees learn directly on the job – on real tasks, not from theoretical materials."
+    },
+    {
+      "id": "faq-3",
+      "question_cs": "Jak brzy uvidíme výsledky?",
+      "question_en": "How soon will we see results?",
+      "answer_cs": "Zpravidla během 2–4 týdnů. Začínáme rychlými výhrami s okamžitým efektem. Vyhýbáme se dlouhým analýzám bez hmatatelných výstupů.",
+      "answer_en": "Typically within 2–4 weeks. We start with quick wins delivering immediate impact. We avoid lengthy analyses without tangible outputs."
+    },
+    {
+      "id": "faq-4",
+      "question_cs": "Co když nebudeme s výsledky spokojeni?",
+      "question_en": "What if we're not satisfied with results?",
+      "answer_cs": "Máme aktivní záruku – pokud do 30 dnů neuvidíte konkrétní časovou úsporu a funkční AI workflow, pokračujeme další měsíc bez příplatku.",
+      "answer_en": "We have an active guarantee – if you don't see specific time savings and functional AI workflow within 30 days, we continue the next month at no extra charge."
+    },
+    {
+      "id": "faq-5",
+      "question_cs": "V čem se odlišujete od jiných AI poradců?",
+      "question_en": "How do you differ from other AI consultants?",
+      "answer_cs": "Jsme první česká softwarová firma, která úspěšně spustila AI chatboty na krajských webech. Máme reálná čísla – přes 35 000 AI odpovědí, 5 krajů, prokazatelné ROI. Neděláme jen prezentace, ale praktickou realizaci.",
+      "answer_en": "We're the first Czech software company that successfully launched AI chatbots on regional government websites. We have real numbers – over 35,000 AI responses, 5 regions, proven ROI. We don't just do presentations, but practical implementation."
+    },
+    {
+      "id": "faq-6",
+      "question_cs": "Co je RAGus.ai?",
+      "question_en": "What is RAGus.ai?",
+      "answer_cs": "RAGus.ai je naše specializovaná RAG-as-a-Service platforma určená AI agenturám, enterprise AI týmům, RAG vývojářům a no-code builderům využívajícím Voiceflow, Botpress či podobné nástroje. Nabízí enterprise-grade infrastrukturu pro vyhledávání znalostí s 99% přesností.",
+      "answer_en": "RAGus.ai is our specialized RAG-as-a-Service platform designed for AI agencies, enterprise AI teams, RAG developers and no-code builders using Voiceflow, Botpress or similar tools. It offers enterprise-grade knowledge retrieval infrastructure with 99% accuracy."
+    }
+  ]
+}
+

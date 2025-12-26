@@ -1,0 +1,95 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+
+const lang = 'cs';
+---
+
+<PageLayout 
+  title="Doporučení na web | HypeDigitaly"
+  description="Doporučení pro implementaci AI chatbotů na webové stránky - GDPR, cookies, AI Act."
+  lang={lang}
+  showDigitalRain={false}
+  simpleNav={true}
+  simpleFooter={true}
+>
+  <section class="max-w-4xl mx-auto px-6 py-12">
+    <h1 class="text-4xl md:text-5xl font-bold text-white mb-8">Doporučení pro implementaci na web</h1>
+    <p class="text-neutral-400 mb-12">Právní a technická doporučení pro provozovatele webových stránek s AI chatbotem</p>
+
+    <div class="prose prose-invert prose-neutral max-w-none">
+      <div class="space-y-8 text-neutral-300">
+        
+        <section>
+          <h2 class="text-2xl font-semibold text-white mb-4">1. GDPR a ochrana osobních údajů</h2>
+          <p class="leading-relaxed mb-4">
+            Při implementaci AI chatbota na vaše webové stránky je nutné zajistit soulad s GDPR:
+          </p>
+          <ul class="list-disc pl-6 space-y-2">
+            <li>Aktualizujte své zásady ochrany osobních údajů o informace o zpracování dat chatbotem</li>
+            <li>Informujte uživatele, že komunikují s AI asistentem</li>
+            <li>Zajistěte možnost přístupu k historii konverzací a jejich výmazu</li>
+            <li>Definujte dobu uchovávání konverzačních dat</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-white mb-4">2. Nastavení cookies</h2>
+          <p class="leading-relaxed mb-4">
+            AI chatbot může využívat cookies pro své fungování. Doporučujeme:
+          </p>
+          <ul class="list-disc pl-6 space-y-2">
+            <li>Zahrnout informace o cookies chatbota do cookie lišty</li>
+            <li>Umožnit uživatelům odmítnout nezbytné cookies (chatbot pak nebude ukládat kontext)</li>
+            <li>Rozlišit mezi nutnými a analytickými cookies chatbota</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-white mb-4">3. AI Act - nové nařízení EU</h2>
+          <p class="leading-relaxed mb-4">
+            Od roku 2024 platí v EU nařízení o umělé inteligenci (AI Act). Pro chatboty to znamená:
+          </p>
+          <div class="bg-white/5 p-6 rounded-xl border border-white/10 mb-4">
+            <h3 class="text-lg font-semibold text-white mb-3">Povinnosti provozovatele:</h3>
+            <ul class="list-disc pl-6 space-y-2">
+              <li>Jasně informovat uživatele, že komunikují s AI systémem</li>
+              <li>Zajistit transparentnost ohledně schopností a limitů chatbota</li>
+              <li>Dokumentovat účel a způsob nasazení AI</li>
+              <li>Implementovat mechanismy pro lidský dohled</li>
+            </ul>
+          </div>
+          <p class="leading-relaxed">
+            Chatboty pro zákaznickou podporu jsou obecně klasifikovány jako systémy s minimálním rizikem, ale stále podléhají požadavkům na transparentnost.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-white mb-4">4. Doporučený text pro web</h2>
+          <p class="leading-relaxed mb-4">
+            Příklad textu, který můžete použít ve svých zásadách ochrany osobních údajů:
+          </p>
+          <div class="bg-primary/5 p-6 rounded-xl border border-primary/20">
+            <p class="italic">
+              „Na našich webových stránkách využíváme AI chatbota pro poskytování zákaznické podpory. Tento virtuální asistent je poháněn umělou inteligencí a může odpovídat na vaše dotazy 24/7. Veškerá komunikace s chatbotem je zpracovávána v souladu s našimi zásadami ochrany osobních údajů. Konverzace mohou být uchovávány pro účely zlepšování kvality služeb po dobu [X měsíců]. Máte právo požádat o výmaz své konverzační historie."
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-white mb-4">5. Kontakt</h2>
+          <p class="leading-relaxed">
+            Pro více informací o správné implementaci AI chatbota na vaše webové stránky nás kontaktujte na <a href="mailto:info@hypedigitaly.ai" class="text-primary hover:underline">info@hypedigitaly.ai</a>.
+          </p>
+        </section>
+
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .prose h2 {
+    margin-top: 2rem;
+  }
+</style>
+
