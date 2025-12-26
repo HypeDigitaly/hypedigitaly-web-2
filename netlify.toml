@@ -1,18 +1,12 @@
 [build]
+  base = "astro-src"
   command = "npm run build"
-  publish = "dist"
+  publish = "astro-src/dist"
 
 [build.environment]
   NODE_VERSION = "18"
 
-# Redirects for SPA-like behavior (optional)
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  conditions = {Role = ["admin"]}
-
-# Headers for better caching
+# Headers for better caching and security
 [[headers]]
   for = "/*"
   [headers.values]
