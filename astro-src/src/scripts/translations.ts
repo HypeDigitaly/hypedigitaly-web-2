@@ -767,7 +767,7 @@ export const translations: Record<Language, TranslationKeys> = {
   }
 };
 
-export function t(key: keyof TranslationKeys, lang: Language = 'cs'): string {
+export function t(key: string, lang: Language = 'cs'): string {
   return translations[lang][key] || key;
 }
 
