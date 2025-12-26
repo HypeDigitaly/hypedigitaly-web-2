@@ -1,7 +1,7 @@
 [build]
   base = "astro-src"
   command = "npm run build"
-  publish = "astro-src/dist"
+  publish = "dist"
 
 [build.environment]
   NODE_VERSION = "18"
