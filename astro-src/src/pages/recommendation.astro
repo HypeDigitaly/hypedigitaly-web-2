@@ -9,87 +9,71 @@ const lang = 'cs';
   description="Doporučení pro implementaci AI chatbotů na webové stránky - GDPR, cookies, AI Act."
   lang={lang}
   showDigitalRain={false}
-  simpleNav={true}
-  simpleFooter={true}
+  simpleNav={false}
+  simpleFooter={false}
 >
-  <section class="max-w-4xl mx-auto px-6 py-12">
-    <h1 class="text-4xl md:text-5xl font-bold text-white mb-8">Doporučení pro implementaci na web</h1>
-    <p class="text-neutral-400 mb-12">Právní a technická doporučení pro provozovatele webových stránek s AI chatbotem</p>
+  <main class="max-w-4xl mx-auto px-6 py-20">
+    <header class="mb-16">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-white">Doporučení na web</h1>
+      <p class="text-neutral-400 text-lg leading-relaxed">
+        Pokud se rozhodnete využívat služby našich AI asistentů, měli byste zároveň dodržovat pravidla GDPR a dalších relevantních předpisů. Toto se vás týká zejména pokud chcete využívat AI asistenta pro automatizovaný sběr kontaktů i zpracování osobních údajů obecně.
+      </p>
+    </header>
 
-    <div class="prose prose-invert prose-neutral max-w-none">
-      <div class="space-y-8 text-neutral-300">
-        
-        <section>
-          <h2 class="text-2xl font-semibold text-white mb-4">1. GDPR a ochrana osobních údajů</h2>
-          <p class="leading-relaxed mb-4">
-            Při implementaci AI chatbota na vaše webové stránky je nutné zajistit soulad s GDPR:
-          </p>
-          <ul class="list-disc pl-6 space-y-2">
-            <li>Aktualizujte své zásady ochrany osobních údajů o informace o zpracování dat chatbotem</li>
-            <li>Informujte uživatele, že komunikují s AI asistentem</li>
-            <li>Zajistěte možnost přístupu k historii konverzací a jejich výmazu</li>
-            <li>Definujte dobu uchovávání konverzačních dat</li>
+    <div class="prose prose-invert max-w-none space-y-16 text-neutral-300 leading-relaxed">
+      
+      <section>
+        <h2 class="text-2xl font-bold text-white mb-6 border-l-4 border-primary pl-4">Zásady zpracování osobních údajů</h2>
+        <p class="mb-4">
+          Spolu se získáváním souhlasu by měl být uživatel chatbotu informován o tom, <strong class="text-white">jak se jeho osobní údaje budou zpracovávat</strong>. Proto v rámci patičky chatbotu nebo do jeho textu (na začátek konverzace) musíte vložit odkaz na vaše zásady zpracování osobních údajů.
+        </p>
+        <p>
+          Standardně půjde <strong class="text-white">o souhlas nebo oprávněný zájem</strong>. Účelem pak bude komunikace s podporou, vyřízení dotazu či stížnosti, případně i zasílání obchodních sdělení, kde musíte získat explicitní souhlas.
+        </p>
+      </section>
+
+      <section class="bg-white/[0.03] border border-white/5 rounded-2xl p-8">
+        <h3 class="text-xl font-bold text-white mb-6">Příklad implementace do zásad</h3>
+        <div class="space-y-6 text-sm bg-black/40 p-6 rounded-xl border border-white/5 font-mono leading-relaxed">
+          <p><span class="text-primary font-bold">Účel zpracování:</span> <strong class="text-white">Užití AI asistenta.</strong> Na našich webových stránkách užíváme AI asistenta pro vyřizování vašich dotazů, stížností či dalším obdobným účelům. Osobní data zpracováváme na základě <strong class="text-white">oprávněného zájmu</strong>, případně na základě <strong class="text-white">souhlasu</strong> u údajů, které nám sdělíte.</p>
+          <p><span class="text-primary font-bold">Zpracování AI:</span> Upozorňujeme, že do zpracování osobních údajů v tomto účelu bude zapojena umělá inteligence.</p>
+          <p><span class="text-primary font-bold">Rozsah zpracování:</span> IP adresa, typ zařízení, jazyk prohlížeče, časové pásmo a všechny údaje, které nám sdělíte (jméno, příjmení, e-mail, telefon atd.).</p>
+          <p><span class="text-primary font-bold">Délka zpracování:</span> Vaše osobní údaje <strong class="text-white">zpracováváme 3,5 roku od jejich vložení do AI asistenta</strong> (položení dotazu).</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-white mb-6 border-l-4 border-primary pl-4">Nastavení cookies</h2>
+        <p class="mb-6">
+          V rámci vašich webových stránek je vhodné nastavit správně cookies lištu. Tedy informovat, jaké cookies využíváte v rámci dané stránky i chatbotu. Doporučujeme užít vhodné nástroje jako <strong class="text-white">Cookiebot, Cookiefirst nebo Cookie-Script</strong>.
+        </p>
+        <div class="bg-white/[0.02] p-8 rounded-xl border border-white/5">
+          <p class="mb-4 font-bold text-white">LocalStorage / SessionStorage</p>
+          <p class="mb-4">V rámci naší činnosti používáme pro ukládání LocalStorage/SessionStorage. Ukládáme následující údaje:</p>
+          <ul class="grid md:grid-cols-2 gap-4">
+            <li class="flex items-start gap-2 bg-white/[0.03] p-3 rounded-lg border border-white/5">
+              <span class="text-primary mt-1">✓</span> Historie aktuální konverzace
+            </li>
+            <li class="flex items-start gap-2 bg-white/[0.03] p-3 rounded-lg border border-white/5">
+              <span class="text-primary mt-1">✓</span> Stav / čas konverzace
+            </li>
+            <li class="flex items-start gap-2 bg-white/[0.03] p-3 rounded-lg border border-white/5">
+              <span class="text-primary mt-1">✓</span> Seznam navštívených URL
+            </li>
+            <li class="flex items-start gap-2 bg-white/[0.03] p-3 rounded-lg border border-white/5">
+              <span class="text-primary mt-1">✓</span> ID uživatele (unikátní ID)
+            </li>
           </ul>
-        </section>
+        </div>
+      </section>
 
-        <section>
-          <h2 class="text-2xl font-semibold text-white mb-4">2. Nastavení cookies</h2>
-          <p class="leading-relaxed mb-4">
-            AI chatbot může využívat cookies pro své fungování. Doporučujeme:
-          </p>
-          <ul class="list-disc pl-6 space-y-2">
-            <li>Zahrnout informace o cookies chatbota do cookie lišty</li>
-            <li>Umožnit uživatelům odmítnout nezbytné cookies (chatbot pak nebude ukládat kontext)</li>
-            <li>Rozlišit mezi nutnými a analytickými cookies chatbota</li>
-          </ul>
-        </section>
+      <section class="bg-primary/5 border border-primary/20 rounded-2xl p-8">
+        <h2 class="text-2xl font-bold text-white mb-4">Upozornění na interakci s AI (AI Act)</h2>
+        <p>
+          Dle legislativy <strong class="text-white">AI Act</strong> je povinné zajistit, aby byl uživatel před interakcí s AI o tomto transparentně informován. V rámci užívání chatbotu tedy vždy musí být před konverzací s AI o tomto dopředu upozorněno. Toto v chatbotu musí vždy být jasně a zřetelně uvedeno.
+        </p>
+      </section>
 
-        <section>
-          <h2 class="text-2xl font-semibold text-white mb-4">3. AI Act - nové nařízení EU</h2>
-          <p class="leading-relaxed mb-4">
-            Od roku 2024 platí v EU nařízení o umělé inteligenci (AI Act). Pro chatboty to znamená:
-          </p>
-          <div class="bg-white/5 p-6 rounded-xl border border-white/10 mb-4">
-            <h3 class="text-lg font-semibold text-white mb-3">Povinnosti provozovatele:</h3>
-            <ul class="list-disc pl-6 space-y-2">
-              <li>Jasně informovat uživatele, že komunikují s AI systémem</li>
-              <li>Zajistit transparentnost ohledně schopností a limitů chatbota</li>
-              <li>Dokumentovat účel a způsob nasazení AI</li>
-              <li>Implementovat mechanismy pro lidský dohled</li>
-            </ul>
-          </div>
-          <p class="leading-relaxed">
-            Chatboty pro zákaznickou podporu jsou obecně klasifikovány jako systémy s minimálním rizikem, ale stále podléhají požadavkům na transparentnost.
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-semibold text-white mb-4">4. Doporučený text pro web</h2>
-          <p class="leading-relaxed mb-4">
-            Příklad textu, který můžete použít ve svých zásadách ochrany osobních údajů:
-          </p>
-          <div class="bg-primary/5 p-6 rounded-xl border border-primary/20">
-            <p class="italic">
-              „Na našich webových stránkách využíváme AI chatbota pro poskytování zákaznické podpory. Tento virtuální asistent je poháněn umělou inteligencí a může odpovídat na vaše dotazy 24/7. Veškerá komunikace s chatbotem je zpracovávána v souladu s našimi zásadami ochrany osobních údajů. Konverzace mohou být uchovávány pro účely zlepšování kvality služeb po dobu [X měsíců]. Máte právo požádat o výmaz své konverzační historie."
-            </p>
-          </div>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-semibold text-white mb-4">5. Kontakt</h2>
-          <p class="leading-relaxed">
-            Pro více informací o správné implementaci AI chatbota na vaše webové stránky nás kontaktujte na <a href="mailto:info@hypedigitaly.ai" class="text-primary hover:underline">info@hypedigitaly.ai</a>.
-          </p>
-        </section>
-
-      </div>
     </div>
-  </section>
+  </main>
 </PageLayout>
-
-<style>
-  .prose h2 {
-    margin-top: 2rem;
-  }
-</style>
-

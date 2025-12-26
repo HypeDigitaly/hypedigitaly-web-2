@@ -1,5 +1,145 @@
 @import "tailwindcss";
 
+/* ==================== TAILWIND V4 CUSTOM THEME ==================== */
+@theme {
+  --color-primary: #00A39A;
+  --color-primary-light: #00C4B4;
+  --color-primary-dark: #008B84;
+  --font-family-geist: 'Geist', sans-serif;
+}
+
+/* ==================== PRIMARY COLOR UTILITY CLASSES ==================== */
+/* These are needed because Tailwind v4 @theme may not be fully processed */
+.text-primary {
+  color: #00A39A !important;
+}
+
+.bg-primary {
+  background-color: #00A39A !important;
+}
+
+.bg-primary\/5 {
+  background-color: rgba(0, 163, 154, 0.05) !important;
+}
+
+.bg-primary\/10 {
+  background-color: rgba(0, 163, 154, 0.1) !important;
+}
+
+.bg-primary\/20 {
+  background-color: rgba(0, 163, 154, 0.2) !important;
+}
+
+.bg-primary\/30 {
+  background-color: rgba(0, 163, 154, 0.3) !important;
+}
+
+.border-primary {
+  border-color: #00A39A !important;
+}
+
+.border-primary\/20 {
+  border-color: rgba(0, 163, 154, 0.2) !important;
+}
+
+.border-primary\/30 {
+  border-color: rgba(0, 163, 154, 0.3) !important;
+}
+
+.border-primary\/40 {
+  border-color: rgba(0, 163, 154, 0.4) !important;
+}
+
+.border-primary\/50 {
+  border-color: rgba(0, 163, 154, 0.5) !important;
+}
+
+.hover\:text-primary:hover {
+  color: #00A39A !important;
+}
+
+.hover\:bg-primary:hover {
+  background-color: #00A39A !important;
+}
+
+.hover\:bg-primary\/5:hover {
+  background-color: rgba(0, 163, 154, 0.05) !important;
+}
+
+.hover\:bg-primary\/10:hover {
+  background-color: rgba(0, 163, 154, 0.1) !important;
+}
+
+.hover\:bg-primary\/\[0\.05\]:hover {
+  background-color: rgba(0, 163, 154, 0.05) !important;
+}
+
+.hover\:bg-primary\/\[0\.12\]:hover {
+  background-color: rgba(0, 163, 154, 0.12) !important;
+}
+
+.hover\:border-primary\/20:hover {
+  border-color: rgba(0, 163, 154, 0.2) !important;
+}
+
+.hover\:border-primary\/30:hover {
+  border-color: rgba(0, 163, 154, 0.3) !important;
+}
+
+.hover\:border-primary\/40:hover {
+  border-color: rgba(0, 163, 154, 0.4) !important;
+}
+
+.hover\:border-primary\/50:hover {
+  border-color: rgba(0, 163, 154, 0.5) !important;
+}
+
+.group:hover .group-hover\:text-primary {
+  color: #00A39A !important;
+}
+
+.group:hover .group-hover\:text-white {
+  color: #ffffff !important;
+}
+
+.group:hover .group-hover\:text-neutral-300 {
+  color: rgb(212, 212, 212) !important;
+}
+
+.group:hover .group-hover\:text-neutral-400 {
+  color: rgb(163, 163, 163) !important;
+}
+
+.group:hover .group-hover\:translate-x-1 {
+  --tw-translate-x: 0.25rem;
+  transform: translateX(0.25rem);
+}
+
+.from-primary\/10 {
+  --tw-gradient-from: rgba(0, 163, 154, 0.1);
+}
+
+.from-primary\/20 {
+  --tw-gradient-from: rgba(0, 163, 154, 0.2);
+}
+
+.from-primary\/30 {
+  --tw-gradient-from: rgba(0, 163, 154, 0.3);
+}
+
+.selection\:bg-primary\/20::selection {
+  background-color: rgba(0, 163, 154, 0.2);
+}
+
+/* Primary Light variants */
+.text-primary-light {
+  color: #00C4B4 !important;
+}
+
+.hover\:text-primary-light:hover {
+  color: #00C4B4 !important;
+}
+
 /* ==================== CUSTOM FONTS ==================== */
 @font-face {
   font-family: 'Geist';
@@ -63,6 +203,41 @@ html {
   100% { background-position: 0% 50%; }
 }
 
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-scroll-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes icon-glow {
+  0%, 100% { filter: drop-shadow(0 0 3px currentColor); }
+  50% { filter: drop-shadow(0 0 8px currentColor); }
+}
+
+@keyframes float-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* ==================== MARQUEE ANIMATIONS ==================== */
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+/* Pause marquee on hover for better logo interaction */
+.logo-marquee-wrapper:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
 /* ==================== SCROLL ANIMATIONS ==================== */
 .animate-on-scroll { 
   animation-play-state: paused !important; 
@@ -84,22 +259,67 @@ html {
 .logo-grayscale {
   filter: brightness(0) invert(1);
   opacity: 0.6;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+  will-change: filter, opacity, transform;
+  transform: scale(1);
+  backface-visibility: hidden;
 }
 
 .logo-grayscale-jpg {
   filter: grayscale(100%);
   opacity: 0.6;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+  will-change: filter, opacity, transform;
+  transform: scale(1);
+  backface-visibility: hidden;
 }
 
+/* Logo link wrapper for better hover detection */
+.logo-link {
+  display: inline-block;
+  position: relative;
+  isolation: isolate;
+}
+
+.logo-link:hover .logo-grayscale {
+  filter: brightness(1) invert(0) grayscale(0%);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.logo-link:hover .logo-grayscale-jpg {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Fallback for direct image hover (without .logo-link wrapper) */
 .logo-grayscale:hover,
-.logo-grayscale-jpg:hover,
+.logo-grayscale-jpg:hover {
+  filter: brightness(1) invert(0) grayscale(0%);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Deprecated: Old anchor hover - keep for backwards compatibility */
 a:hover .logo-grayscale,
 a:hover .logo-grayscale-jpg {
   filter: brightness(1) invert(0) grayscale(0%);
   opacity: 1;
-  transform: scale(1.05);
+  transform: scale(1.1);
+}
+
+/* JavaScript-controlled hover state for marquee logos */
+.logo-link.is-hovered .logo-grayscale {
+  filter: brightness(1) invert(0) grayscale(0%) !important;
+  opacity: 1 !important;
+  transform: scale(1.1) !important;
+}
+
+.logo-link.is-hovered .logo-grayscale-jpg {
+  filter: grayscale(0%) !important;
+  opacity: 1 !important;
+  transform: scale(1.1) !important;
 }
 
 /* ==================== FAQ ACCORDION ==================== */
@@ -778,5 +998,548 @@ a:hover .logo-grayscale-jpg {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* ==================== NAV CTA BUTTON BUBBLES ==================== */
+.nav-bubbles-wrapper {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.nav-bubbles-wrapper .nav-bubble {
+  bottom: -6px;
+  position: absolute;
+  animation: nav-floating-bubbles infinite ease-in-out;
+  pointer-events: none;
+  width: 3px;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 9999px;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes nav-floating-bubbles {
+  0% { transform: translateY(0); opacity: 0.8; }
+  50% { opacity: 1; }
+  85% { opacity: 0; }
+  100% { transform: translateY(-45px); opacity: 0; }
+}
+
+.nav-bubbles-wrapper .nav-bubble:nth-child(1) { left: 8%; opacity: 0.9; animation-duration: 2.2s; animation-delay: 0s; }
+.nav-bubbles-wrapper .nav-bubble:nth-child(2) { left: 22%; opacity: 0.7; animation-duration: 2.5s; animation-delay: 0.4s; }
+.nav-bubbles-wrapper .nav-bubble:nth-child(3) { left: 35%; opacity: 0.8; animation-duration: 2.0s; animation-delay: 0.8s; }
+.nav-bubbles-wrapper .nav-bubble:nth-child(4) { left: 48%; opacity: 0.6; animation-duration: 2.3s; animation-delay: 0.2s; }
+.nav-bubbles-wrapper .nav-bubble:nth-child(5) { left: 60%; opacity: 1; animation-duration: 1.9s; animation-delay: 1.0s; }
+.nav-bubbles-wrapper .nav-bubble:nth-child(6) { left: 72%; opacity: 0.7; animation-duration: 2.4s; animation-delay: 0.6s; }
+.nav-bubbles-wrapper .nav-bubble:nth-child(7) { left: 85%; opacity: 0.8; animation-duration: 2.1s; animation-delay: 1.2s; }
+.nav-bubbles-wrapper .nav-bubble:nth-child(8) { left: 95%; opacity: 0.6; animation-duration: 2.6s; animation-delay: 0.3s; }
+
+/* ==================== COOKIE CONSENT BANNER - BOTTOM LEFT POPUP ==================== */
+.cookie-banner {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 99999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+.cookie-banner.cookie-banner-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.cookie-banner-inner {
+  position: relative;
+  width: 420px;
+  max-width: calc(100vw - 3rem);
+  max-height: calc(100vh - 3rem);
+  overflow-y: auto;
+  background: linear-gradient(145deg, rgba(18, 18, 18, 0.98), rgba(8, 8, 8, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 
+    0 20px 40px -10px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(0, 163, 154, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  animation: cookiePopupIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Expanded state for details view */
+.cookie-banner.expanded .cookie-banner-inner {
+  width: 480px;
+}
+
+@keyframes cookiePopupIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.cookie-header {
+  margin-bottom: 0.875rem;
+}
+
+.cookie-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 0.25rem 0;
+  letter-spacing: -0.02em;
+}
+
+.cookie-subtitle {
+  font-size: 0.8rem;
+  color: rgba(0, 163, 154, 0.9);
+  margin: 0;
+  font-weight: 500;
+}
+
+.cookie-description {
+  font-size: 0.825rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.55);
+  margin-bottom: 1.25rem;
+}
+
+/* Cookie Details Section */
+.cookie-details {
+  margin-bottom: 1.25rem;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.3s ease, max-height 0.4s ease;
+}
+
+.cookie-details.cookie-details-visible {
+  opacity: 1;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.cookie-category {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 0.875rem;
+  padding: 0.875rem;
+  margin-bottom: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.cookie-category:hover {
+  border-color: rgba(0, 163, 154, 0.15);
+  background: rgba(0, 163, 154, 0.02);
+}
+
+.cookie-category:last-child {
+  margin-bottom: 0;
+}
+
+.cookie-category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.cookie-category-info {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.cookie-category-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.625rem;
+  flex-shrink: 0;
+}
+
+.cookie-category-icon iconify-icon,
+.cookie-category-icon svg {
+  font-size: 1.125rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  line-height: 1;
+}
+
+.cookie-category-icon.necessary {
+  background: rgba(0, 163, 154, 0.15);
+  color: #00A39A;
+}
+
+.cookie-category-icon.functional {
+  background: rgba(96, 165, 250, 0.15);
+  color: #60a5fa;
+}
+
+.cookie-category-icon.analytics {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+}
+
+.cookie-category-icon.marketing {
+  background: rgba(244, 114, 182, 0.15);
+  color: #f472b6;
+}
+
+.cookie-category-icon.necessary iconify-icon,
+.cookie-category-icon.necessary svg { color: #00A39A; }
+.cookie-category-icon.functional iconify-icon,
+.cookie-category-icon.functional svg { color: #60a5fa; }
+.cookie-category-icon.analytics iconify-icon,
+.cookie-category-icon.analytics svg { color: #fbbf24; }
+.cookie-category-icon.marketing iconify-icon,
+.cookie-category-icon.marketing svg { color: #f472b6; }
+
+.cookie-category-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 0.125rem 0;
+}
+
+.cookie-category-badge {
+  font-size: 0.65rem;
+  font-weight: 500;
+  padding: 0.15rem 0.4rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.cookie-category-badge.necessary {
+  background: rgba(0, 163, 154, 0.15);
+  color: #00A39A;
+}
+
+.cookie-category-desc {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0.625rem 0 0 0;
+  padding-left: 2.625rem;
+}
+
+/* Cookie Toggle Switch */
+.cookie-toggle {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.cookie-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.cookie-toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  transition: all 0.25s ease;
+}
+
+.cookie-toggle-slider::before {
+  content: "";
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: 50%;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.cookie-toggle input:checked + .cookie-toggle-slider {
+  background: rgba(0, 163, 154, 0.3);
+  border-color: rgba(0, 163, 154, 0.5);
+}
+
+.cookie-toggle input:checked + .cookie-toggle-slider::before {
+  transform: translateX(20px);
+  background: #00A39A;
+  box-shadow: 0 0 10px rgba(0, 163, 154, 0.4);
+}
+
+.cookie-toggle.disabled .cookie-toggle-slider {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.cookie-toggle.disabled input:checked + .cookie-toggle-slider {
+  background: rgba(0, 163, 154, 0.2);
+}
+
+/* Cookie Buttons - Improved Layout */
+.cookie-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  margin-bottom: 1rem;
+}
+
+.cookie-btn-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.cookie-btn-details {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.875rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.55);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.625rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cookie-btn-details:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.cookie-btn-details.active {
+  color: #00A39A;
+  border-color: rgba(0, 163, 154, 0.3);
+  background: rgba(0, 163, 154, 0.08);
+}
+
+.cookie-btn-reject {
+  padding: 0.5rem 0.875rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.55);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.625rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cookie-btn-reject:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.cookie-btn-accept {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #050505;
+  background: linear-gradient(135deg, #00A39A 0%, #00C4B4 100%);
+  border: none;
+  border-radius: 0.625rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 10px rgba(0, 163, 154, 0.25);
+  margin-left: auto;
+}
+
+.cookie-btn-accept:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 163, 154, 0.35);
+}
+
+.cookie-btn-accept:active {
+  transform: translateY(0);
+}
+
+.cookie-btn-selected {
+  width: 100%;
+  padding: 0.625rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: rgba(0, 163, 154, 0.2);
+  border: 1px solid rgba(0, 163, 154, 0.4);
+  border-radius: 0.625rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cookie-btn-selected:hover {
+  background: rgba(0, 163, 154, 0.3);
+  border-color: rgba(0, 163, 154, 0.5);
+}
+
+/* Cookie Links */
+.cookie-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0.875rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cookie-link {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.cookie-link:hover {
+  color: #00A39A;
+}
+
+/* Cookie Settings Button - LEFT BOTTOM */
+.cookie-settings-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  background: linear-gradient(145deg, rgba(18, 18, 18, 0.98), rgba(8, 8, 8, 0.98));
+  border: 1px solid rgba(0, 163, 154, 0.4);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 163, 154, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.8);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cookie-settings-btn .cookie-icon-svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #00A39A;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.cookie-settings-btn.cookie-settings-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.cookie-settings-btn:hover {
+  border-color: rgba(0, 163, 154, 0.6);
+  transform: scale(1.1);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 163, 154, 0.3);
+}
+
+.cookie-settings-btn:hover .cookie-icon-svg {
+  color: #00C4B4;
+  transform: rotate(15deg);
+}
+
+.cookie-settings-btn:active {
+  transform: scale(1);
+}
+
+/* Scrollbar for cookie banner */
+.cookie-banner-inner::-webkit-scrollbar {
+  width: 5px;
+}
+
+.cookie-banner-inner::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cookie-banner-inner::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+}
+
+.cookie-banner-inner::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 480px) {
+  .cookie-banner {
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+  }
+  
+  .cookie-banner-inner {
+    width: 100%;
+    max-width: none;
+    padding: 1.25rem;
+    border-radius: 1rem;
+  }
+  
+  .cookie-banner.expanded .cookie-banner-inner {
+    width: 100%;
+  }
+  
+  .cookie-title {
+    font-size: 1rem;
+  }
+  
+  .cookie-description {
+    font-size: 0.8rem;
+  }
+  
+  .cookie-category-desc {
+    padding-left: 0;
+    margin-top: 0.5rem;
+  }
+  
+  .cookie-btn-row {
+    flex-direction: column;
+  }
+  
+  .cookie-btn-details,
+  .cookie-btn-reject,
+  .cookie-btn-accept {
+    width: 100%;
+    justify-content: center;
+    margin-left: 0;
+  }
+  
+  .cookie-settings-btn {
+    bottom: 1rem;
+    left: 1rem;
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+  
+  .cookie-settings-btn .cookie-icon-svg {
+    width: 1.25rem;
+    height: 1.25rem;
   }
 }

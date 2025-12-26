@@ -1,0 +1,154 @@
+---
+import { translations, type Language } from '../../scripts/translations';
+import clientsData from '../../data/clients.json';
+
+export interface Props {
+  lang?: Language;
+  title?: string;
+  showTitle?: boolean;
+  className?: string;
+}
+
+const { 
+  lang = 'cs', 
+  title,
+  showTitle = true,
+  className = ''
+} = Astro.props;
+
+const t = translations[lang];
+const displayTitle = title || t.trusted_title;
+
+// Generate unique ID for each marquee instance
+const marqueeId = `logo-marquee-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<section class={`border-t border-white/5 bg-[#050505] py-16 overflow-hidden ${className}`}>
+  <div class="max-w-7xl mx-auto px-6">
+    {showTitle && (
+      <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0s_both] text-center text-xs text-neutral-600 font-bold tracking-widest mb-10 uppercase">
+        {displayTitle}
+      </p>
+    )}
+    
+    <!-- Logo Marquee -->
+    <div class="logo-marquee-wrapper relative overflow-hidden" id={marqueeId}>
+      <div class="flex animate-marquee w-max items-center">
+        <!-- First set -->
+        <div class="flex items-center md:gap-24 gap-12 md:pr-24 pr-12">
+          {clientsData.clients.map((client) => (
+            <a href={client.url} target="_blank" rel="noopener noreferrer" class="logo-link shrink-0">
+              <img 
+                src={client.logo} 
+                alt={lang === 'cs' ? client.name_cs : client.name_en} 
+                class={`h-16 ${client.grayscale_class} ${client.invert ? 'brightness-0 invert' : ''}`}
+                draggable="false"
+              >
+            </a>
+          ))}
+        </div>
+        <!-- Duplicate for seamless loop -->
+        <div class="flex items-center md:gap-24 gap-12 md:pr-24 pr-12">
+          {clientsData.clients.map((client) => (
+            <a href={client.url} target="_blank" rel="noopener noreferrer" class="logo-link shrink-0">
+              <img 
+                src={client.logo} 
+                alt={lang === 'cs' ? client.name_cs : client.name_en} 
+                class={`h-16 ${client.grayscale_class} ${client.invert ? 'brightness-0 invert' : ''}`}
+                draggable="false"
+              >
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ marqueeId }}>
+  // Logo Marquee Hover Enhancement
+  document.addEventListener('DOMContentLoaded', function() {
+    const marqueeWrapper = document.getElementById(marqueeId);
+    if (!marqueeWrapper) return;
+    
+    const logoLinks = marqueeWrapper.querySelectorAll('.logo-link');
+    let currentHoveredLogo = null;
+    
+    // Clear all hover states
+    function clearAllHoverStates() {
+      logoLinks.forEach(link => {
+        link.classList.remove('is-hovered');
+        const img = link.querySelector('img');
+        if (img) {
+          img.style.removeProperty('filter');
+          img.style.removeProperty('opacity');
+          img.style.removeProperty('transform');
+        }
+      });
+      currentHoveredLogo = null;
+    }
+    
+    // Apply hover state to specific logo
+    function applyHoverState(logoLink) {
+      if (currentHoveredLogo === logoLink) return;
+      
+      // Clear previous hover
+      if (currentHoveredLogo) {
+        currentHoveredLogo.classList.remove('is-hovered');
+        const prevImg = currentHoveredLogo.querySelector('img');
+        if (prevImg) {
+          prevImg.style.removeProperty('filter');
+          prevImg.style.removeProperty('opacity');
+          prevImg.style.removeProperty('transform');
+        }
+      }
+      
+      // Apply new hover
+      currentHoveredLogo = logoLink;
+      logoLink.classList.add('is-hovered');
+      const img = logoLink.querySelector('img');
+      if (img) {
+        const isJpg = img.classList.contains('logo-grayscale-jpg');
+        if (isJpg) {
+          img.style.filter = 'grayscale(0%)';
+        } else {
+          img.style.filter = 'brightness(1) invert(0) grayscale(0%)';
+        }
+        img.style.opacity = '1';
+        img.style.transform = 'scale(1.1)';
+      }
+    }
+    
+    // Use event delegation for better performance
+    marqueeWrapper.addEventListener('mouseover', function(e) {
+      const logoLink = e.target.closest('.logo-link');
+      if (logoLink) {
+        applyHoverState(logoLink);
+      }
+    });
+    
+    marqueeWrapper.addEventListener('mouseout', function(e) {
+      const logoLink = e.target.closest('.logo-link');
+      if (logoLink) {
+        // Check if we're still inside the logo link
+        const relatedTarget = e.relatedTarget;
+        if (!relatedTarget || !logoLink.contains(relatedTarget)) {
+          logoLink.classList.remove('is-hovered');
+          const img = logoLink.querySelector('img');
+          if (img) {
+            img.style.removeProperty('filter');
+            img.style.removeProperty('opacity');
+            img.style.removeProperty('transform');
+          }
+          if (currentHoveredLogo === logoLink) {
+            currentHoveredLogo = null;
+          }
+        }
+      }
+    });
+    
+    // Clear all states when leaving marquee wrapper entirely
+    marqueeWrapper.addEventListener('mouseleave', clearAllHoverStates);
+  });
+</script>
+

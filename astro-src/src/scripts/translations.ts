@@ -194,6 +194,7 @@ export interface TranslationKeys {
   about_desc_2: string;
   about_cta: string;
   pavel_position: string;
+  pavel_position: string;
   youtube_label: string;
 
   // FAQ section
@@ -242,16 +243,89 @@ export interface TranslationKeys {
   chatbot_hero_headline_1: string;
   chatbot_hero_headline_2: string;
   chatbot_hero_subheadline: string;
+  chatbot_hero_subheadline_2: string;
   chatbot_hero_cta: string;
   chatbot_trust_1: string;
   chatbot_trust_2: string;
   chatbot_trust_3: string;
+  chatbot_features_tag: string;
+  chatbot_features_label: string;
+  chatbot_features_headline_1: string;
+  chatbot_features_headline_2: string;
+  chatbot_features_desc: string;
+  chatbot_f1_title: string;
+  chatbot_f1_desc: string;
+  chatbot_f2_title: string;
+  chatbot_f2_desc: string;
+  chatbot_f3_title: string;
+  chatbot_f3_desc: string;
+  chatbot_f4_title: string;
+  chatbot_f4_desc: string;
+  chatbot_f5_title: string;
+  chatbot_f5_desc: string;
+  chatbot_f6_title: string;
+  chatbot_f6_desc: string;
+  chatbot_benefits_tag: string;
+  chatbot_benefits_label: string;
+  chatbot_benefits_headline_1: string;
+  chatbot_benefits_headline_2: string;
+  chatbot_benefits_desc: string;
+  benefit_1_title: string;
+  benefit_1_desc: string;
+  benefit_2_title: string;
+  benefit_2_desc: string;
+  benefit_3_title: string;
+  benefit_3_desc: string;
+  benefit_4_title: string;
+  benefit_4_desc: string;
+  benefit_5_title: string;
+  benefit_5_desc: string;
+  benefit_6_title: string;
+  benefit_6_desc: string;
+  chatbot_faq_tag: string;
+  chatbot_faq_headline: string;
+  chatbot_faq_1_q: string;
+  chatbot_faq_1_a: string;
+  chatbot_faq_2_q: string;
+  chatbot_faq_2_a: string;
+  chatbot_faq_3_q: string;
+  chatbot_faq_3_a: string;
+  chatbot_faq_4_q: string;
+  chatbot_faq_4_a: string;
+  chatbot_contact_tag: string;
+  chatbot_contact_label: string;
+  chatbot_contact_headline: string;
+  chatbot_contact_desc: string;
+  chatbot_contact_cta: string;
 
   // Consultation page
   consult_hero_badge: string;
   consult_hero_headline_1: string;
   consult_hero_headline_2: string;
   consult_hero_subheadline: string;
+
+  // Cookie Consent
+  cookie_title: string;
+  cookie_subtitle: string;
+  cookie_description: string;
+  cookie_necessary_title: string;
+  cookie_necessary_desc: string;
+  cookie_functional_title: string;
+  cookie_functional_desc: string;
+  cookie_analytics_title: string;
+  cookie_analytics_desc: string;
+  cookie_marketing_title: string;
+  cookie_marketing_desc: string;
+  cookie_always_active: string;
+  cookie_optional: string;
+  cookie_accept_all: string;
+  cookie_accept_selected: string;
+  cookie_reject_all: string;
+  cookie_customize: string;
+  cookie_hide_details: string;
+  cookie_privacy_policy: string;
+  cookie_policy: string;
+  cookie_settings: string;
 
   [key: string]: string;
 }
@@ -448,8 +522,8 @@ export const translations: Record<Language, TranslationKeys> = {
     about_headline_2: "na pevných základech",
     about_badge: "O nás",
     about_headline: "Za HypeDigitaly stojí tým expertů na AI",
-    about_desc_1: "Jsem Pavel Čermák, zakladatel HypeDigitaly a průkopník AI chatbotů v české veřejné správě. Od roku 2022 se věnuji implementaci AI řešení pro firmy i státní instituce.",
-    about_desc_2: "Jako první v ČR jsem nasadil AI asistenty na krajské weby - dnes pomáhají občanům 5 krajů s více než 35 000 zodpovězenými dotazy. Mým cílem je demokratizovat přístup k AI technologiím.",
+    about_desc_1: "Jsme první softwarová společnost v České republice, která úspěšně nasadila AI chatboty na webové stránky krajských úřadů. Naše řešení denně pomáhají tisícům občanů.",
+    about_desc_2: "Věříme, že AI má potenciál transformovat způsob, jakým organizace komunikují se svými klienty. Proto jsme se zaměřili na vytváření řešení, která jsou nejen technologicky vyspělá, ale také praktická a snadno použitelná.",
     about_cta: "Bezplatná konzultace zdarma",
     pavel_position: "Jednatel, Technický ředitel",
     youtube_label: "Sledujte na YouTube",
@@ -496,20 +570,93 @@ export const translations: Record<Language, TranslationKeys> = {
     footer_rights: "Všechna práva vyhrazena",
 
     // Chatbot page
-    chatbot_hero_badge: "AI Chatbot",
-    chatbot_hero_headline_1: "AI Chatbot pro váš",
-    chatbot_hero_headline_2: "byznys",
-    chatbot_hero_subheadline: "Inteligentní AI asistent, který odpovídá na dotazy, kvalifikuje leady a poskytuje podporu 24/7. Web, Instagram, WhatsApp, Messenger.",
-    chatbot_hero_cta: "Získat demo",
-    chatbot_trust_1: "90%+ přesnost odpovědí",
-    chatbot_trust_2: "24/7 dostupnost",
-    chatbot_trust_3: "150+ jazyků",
+    chatbot_hero_badge: "Nejlepší AI chatbot v ČR",
+    chatbot_hero_headline_1: "AI Chatbot",
+    chatbot_hero_headline_2: "pro váš web",
+    chatbot_hero_subheadline: "Probuďte svoji společnost či instituci k životu s AI chatbotem přesně na míru. Zautomatizujte rutinní, opakující se komunikaci a zákaznickou podporu.",
+    chatbot_hero_subheadline_2: "90%+ přesnost odpovědí • 24/7/365 dostupnost • 150+ jazyků",
+    chatbot_hero_cta: "Chci AI chatbota",
+    chatbot_trust_1: "5 krajů v ČR",
+    chatbot_trust_2: "35 000+ odpovědí",
+    chatbot_trust_3: "Bez závazku",
+    chatbot_features_tag: "// UNIKÁTNÍ VLASTNOSTI",
+    chatbot_features_label: "PROČ NÁŠ CHATBOT",
+    chatbot_features_headline_1: "V čem je náš",
+    chatbot_features_headline_2: "AI chatbot unikátní?",
+    chatbot_features_desc: "V dnešní době největší problém s AI chatboty je neaktuálnost informací a přesnost odpovědí. V HypeDigitaly jsme oba tyto problémy vyřešili.",
+    chatbot_f1_title: "90%+ přesnost odpovědí",
+    chatbot_f1_desc: "Dosahujeme nejvyšší přesnosti na trhu díky vlastní RAG technologii a kontinuálnímu vylepšování.",
+    chatbot_f2_title: "Automatické aktualizace",
+    chatbot_f2_desc: "Jediné řešení v ČR s automatickou synchronizací znalostí z vašeho webu bez manuálních zásahů.",
+    chatbot_f3_title: "24/7/365 dostupnost",
+    chatbot_f3_desc: "Chatbot je k dispozici nepřetržitě, zákazníci dostanou odpovědi i mimo běžnou pracovní dobu.",
+    chatbot_f4_title: "150+ jazyků",
+    chatbot_f4_desc: "Automatická detekce jazyka a odpověď v jazyce zákazníka. Komunikujte s celým světem.",
+    chatbot_f5_title: "Pokročilá analytika",
+    chatbot_f5_desc: "Dashboard s trendy, tématy, spokojeností a časovými vzorci pro data-driven rozhodování.",
+    chatbot_f6_title: "Nadstandardní zabezpečení",
+    chatbot_f6_desc: "Ochrana proti DDOS, spamu, jailbreakingu a prompt injection. Kontrola IP adres.",
+    chatbot_benefits_tag: "// CO ZÍSKÁTE",
+    chatbot_benefits_label: "HLAVNÍ VÝHODY",
+    chatbot_benefits_headline_1: "Odemkněte potenciál",
+    chatbot_benefits_headline_2: "své firmy s AI Chatbotem",
+    chatbot_benefits_desc: "Hlavní výhody, které získáte implementací AI chatbota na vaše webové stránky.",
+    benefit_1_title: "Úspora nákladů",
+    benefit_1_desc: "AI Chatbot dokáže nahradit nebo doplnit lidskou zákaznickou podporu. Není potřeba platit za školení, platy a benefity dalších zaměstnanců.",
+    benefit_2_title: "Nepřetržitá dostupnost",
+    benefit_2_desc: "AI Chatbot je k dispozici 24/7/365. Zákazníci dostanou odpovědi kdykoli je potřebují, i mimo běžnou pracovní dobu.",
+    benefit_3_title: "Zvýšení spokojenosti",
+    benefit_3_desc: "AI Chatbot dokáže rychle a efektivně řešit běžné dotazy. Zákazníci ocení, když dostanou pomoc okamžitě.",
+    benefit_4_title: "Automatizace rutiny",
+    benefit_4_desc: "AI Chatbot převezme rutinní úkoly jako odpovídání na FAQ. Zaměstnanci se mohou věnovat kreativnějším činnostem.",
+    benefit_5_title: "Zvýšení prodejů",
+    benefit_5_desc: "AI Chatbot může navádět zákazníky k nákupu, odpovídat na dotazy a automaticky nabízet související produkty.",
+    benefit_6_title: "Konkurenční výhoda",
+    benefit_6_desc: "Nasazení chatbota vás odliší od konkurence. Zákazníci ocení moderní způsob komunikace.",
+    chatbot_faq_tag: "// ČASTÉ DOTAZY",
+    chatbot_faq_headline: "Často kladené dotazy",
+    chatbot_faq_1_q: "Kolik to stojí?",
+    chatbot_faq_1_a: "Nabízíme dva cenové modely. Za implementaci a údržbu účtujeme živnostníkům a malým a středním firmám od 35 000 Kč, institucím a úřadům od 100 000 Kč, plus měsíční údržbu 3 500 Kč (technická podpora, údržba a AI kredity za průměrnou cenu 4 Kč/odpověď). Alternativně poskytujeme měsíční paušál od 6 000 Kč bez implementačního poplatku.",
+    chatbot_faq_2_q: "Co mi implementace chatbota přinese?",
+    chatbot_faq_2_a: "Automatizaci zákaznické podpory 24/7, úsporu nákladů na lidské zdroje, zvýšení spokojenosti zákazníků díky okamžitým odpovědím, více času pro váš tým na důležitější úkoly a konkurenční výhodu díky modernímu přístupu ke komunikaci.",
+    chatbot_faq_3_q: "Čím se váš chatbot liší od ostatních?",
+    chatbot_faq_3_a: "Dvěma klíčovými vlastnostmi: 1) Dosahujeme přesnosti nad 90%, protože vyvíjíme produkt na míru každému klientovi. 2) Jako jediní v ČR nabízíme řešení s automatickou aktualizací znalostí - AI chatbot sám skenuje obsah webu a pravidelně doplňuje nová data bez nutnosti manuálních zásahů.",
+    chatbot_faq_4_q: "Jak dlouho trvá implementace?",
+    chatbot_faq_4_a: "Standardní implementace AI chatbota trvá 2-4 týdny v závislosti na komplexitě projektu a rozsahu znalostní databáze. Během této doby provedeme analýzu vašeho webu, nastavíme chatbota, naplníme znalostní bázi a otestujeme funkčnost.",
+    chatbot_contact_tag: "// KONTAKT",
+    chatbot_contact_label: "NEZÁVAZNÁ KONZULTACE",
+    chatbot_contact_headline: "Chci AI chatbota pro svůj byznys",
+    chatbot_contact_desc: "Domluvte si krátkou nezávaznou konzultaci na 30 minut online přes Google Meet, nebo nás kontaktujte emailem či telefonicky.",
+    chatbot_contact_cta: "Domluvit schůzku",
 
     // Consultation page
     consult_hero_badge: "Konzultace & Partnerství",
     consult_hero_headline_1: "AI strategie na míru",
     consult_hero_headline_2: "pro vaši firmu",
     consult_hero_subheadline: "Od jednorázové konzultace po dlouhodobé partnerství. Pomůžeme vám najít optimální cestu k AI transformaci.",
+
+    // Cookie Consent
+    cookie_title: "Nastavení cookies",
+    cookie_subtitle: "Respektujeme vaše soukromí",
+    cookie_description: "Používáme cookies k zajištění správného fungování webu a ke zlepšení vašeho zážitku. Některé cookies jsou nezbytné, jiné nám pomáhají analyzovat návštěvnost a personalizovat obsah. Vyberte si, které cookies chcete povolit.",
+    cookie_necessary_title: "Nezbytné",
+    cookie_necessary_desc: "Tyto cookies jsou nezbytné pro správné fungování webu. Bez nich by web nefungoval správně. Zahrnují cookies pro správu relace, jazykové preference a základní bezpečnostní funkce.",
+    cookie_functional_title: "Funkční",
+    cookie_functional_desc: "Funkční cookies umožňují rozšířené funkce webu, jako je personalizace obsahu, ukládání vašich preferencí a zapamatování vašich voleb na webu.",
+    cookie_analytics_title: "Analytické",
+    cookie_analytics_desc: "Analytické cookies nám pomáhají pochopit, jak návštěvníci používají web. Shromažďují anonymizované informace o počtu návštěvníků, zdrojích návštěvnosti a chování na webu.",
+    cookie_marketing_title: "Marketingové",
+    cookie_marketing_desc: "Marketingové cookies sledují vaši aktivitu na webu a pomáhají zobrazovat relevantní reklamy. Mohou být využity třetími stranami k vytvoření profilu vašich zájmů.",
+    cookie_always_active: "Vždy aktivní",
+    cookie_optional: "Volitelné",
+    cookie_accept_all: "Přijmout vše",
+    cookie_accept_selected: "Uložit výběr",
+    cookie_reject_all: "Odmítnout vše",
+    cookie_customize: "Přizpůsobit",
+    cookie_hide_details: "Skrýt detaily",
+    cookie_privacy_policy: "Zásady ochrany osobních údajů",
+    cookie_policy: "Cookie policy",
+    cookie_settings: "Nastavení cookies",
   },
   en: {
     // Navigation
@@ -750,20 +897,93 @@ export const translations: Record<Language, TranslationKeys> = {
     footer_rights: "All rights reserved",
 
     // Chatbot page
-    chatbot_hero_badge: "AI Chatbot",
-    chatbot_hero_headline_1: "AI Chatbot for your",
-    chatbot_hero_headline_2: "business",
-    chatbot_hero_subheadline: "Intelligent AI assistant that answers questions, qualifies leads and provides support 24/7. Web, Instagram, WhatsApp, Messenger.",
-    chatbot_hero_cta: "Get demo",
-    chatbot_trust_1: "90%+ response accuracy",
-    chatbot_trust_2: "24/7 availability",
-    chatbot_trust_3: "150+ languages",
+    chatbot_hero_badge: "Best AI chatbot in Czech Republic",
+    chatbot_hero_headline_1: "AI Chatbot",
+    chatbot_hero_headline_2: "for your website",
+    chatbot_hero_subheadline: "Bring your company or institution to life with a custom AI chatbot. Automate routine, repetitive communication and customer support.",
+    chatbot_hero_subheadline_2: "90%+ answer accuracy • 24/7/365 availability • 150+ languages",
+    chatbot_hero_cta: "I want AI chatbot",
+    chatbot_trust_1: "5 Czech regions",
+    chatbot_trust_2: "35,000+ responses",
+    chatbot_trust_3: "No obligation",
+    chatbot_features_tag: "// UNIQUE FEATURES",
+    chatbot_features_label: "WHY OUR CHATBOT",
+    chatbot_features_headline_1: "What makes our",
+    chatbot_features_headline_2: "AI chatbot unique?",
+    chatbot_features_desc: "Today's biggest problem with AI chatbots is outdated information and answer accuracy. At HypeDigitaly, we've solved both of these issues.",
+    chatbot_f1_title: "90%+ answer accuracy",
+    chatbot_f1_desc: "We achieve the highest accuracy on the market thanks to our proprietary RAG technology and continuous improvement.",
+    chatbot_f2_title: "Automatic updates",
+    chatbot_f2_desc: "The only solution in CZ with automatic knowledge synchronization from your website without manual intervention.",
+    chatbot_f3_title: "24/7/365 availability",
+    chatbot_f3_desc: "The chatbot is available around the clock, customers get answers even outside business hours.",
+    chatbot_f4_title: "150+ languages",
+    chatbot_f4_desc: "Automatic language detection and response in the customer's language. Communicate with the whole world.",
+    chatbot_f5_title: "Advanced analytics",
+    chatbot_f5_desc: "Dashboard with trends, topics, satisfaction and time patterns for data-driven decision making.",
+    chatbot_f6_title: "Enhanced security",
+    chatbot_f6_desc: "Protection against DDOS, spam, jailbreaking and prompt injection. IP address control.",
+    chatbot_benefits_tag: "// WHAT YOU GET",
+    chatbot_benefits_label: "KEY BENEFITS",
+    chatbot_benefits_headline_1: "Unlock the potential",
+    chatbot_benefits_headline_2: "of your business with AI Chatbot",
+    chatbot_benefits_desc: "Key benefits you'll gain by implementing an AI chatbot on your website.",
+    benefit_1_title: "Cost savings",
+    benefit_1_desc: "AI Chatbot can replace or supplement human customer support. No need to pay for training, salaries and benefits of additional employees.",
+    benefit_2_title: "24/7 availability",
+    benefit_2_desc: "AI Chatbot is available 24/7/365. Customers get answers whenever they need them, even outside business hours.",
+    benefit_3_title: "Increased satisfaction",
+    benefit_3_desc: "AI Chatbot can quickly and efficiently handle common queries. Customers appreciate getting help immediately.",
+    benefit_4_title: "Routine automation",
+    benefit_4_desc: "AI Chatbot takes over routine tasks like answering FAQs. Employees can focus on more creative activities.",
+    benefit_5_title: "Increased sales",
+    benefit_5_desc: "AI Chatbot can guide customers to purchase, answer questions and automatically offer related products.",
+    benefit_6_title: "Competitive advantage",
+    benefit_6_desc: "Deploying a chatbot will differentiate you from competitors. Customers appreciate modern communication.",
+    chatbot_faq_tag: "// FREQUENTLY ASKED",
+    chatbot_faq_headline: "Frequently asked questions",
+    chatbot_faq_1_q: "How much does it cost?",
+    chatbot_faq_1_a: "We offer two pricing models. For implementation and maintenance, we charge freelancers and SMBs from 35,000 CZK, institutions from 100,000 CZK, plus monthly maintenance of 3,500 CZK (technical support, maintenance and AI credits at an average price of 4 CZK/response). Alternatively, we offer a monthly subscription from 6,000 CZK without implementation fee.",
+    chatbot_faq_2_q: "What will chatbot implementation bring me?",
+    chatbot_faq_2_a: "24/7 customer support automation, human resource cost savings, increased customer satisfaction through instant responses, more time for your team on important tasks, and competitive advantage through modern communication approach.",
+    chatbot_faq_3_q: "What makes your chatbot different?",
+    chatbot_faq_3_a: "Two key features: 1) We achieve over 90% accuracy because we develop custom products for each client. 2) We're the only company in CZ offering a solution with automatic knowledge updates - the AI chatbot scans website content and regularly adds new data without manual intervention.",
+    chatbot_faq_4_q: "How long does implementation take?",
+    chatbot_faq_4_a: "Standard AI chatbot implementation takes 2-4 weeks depending on project complexity and knowledge base scope. During this time, we analyze your website, set up the chatbot, populate the knowledge base and test functionality.",
+    chatbot_contact_tag: "// CONTACT",
+    chatbot_contact_label: "FREE CONSULTATION",
+    chatbot_contact_headline: "I want AI chatbot for my business",
+    chatbot_contact_desc: "Schedule a short 30-minute consultation via Google Meet, or contact us by email or phone.",
+    chatbot_contact_cta: "Schedule meeting",
 
     // Consultation page
     consult_hero_badge: "Consulting & Partnership",
     consult_hero_headline_1: "Custom AI strategy",
     consult_hero_headline_2: "for your company",
     consult_hero_subheadline: "From one-time consultation to long-term partnership. We'll help you find the optimal path to AI transformation.",
+
+    // Cookie Consent
+    cookie_title: "Cookie Settings",
+    cookie_subtitle: "We respect your privacy",
+    cookie_description: "We use cookies to ensure proper website functionality and to improve your experience. Some cookies are essential, others help us analyze traffic and personalize content. Choose which cookies you want to allow.",
+    cookie_necessary_title: "Necessary",
+    cookie_necessary_desc: "These cookies are essential for the proper functioning of the website. Without them, the website would not work correctly. They include session management, language preferences, and basic security features.",
+    cookie_functional_title: "Functional",
+    cookie_functional_desc: "Functional cookies enable enhanced website features, such as content personalization, saving your preferences, and remembering your choices on the website.",
+    cookie_analytics_title: "Analytics",
+    cookie_analytics_desc: "Analytics cookies help us understand how visitors use the website. They collect anonymized information about visitor numbers, traffic sources, and behavior on the website.",
+    cookie_marketing_title: "Marketing",
+    cookie_marketing_desc: "Marketing cookies track your activity on the website and help display relevant advertisements. They may be used by third parties to create a profile of your interests.",
+    cookie_always_active: "Always active",
+    cookie_optional: "Optional",
+    cookie_accept_all: "Accept all",
+    cookie_accept_selected: "Save selection",
+    cookie_reject_all: "Reject all",
+    cookie_customize: "Customize",
+    cookie_hide_details: "Hide details",
+    cookie_privacy_policy: "Privacy Policy",
+    cookie_policy: "Cookie Policy",
+    cookie_settings: "Cookie settings",
   }
 };
 
