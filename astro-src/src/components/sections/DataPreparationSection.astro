@@ -18,7 +18,7 @@ const t = translations[lang];
         <span class="text-white">{sectionNumber}</span>
         <span class="w-12 h-px bg-white/10"></span>
       </div>
-      <div class="text-white/40">// {lang === 'cs' ? 'Příprava dat pro AI' : 'AI Data Preparation'}</div>
+      <div class="text-white/40">// RAGus.ai</div>
       <div class="hidden md:block text-right">{t.ragus_label}</div>
     </div>
 
@@ -34,9 +34,7 @@ const t = translations[lang];
           <span class="text-neutral-600"> {t.ragus_headline_2}</span>
         </h2>
 
-        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] text-lg text-neutral-400 mb-8 leading-relaxed">
-          {t.ragus_desc}
-        </p>
+        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] text-lg text-neutral-400 mb-8 leading-relaxed" set:html={t.ragus_desc} />
 
         <ul class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] space-y-4 mb-8">
           <li class="flex items-start gap-3">

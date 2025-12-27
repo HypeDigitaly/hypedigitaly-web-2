@@ -17,6 +17,7 @@ export interface Props {
   showGrid?: boolean;
   simpleNav?: boolean;
   simpleFooter?: boolean;
+  showCalendar?: boolean;
 }
 
 const { 
@@ -29,6 +30,7 @@ const {
   showGrid = true,
   simpleNav = false,
   simpleFooter = false,
+  showCalendar = true,
 } = Astro.props;
 ---
 
@@ -43,7 +45,7 @@ const {
     <slot />
   </main>
   
-  <Footer lang={lang} simple={simpleFooter} />
+  <Footer lang={lang} simple={simpleFooter} showCalendar={showCalendar} />
   
   <!-- GDPR Cookie Consent Banner -->
   <CookieConsent lang={lang} />

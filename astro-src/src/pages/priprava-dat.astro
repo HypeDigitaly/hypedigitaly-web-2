@@ -1,0 +1,1278 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { translations, type Language } from '../scripts/translations';
+
+const lang: Language = 'cs';
+const t = translations[lang];
+---
+
+<PageLayout 
+  title="Příprava dat pro AI | HypeDigitaly - Čistá data, přesná AI"
+  description="Připravíme vaše data pro AI tak, aby odpovídala přesně a bez halucinací. Zpracujeme libovolný formát, centralizujeme do jednoho místa. 99% přesnost."
+  lang={lang}
+  showCalendar={false}
+>
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="relative max-w-7xl mx-auto px-6 pt-12 pb-24 overflow-hidden">
+    <div class="text-center max-w-5xl mx-auto relative z-10">
+      
+      <!-- Badge -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.1s_both] inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20 mb-8">
+        <iconify-icon icon="solar:database-bold" class="text-orange-400 text-lg"></iconify-icon>
+        <span class="text-sm font-medium text-orange-400">{t.dataprep_hero_badge}</span>
+      </div>
+      
+      <!-- Headline -->
+      <h1 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[0.95] md:text-6xl lg:text-7xl text-4xl font-medium text-white tracking-tighter mb-8">
+        <span>{t.dataprep_hero_headline_1}</span>
+        <br class="hidden md:block">
+        <span class="text-neutral-600 transition-colors hover:text-orange-400 duration-500">{t.dataprep_hero_headline_2}</span>
+      </h1>
+      
+      <!-- Subheadline -->
+      <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg md:text-xl text-neutral-400 font-light max-w-3xl mx-auto leading-relaxed tracking-tight mb-6">
+        {t.dataprep_hero_subheadline}
+      </p>
+      
+      <!-- Sub-subheadline -->
+      <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.35s_both] text-base text-neutral-500 font-medium max-w-2xl mx-auto leading-relaxed mb-12">
+        {t.dataprep_hero_subheadline_2}
+      </p>
+      
+      <!-- Hero CTA -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] max-w-md mx-auto mb-8">
+        <a href="#kontakt" class="shiny-cta group">
+          <span class="btn-content">
+            <span class="text-lg font-semibold tracking-tight">{t.dataprep_hero_cta}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white/80 group-hover:translate-x-1 transition-transform">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </span>
+        </a>
+      </div>
+      
+      <!-- Trust Signals -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] flex flex-wrap items-center justify-center gap-6 text-sm text-neutral-500 font-medium">
+        <div class="flex items-center gap-2">
+          <iconify-icon icon="solar:check-circle-bold" class="text-orange-400 text-lg"></iconify-icon>
+          <span>{t.dataprep_trust_1}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <iconify-icon icon="solar:check-circle-bold" class="text-orange-400 text-lg"></iconify-icon>
+          <span>{t.dataprep_trust_2}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <iconify-icon icon="solar:check-circle-bold" class="text-orange-400 text-lg"></iconify-icon>
+          <span>{t.dataprep_trust_3}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROCESS SECTION (MOVED UP) ==================== -->
+  <section class="bg-[#050505] border-t border-white/5 py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
+        <div class="flex items-center gap-2">
+          <span class="text-white">01</span>
+          <span class="w-12 h-px bg-white/10"></span>
+        </div>
+        <div class="text-white/40">{t.dataprep_process_tag}</div>
+        <div class="hidden md:block text-right">{t.dataprep_process_label}</div>
+      </div>
+
+      <div class="text-center max-w-5xl mx-auto mb-16">
+        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[0.95] md:text-5xl lg:text-6xl text-3xl font-medium text-white tracking-tighter mb-8">
+          <span>{t.dataprep_process_headline_1}</span>
+          <span class="text-neutral-600 transition-colors hover:text-orange-400 duration-500"> {t.dataprep_process_headline_2}</span>
+        </h2>
+        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg text-neutral-400 font-light max-w-2xl mx-auto leading-relaxed">
+          {t.dataprep_process_desc}
+        </p>
+      </div>
+
+      <!-- Process Steps -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-orange-500/30 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400 mb-4">
+            <iconify-icon icon="solar:magnifer-bold" class="text-2xl"></iconify-icon>
+          </div>
+          <div class="text-xs text-orange-400 font-bold mb-2">KROK 1</div>
+          <h3 class="text-lg font-bold text-white mb-2">{t.dataprep_step_1_title}</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">{t.dataprep_step_1_desc}</p>
+        </div>
+
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-orange-500/30 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400 mb-4">
+            <iconify-icon icon="solar:broom-bold" class="text-2xl"></iconify-icon>
+          </div>
+          <div class="text-xs text-orange-400 font-bold mb-2">KROK 2</div>
+          <h3 class="text-lg font-bold text-white mb-2">{t.dataprep_step_2_title}</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">{t.dataprep_step_2_desc}</p>
+        </div>
+
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-orange-500/30 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400 mb-4">
+            <iconify-icon icon="solar:magic-stick-3-bold" class="text-2xl"></iconify-icon>
+          </div>
+          <div class="text-xs text-orange-400 font-bold mb-2">KROK 3</div>
+          <h3 class="text-lg font-bold text-white mb-2">{t.dataprep_step_3_title}</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">{t.dataprep_step_3_desc}</p>
+        </div>
+
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-orange-500/30 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400 mb-4">
+            <iconify-icon icon="solar:database-bold" class="text-2xl"></iconify-icon>
+          </div>
+          <div class="text-xs text-orange-400 font-bold mb-2">KROK 4</div>
+          <h3 class="text-lg font-bold text-white mb-2">{t.dataprep_step_4_title}</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">{t.dataprep_step_4_desc}</p>
+        </div>
+      </div>
+
+      <!-- Formats Banner -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.8s_both] p-6 bg-gradient-to-r from-orange-500/10 via-[#0A0A0A] to-orange-500/5 border border-orange-500/20 rounded-2xl">
+        <div class="flex flex-col md:flex-row items-center gap-6">
+          <div class="w-16 h-16 rounded-2xl bg-orange-500/20 flex items-center justify-center text-orange-400 flex-shrink-0">
+            <iconify-icon icon="solar:file-smile-bold" class="text-3xl"></iconify-icon>
+          </div>
+          <div class="text-center md:text-left">
+            <h3 class="text-xl font-bold text-white mb-2">{t.dataprep_formats_title}</h3>
+            <p class="text-neutral-400">{t.dataprep_formats_desc}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROBLEM SECTION ==================== -->
+  <section class="bg-[#050505] border-t border-white/5 py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
+        <div class="flex items-center gap-2">
+          <span class="text-white">02</span>
+          <span class="w-12 h-px bg-white/10"></span>
+        </div>
+        <div class="text-white/40">{t.dataprep_problem_tag}</div>
+        <div class="hidden md:block text-right">{t.dataprep_problem_label}</div>
+      </div>
+
+      <div class="text-center max-w-5xl mx-auto mb-16">
+        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[0.95] md:text-6xl lg:text-7xl text-3xl font-medium text-white tracking-tighter mb-8">
+          <span>{t.dataprep_problem_headline_1}</span>
+          <span class="text-neutral-600 transition-colors hover:text-orange-400 duration-500"> {t.dataprep_problem_headline_2}</span>
+        </h2>
+        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg text-neutral-400 font-light max-w-2xl mx-auto leading-relaxed">
+          {t.dataprep_problem_desc}
+        </p>
+      </div>
+
+      <!-- Pain Points Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-red-500/30 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center text-red-400 mb-4">
+            <iconify-icon icon="solar:folder-error-bold" class="text-2xl"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">{t.dataprep_pain_1_title}</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">{t.dataprep_pain_1_desc}</p>
+        </div>
+
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-orange-500/30 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400 mb-4">
+            <iconify-icon icon="solar:copy-bold" class="text-2xl"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">{t.dataprep_pain_2_title}</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">{t.dataprep_pain_2_desc}</p>
+        </div>
+
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-yellow-500/30 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center text-yellow-400 mb-4">
+            <iconify-icon icon="solar:ghost-bold" class="text-2xl"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">{t.dataprep_pain_3_title}</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">{t.dataprep_pain_3_desc}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== DATA COMPARISON SECTION ==================== -->
+  <section class="bg-[#050505] border-t border-white/5 py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
+        <div class="flex items-center gap-2">
+          <span class="text-white">03</span>
+          <span class="w-12 h-px bg-white/10"></span>
+        </div>
+        <div class="text-white/40">{t.dataprep_comparison_tag}</div>
+        <div class="hidden md:block text-right">{t.dataprep_comparison_label}</div>
+      </div>
+
+      <div class="text-center max-w-5xl mx-auto mb-16">
+        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[0.95] md:text-5xl lg:text-6xl text-3xl font-medium text-white tracking-tighter mb-8">
+          <span>{t.dataprep_comparison_headline_1}</span>
+          <span class="text-neutral-600 transition-colors hover:text-orange-400 duration-500"> {t.dataprep_comparison_headline_2}</span>
+        </h2>
+        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg text-neutral-400 font-light max-w-2xl mx-auto leading-relaxed">
+          {t.dataprep_comparison_desc}
+        </p>
+      </div>
+
+      <!-- Code Comparison -->
+      <div class="grid lg:grid-cols-2 gap-8">
+        <!-- BAD Data - Plain unstructured text -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both]">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-red-500/20 flex items-center justify-center">
+              <iconify-icon icon="solar:close-circle-bold" class="text-red-400 text-xl"></iconify-icon>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white">{t.dataprep_bad_title}</h3>
+              <p class="text-sm text-neutral-500">{t.dataprep_bad_desc}</p>
+            </div>
+          </div>
+          <div class="relative rounded-2xl overflow-hidden border border-red-500/20 bg-[#0d0d0d]">
+            <div class="flex items-center gap-2 px-4 py-3 bg-red-500/5 border-b border-red-500/10">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500/40"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/40"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500/40"></div>
+              </div>
+              <span class="text-xs text-neutral-500 ml-2 font-mono">raw_data.txt</span>
+            </div>
+            <pre class="p-4 overflow-x-auto text-sm font-mono leading-relaxed"><code class="text-neutral-400">{`Úřední hodiny pondělí 8-17 úterý zavřeno 
+středa 8-12 a 13-17 Úřední hodiny: Po 
+8:00-17:00, Út: zavřeno, St: 8-12, 13-17
+ÚŘEDNÍ HODINY pondělí osmá až sedmnáctá
+Otevírací doba: Po 8-17 městský úřad
+otevřeno od 8 do 5 odpoledne v pondělí
+úterý je zavíračka středa půlden a pak
+znovu od jedný hodiny odpoledne kontakt
+tel. 123456789 nebo email info@mě...`}</code></pre>
+          </div>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs rounded-full border border-red-500/20">Duplicity</span>
+            <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs rounded-full border border-red-500/20">Nekonzistence</span>
+            <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs rounded-full border border-red-500/20">Chybí metadata</span>
+            <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs rounded-full border border-red-500/20">Špatná struktura</span>
+          </div>
+        </div>
+
+        <!-- GOOD Data - JSON with syntax highlighting -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both]">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-green-500/20 flex items-center justify-center">
+              <iconify-icon icon="solar:check-circle-bold" class="text-green-400 text-xl"></iconify-icon>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white">{t.dataprep_good_title}</h3>
+              <p class="text-sm text-neutral-500">{t.dataprep_good_desc}</p>
+            </div>
+          </div>
+          <div class="relative rounded-2xl overflow-hidden border border-green-500/20 bg-[#0d0d0d]">
+            <div class="flex items-center gap-2 px-4 py-3 bg-green-500/5 border-b border-green-500/10">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500/40"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/40"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500/40"></div>
+              </div>
+              <span class="text-xs text-neutral-500 ml-2 font-mono">chunk_001.json</span>
+            </div>
+            <pre class="p-4 overflow-x-auto text-[11px] font-mono leading-relaxed json-highlight"><code><span class="json-brace">{"{"}</span>
+  <span class="json-comment">// Vektorově vyhledatelná pole</span>
+  <span class="json-key">"searchableFields"</span><span class="json-colon">:</span> <span class="json-brace">{"{"}</span>
+    <span class="json-key">"rag_question"</span><span class="json-colon">:</span> <span class="json-string">"Jaké jsou úřední hodiny městského úřadu?"</span><span class="json-comma">,</span>
+    <span class="json-key">"content"</span><span class="json-colon">:</span> <span class="json-string">"Úřední hodiny: Po 8-17, Út zavřeno, St 8-12 a 13-17"</span><span class="json-comma">,</span>
+    <span class="json-key">"source_page_summary"</span><span class="json-colon">:</span> <span class="json-string">"Kontaktní stránka MÚ"</span><span class="json-comma">,</span>
+    <span class="json-key">"current_chunk_summary"</span><span class="json-colon">:</span> <span class="json-string">"Otevírací doba úřadu"</span><span class="json-comma">,</span>
+    <span class="json-key">"overlap_summary"</span><span class="json-colon">:</span> <span class="json-string">"...kontaktní údaje a adresa"</span>
+  <span class="json-brace">{"}"}</span><span class="json-comma">,</span>
+  <span class="json-comment">// Filtrovatelná metadata</span>
+  <span class="json-key">"metadataFields"</span><span class="json-colon">:</span> <span class="json-brace">{"{"}</span>
+    <span class="json-key">"source_url"</span><span class="json-colon">:</span> <span class="json-string">"mestsky-urad.cz/kontakt"</span><span class="json-comma">,</span>
+    <span class="json-key">"category"</span><span class="json-colon">:</span> <span class="json-string">"úřední hodiny"</span><span class="json-comma">,</span>
+    <span class="json-key">"date_int"</span><span class="json-colon">:</span> <span class="json-number">20250115</span><span class="json-comma">,</span>
+    <span class="json-key">"language"</span><span class="json-colon">:</span> <span class="json-string">"cs"</span><span class="json-comma">,</span>
+    <span class="json-key">"chunk_index"</span><span class="json-colon">:</span> <span class="json-number">3</span>
+  <span class="json-brace">{"}"}</span>
+<span class="json-brace">{"}"}</span></code></pre>
+          </div>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-green-500/10 text-green-400 text-xs rounded-full border border-green-500/20">{t.dataprep_tag_rag}</span>
+            <span class="px-3 py-1 bg-green-500/10 text-green-400 text-xs rounded-full border border-green-500/20">{t.dataprep_tag_metadata}</span>
+            <span class="px-3 py-1 bg-green-500/10 text-green-400 text-xs rounded-full border border-green-500/20">{t.dataprep_tag_clean}</span>
+            <span class="px-3 py-1 bg-green-500/10 text-green-400 text-xs rounded-full border border-green-500/20">{t.dataprep_tag_hierarchy}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RAG Concepts Legend -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] mt-12 p-6 bg-gradient-to-r from-green-500/5 via-[#0A0A0A] to-green-500/5 border border-green-500/10 rounded-2xl">
+        <h4 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+          <iconify-icon icon="solar:info-circle-bold" class="text-green-400"></iconify-icon>
+          Co dělá data „AI-ready"?
+        </h4>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="p-3 bg-white/[0.02] rounded-lg border border-white/5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="w-2 h-2 rounded-full bg-green-400"></span>
+              <span class="text-sm font-semibold text-white">Celé myšlenky, ne útržky</span>
+            </div>
+            <p class="text-xs text-neutral-500 leading-relaxed">Text není useklý v půlce věty. AI dostane kompletní informaci a nemusí hádat, co následuje.</p>
+          </div>
+          <div class="p-3 bg-white/[0.02] rounded-lg border border-white/5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span class="text-sm font-semibold text-white">Jasná hierarchie</span>
+            </div>
+            <p class="text-xs text-neutral-500 leading-relaxed">AI přesně ví, kde hledat odpovědi a kde jsou jen pomocná data. Žádné plácání v temnotě.</p>
+          </div>
+          <div class="p-3 bg-white/[0.02] rounded-lg border border-white/5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="w-2 h-2 rounded-full bg-orange-400"></span>
+              <span class="text-sm font-semibold text-white">Předpřipravené otázky</span>
+            </div>
+            <p class="text-xs text-neutral-500 leading-relaxed">Ke každému kousku textu jsou přiřazené otázky, na které odpovídá. AI najde správnou odpověď, i když se uživatel zeptá jinak.</p>
+          </div>
+          <div class="p-3 bg-white/[0.02] rounded-lg border border-white/5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+              <span class="text-sm font-semibold text-white">Shrnutí u každého bloku</span>
+            </div>
+            <p class="text-xs text-neutral-500 leading-relaxed">AI okamžitě chápe kontext. Nemusí číst celý dokument, aby pochopila, o čem daný kousek je.</p>
+          </div>
+          <div class="p-3 bg-white/[0.02] rounded-lg border border-white/5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+              <span class="text-sm font-semibold text-white">Propojení mezi částmi</span>
+            </div>
+            <p class="text-xs text-neutral-500 leading-relaxed">Každý blok ví, co bylo před ním. AI chápe souvislosti, i když je informace rozdělená do více částí.</p>
+          </div>
+          <div class="p-3 bg-white/[0.02] rounded-lg border border-white/5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+              <span class="text-sm font-semibold text-white">Metadata pro filtraci</span>
+            </div>
+            <p class="text-xs text-neutral-500 leading-relaxed">Datum, kategorie, zdroj. AI může hledat přesně tam, kde má. „Najdi v dokumentech z roku 2024" – hotovo.</p>
+          </div>
+          <div class="p-3 bg-white/[0.02] rounded-lg border border-white/5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="w-2 h-2 rounded-full bg-yellow-400"></span>
+              <span class="text-sm font-semibold text-white">Původ každé informace</span>
+            </div>
+            <p class="text-xs text-neutral-500 leading-relaxed">I malý útržek textu ví, odkud pochází. AI může citovat zdroj a vy víte, že to není vymyšlené.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CHUNKING STRATEGIES SECTION ==================== -->
+  <section class="bg-[#050505] border-t border-white/5 py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
+        <div class="flex items-center gap-2">
+          <span class="text-white">04</span>
+          <span class="w-12 h-px bg-white/10"></span>
+        </div>
+        <div class="text-white/40">{t.dataprep_chunking_tag}</div>
+        <div class="hidden md:block text-right">{t.dataprep_chunking_label}</div>
+      </div>
+
+      <div class="text-center max-w-5xl mx-auto mb-16">
+        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[0.95] md:text-5xl lg:text-6xl text-3xl font-medium text-white tracking-tighter mb-8">
+          <span>{t.dataprep_chunking_headline_1}</span>
+          <span class="text-neutral-600 transition-colors hover:text-orange-400 duration-500"> {t.dataprep_chunking_headline_2}</span>
+        </h2>
+        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg text-neutral-400 font-light max-w-2xl mx-auto leading-relaxed">
+          {t.dataprep_chunking_desc}
+        </p>
+      </div>
+
+      <!-- Chunking Strategies Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Strategy 1 -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-orange-500/30 transition-all duration-300">
+          <div class="flex items-center justify-between mb-4">
+            <span class="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-400 font-bold">1</span>
+            <span class="text-xs text-neutral-600 uppercase tracking-wider">Basic</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">{t.dataprep_chunk_1_title}</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed mb-4">{t.dataprep_chunk_1_desc}</p>
+          <div class="pt-4 border-t border-white/5">
+            <div class="text-xs text-orange-400 font-medium">{t.dataprep_chunk_1_best}</div>
+          </div>
+        </div>
+
+        <!-- Strategy 2 -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-orange-500/30 transition-all duration-300">
+          <div class="flex items-center justify-between mb-4">
+            <span class="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-400 font-bold">2</span>
+            <span class="text-xs text-neutral-600 uppercase tracking-wider">Structure</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">{t.dataprep_chunk_2_title}</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed mb-4">{t.dataprep_chunk_2_desc}</p>
+          <div class="pt-4 border-t border-white/5">
+            <div class="text-xs text-orange-400 font-medium">{t.dataprep_chunk_2_best}</div>
+          </div>
+        </div>
+
+        <!-- Strategy 3 -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-orange-500/30 transition-all duration-300">
+          <div class="flex items-center justify-between mb-4">
+            <span class="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-400 font-bold">3</span>
+            <span class="text-xs text-neutral-600 uppercase tracking-wider">Smart</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">{t.dataprep_chunk_3_title}</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed mb-4">{t.dataprep_chunk_3_desc}</p>
+          <div class="pt-4 border-t border-white/5">
+            <div class="text-xs text-orange-400 font-medium">{t.dataprep_chunk_3_best}</div>
+          </div>
+        </div>
+
+        <!-- Strategy 4 -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both] group relative p-6 bg-gradient-to-br from-orange-500/10 via-[#0A0A0A] to-[#0A0A0A] border border-orange-500/30 rounded-2xl hover:border-orange-500/50 transition-all duration-300">
+          <div class="absolute top-4 right-4 px-2 py-1 bg-orange-500/20 text-orange-400 text-xs font-bold rounded-full">PRO</div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-400 font-bold">4</span>
+            <span class="text-xs text-neutral-600 uppercase tracking-wider">AI-Powered</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">{t.dataprep_chunk_4_title}</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed mb-4">{t.dataprep_chunk_4_desc}</p>
+          <div class="pt-4 border-t border-white/5">
+            <div class="text-xs text-orange-400 font-medium">{t.dataprep_chunk_4_best}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== RAGUS.AI SECTION (TEAL ACCENT) ==================== -->
+  <section id="ragus" class="bg-[#050505] border-t border-white/5 py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
+        <div class="flex items-center gap-2">
+          <span class="text-white">05</span>
+          <span class="w-12 h-px bg-white/10"></span>
+        </div>
+        <div class="text-white/40">// SELF-SERVICE PLATFORMA</div>
+        <div class="hidden md:block text-right">{t.dataprep_ragus_label}</div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Column: Content -->
+        <div>
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] mb-6 inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-lg text-primary text-sm font-medium">
+            <iconify-icon icon="solar:cloud-bold"></iconify-icon>
+            <span>{t.dataprep_ragus_badge}</span>
+          </div>
+
+          <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] leading-[0.95] md:text-5xl lg:text-6xl text-3xl font-medium text-white tracking-tighter mb-8">
+            <span>{t.dataprep_ragus_headline_1}</span>
+            <span class="text-neutral-600"> {t.dataprep_ragus_headline_2}</span>
+          </h2>
+
+          <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] text-lg text-neutral-400 mb-6 leading-relaxed">
+            {t.dataprep_ragus_desc}
+          </p>
+
+          <!-- Comparison: Service vs RAGus -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] mb-8 p-4 bg-white/[0.02] rounded-xl border border-white/5">
+            <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
+              <iconify-icon icon="solar:transfer-horizontal-bold" class="text-primary"></iconify-icon>
+              {t.dataprep_ragus_comparison_title}
+            </h4>
+            <div class="grid sm:grid-cols-2 gap-4 text-sm">
+              <div class="p-3 bg-orange-500/5 border border-orange-500/20 rounded-lg">
+                <div class="font-semibold text-orange-400 mb-2">🧑‍💼 {t.dataprep_ragus_service_label}</div>
+                <ul class="space-y-1 text-neutral-400 text-xs">
+                  <li>• {t.dataprep_ragus_service_point_1}</li>
+                  <li>• {t.dataprep_ragus_service_point_2}</li>
+                  <li>• {t.dataprep_ragus_service_point_3}</li>
+                </ul>
+              </div>
+              <div class="p-3 bg-primary/5 border border-primary/20 rounded-lg">
+                <div class="font-semibold text-primary mb-2">🚀 RAGus.ai</div>
+                <ul class="space-y-1 text-neutral-400 text-xs">
+                  <li>• {t.dataprep_ragus_platform_point_1}</li>
+                  <li>• {t.dataprep_ragus_platform_point_2}</li>
+                  <li>• {t.dataprep_ragus_platform_point_3}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <ul class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] space-y-3 mb-8">
+            <li class="flex items-start gap-3">
+              <iconify-icon icon="solar:check-circle-bold" class="text-primary text-xl mt-0.5"></iconify-icon>
+              <span class="text-neutral-300">{t.dataprep_ragus_feature_1}</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <iconify-icon icon="solar:check-circle-bold" class="text-primary text-xl mt-0.5"></iconify-icon>
+              <span class="text-neutral-300">{t.dataprep_ragus_feature_2}</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <iconify-icon icon="solar:check-circle-bold" class="text-primary text-xl mt-0.5"></iconify-icon>
+              <span class="text-neutral-300">{t.dataprep_ragus_feature_3}</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <iconify-icon icon="solar:check-circle-bold" class="text-primary text-xl mt-0.5"></iconify-icon>
+              <span class="text-neutral-300">{t.dataprep_ragus_feature_4}</span>
+            </li>
+          </ul>
+
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both] flex flex-wrap gap-4">
+            <a href="https://ragus.ai" target="_blank" class="vf-button" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
+              <div class="vf-points-wrapper">
+                <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
+                <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
+              </div>
+              <span class="vf-inner">
+                <span>{t.dataprep_ragus_cta}</span>
+                <svg class="vf-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                  <path d="M7 7h10v10"></path>
+                  <path d="M7 17 17 7"></path>
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: RAGus Slideshow -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both]">
+          <div class="ragus-slideshow relative aspect-[16/9] overflow-hidden bg-[#0d0d0d] rounded-2xl shadow-2xl cursor-pointer group/slideshow border border-primary/20">
+            <!-- Slides -->
+            <div class="ragus-slide active">
+              <img src="/assets/images/ragus/01.PNG" alt="RAGus.ai Dashboard" class="w-full h-full object-contain rounded-xl">
+            </div>
+            <div class="ragus-slide">
+              <img src="/assets/images/ragus/02.PNG" alt="RAGus.ai Features" class="w-full h-full object-contain rounded-xl">
+            </div>
+            <div class="ragus-slide">
+              <img src="/assets/images/ragus/03.PNG" alt="RAGus.ai Analytics" class="w-full h-full object-contain rounded-xl">
+            </div>
+            <div class="ragus-slide">
+              <img src="/assets/images/ragus/04.PNG" alt="RAGus.ai Management" class="w-full h-full object-contain rounded-xl">
+            </div>
+            
+            <!-- Zoom Indicator Overlay -->
+            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover/slideshow:opacity-100 transition-opacity flex items-center justify-center pointer-events-none z-0">
+              <div class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/70">
+                <iconify-icon icon="solar:magnifer-zoom-in-linear" class="text-2xl"></iconify-icon>
+              </div>
+            </div>
+
+            <!-- Navigation Arrows -->
+            <button class="ragus-prev absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-black/80 transition-all z-10">
+              <iconify-icon icon="solar:arrow-left-linear" class="text-2xl"></iconify-icon>
+            </button>
+            <button class="ragus-next absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-black/80 transition-all z-10">
+              <iconify-icon icon="solar:arrow-right-linear" class="text-2xl"></iconify-icon>
+            </button>
+          </div>
+          
+          <!-- Dots Indicator - Below Image -->
+          <div class="flex justify-center gap-2 mt-5">
+            <button class="ragus-dot active w-2.5 h-2.5 rounded-full bg-primary transition-all" data-slide="0"></button>
+            <button class="ragus-dot w-2.5 h-2.5 rounded-full bg-white/30 transition-all" data-slide="1"></button>
+            <button class="ragus-dot w-2.5 h-2.5 rounded-full bg-white/30 transition-all" data-slide="2"></button>
+            <button class="ragus-dot w-2.5 h-2.5 rounded-full bg-white/30 transition-all" data-slide="3"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Target Audience with Teal Accent -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.8s_both] grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
+        <div class="p-4 bg-primary/5 rounded-xl text-center border border-primary/10">
+          <iconify-icon icon="solar:code-bold" class="text-2xl text-primary mb-2"></iconify-icon>
+          <div class="text-sm text-neutral-400">{t.dataprep_ragus_target_1}</div>
+        </div>
+        <div class="p-4 bg-primary/5 rounded-xl text-center border border-primary/10">
+          <iconify-icon icon="solar:buildings-bold" class="text-2xl text-primary mb-2"></iconify-icon>
+          <div class="text-sm text-neutral-400">{t.dataprep_ragus_target_2}</div>
+        </div>
+        <div class="p-4 bg-primary/5 rounded-xl text-center border border-primary/10">
+          <iconify-icon icon="solar:user-bold" class="text-2xl text-primary mb-2"></iconify-icon>
+          <div class="text-sm text-neutral-400">{t.dataprep_ragus_target_3}</div>
+        </div>
+        <div class="p-4 bg-primary/5 rounded-xl text-center border border-primary/10">
+          <iconify-icon icon="solar:widget-bold" class="text-2xl text-primary mb-2"></iconify-icon>
+          <div class="text-sm text-neutral-400">{t.dataprep_ragus_target_4}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fullscreen Modal for RAGus Slideshow -->
+  <div id="ragus-fullscreen-modal" class="ragus-modal fixed inset-0 z-[9999] hidden">
+    <div class="ragus-modal-backdrop absolute inset-0 bg-black/95 cursor-pointer"></div>
+    <div class="ragus-modal-content absolute inset-0 flex items-center justify-center pointer-events-none">
+      <div class="w-[90vw] max-w-6xl h-[80vh] relative pointer-events-auto">
+        <button class="ragus-modal-prev absolute left-4 md:-left-20 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all" type="button">
+          <iconify-icon icon="solar:arrow-left-linear" class="text-3xl"></iconify-icon>
+        </button>
+        <button class="ragus-modal-next absolute right-4 md:-right-20 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all" type="button">
+          <iconify-icon icon="solar:arrow-right-linear" class="text-3xl"></iconify-icon>
+        </button>
+        <div class="ragus-modal-slides w-full h-full flex items-center justify-center relative"></div>
+        <div class="flex justify-center gap-3 mt-6">
+          <button class="ragus-modal-dot w-3 h-3 rounded-full bg-primary transition-all" data-slide="0" type="button"></button>
+          <button class="ragus-modal-dot w-3 h-3 rounded-full bg-white/30 transition-all" data-slide="1" type="button"></button>
+          <button class="ragus-modal-dot w-3 h-3 rounded-full bg-white/30 transition-all" data-slide="2" type="button"></button>
+          <button class="ragus-modal-dot w-3 h-3 rounded-full bg-white/30 transition-all" data-slide="3" type="button"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PRICING SECTION ==================== -->
+  <section id="cenik" class="bg-[#050505] border-t border-white/5 py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
+        <div class="flex items-center gap-2">
+          <span class="text-white">06</span>
+          <span class="w-12 h-px bg-white/10"></span>
+        </div>
+        <div class="text-white/40">{t.dataprep_pricing_tag}</div>
+        <div class="hidden md:block text-right">{t.dataprep_pricing_label}</div>
+      </div>
+
+      <div class="text-center max-w-5xl mx-auto mb-16">
+        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[0.95] md:text-5xl lg:text-6xl text-3xl font-medium text-white tracking-tighter mb-8">
+          <span>{t.dataprep_pricing_headline_1}</span>
+          <span class="text-neutral-600 transition-colors hover:text-orange-400 duration-500"> {t.dataprep_pricing_headline_2}</span>
+        </h2>
+        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg text-neutral-400 font-light max-w-2xl mx-auto leading-relaxed">
+          {t.dataprep_pricing_desc}
+        </p>
+      </div>
+
+      <!-- Pricing Cards -->
+      <div class="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <!-- Professional Service (Orange) -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] relative p-8 bg-gradient-to-br from-orange-500/10 via-[#0A0A0A] to-[#0A0A0A] border border-orange-500/30 rounded-2xl hover:border-orange-500/50 transition-all duration-300">
+          <div class="absolute top-4 right-4 px-3 py-1 bg-orange-500/20 text-orange-400 text-xs font-bold rounded-full">DOPORUČENO</div>
+          
+          <div class="w-14 h-14 rounded-2xl bg-orange-500/20 flex items-center justify-center text-orange-400 mb-6">
+            <iconify-icon icon="solar:users-group-rounded-bold" class="text-3xl"></iconify-icon>
+          </div>
+          
+          <h3 class="text-2xl font-bold text-white mb-2">{t.dataprep_service_title}</h3>
+          <p class="text-neutral-400 mb-6">{t.dataprep_service_desc}</p>
+          
+          <div class="space-y-3 mb-6">
+            <div class="flex items-baseline gap-2">
+              <span class="text-3xl font-bold text-orange-400">{t.dataprep_service_price_1}</span>
+            </div>
+            <p class="text-sm text-neutral-500">{t.dataprep_service_price_1_desc}</p>
+            <div class="flex items-center gap-2 text-neutral-400">
+              <span class="text-sm">nebo</span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="text-2xl font-bold text-white">{t.dataprep_service_price_2}</span>
+            </div>
+            <p class="text-sm text-neutral-500">{t.dataprep_service_price_2_desc}</p>
+          </div>
+          
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-sm text-neutral-300">
+              <iconify-icon icon="solar:check-circle-bold" class="text-orange-400 text-lg"></iconify-icon>
+              <span>{t.dataprep_service_feature_1}</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm text-neutral-300">
+              <iconify-icon icon="solar:check-circle-bold" class="text-orange-400 text-lg"></iconify-icon>
+              <span>{t.dataprep_service_feature_2}</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm text-neutral-300">
+              <iconify-icon icon="solar:check-circle-bold" class="text-orange-400 text-lg"></iconify-icon>
+              <span>{t.dataprep_service_feature_3}</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm text-neutral-300">
+              <iconify-icon icon="solar:check-circle-bold" class="text-orange-400 text-lg"></iconify-icon>
+              <span>{t.dataprep_service_feature_4}</span>
+            </li>
+          </ul>
+          
+          <a href="#kontakt" class="shiny-cta group w-full">
+            <span class="btn-content">
+              <span class="font-semibold">{t.dataprep_service_cta}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-white/80 group-hover:translate-x-1 transition-transform">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </span>
+          </a>
+        </div>
+
+        <!-- Self-Service RAGus.ai (Teal) -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] relative p-8 bg-gradient-to-br from-primary/10 via-[#0A0A0A] to-[#0A0A0A] border border-primary/30 rounded-2xl hover:border-primary/50 transition-all duration-300">
+          <div class="absolute top-4 right-4 px-3 py-1 bg-primary/20 text-primary text-xs font-bold rounded-full">SELF-SERVICE</div>
+          
+          <div class="w-14 h-14 rounded-2xl bg-primary/20 flex items-center justify-center mb-6">
+            <iconify-icon icon="solar:cloud-bold" class="text-3xl text-primary"></iconify-icon>
+          </div>
+          
+          <h3 class="text-2xl font-bold text-white mb-2">{t.dataprep_diy_title}</h3>
+          <p class="text-neutral-400 mb-6">{t.dataprep_diy_desc}</p>
+          
+          <div class="space-y-3 mb-6">
+            <div class="flex items-baseline gap-2">
+              <span class="text-3xl font-bold text-primary">{t.dataprep_diy_price}</span>
+            </div>
+            <p class="text-sm text-neutral-500">{t.dataprep_diy_price_desc}</p>
+          </div>
+          
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-sm text-neutral-300">
+              <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
+              <span>{t.dataprep_diy_feature_1}</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm text-neutral-300">
+              <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
+              <span>{t.dataprep_diy_feature_2}</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm text-neutral-300">
+              <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
+              <span>{t.dataprep_diy_feature_3}</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm text-neutral-300">
+              <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
+              <span>{t.dataprep_diy_feature_4}</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm text-neutral-300">
+              <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
+              <span>{t.dataprep_diy_feature_5}</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm text-neutral-300">
+              <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
+              <span>{t.dataprep_diy_feature_6}</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm text-neutral-300">
+              <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
+              <span>{t.dataprep_diy_feature_7}</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm text-neutral-300">
+              <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
+              <span>{t.dataprep_diy_feature_8}</span>
+            </li>
+          </ul>
+          
+          <a href="https://ragus.ai" target="_blank" class="vf-button w-full" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
+            <div class="vf-points-wrapper">
+              <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
+              <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
+            </div>
+            <span class="vf-inner">
+              <span>{t.dataprep_diy_cta}</span>
+              <svg class="vf-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                <path d="M7 7h10v10"></path>
+                <path d="M7 17 17 7"></path>
+              </svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FAQ SECTION ==================== -->
+  <section id="faq" class="bg-[#050505] border-t border-white/5 py-24">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
+        <div class="flex items-center gap-2">
+          <span class="text-white">07</span>
+          <span class="w-12 h-px bg-white/10"></span>
+        </div>
+        <div class="text-white/40">{t.dataprep_faq_tag}</div>
+        <div class="hidden md:block text-right">FAQ</div>
+      </div>
+
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[0.95] md:text-5xl lg:text-6xl text-3xl font-medium text-white tracking-tighter mb-8">
+          {t.dataprep_faq_headline}
+        </h2>
+      </div>
+
+      <!-- FAQ Items -->
+      <div class="space-y-4">
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] faq-item border border-white/5 rounded-xl overflow-hidden bg-[#0A0A0A]">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+            <span class="text-lg font-medium text-white">{t.dataprep_faq_1_q}</span>
+            <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon text-2xl text-neutral-500 transition-transform"></iconify-icon>
+          </button>
+          <div class="faq-answer">
+            <div class="px-6 pb-6 text-neutral-400">{t.dataprep_faq_1_a}</div>
+          </div>
+        </div>
+
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] faq-item border border-white/5 rounded-xl overflow-hidden bg-[#0A0A0A]">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+            <span class="text-lg font-medium text-white">{t.dataprep_faq_2_q}</span>
+            <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon text-2xl text-neutral-500 transition-transform"></iconify-icon>
+          </button>
+          <div class="faq-answer">
+            <div class="px-6 pb-6 text-neutral-400">{t.dataprep_faq_2_a}</div>
+          </div>
+        </div>
+
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] faq-item border border-white/5 rounded-xl overflow-hidden bg-[#0A0A0A]">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+            <span class="text-lg font-medium text-white">{t.dataprep_faq_3_q}</span>
+            <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon text-2xl text-neutral-500 transition-transform"></iconify-icon>
+          </button>
+          <div class="faq-answer">
+            <div class="px-6 pb-6 text-neutral-400">{t.dataprep_faq_3_a}</div>
+          </div>
+        </div>
+
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] faq-item border border-white/5 rounded-xl overflow-hidden bg-[#0A0A0A]">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+            <span class="text-lg font-medium text-white">{t.dataprep_faq_4_q}</span>
+            <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon text-2xl text-neutral-500 transition-transform"></iconify-icon>
+          </button>
+          <div class="faq-answer">
+            <div class="px-6 pb-6 text-neutral-400">{t.dataprep_faq_4_a}</div>
+          </div>
+        </div>
+
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both] faq-item border border-white/5 rounded-xl overflow-hidden bg-[#0A0A0A]">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+            <span class="text-lg font-medium text-white">{t.dataprep_faq_5_q}</span>
+            <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon text-2xl text-neutral-500 transition-transform"></iconify-icon>
+          </button>
+          <div class="faq-answer">
+            <div class="px-6 pb-6 text-neutral-400">{t.dataprep_faq_5_a}</div>
+          </div>
+        </div>
+
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.8s_both] faq-item border border-white/5 rounded-xl overflow-hidden bg-[#0A0A0A]">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+            <span class="text-lg font-medium text-white">{t.dataprep_faq_6_q}</span>
+            <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon text-2xl text-neutral-500 transition-transform"></iconify-icon>
+          </button>
+          <div class="faq-answer">
+            <div class="px-6 pb-6 text-neutral-400">{t.dataprep_faq_6_a}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT SECTION ==================== -->
+  <section id="kontakt" class="bg-[#050505] border-t border-white/5 py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
+        <div class="flex items-center gap-2">
+          <span class="text-white">08</span>
+          <span class="w-12 h-px bg-white/10"></span>
+        </div>
+        <div class="text-white/40">{t.dataprep_contact_tag}</div>
+        <div class="hidden md:block text-right">{t.dataprep_contact_label}</div>
+      </div>
+
+      <div class="text-center max-w-5xl mx-auto mb-16">
+        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[0.95] md:text-5xl lg:text-6xl text-3xl font-medium text-white tracking-tighter mb-8">
+          {t.dataprep_contact_headline}
+        </h2>
+        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg text-neutral-400 font-light max-w-2xl mx-auto leading-relaxed">
+          {t.dataprep_contact_desc}
+        </p>
+      </div>
+
+      <!-- Cal.com Widget -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] max-w-4xl mx-auto mb-12">
+        <div class="bg-[#0A0A0A] border border-white/5 rounded-2xl p-8">
+          <div class="text-center mb-8">
+            <h3 class="text-2xl font-bold text-white mb-2">{t.cal_title}</h3>
+            <p class="text-neutral-500">{t.cal_desc}</p>
+          </div>
+          <!-- Cal inline embed code begins -->
+          <div style="width:100%;height:630px;overflow:scroll" id="my-cal-inline-30-min-online"></div>
+        </div>
+      </div>
+
+      <!-- Alternative Contact -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] text-center">
+        <p class="text-neutral-500 mb-6">{t.contact_alt}</p>
+        <div class="flex flex-wrap items-center justify-center gap-6">
+          <a href="mailto:info@hypedigitaly.ai" class="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-neutral-300 hover:text-white hover:border-white/20 transition-colors">
+            <iconify-icon icon="solar:letter-bold" class="text-orange-400"></iconify-icon>
+            <span>info@hypedigitaly.ai</span>
+          </a>
+          <a href="tel:+420774996248" class="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-neutral-300 hover:text-white hover:border-white/20 transition-colors">
+            <iconify-icon icon="solar:phone-bold" class="text-orange-400"></iconify-icon>
+            <span>+420 774 996 248</span>
+          </a>
+          <a href="https://linkedin.com/company/hypedigitaly" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-neutral-300 hover:text-white hover:border-white/20 transition-colors">
+            <iconify-icon icon="mdi:linkedin" class="text-orange-400"></iconify-icon>
+            <span>LinkedIn</span>
+          </a>
+        </div>
+        
+        <!-- Trust badges -->
+        <div class="flex flex-wrap items-center justify-center gap-6 mt-8 text-sm text-neutral-500">
+          <span class="flex items-center gap-2">
+            <iconify-icon icon="solar:shield-check-bold" class="text-orange-400"></iconify-icon>
+            <span>{t.cta_trust_1}</span>
+          </span>
+          <span class="flex items-center gap-2">
+            <iconify-icon icon="solar:clock-circle-bold" class="text-orange-400"></iconify-icon>
+            <span>{t.cta_trust_2}</span>
+          </span>
+          <span class="flex items-center gap-2">
+            <iconify-icon icon="solar:map-point-bold" class="text-orange-400"></iconify-icon>
+            <span>{t.cta_trust_3}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .ragus-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      pointer-events: none;
+    }
+    .ragus-slide.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .ragus-modal-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ragus-modal-slide.active {
+      opacity: 1;
+    }
+    .ragus-modal-slide img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+  </style>
+
+  <script is:inline>
+    // Cal.com embed
+    (function (C, A, L) { 
+      let p = function (a, ar) { a.q.push(ar); }; 
+      let d = C.document; 
+      C.Cal = C.Cal || function () { 
+        let cal = C.Cal; 
+        let ar = arguments; 
+        if (!cal.loaded) { 
+          cal.ns = {}; 
+          cal.q = cal.q || []; 
+          d.head.appendChild(d.createElement("script")).src = A; 
+          cal.loaded = true; 
+        } 
+        if (ar[0] === L) { 
+          const api = function () { p(api, arguments); }; 
+          const namespace = ar[1]; 
+          api.q = api.q || []; 
+          if(typeof namespace === "string"){ 
+            cal.ns[namespace] = cal.ns[namespace] || api; 
+            p(cal.ns[namespace], ar); 
+            p(cal, ["initNamespace", namespace]); 
+          } else p(cal, ar); 
+          return;
+        } 
+        p(cal, ar); 
+      }; 
+    })(window, "https://app.cal.com/embed/embed.js", "init");
+    Cal("init", "30-min-online", {origin:"https://app.cal.com"});
+    Cal.ns["30-min-online"]("inline", {
+      elementOrSelector:"#my-cal-inline-30-min-online",
+      config: {"layout":"month_view","theme":"light"},
+      calLink: "hypedigitaly-pavelcermak/30-min-online",
+    });
+    Cal.ns["30-min-online"]("ui", {"theme":"light","cssVarsPerTheme":{"light":{"cal-brand":"#F97316"}},"hideEventTypeDetails":false,"layout":"month_view"});
+
+    // FAQ Accordion
+    function initFaqAccordion() {
+      const faqItems = document.querySelectorAll('.faq-item');
+      
+      faqItems.forEach(item => {
+        const trigger = item.querySelector('.faq-trigger');
+        const answer = item.querySelector('.faq-answer');
+        const icon = item.querySelector('.faq-icon');
+        
+        if (!trigger || !answer) return;
+        
+        // Set initial state
+        answer.style.maxHeight = '0';
+        answer.style.overflow = 'hidden';
+        answer.style.transition = 'max-height 0.3s ease-out';
+        
+        trigger.addEventListener('click', () => {
+          const isOpen = answer.style.maxHeight !== '0px' && answer.style.maxHeight !== '';
+          
+          // Close all other items
+          faqItems.forEach(otherItem => {
+            if (otherItem !== item) {
+              const otherAnswer = otherItem.querySelector('.faq-answer');
+              const otherIcon = otherItem.querySelector('.faq-icon');
+              if (otherAnswer) {
+                otherAnswer.style.maxHeight = '0';
+              }
+              if (otherIcon) {
+                otherIcon.style.transform = 'rotate(0deg)';
+              }
+            }
+          });
+          
+          // Toggle current item
+          if (isOpen) {
+            answer.style.maxHeight = '0';
+            if (icon) icon.style.transform = 'rotate(0deg)';
+          } else {
+            answer.style.maxHeight = answer.scrollHeight + 'px';
+            if (icon) icon.style.transform = 'rotate(180deg)';
+          }
+        });
+      });
+    }
+    
+    // Initialize on page load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initFaqAccordion);
+    } else {
+      initFaqAccordion();
+    }
+    
+    // Re-initialize on Astro page navigation
+    document.addEventListener('astro:page-load', initFaqAccordion);
+
+    // RAGus Slideshow Logic
+    (function() {
+      let initialized = false;
+      
+      function initRagusSlideshow() {
+        if (initialized) return;
+        
+        const slideshow = document.querySelector('.ragus-slideshow');
+        const modal = document.getElementById('ragus-fullscreen-modal');
+        
+        if (!slideshow || !modal) return;
+        
+        initialized = true;
+        
+        const modalSlidesContainer = modal.querySelector('.ragus-modal-slides');
+        const modalBackdrop = modal.querySelector('.ragus-modal-backdrop');
+        
+        const parent = slideshow.parentElement;
+        const slides = slideshow.querySelectorAll('.ragus-slide');
+        const prevBtn = slideshow.querySelector('.ragus-prev');
+        const nextBtn = slideshow.querySelector('.ragus-next');
+        const dots = parent.querySelectorAll('.ragus-dot');
+        
+        let currentSlide = 0;
+        let slideInterval;
+        
+        // Initialize modal slides by cloning
+        if (modalSlidesContainer && modalSlidesContainer.children.length === 0) {
+          slides.forEach((slide, i) => {
+            const clone = slide.cloneNode(true);
+            clone.className = 'ragus-modal-slide';
+            if (i === 0) clone.classList.add('active');
+            const img = clone.querySelector('img');
+            if (img) {
+              img.className = 'max-w-full max-h-full object-contain rounded-xl';
+            }
+            modalSlidesContainer.appendChild(clone);
+          });
+        }
+
+        const modalSlides = modalSlidesContainer ? modalSlidesContainer.querySelectorAll('.ragus-modal-slide') : [];
+        const modalDots = modal.querySelectorAll('.ragus-modal-dot');
+        
+        function showSlide(index) {
+          if (index >= slides.length) currentSlide = 0;
+          else if (index < 0) currentSlide = slides.length - 1;
+          else currentSlide = index;
+          
+          slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === currentSlide);
+          });
+          
+          modalSlides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === currentSlide);
+          });
+          
+          dots.forEach((dot, i) => {
+            if (i === currentSlide) {
+              dot.classList.remove('bg-white/30');
+              dot.classList.add('bg-primary');
+            } else {
+              dot.classList.remove('bg-primary');
+              dot.classList.add('bg-white/30');
+            }
+          });
+
+          modalDots.forEach((dot, i) => {
+            if (i === currentSlide) {
+              dot.classList.remove('bg-white/30');
+              dot.classList.add('bg-primary');
+            } else {
+              dot.classList.remove('bg-primary');
+              dot.classList.add('bg-white/30');
+            }
+          });
+        }
+        
+        function nextSlide() {
+          showSlide(currentSlide + 1);
+        }
+        
+        function prevSlide() {
+          showSlide(currentSlide - 1);
+        }
+        
+        function startAutoplay() {
+          if (!slideInterval) {
+            slideInterval = setInterval(nextSlide, 5000);
+          }
+        }
+        
+        function stopAutoplay() {
+          clearInterval(slideInterval);
+          slideInterval = null;
+        }
+
+        function openModal() {
+          modal.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+          modal.classList.add('hidden');
+          document.body.style.overflow = '';
+        }
+        
+        if (prevBtn) {
+          prevBtn.addEventListener('click', (e) => { 
+            e.stopPropagation();
+            stopAutoplay(); 
+            prevSlide(); 
+            startAutoplay(); 
+          });
+        }
+        if (nextBtn) {
+          nextBtn.addEventListener('click', (e) => { 
+            e.stopPropagation();
+            stopAutoplay(); 
+            nextSlide(); 
+            startAutoplay(); 
+          });
+        }
+        
+        dots.forEach((dot, index) => {
+          dot.addEventListener('click', () => {
+            stopAutoplay();
+            showSlide(index);
+            startAutoplay();
+          });
+        });
+
+        slideshow.addEventListener('click', (e) => {
+          if (e.target.closest('.ragus-prev') || e.target.closest('.ragus-next')) return;
+          openModal();
+        });
+        
+        if (modalBackdrop) {
+          modalBackdrop.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeModal();
+          };
+        }
+
+        modalDots.forEach((dot, index) => {
+          dot.addEventListener('click', () => {
+            stopAutoplay();
+            showSlide(index);
+            startAutoplay();
+          });
+        });
+
+        const modalPrevBtns = modal.querySelectorAll('.ragus-modal-prev');
+        const modalNextBtns = modal.querySelectorAll('.ragus-modal-next');
+
+        modalPrevBtns.forEach(btn => {
+          btn.onclick = function(e) {
+            e.stopPropagation();
+            stopAutoplay();
+            prevSlide();
+            startAutoplay();
+          };
+        });
+
+        modalNextBtns.forEach(btn => {
+          btn.onclick = function(e) {
+            e.stopPropagation();
+            stopAutoplay();
+            nextSlide();
+            startAutoplay();
+          };
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (modal.classList.contains('hidden')) return;
+          
+          if (e.key === 'Escape') closeModal();
+          if (e.key === 'ArrowLeft') { stopAutoplay(); prevSlide(); startAutoplay(); }
+          if (e.key === 'ArrowRight') { stopAutoplay(); nextSlide(); startAutoplay(); }
+        });
+        
+        let modalTouchStartX = 0;
+        if (modalSlidesContainer) {
+          modalSlidesContainer.addEventListener('touchstart', (e) => { modalTouchStartX = e.touches[0].clientX; }, { passive: true });
+          modalSlidesContainer.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const diff = modalTouchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+              stopAutoplay();
+              diff > 0 ? nextSlide() : prevSlide();
+              startAutoplay();
+            }
+          }, { passive: true });
+        }
+        
+        let touchStartX = 0;
+        slideshow.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+        slideshow.addEventListener('touchend', (e) => {
+          const touchEndX = e.changedTouches[0].clientX;
+          const diff = touchStartX - touchEndX;
+          if (Math.abs(diff) > 50) {
+            stopAutoplay();
+            diff > 0 ? nextSlide() : prevSlide();
+            startAutoplay();
+          }
+        }, { passive: true });
+        
+        slideshow.addEventListener('mouseenter', stopAutoplay);
+        slideshow.addEventListener('mouseleave', startAutoplay);
+        
+        startAutoplay();
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initRagusSlideshow);
+      } else {
+        initRagusSlideshow();
+      }
+      document.addEventListener('astro:page-load', function() {
+        initialized = false;
+        initRagusSlideshow();
+      });
+    })();
+  </script>
+</PageLayout>

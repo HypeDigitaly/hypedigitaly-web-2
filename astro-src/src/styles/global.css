@@ -1543,3 +1543,168 @@ a:hover .logo-grayscale-jpg {
     height: 1.25rem;
   }
 }
+
+/* ==================== BLOG CARD BUTTONS WITH BUBBLE EFFECT ==================== */
+.blog-card-btn {
+  cursor: pointer;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: all 0.25s ease;
+  border: none;
+  outline: none;
+  min-height: 44px;
+}
+
+/* Primary (teal) button */
+.blog-btn-primary {
+  background: radial-gradient(65.28% 65.28% at 50% 100%,
+      rgba(0, 196, 180, 0.8) 0%,
+      rgba(0, 196, 180, 0) 100%),
+    linear-gradient(0deg, #00A39A, #00A39A);
+}
+
+.blog-btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: linear-gradient(177.95deg,
+      rgba(255, 255, 255, 0.19) 0%,
+      rgba(255, 255, 255, 0) 100%);
+  border-radius: calc(0.75rem - 1px);
+  z-index: 0;
+  transition: all 0.3s ease;
+}
+
+.blog-btn-primary:hover {
+  background: radial-gradient(65.28% 65.28% at 50% 100%,
+      rgba(0, 196, 180, 0.9) 0%,
+      rgba(0, 196, 180, 0) 100%),
+    linear-gradient(0deg, #00C4B4, #00C4B4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 163, 154, 0.4);
+}
+
+/* Orange button */
+.blog-btn-orange {
+  background: radial-gradient(65.28% 65.28% at 50% 100%,
+      rgba(251, 146, 60, 0.8) 0%,
+      rgba(251, 146, 60, 0) 100%),
+    linear-gradient(0deg, #f97316, #f97316);
+}
+
+.blog-btn-orange::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: linear-gradient(177.95deg,
+      rgba(255, 255, 255, 0.19) 0%,
+      rgba(255, 255, 255, 0) 100%);
+  border-radius: calc(0.75rem - 1px);
+  z-index: 0;
+  transition: all 0.3s ease;
+}
+
+.blog-btn-orange:hover {
+  background: radial-gradient(65.28% 65.28% at 50% 100%,
+      rgba(251, 146, 60, 0.9) 0%,
+      rgba(251, 146, 60, 0) 100%),
+    linear-gradient(0deg, #fb923c, #fb923c);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(249, 115, 22, 0.4);
+}
+
+.blog-card-btn:active {
+  transform: scale(0.97) translateY(0);
+}
+
+/* Bubble container */
+.blog-btn-bubbles {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* Individual bubbles */
+.blog-btn-bubbles .blog-btn-bubble {
+  bottom: -8px;
+  position: absolute;
+  animation: blog-btn-floating-bubbles infinite ease-in-out;
+  pointer-events: none;
+  width: 3px;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 9999px;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes blog-btn-floating-bubbles {
+  0% { transform: translateY(0); opacity: 0.8; }
+  50% { opacity: 1; }
+  85% { opacity: 0; }
+  100% { transform: translateY(-50px); opacity: 0; }
+}
+
+/* Bubble positions */
+.blog-btn-bubbles .blog-btn-bubble:nth-child(1) { left: 10%; opacity: 0.9; animation-duration: 2.0s; animation-delay: 0s; }
+.blog-btn-bubbles .blog-btn-bubble:nth-child(2) { left: 25%; opacity: 0.7; animation-duration: 2.3s; animation-delay: 0.3s; }
+.blog-btn-bubbles .blog-btn-bubble:nth-child(3) { left: 40%; opacity: 0.8; animation-duration: 1.8s; animation-delay: 0.6s; }
+.blog-btn-bubbles .blog-btn-bubble:nth-child(4) { left: 55%; opacity: 0.6; animation-duration: 2.1s; animation-delay: 0.2s; }
+.blog-btn-bubbles .blog-btn-bubble:nth-child(5) { left: 70%; opacity: 1; animation-duration: 1.9s; animation-delay: 0.8s; }
+.blog-btn-bubbles .blog-btn-bubble:nth-child(6) { left: 85%; opacity: 0.7; animation-duration: 2.2s; animation-delay: 0.5s; }
+
+/* ==================== JSON SYNTAX HIGHLIGHTING ==================== */
+/* Notepad++ style JSON highlighting for data preparation page */
+.json-highlight {
+  color: #d4d4d4;
+}
+
+.json-highlight .json-key {
+  color: #9cdcfe; /* Light blue for property keys - like Notepad++ */
+  font-weight: 500;
+}
+
+.json-highlight .json-string {
+  color: #ce9178; /* Orange/brown for string values */
+}
+
+.json-highlight .json-number {
+  color: #b5cea8; /* Light green for numbers */
+}
+
+.json-highlight .json-boolean {
+  color: #569cd6; /* Blue for booleans */
+}
+
+.json-highlight .json-null {
+  color: #569cd6; /* Blue for null */
+}
+
+.json-highlight .json-brace {
+  color: #ffd700; /* Gold/yellow for curly braces */
+  font-weight: 600;
+}
+
+.json-highlight .json-bracket {
+  color: #da70d6; /* Purple/orchid for square brackets */
+  font-weight: 600;
+}
+
+.json-highlight .json-colon {
+  color: #d4d4d4; /* Default color for colons */
+}
+
+.json-highlight .json-comma {
+  color: #d4d4d4; /* Default color for commas */
+}
+
+.json-highlight .json-comment {
+  color: #6a9955; /* Green for comments - like VS Code */
+  font-style: italic;
+}

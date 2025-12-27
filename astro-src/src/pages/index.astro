@@ -3,9 +3,9 @@ import PageLayout from '../layouts/PageLayout.astro';
 import ClientsMarquee from '../components/sections/ClientsMarquee.astro';
 import DataPreparationSection from '../components/sections/DataPreparationSection.astro';
 import TestimonialsSection from '../components/sections/TestimonialsSection.astro';
+import CaseStudiesSection from '../components/sections/CaseStudiesSection.astro';
 import { translations, type Language } from '../scripts/translations';
 import faqData from '../data/faq.json';
-import clientsData from '../data/clients.json';
 
 const lang: Language = 'cs';
 const t = translations[lang];
@@ -15,6 +15,7 @@ const t = translations[lang];
   title="HypeDigitaly | AI Transformation Partner - První AI agentura v ČR"
   description="HypeDigitaly je AI Transformation Partner. Pomáháme organizacím implementovat AI chatboty, voiceboty, AI agenty a automatizace. Jsme první společnost v ČR, která nasadila AI chatboty na krajské weby."
   lang={lang}
+  showCalendar={false}
 >
   <!-- ==================== HERO SECTION ==================== -->
   <section class="relative max-w-7xl mx-auto px-6 pt-12 pb-24 overflow-hidden">
@@ -452,6 +453,46 @@ const t = translations[lang];
           </div>
         </div>
 
+        <!-- DATA PREPARATION - NOVINKA / HOT -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.65s_both] group relative p-6 rounded-2xl transition-all duration-300 service-hot-card overflow-hidden">
+          <!-- Animated gradient border -->
+          <div class="absolute inset-0 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 opacity-75 blur-[1px] group-hover:opacity-100 transition-opacity"></div>
+          <div class="absolute inset-[2px] rounded-[14px] bg-[#0A0A0A]"></div>
+          
+          <!-- Content wrapper -->
+          <div class="relative z-10">
+            <!-- HOT Badge with pulse animation -->
+            <div class="absolute -top-2 -right-2 flex items-center gap-1.5">
+              <span class="relative flex h-3 w-3">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+              </span>
+              <span class="px-2.5 py-1 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] font-bold rounded-full uppercase tracking-wider shadow-lg shadow-orange-500/30">
+                🔥 Novinka
+              </span>
+            </div>
+            
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+              <iconify-icon icon="solar:database-bold" class="text-2xl text-amber-400"></iconify-icon>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-2 group-hover:text-amber-400 transition-colors">{t.dataprep_nav_title}</h3>
+            <p class="text-sm text-neutral-500 mb-4">{t.dataprep_hero_subheadline}</p>
+            <a href="/priprava-dat" class="vf-button !py-3 !min-w-[240px] justify-center" style="--vf-bg: #f59e0b; --vf-hover-bg: #fbbf24; --vf-glow-rgb: 245, 158, 11;">
+              <div class="vf-points-wrapper">
+                <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
+                <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
+              </div>
+              <span class="vf-inner">
+                <span>Připravit data pro AI</span>
+                <svg class="vf-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path>
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+
         <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-cyan-500/30 transition-all duration-300">
           <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-4">
             <iconify-icon icon="solar:code-bold" class="text-2xl"></iconify-icon>
@@ -484,7 +525,7 @@ const t = translations[lang];
           </div>
           <h3 class="text-xl font-semibold text-white mb-2">{t.service_consult_title}</h3>
           <p class="text-sm text-neutral-500 mb-4">{t.service_consult_desc}</p>
-          <a href="/konzultace" class="vf-button !py-3 !px-6 mb-4" style="--vf-bg: #22c55e; --vf-hover-bg: #4ade80; --vf-glow-rgb: 34, 197, 94;">
+          <a href="/konzultace" class="vf-button !py-3 !min-w-[240px] justify-center" style="--vf-bg: #22c55e; --vf-hover-bg: #4ade80; --vf-glow-rgb: 34, 197, 94;">
             <div class="vf-points-wrapper">
               <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
               <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
@@ -506,82 +547,7 @@ const t = translations[lang];
   <TestimonialsSection lang={lang} sectionNumber="06" id="reference" />
 
   <!-- ==================== CASE STUDIES SECTION ==================== -->
-  <section id="pripadove-studie" class="bg-[#050505] border-t border-white/5 py-24">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
-        <div class="flex items-center gap-2">
-          <span class="text-white">05</span>
-          <span class="w-12 h-px bg-white/10"></span>
-        </div>
-        <div class="text-white/40">{t.cases_tag}</div>
-        <div class="hidden md:block text-right">{t.cases_label}</div>
-      </div>
-
-      <div class="text-center max-w-5xl mx-auto mb-16">
-        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[0.95] md:text-6xl lg:text-7xl text-3xl font-medium text-white tracking-tighter mb-8">
-          <span>{t.cases_headline_1}</span>
-          <span class="text-neutral-600 transition-colors hover:text-primary duration-500">{t.cases_headline_2}</span>
-        </h2>
-      </div>
-
-      <!-- Featured Case Study -->
-      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] mb-8 p-8 bg-gradient-to-br from-primary/10 via-[#0A0A0A] to-[#0A0A0A] border border-primary/30 rounded-2xl">
-        <div class="flex items-center gap-2 mb-6">
-          <iconify-icon icon="solar:chart-2-bold" class="text-2xl text-primary"></iconify-icon>
-          <span class="text-sm font-bold text-primary uppercase tracking-wider">{t.cases_featured}</span>
-        </div>
-        <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">{t.cases_featured_title}</h3>
-        <p class="text-neutral-400 mb-8 max-w-3xl">{t.cases_featured_desc}</p>
-        
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div class="text-center p-4 bg-white/5 rounded-xl">
-            <div class="text-3xl md:text-4xl font-bold text-white mb-1">35,095</div>
-            <div class="text-xs text-neutral-500 uppercase tracking-wider">{t.cases_metric_1}</div>
-          </div>
-          <div class="text-center p-4 bg-white/5 rounded-xl">
-            <div class="text-3xl md:text-4xl font-bold text-primary mb-1">4.57/5</div>
-            <div class="text-xs text-neutral-500 uppercase tracking-wider">{t.cases_metric_2}</div>
-          </div>
-          <div class="text-center p-4 bg-white/5 rounded-xl">
-            <div class="text-3xl md:text-4xl font-bold text-white mb-1">102%</div>
-            <div class="text-xs text-neutral-500 uppercase tracking-wider">{t.cases_metric_3}</div>
-          </div>
-          <div class="text-center p-4 bg-white/5 rounded-xl">
-            <div class="text-3xl md:text-4xl font-bold text-white mb-1">1.8-5.2</div>
-            <div class="text-xs text-neutral-500 uppercase tracking-wider">{t.cases_metric_4}</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Individual Case Studies Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {clientsData.clients.filter(c => c.stats).map((client, index) => (
-          <div class={`animate-on-scroll [animation:animationIn_0.8s_ease-out_${0.4 + index * 0.1}s_both] group p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-white/10 transition-all`}>
-            <div class="flex items-center gap-3 mb-4">
-              <a href={client.url} target="_blank" class="hover:opacity-80 transition-opacity">
-                <img src={client.logo} alt={client.name_cs} class={`h-10 ${client.invert ? 'brightness-0 invert' : ''}`}>
-              </a>
-            </div>
-            <h4 class="font-semibold text-white mb-2">{client.name_cs}</h4>
-            <div class="space-y-2 text-sm">
-              <div class="flex justify-between">
-                <span class="text-neutral-500">AI odpovědí:</span>
-                <span class="text-white font-medium">{client.stats.ai_responses.toLocaleString()}</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-neutral-500">Přesnost:</span>
-                <span class="text-primary font-medium">{client.stats.accuracy}%</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-neutral-500">Spokojenost:</span>
-                <span class="text-white font-medium">{client.stats.satisfaction}/5</span>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <CaseStudiesSection lang={lang} sectionNumber="05" id="pripadove-studie" />
 
   <!-- ==================== DATA PREPARATION SECTION ==================== -->
   <DataPreparationSection lang={lang} sectionNumber="07" id="priprava-dat" />
@@ -605,7 +571,7 @@ const t = translations[lang];
           <p class="text-neutral-400 text-sm md:text-base mb-4 max-w-md">
             {t.vf_desc}
           </p>
-          <a href="https://www.voiceflow.com" target="_blank" rel="noopener noreferrer" class="vf-button" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
+          <a href="https://partners.voiceflow.com/tfl9ptojz0xf" target="_blank" rel="noopener noreferrer" class="vf-button" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
             <div class="vf-points-wrapper">
               <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
               <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>

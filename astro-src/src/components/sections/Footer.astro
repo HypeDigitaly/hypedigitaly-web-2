@@ -4,11 +4,128 @@ import { translations, type Language } from '../../scripts/translations';
 export interface Props {
   lang?: Language;
   simple?: boolean;
+  showCalendar?: boolean;
 }
 
-const { lang = 'cs', simple = false } = Astro.props;
+const { lang = 'cs', simple = false, showCalendar = true } = Astro.props;
 const t = translations[lang];
+
+// Generate unique ID for this footer's calendar
+const calendarId = `footer-cal-${Math.random().toString(36).substring(7)}`;
 ---
+
+{/* Contact Section with Calendar - Before Footer */}
+{!simple && showCalendar && (
+  <section id="kontakt" class="bg-[#050505] border-t border-white/5 py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
+        <div class="flex items-center gap-2">
+          <span class="text-white">●</span>
+          <span class="w-12 h-px bg-white/10"></span>
+        </div>
+        <div class="text-white/40">{t.cta_tag}</div>
+        <div class="hidden md:block text-right">{t.cta_label}</div>
+      </div>
+
+      <div class="text-center max-w-5xl mx-auto mb-16">
+        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[0.95] md:text-6xl lg:text-7xl text-3xl font-medium text-white tracking-tighter mb-8">
+          <span>{t.cta_headline_1}</span>
+          <span class="text-neutral-600 transition-colors hover:text-primary duration-500">{t.cta_headline_2}</span>
+        </h2>
+        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg text-neutral-400 font-light max-w-2xl mx-auto leading-relaxed">
+          {t.cta_subheadline}
+        </p>
+      </div>
+
+      <!-- Cal.com Widget -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] max-w-4xl mx-auto mb-12">
+        <div class="bg-[#0A0A0A] border border-white/5 rounded-2xl p-8">
+          <div class="text-center mb-8">
+            <h3 class="text-2xl font-bold text-white mb-2">{t.cal_title}</h3>
+            <p class="text-neutral-500">{t.cal_desc}</p>
+          </div>
+          <!-- Cal inline embed -->
+          <div style="width:100%;height:630px;overflow:scroll" id={calendarId}></div>
+        </div>
+      </div>
+
+      <!-- Alternative Contact -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] text-center">
+        <p class="text-neutral-500 mb-6">{t.contact_alt}</p>
+        <div class="flex flex-wrap items-center justify-center gap-6">
+          <a href="mailto:info@hypedigitaly.ai" class="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-neutral-300 hover:text-white hover:border-white/20 transition-colors">
+            <iconify-icon icon="solar:letter-bold" class="text-primary"></iconify-icon>
+            <span>info@hypedigitaly.ai</span>
+          </a>
+          <a href="tel:+420774996248" class="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-neutral-300 hover:text-white hover:border-white/20 transition-colors">
+            <iconify-icon icon="solar:phone-bold" class="text-primary"></iconify-icon>
+            <span>+420 774 996 248</span>
+          </a>
+          <a href="https://linkedin.com/company/hypedigitaly" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-neutral-300 hover:text-white hover:border-white/20 transition-colors">
+            <iconify-icon icon="mdi:linkedin" class="text-primary"></iconify-icon>
+            <span>LinkedIn</span>
+          </a>
+        </div>
+        
+        <!-- Trust badges -->
+        <div class="flex flex-wrap items-center justify-center gap-6 mt-8 text-sm text-neutral-500">
+          <span class="flex items-center gap-2">
+            <iconify-icon icon="solar:shield-check-bold" class="text-primary"></iconify-icon>
+            <span>{t.cta_trust_1}</span>
+          </span>
+          <span class="flex items-center gap-2">
+            <iconify-icon icon="solar:clock-circle-bold" class="text-primary"></iconify-icon>
+            <span>{t.cta_trust_2}</span>
+          </span>
+          <span class="flex items-center gap-2">
+            <iconify-icon icon="solar:map-point-bold" class="text-primary"></iconify-icon>
+            <span>{t.cta_trust_3}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline define:vars={{ calendarId }}>
+    // Cal.com embed for footer
+    (function (C, A, L) { 
+      let p = function (a, ar) { a.q.push(ar); }; 
+      let d = C.document; 
+      C.Cal = C.Cal || function () { 
+        let cal = C.Cal; 
+        let ar = arguments; 
+        if (!cal.loaded) { 
+          cal.ns = {}; 
+          cal.q = cal.q || []; 
+          d.head.appendChild(d.createElement("script")).src = A; 
+          cal.loaded = true; 
+        } 
+        if (ar[0] === L) { 
+          const api = function () { p(api, arguments); }; 
+          const namespace = ar[1]; 
+          api.q = api.q || []; 
+          if(typeof namespace === "string"){ 
+            cal.ns[namespace] = cal.ns[namespace] || api; 
+            p(cal.ns[namespace], ar); 
+            p(cal, ["initNamespace", namespace]); 
+          } else p(cal, ar); 
+          return;
+        } 
+        p(cal, ar); 
+      }; 
+    })(window, "https://app.cal.com/embed/embed.js", "init");
+    
+    const nsName = "footer-cal-ns";
+    Cal("init", nsName, {origin:"https://app.cal.com"});
+    Cal.ns[nsName]("inline", {
+      elementOrSelector: "#" + calendarId,
+      config: {"layout":"month_view","theme":"light"},
+      calLink: "hypedigitaly-pavelcermak/30-min-online",
+    });
+    Cal.ns[nsName]("ui", {"theme":"light","cssVarsPerTheme":{"light":{"cal-brand":"#00A39A"}},"hideEventTypeDetails":false,"layout":"month_view"});
+  </script>
+)}
 
 <footer class="bg-[#050505] border-t border-white/5">
   <div class="max-w-7xl mx-auto relative">
@@ -98,7 +215,7 @@ const t = translations[lang];
               src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2529.1398449927765!2d14.040413!3d50.661664!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x688f4a5bfff74331%3A0x10f2174a0a9d55ac!2sHypeDigitaly%20s.r.o.!5e0!3m2!1scs!2scz!4v1766687583203!5m2!1scs!2scz" 
               width="100%" 
               height="100%" 
-              style="border:0; filter: grayscale(1) invert(0.9) contrast(1.2);" 
+              style="border:0; filter: invert(0.9) hue-rotate(180deg) saturate(1.3) contrast(1.1);" 
               allowfullscreen="" 
               loading="lazy" 
               referrerpolicy="no-referrer-when-downgrade">
@@ -107,11 +224,12 @@ const t = translations[lang];
         </div>
 
         <!-- Navigation -->
-        <div class="grid grid-cols-2 md:grid-cols-6 border-b border-white/5 text-sm">
+        <div class="grid grid-cols-2 md:grid-cols-7 border-b border-white/5 text-sm">
           <a href="/#sluzby" class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_services}</a>
           <a href="/#reference" class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_references}</a>
+          <a href="/blog?category=success-story" class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.nav_case_studies}</a>
           <a href="/#ragus" class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">RAGus.ai</a>
-          <a href="/#kontakt" class="px-6 py-6 border-r border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_contact}</a>
+          <a href="#kontakt" class="px-6 py-6 border-r border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_contact}</a>
           <a href="/privacy-policy" class="px-6 py-6 border-r border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_privacy}</a>
           <a href="/recommendation" class="px-6 py-6 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_recommendation}</a>
         </div>

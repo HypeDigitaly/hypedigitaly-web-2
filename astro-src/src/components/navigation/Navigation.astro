@@ -46,12 +46,20 @@ const t = translations[lang];
                   <div class="text-xs text-neutral-500">Strategické AI poradenství</div>
                 </div>
               </a>
+              <a href="/priprava-dat" class="flex items-center gap-3 px-4 py-3 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">
+                <iconify-icon icon="solar:database-bold" class="text-primary text-lg"></iconify-icon>
+                <div>
+                  <div class="font-medium">{t.dataprep_nav_title}</div>
+                  <div class="text-xs text-neutral-500">{t.dataprep_nav_desc}</div>
+                </div>
+              </a>
             </div>
           </div>
         </div>
         <a href="/#reference" class="hover:text-white transition-colors">{t.nav_cases}</a>
+        <a href="/blog?category=success-story" class="hover:text-white transition-colors">{t.nav_case_studies}</a>
         <a href="/#priprava-dat" class="hover:text-white transition-colors">{t.nav_data_prep}</a>
-        <a href="/#kontakt" class="hover:text-white transition-colors">{t.nav_contact}</a>
+        <a href="#kontakt" class="hover:text-white transition-colors">{t.nav_contact}</a>
       </div>
     )}
 
@@ -78,7 +86,7 @@ const t = translations[lang];
       </div>
 
       <!-- CTA Button -->
-      <a href="/#kontakt" class="nav-cta-button hover:bg-white/10 transition-all flex text-sm font-medium text-neutral-200 bg-gradient-to-b from-primary/30 via-primary/10 to-primary/20 px-4 py-2 shadow-[0px_1px_0px_0px_rgba(0,163,154,0.3)_inset] gap-x-2 items-center rounded-lg relative overflow-hidden" style="--border-gradient: linear-gradient(180deg, rgba(0, 163, 154, 0.5), rgba(0, 163, 154, 0), rgba(0, 163, 154, 0.2)); --border-radius-before: 8px">
+      <a href="#kontakt" class="nav-cta-button hover:bg-white/10 transition-all flex text-sm font-medium text-neutral-200 bg-gradient-to-b from-primary/30 via-primary/10 to-primary/20 px-4 py-2 shadow-[0px_1px_0px_0px_rgba(0,163,154,0.3)_inset] gap-x-2 items-center rounded-lg relative overflow-hidden" style="--border-gradient: linear-gradient(180deg, rgba(0, 163, 154, 0.5), rgba(0, 163, 154, 0), rgba(0, 163, 154, 0.2)); --border-radius-before: 8px">
         <!-- Floating bubbles -->
         <span class="nav-bubbles-wrapper">
           <span class="nav-bubble"></span>

@@ -1,0 +1,676 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { translations, type Language } from '../../scripts/translations';
+import blogData from '../../data/blog-posts.json';
+import clientsData from '../../data/clients.json';
+import type { BlogPost, BlogCategoryInfo } from '../../types/blog';
+import { blogCategories } from '../../types/blog';
+
+export async function getStaticPaths() {
+  const posts = blogData.posts as BlogPost[];
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props as { post: BlogPost };
+const lang: Language = 'cs';
+const t = translations[lang];
+
+const title = lang === 'cs' ? post.title_cs : post.title_en;
+const content = lang === 'cs' ? post.content_cs : post.content_en;
+const tags = lang === 'cs' ? post.tags_cs : post.tags_en;
+const authorRole = lang === 'cs' ? post.author_role_cs : post.author_role_en;
+
+const category = blogCategories.find(c => c.id === post.category) as BlogCategoryInfo;
+const categoryName = lang === 'cs' ? category.name_cs : category.name_en;
+
+// Format date
+const publishedDate = new Date(post.published_date);
+const formattedDate = publishedDate.toLocaleDateString(lang === 'cs' ? 'cs-CZ' : 'en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+
+// Get related clients data
+const relatedClients = post.related_clients 
+  ? clientsData.clients.filter(client => post.related_clients?.includes(client.id))
+  : [];
+
+// Color mapping for categories
+const categoryColors = {
+  'success-story': {
+    bg: 'bg-primary/10',
+    text: 'text-primary',
+    border: 'border-primary/30'
+  },
+  'tutorial': {
+    bg: 'bg-orange-500/10',
+    text: 'text-orange-400',
+    border: 'border-orange-500/30'
+  }
+};
+
+const colors = categoryColors[post.category];
+
+// Enhanced markdown to HTML converter with section numbers
+function convertMarkdownToHtml(md: string): string {
+  let html = md;
+  let sectionNumber = 0;
+  
+  // First, protect img tags from being processed
+  const imgMatches: string[] = [];
+  html = html.replace(/<img[^>]*>/g, (match) => {
+    imgMatches.push(match);
+    return `%%IMG${imgMatches.length - 1}%%`;
+  });
+  
+  // Protect p tags with classes
+  const pClassMatches: string[] = [];
+  html = html.replace(/<p class="[^"]*">[^<]*<\/p>/g, (match) => {
+    pClassMatches.push(match);
+    return `%%PCLASS${pClassMatches.length - 1}%%`;
+  });
+  
+  // Convert tables first with enhanced styling
+  html = html.replace(/\|(.+)\|\n\|[-|\s]+\|\n((?:\|.+\|\n?)+)/g, (match, header, body) => {
+    const headerCells = header.split('|').map((c: string) => c.trim()).filter(Boolean);
+    const headerRow = `<tr>${headerCells.map((c: string) => `<th>${c}</th>`).join('')}</tr>`;
+    
+    const bodyRows = body.trim().split('\n').map((row: string) => {
+      const cells = row.split('|').map((c: string) => c.trim()).filter(Boolean);
+      return `<tr>${cells.map((c: string) => `<td>${c}</td>`).join('')}</tr>`;
+    }).join('');
+    
+    return `<div class="table-wrapper"><table><thead>${headerRow}</thead><tbody>${bodyRows}</tbody></table></div>`;
+  });
+  
+  // Convert headers - with section numbers for h2
+  html = html.split('\n').map(line => {
+    // Match ## X. Title format (where X is a number)
+    const h2Match = line.match(/^## (\d+)\. (.+)$/);
+    if (h2Match) {
+      const num = h2Match[1];
+      const text = h2Match[2];
+      return `<div class="section-header"><span class="section-number">${num}</span><h2>${text}</h2></div>`;
+    }
+    if (line.startsWith('### ')) {
+      return `<h3>${line.slice(4)}</h3>`;
+    }
+    if (line.startsWith('## ')) {
+      sectionNumber++;
+      return `<div class="section-header"><span class="section-number">${sectionNumber}</span><h2>${line.slice(3)}</h2></div>`;
+    }
+    return line;
+  }).join('\n');
+  
+  // Convert bold text
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  
+  // Convert unordered lists
+  html = html.replace(/(^|\n)(- .+(?:\n- .+)*)/g, (match, pre, list) => {
+    const items = list.split('\n- ').filter(Boolean).map((item: string) => 
+      `<li>${item.replace(/^- /, '')}</li>`
+    ).join('');
+    return `${pre}<ul>${items}</ul>`;
+  });
+  
+  // Convert ordered lists
+  html = html.replace(/(^|\n)(\d+\. .+(?:\n\d+\. .+)*)/g, (match, pre, list) => {
+    const items = list.split(/\n\d+\. /).filter(Boolean).map((item: string) => 
+      `<li>${item.replace(/^\d+\. /, '')}</li>`
+    ).join('');
+    return `${pre}<ol>${items}</ol>`;
+  });
+  
+  // Convert paragraphs - split by double newlines
+  const parts = html.split('\n\n');
+  html = parts.map(part => {
+    const trimmed = part.trim();
+    // Don't wrap if it's already a block element
+    if (trimmed.startsWith('<div') || 
+        trimmed.startsWith('<h') || 
+        trimmed.startsWith('<table') || 
+        trimmed.startsWith('<ul') || 
+        trimmed.startsWith('<ol') ||
+        trimmed.startsWith('%%IMG') ||
+        trimmed.startsWith('%%PCLASS')) {
+      return trimmed;
+    }
+    if (trimmed.length > 0) {
+      return `<p>${trimmed.replace(/\n/g, '<br/>')}</p>`;
+    }
+    return '';
+  }).join('\n');
+  
+  // Wrap images in figure containers with white background
+  imgMatches.forEach((img, i) => {
+    const wrappedImg = `<figure class="chart-figure">${img}</figure>`;
+    html = html.replace(`%%IMG${i}%%`, wrappedImg);
+  });
+  
+  // Restore p tags with classes
+  pClassMatches.forEach((p, i) => {
+    html = html.replace(`%%PCLASS${i}%%`, p);
+  });
+  
+  // Clean up empty paragraphs
+  html = html.replace(/<p>\s*<\/p>/g, '');
+  
+  return html;
+}
+
+const htmlContent = convertMarkdownToHtml(content);
+---
+
+<PageLayout 
+  title={`${title} | HypeDigitaly Blog`}
+  description={lang === 'cs' ? post.excerpt_cs : post.excerpt_en}
+  lang={lang}
+>
+  <article class="blog-article">
+    <!-- ==================== HERO SECTION ==================== -->
+    <div class="hero-section">
+      <div class="max-w-5xl mx-auto px-6">
+        <!-- Back Link -->
+        <a href="/blog" class="inline-flex items-center gap-2 text-neutral-400 hover:text-primary transition-colors mb-6 group">
+          <iconify-icon icon="solar:arrow-left-linear" class="text-lg group-hover:-translate-x-1 transition-transform"></iconify-icon>
+          <span>{t.blog_back_to_blog}</span>
+        </a>
+
+        <!-- Category Badge -->
+        <div class="flex items-center gap-3 mb-4">
+          <span class={`px-3 py-1.5 ${colors.bg} ${colors.text} text-sm font-semibold rounded-full`}>
+            {categoryName}
+          </span>
+          <span class="text-neutral-500 text-sm">{formattedDate}</span>
+        </div>
+
+        <!-- Title -->
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
+          {title}
+        </h1>
+
+        <!-- Metrics Row -->
+        {post.metrics && post.metrics.length > 0 && (
+          <div class="flex flex-wrap gap-4 md:gap-8 mb-8">
+            {post.metrics.map((metric) => (
+              <div class="flex items-center gap-3">
+                <span class={`text-2xl md:text-3xl font-bold ${metric.highlight ? 'text-primary' : 'text-white'}`}>
+                  {metric.value}
+                </span>
+                <span class="text-xs text-neutral-500 uppercase tracking-wider max-w-[80px] leading-tight">
+                  {lang === 'cs' ? metric.label_cs : metric.label_en}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <!-- Author Row -->
+        <div class="flex items-center justify-between border-t border-white/10 pt-6">
+          <div class="flex items-center gap-3">
+            <img src={post.author_image} alt={post.author} class="w-12 h-12 rounded-full object-cover border-2 border-white/10" />
+            <div>
+              <div class="font-semibold text-white">{post.author}</div>
+              <div class="text-sm text-neutral-500">{authorRole}</div>
+            </div>
+          </div>
+          <button 
+            class="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-neutral-400 hover:text-white hover:border-white/20 transition-colors"
+            onclick="navigator.share ? navigator.share({title: document.title, url: window.location.href}) : navigator.clipboard.writeText(window.location.href).then(() => alert('Link zkopírován!'))"
+          >
+            <iconify-icon icon="solar:share-linear" class="text-lg"></iconify-icon>
+            <span class="text-sm hidden sm:inline">{t.blog_share}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== HERO IMAGE ==================== -->
+    {post.featured_image && (
+      <div class="hero-image-wrapper">
+        <div class="max-w-5xl mx-auto px-6">
+          <div class="hero-image-container">
+            <img src={post.featured_image} alt={title} class="hero-image" />
+          </div>
+        </div>
+      </div>
+    )}
+
+    <!-- ==================== RELATED CLIENTS ==================== -->
+    {relatedClients.length > 0 && (
+      <div class="max-w-5xl mx-auto px-6 py-8">
+        <div class="flex flex-wrap items-center gap-4">
+          <span class="text-xs text-neutral-500 uppercase tracking-wider">{t.blog_related_clients}:</span>
+          <div class="flex flex-wrap items-center gap-6">
+            {relatedClients.map((client) => (
+              <a href={client.url} target="_blank" rel="noopener noreferrer" class="opacity-50 hover:opacity-100 transition-opacity">
+                <img 
+                  src={client.logo} 
+                  alt={lang === 'cs' ? client.name_cs : client.name_en} 
+                  class={`h-8 ${client.invert ? 'brightness-0 invert' : ''}`}
+                />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    )}
+
+    <!-- ==================== ARTICLE CONTENT ==================== -->
+    <div class="max-w-4xl mx-auto px-6 pb-16">
+      <div class="blog-content">
+        <Fragment set:html={htmlContent} />
+      </div>
+
+      <!-- Tags -->
+      <div class="mt-12 pt-8 border-t border-white/10">
+        <div class="flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <span class="px-3 py-1.5 bg-white/5 text-neutral-400 text-sm rounded-full border border-white/10">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="mt-12 p-8 rounded-2xl bg-gradient-to-br from-primary/10 via-[#0A0A0A] to-[#0A0A0A] border border-primary/30 text-center">
+        <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">
+          {lang === 'cs' ? 'Chcete dosáhnout podobných výsledků?' : 'Want to achieve similar results?'}
+        </h2>
+        <p class="text-neutral-400 mb-8 max-w-xl mx-auto">
+          {lang === 'cs' 
+            ? 'Domluvte si bezplatnou konzultaci a zjistěte, jak může AI transformovat vaši organizaci.'
+            : 'Schedule a free consultation and discover how AI can transform your organization.'}
+        </p>
+        <a href="#kontakt" class="shiny-cta group inline-flex">
+          <span class="btn-content">
+            <span class="text-base font-semibold tracking-tight">
+              {lang === 'cs' ? 'Bezplatná konzultace' : 'Free consultation'}
+            </span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-white/80 group-hover:translate-x-1 transition-transform">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- ==================== LIGHTBOX MODAL ==================== -->
+  <div id="image-lightbox" class="lightbox-overlay">
+    <button class="lightbox-close" aria-label="Zavřít">
+      <iconify-icon icon="solar:close-circle-bold" class="text-3xl"></iconify-icon>
+    </button>
+    <div class="lightbox-content">
+      <img id="lightbox-image" src="" alt="Zvětšený obrázek" />
+    </div>
+  </div>
+</PageLayout>
+
+<script>
+  // Lightbox functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const lightbox = document.getElementById('image-lightbox');
+    const lightboxImage = document.getElementById('lightbox-image') as HTMLImageElement;
+    const closeBtn = document.querySelector('.lightbox-close');
+    
+    // Find all chart figures and add click handlers
+    const chartFigures = document.querySelectorAll('.chart-figure');
+    
+    chartFigures.forEach((figure) => {
+      // Add zoom icon overlay
+      const zoomOverlay = document.createElement('div');
+      zoomOverlay.className = 'zoom-overlay';
+      zoomOverlay.innerHTML = '<iconify-icon icon="solar:magnifer-zoom-in-linear" class="text-2xl"></iconify-icon><span>Zvětšit</span>';
+      figure.appendChild(zoomOverlay);
+      
+      // Add click handler
+      figure.addEventListener('click', () => {
+        const img = figure.querySelector('img');
+        if (img && lightbox && lightboxImage) {
+          lightboxImage.src = img.src;
+          lightboxImage.alt = img.alt;
+          lightbox.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    });
+    
+    // Close lightbox handlers
+    const closeLightbox = () => {
+      if (lightbox) {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    };
+    
+    closeBtn?.addEventListener('click', closeLightbox);
+    lightbox?.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+    
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeLightbox();
+      }
+    });
+  });
+</script>
+
+<style>
+  .blog-article {
+    padding-top: 2rem;
+  }
+
+  .hero-section {
+    padding-bottom: 2rem;
+  }
+
+  .hero-image-wrapper {
+    margin-bottom: 2rem;
+  }
+
+  .hero-image-container {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .hero-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Section Headers with Numbers */
+  .blog-content :global(.section-header) {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .blog-content :global(.section-number) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: linear-gradient(135deg, #00A39A 0%, #00C4B8 100%);
+    color: white;
+    font-weight: 700;
+    font-size: 1.125rem;
+    border-radius: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .blog-content :global(.section-header h2) {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+  }
+
+  @media (min-width: 768px) {
+    .blog-content :global(.section-header h2) {
+      font-size: 1.75rem;
+    }
+  }
+
+  /* Regular h3 */
+  .blog-content :global(h3) {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: white;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .blog-content :global(h3) {
+      font-size: 1.25rem;
+    }
+  }
+
+  /* Paragraphs */
+  .blog-content :global(p) {
+    color: #a3a3a3;
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+    font-size: 1rem;
+  }
+
+  .blog-content :global(strong) {
+    color: white;
+    font-weight: 600;
+  }
+
+  /* Lists */
+  .blog-content :global(ul),
+  .blog-content :global(ol) {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .blog-content :global(li) {
+    color: #a3a3a3;
+    margin-bottom: 0.75rem;
+    padding-left: 1.75rem;
+    position: relative;
+    line-height: 1.7;
+  }
+
+  .blog-content :global(ul li::before) {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6rem;
+    width: 6px;
+    height: 6px;
+    background: #00A39A;
+    border-radius: 50%;
+  }
+
+  .blog-content :global(ol) {
+    counter-reset: list-counter;
+  }
+
+  .blog-content :global(ol li) {
+    counter-increment: list-counter;
+  }
+
+  .blog-content :global(ol li::before) {
+    content: counter(list-counter) ".";
+    position: absolute;
+    left: 0;
+    color: #00A39A;
+    font-weight: 600;
+  }
+
+  /* Tables */
+  .blog-content :global(.table-wrapper) {
+    overflow-x: auto;
+    margin: 2rem 0;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .blog-content :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  .blog-content :global(th),
+  .blog-content :global(td) {
+    padding: 0.875rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .blog-content :global(th) {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  .blog-content :global(td) {
+    color: #a3a3a3;
+  }
+
+  .blog-content :global(tr:last-child td) {
+    border-bottom: none;
+  }
+
+  .blog-content :global(tbody tr:hover) {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  /* Chart/Image Figures */
+  .blog-content :global(.chart-figure) {
+    margin: 2.5rem 0;
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    cursor: pointer;
+  }
+
+  .blog-content :global(.chart-figure img) {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .blog-content :global(.chart-figure:hover img) {
+    transform: scale(1.02);
+  }
+
+  .blog-content :global(.chart-figure .zoom-overlay) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .blog-content :global(.chart-figure:hover .zoom-overlay) {
+    opacity: 1;
+  }
+
+  .blog-content :global(.chart-caption) {
+    background: rgba(0, 0, 0, 0.03);
+    padding: 0.75rem 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #666;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  /* Lightbox Modal */
+  .lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .lightbox-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 10001;
+  }
+
+  .lightbox-close:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  .lightbox-content {
+    max-width: 95vw;
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox-content img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 0.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    background: white;
+  }
+
+  /* Blockquotes */
+  .blog-content :global(blockquote) {
+    border-left: 4px solid #00A39A;
+    padding: 1rem 1.5rem;
+    margin: 2rem 0;
+    background: rgba(0, 163, 154, 0.05);
+    border-radius: 0 0.5rem 0.5rem 0;
+  }
+
+  .blog-content :global(blockquote p) {
+    color: #d4d4d4;
+    font-style: italic;
+    margin: 0;
+  }
+</style>
