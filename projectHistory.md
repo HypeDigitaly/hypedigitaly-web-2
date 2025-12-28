@@ -1,5 +1,23 @@
 # Project History
 
+## [2025-12-28] Cookie Consent UX Optimization (Option A+B)
+- **Compact Layout:** Reduced vertical footprint of the cookie banner on all devices.
+- **Shortened Description:** Simplified the initial cookie explanation to focus on core functionality.
+- **Mobile-First Design:** 
+  - Hidden subtitle on small screens.
+  - New grid-based button layout for better space utilization (2x2 structure).
+  - Reduced padding and font sizes for a sleeker, less intrusive look.
+- **Translations:** Updated `translations.ts` with shortened cookie descriptions in both Czech and English.
+- **Files Modified:** `astro-src/src/components/ui/CookieConsent.astro`, `astro-src/src/styles/global.css`, `astro-src/src/scripts/translations.ts`.
+
+## [2025-12-28] Mobile UX Fixes: Header Logo & RAGus Slideshow (v2)
+- **Mobile Header Logo:** Switched to square `HD_Color_logo.png` icon on mobile to provide more space for the "Bezplatná konzultace" button.
+- **RAGus Slideshow Modal Improvements:**
+  - **Pinned Close Button:** Refactored modal structure to wrap tightly around images. The red close button (X) is now correctly pinned to the top-right corner of the image card (with a -1.25rem offset), matching the blog lightbox style.
+  - **Responsive Sizing:** Modal now uses `max-width` and `max-height` instead of fixed viewport percentages, allowing it to adapt to image aspect ratios.
+  - **Improved click-outside logic:** Users can now close the expanded view by clicking anywhere in the dark area (except on navigation controls).
+  - **Mobile adjustments:** On small screens, the close button is moved slightly inside to ensure it's always tappable and visible.
+
 ## [2025-12-28] Mobile UX Fixes: Header Logo & RAGus Slideshow
 - **Mobile Header Logo:** Switched to square `HD_Color_logo.png` icon on mobile to provide more space for the "Bezplatná konzultace" button.
 - **RAGus Slideshow Modal Improvements:**
