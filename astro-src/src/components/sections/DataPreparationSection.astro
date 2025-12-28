@@ -138,8 +138,18 @@ const t = translations[lang];
   <!-- Backdrop - clickable to close -->
   <div class="ragus-modal-backdrop absolute inset-0 bg-black/95 cursor-pointer"></div>
 
-  <div class="ragus-modal-content absolute inset-0 flex items-center justify-center pointer-events-none">
-    <div class="w-[90vw] max-w-6xl h-[80vh] relative pointer-events-auto">
+  <div class="ragus-modal-content absolute inset-0 flex items-center justify-center pointer-events-none p-4 md:p-12">
+    <div class="relative pointer-events-auto max-w-full max-h-full">
+      <!-- Close Button -->
+      <button class="ragus-modal-close" aria-label="Zavřít">
+        <iconify-icon icon="solar:close-circle-bold" class="text-4xl"></iconify-icon>
+      </button>
+
+      <!-- Modal Slides Container -->
+      <div class="ragus-modal-slides relative bg-[#0d0d0d] rounded-2xl overflow-hidden shadow-2xl border border-white/10">
+        <!-- Images will be cloned here -->
+      </div>
+
       <!-- Modal Arrows -->
       <button class="ragus-modal-prev absolute left-4 md:-left-20 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all" type="button">
         <iconify-icon icon="solar:arrow-left-linear" class="text-3xl"></iconify-icon>
@@ -147,11 +157,6 @@ const t = translations[lang];
       <button class="ragus-modal-next absolute right-4 md:-right-20 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all" type="button">
         <iconify-icon icon="solar:arrow-right-linear" class="text-3xl"></iconify-icon>
       </button>
-
-      <!-- Modal Slides Container -->
-      <div class="ragus-modal-slides w-full h-full flex items-center justify-center relative">
-        <!-- Images will be cloned here -->
-      </div>
 
       <!-- Modal Dots -->
       <div class="flex justify-center gap-3 mt-6">
@@ -177,21 +182,68 @@ const t = translations[lang];
     pointer-events: auto;
   }
   .ragus-modal-slide {
-    position: absolute;
-    inset: 0;
+    position: relative;
+    display: none;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
+  }
+  .ragus-modal-slide.active {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  .ragus-modal-slide.active {
     opacity: 1;
   }
   .ragus-modal-slide img {
-    max-width: 100%;
-    max-height: 100%;
+    display: block;
+    max-width: 90vw;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
     object-fit: contain;
+  }
+  
+  .ragus-modal-close {
+    position: absolute;
+    top: -1.25rem;
+    right: -1.25rem;
+    width: 3rem;
+    height: 3rem;
+    background: rgba(220, 38, 38, 0.9);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 10002;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    pointer-events: auto;
+  }
+
+  @media (max-width: 768px) {
+    .ragus-modal-close {
+      top: 0.5rem;
+      right: 0.5rem;
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+
+  .ragus-modal-close:hover {
+    background: rgba(239, 68, 68, 1);
+    transform: scale(1.15);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+  }
+
+  .ragus-modal-close:active {
+    transform: scale(0.95);
+  }
+
+  .ragus-modal-close iconify-icon {
+    font-size: 1.5rem;
   }
 </style>
 
@@ -307,6 +359,32 @@ const t = translations[lang];
       function closeModal() {
         modal.classList.add('hidden');
         document.body.style.overflow = '';
+      }
+
+      // Add close button handler
+      const closeBtn = modal.querySelector('.ragus-modal-close');
+      if (closeBtn) {
+        closeBtn.onclick = function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          closeModal();
+        };
+      }
+
+      // Enhanced click outside detection
+      const modalContent = modal.querySelector('.ragus-modal-content');
+      if (modalContent) {
+        modalContent.addEventListener('click', (e) => {
+          const target = e.target;
+          // Close if clicking on the backdrop area, but not on images or controls
+          if (!target.closest('.ragus-modal-prev') && 
+              !target.closest('.ragus-modal-next') && 
+              !target.closest('.ragus-modal-dot') &&
+              !target.closest('.ragus-modal-close') &&
+              !target.closest('.ragus-modal-slide img')) {
+            closeModal();
+          }
+        });
       }
       
       // Event listeners for main slideshow

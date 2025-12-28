@@ -1,5 +1,12 @@
 # Project History
 
+## [2025-12-28] Mobile UX Fixes: Header Logo & RAGus Slideshow
+- **Mobile Header Logo:** Switched to square `HD_Color_logo.png` icon on mobile to provide more space for the "Bezplatná konzultace" button.
+- **RAGus Slideshow Modal Improvements:**
+  - Added a red close button (X) to the expanded view, matching the professional blog lightbox style.
+  - Improved click-outside logic: users can now close the expanded view by clicking anywhere in the dark area (except on navigation controls).
+  - Ensured the close button is properly positioned relative to the viewport for easier access on mobile devices.
+
 ## [2025-12-28] Mobile Layout Fix - Correction
 - **Issue:** Previous overly aggressive CSS fix broke desktop layout and marquee animation
 - **Problem Identified:** The blanket rule `main, section, article, div { max-width: 100%; }` broke:

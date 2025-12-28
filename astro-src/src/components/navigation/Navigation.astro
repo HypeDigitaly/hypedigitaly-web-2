@@ -17,7 +17,10 @@ const href = (path: string) => getLocalizedHref(path, lang);
   <nav class="flex md:gap-8 bg-neutral-950/90 w-full h-14 max-w-5xl border-white/10 border mr-auto ml-auto pr-3 pl-6 shadow-lg backdrop-blur-xl gap-x-4 gap-y-4 items-center justify-between rounded-lg">
     <div class="flex items-center gap-2">
       <a href={href("/")} class="flex items-center gap-2">
-        <img src="/assets/images/logo.png" alt="HypeDigitaly" class="h-8 w-auto">
+        <!-- Mobile: Square icon logo -->
+        <img src="/assets/images/HD_Color_logo.png" alt="HypeDigitaly" class="h-9 w-auto lg:hidden">
+        <!-- Desktop: Full text logo -->
+        <img src="/assets/images/logo.png" alt="HypeDigitaly" class="h-8 w-auto hidden lg:block">
       </a>
     </div>
 
