@@ -38,7 +38,7 @@ if (langParam && (langParam === 'en' || langParam === 'cs')) {
   showCalendar={false}
 >
   <!-- ==================== HERO SECTION ==================== -->
-  <section class="relative max-w-7xl mx-auto px-6 pt-12 pb-24 overflow-hidden">
+  <section class="relative max-w-7xl mx-auto px-4 sm:px-6 pt-12 pb-24 overflow-hidden">
     <div class="text-center max-w-5xl mx-auto relative z-10">
       
       <!-- Badge -->
@@ -96,8 +96,8 @@ if (langParam && (langParam === 'en' || langParam === 'cs')) {
   </section>
 
   <!-- ==================== PROCESS SECTION (MOVED UP) ==================== -->
-  <section class="bg-[#050505] border-t border-white/5 py-24">
-    <div class="max-w-7xl mx-auto px-6">
+  <section class="bg-[#050505] border-t border-white/5 py-24 overflow-x-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
         <div class="flex items-center gap-2">
           <span class="text-white">01</span>
@@ -172,8 +172,8 @@ if (langParam && (langParam === 'en' || langParam === 'cs')) {
   </section>
 
   <!-- ==================== PROBLEM SECTION ==================== -->
-  <section class="bg-[#050505] border-t border-white/5 py-24">
-    <div class="max-w-7xl mx-auto px-6">
+  <section class="bg-[#050505] border-t border-white/5 py-24 overflow-x-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
         <div class="flex items-center gap-2">
           <span class="text-white">02</span>
@@ -223,8 +223,8 @@ if (langParam && (langParam === 'en' || langParam === 'cs')) {
   </section>
 
   <!-- ==================== DATA COMPARISON SECTION ==================== -->
-  <section class="bg-[#050505] border-t border-white/5 py-24">
-    <div class="max-w-7xl mx-auto px-6">
+  <section class="bg-[#050505] border-t border-white/5 py-24 overflow-x-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 overflow-hidden">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
         <div class="flex items-center gap-2">
           <span class="text-white">03</span>
@@ -266,7 +266,7 @@ if (langParam && (langParam === 'en' || langParam === 'cs')) {
               </div>
               <span class="text-xs text-neutral-500 ml-2 font-mono">raw_data.txt</span>
             </div>
-            <pre class="p-4 overflow-x-auto text-sm font-mono leading-relaxed"><code class="text-neutral-400">{`Úřední hodiny pondělí 8-17 úterý zavřeno 
+            <pre class="p-3 sm:p-4 overflow-x-auto text-xs sm:text-sm font-mono leading-relaxed max-w-full"><code class="text-neutral-400 whitespace-pre-wrap break-words">{`Úřední hodiny pondělí 8-17 úterý zavřeno 
 středa 8-12 a 13-17 Úřední hodiny: Po 
 8:00-17:00, Út: zavřeno, St: 8-12, 13-17
 ÚŘEDNÍ HODINY pondělí osmá až sedmnáctá
@@ -304,7 +304,7 @@ tel. 123456789 nebo email info@mě...`}</code></pre>
               </div>
               <span class="text-xs text-neutral-500 ml-2 font-mono">chunk_001.json</span>
             </div>
-            <pre class="p-4 overflow-x-auto text-[11px] font-mono leading-relaxed json-highlight"><code><span class="json-brace">{"{"}</span>
+            <pre class="p-3 sm:p-4 overflow-x-auto text-[9px] sm:text-[11px] font-mono leading-relaxed json-highlight max-w-full"><code class="block overflow-x-auto"><span class="json-brace">{"{"}</span>
   <span class="json-comment">// Vektorově vyhledatelná pole</span>
   <span class="json-key">"searchableFields"</span><span class="json-colon">:</span> <span class="json-brace">{"{"}</span>
     <span class="json-key">"rag_question"</span><span class="json-colon">:</span> <span class="json-string">"Jaké jsou úřední hodiny městského úřadu?"</span><span class="json-comma">,</span>
@@ -394,8 +394,8 @@ tel. 123456789 nebo email info@mě...`}</code></pre>
   </section>
 
   <!-- ==================== CHUNKING STRATEGIES SECTION ==================== -->
-  <section class="bg-[#050505] border-t border-white/5 py-24">
-    <div class="max-w-7xl mx-auto px-6">
+  <section class="bg-[#050505] border-t border-white/5 py-24 overflow-x-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
         <div class="flex items-center gap-2">
           <span class="text-white">04</span>
@@ -474,8 +474,8 @@ tel. 123456789 nebo email info@mě...`}</code></pre>
   </section>
 
   <!-- ==================== RAGUS.AI SECTION (TEAL ACCENT) ==================== -->
-  <section id="ragus" class="bg-[#050505] border-t border-white/5 py-24">
-    <div class="max-w-7xl mx-auto px-6">
+  <section id="ragus" class="bg-[#050505] border-t border-white/5 py-24 overflow-x-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
         <div class="flex items-center gap-2">
           <span class="text-white">05</span>
@@ -630,10 +630,10 @@ tel. 123456789 nebo email info@mě...`}</code></pre>
   </section>
 
   <!-- Fullscreen Modal for RAGus Slideshow -->
-  <div id="ragus-fullscreen-modal" class="ragus-modal fixed inset-0 z-[9999] hidden">
+  <div id="ragus-fullscreen-modal" class="ragus-modal fixed inset-0 z-[9999] hidden overflow-hidden">
     <div class="ragus-modal-backdrop absolute inset-0 bg-black/95 cursor-pointer"></div>
-    <div class="ragus-modal-content absolute inset-0 flex items-center justify-center pointer-events-none">
-      <div class="w-[90vw] max-w-6xl h-[80vh] relative pointer-events-auto">
+    <div class="ragus-modal-content absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+      <div class="w-[90vw] max-w-6xl h-[80vh] relative pointer-events-auto overflow-hidden">
         <button class="ragus-modal-prev absolute left-4 md:-left-20 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all" type="button">
           <iconify-icon icon="solar:arrow-left-linear" class="text-3xl"></iconify-icon>
         </button>
@@ -652,8 +652,8 @@ tel. 123456789 nebo email info@mě...`}</code></pre>
   </div>
 
   <!-- ==================== PRICING SECTION ==================== -->
-  <section id="cenik" class="bg-[#050505] border-t border-white/5 py-24">
-    <div class="max-w-7xl mx-auto px-6">
+  <section id="cenik" class="bg-[#050505] border-t border-white/5 py-24 overflow-x-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
         <div class="flex items-center gap-2">
           <span class="text-white">06</span>
@@ -802,8 +802,8 @@ tel. 123456789 nebo email info@mě...`}</code></pre>
   </section>
 
   <!-- ==================== FAQ SECTION ==================== -->
-  <section id="faq" class="bg-[#050505] border-t border-white/5 py-24">
-    <div class="max-w-4xl mx-auto px-6">
+  <section id="faq" class="bg-[#050505] border-t border-white/5 py-24 overflow-x-hidden">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
         <div class="flex items-center gap-2">
           <span class="text-white">07</span>
@@ -885,8 +885,8 @@ tel. 123456789 nebo email info@mě...`}</code></pre>
   </section>
 
   <!-- ==================== CONTACT SECTION ==================== -->
-  <section id="kontakt" class="bg-[#050505] border-t border-white/5 py-24">
-    <div class="max-w-7xl mx-auto px-6">
+  <section id="kontakt" class="bg-[#050505] border-t border-white/5 py-24 overflow-x-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
         <div class="flex items-center gap-2">
           <span class="text-white">08</span>
@@ -913,7 +913,7 @@ tel. 123456789 nebo email info@mě...`}</code></pre>
             <p class="text-neutral-500">{t.cal_desc}</p>
           </div>
           <!-- Cal inline embed code begins -->
-          <div style="width:100%;height:630px;overflow:scroll" id="my-cal-inline-30-min-online"></div>
+          <div class="cal-embed-container" style="width:100%;min-height:500px;height:auto;overflow:auto" id="my-cal-inline-30-min-online"></div>
         </div>
       </div>
 

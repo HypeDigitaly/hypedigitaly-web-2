@@ -1,5 +1,20 @@
 # Project History
 
+## [2025-12-28] Mobile Layout Fix - Correction
+- **Issue:** Previous overly aggressive CSS fix broke desktop layout and marquee animation
+- **Problem Identified:** The blanket rule `main, section, article, div { max-width: 100%; }` broke:
+  - Marquee animation (requires `w-max` / `width: max-content` to function)
+  - Various desktop layouts relying on intrinsic sizing
+- **Corrected Solution:**
+  - **Removed** blanket `max-width: 100%` from generic elements
+  - **Removed** `max-width: 100vw` from html element
+  - **Kept** `overflow-x: hidden` on body only (not html)
+  - **Kept** responsive padding `px-4 sm:px-6` on all pages (correct approach)
+  - **Kept** mobile code block adjustments with `white-space: pre-wrap` and `word-break: break-word`
+  - **Added** responsive padding to `ClientsMarquee.astro`
+- **Files Modified:** `global.css`, `ClientsMarquee.astro`
+- **Lesson:** Avoid blanket CSS rules that override layout-critical properties; use targeted fixes instead
+
 ## [2025-12-28] Consultation Page Translations Fix
 - **Task:** Fixed missing English translations for the "Konzultace & Podpora" page.
 - **Implementation:**
