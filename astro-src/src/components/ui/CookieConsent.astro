@@ -1,5 +1,5 @@
 ---
-import { translations, type Language } from '../../scripts/translations';
+import { translations, type Language, getLocalizedHref } from '../../scripts/translations';
 
 interface Props {
   lang?: Language;
@@ -7,6 +7,9 @@ interface Props {
 
 const { lang = 'cs' } = Astro.props;
 const t = translations[lang];
+
+// Helper for localized links
+const href = (path: string) => getLocalizedHref(path, lang);
 ---
 
 <!-- Cookie Consent Banner - Bottom LEFT Popup -->
@@ -137,7 +140,7 @@ const t = translations[lang];
 
     <!-- Link -->
     <div class="cookie-links">
-      <a href="/privacy-policy" class="cookie-link">
+      <a href={href("/privacy-policy")} class="cookie-link">
         {t.cookie_privacy_policy || 'Zásady ochrany osobních údajů'}
       </a>
     </div>

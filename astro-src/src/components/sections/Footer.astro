@@ -1,5 +1,5 @@
 ---
-import { translations, type Language } from '../../scripts/translations';
+import { translations, type Language, getLocalizedHref } from '../../scripts/translations';
 
 export interface Props {
   lang?: Language;
@@ -9,6 +9,9 @@ export interface Props {
 
 const { lang = 'cs', simple = false, showCalendar = true } = Astro.props;
 const t = translations[lang];
+
+// Helper for localized links
+const href = (path: string) => getLocalizedHref(path, lang);
 
 // Generate unique ID for this footer's calendar
 const calendarId = `footer-cal-${Math.random().toString(36).substring(7)}`;
@@ -135,7 +138,7 @@ const calendarId = `footer-cal-${Math.random().toString(36).substring(7)}`;
         <div class="grid grid-cols-1 md:grid-cols-3 border-b border-white/5">
           <!-- Brand & Socials -->
           <div class="p-8 md:p-12 md:border-r border-white/5">
-            <a href="/" class="flex items-center gap-2 mb-6">
+            <a href={href("/")} class="flex items-center gap-2 mb-6">
               <img src="/assets/images/logo.png" alt="HypeDigitaly" class="h-10">
             </a>
             <p class="text-neutral-400 text-sm leading-relaxed mb-8">
@@ -159,17 +162,31 @@ const calendarId = `footer-cal-${Math.random().toString(36).substring(7)}`;
             <h4 class="text-white font-medium mb-6 uppercase tracking-wider text-xs">{t.footer_company_title}</h4>
             <div class="space-y-4">
               <div>
-                <p class="text-white font-medium">HypeDigitaly s.r.o.</p>
-                <p>Velká Hradební 2800/54</p>
-                <p>400 01 Ústí nad Labem</p>
+                <p class="text-white font-medium mb-2">HypeDigitaly s.r.o.</p>
+                <div class="grid grid-cols-[auto_1fr] gap-x-3 text-xs leading-relaxed">
+                  <span class="text-neutral-500">{t.footer_label_street}</span>
+                  <span class="text-neutral-300">Velká Hradební</span>
+                  
+                  <span class="text-neutral-500">{t.footer_label_number}</span>
+                  <span class="text-neutral-300">2800/54</span>
+                  
+                  <span class="text-neutral-500">{t.footer_label_zip}</span>
+                  <span class="text-neutral-300">400 01</span>
+                  
+                  <span class="text-neutral-500">{t.footer_label_city}</span>
+                  <span class="text-neutral-300">Ústí nad Labem</span>
+
+                  <span class="text-neutral-500">{t.footer_label_country}</span>
+                  <span class="text-neutral-300">{t.footer_country_name}</span>
+                </div>
               </div>
               <div class="grid grid-cols-2 gap-2 text-xs">
                 <div>
-                  <span class="text-neutral-500 block">IČO</span>
+                  <span class="text-neutral-500 block">{t.footer_ico_label}</span>
                   <span class="text-neutral-300">17665655</span>
                 </div>
                 <div>
-                  <span class="text-neutral-500 block">DIČ</span>
+                  <span class="text-neutral-500 block">{t.footer_dic_label}</span>
                   <span class="text-neutral-300">CZ17665655</span>
                 </div>
               </div>
@@ -178,7 +195,7 @@ const calendarId = `footer-cal-${Math.random().toString(36).substring(7)}`;
                 <div class="space-y-4">
                   <div>
                     <p class="text-neutral-300 leading-tight mb-1">Pavel Čermák</p>
-                    <p class="text-neutral-500 text-[10px] uppercase tracking-wider mb-2">Jednatel, Technický ředitel</p>
+                    <p class="text-neutral-500 text-[10px] uppercase tracking-wider mb-2">{t.footer_pavel_role}</p>
                     <div class="space-y-1 text-xs">
                       <a href="mailto:pavelcermak@hypedigitaly.ai" class="block text-neutral-400 hover:text-primary transition-colors flex items-center gap-2">
                         <iconify-icon icon="mdi:email-outline"></iconify-icon>
@@ -192,7 +209,7 @@ const calendarId = `footer-cal-${Math.random().toString(36).substring(7)}`;
                   </div>
                   <div>
                     <p class="text-neutral-300 leading-tight mb-1">Miroslava Čermáková</p>
-                    <p class="text-neutral-500 text-[10px] uppercase tracking-wider mb-2">Jednatelka, Obchodní ředitelka</p>
+                    <p class="text-neutral-500 text-[10px] uppercase tracking-wider mb-2">{t.footer_mirka_role}</p>
                     <div class="space-y-1 text-xs">
                       <a href="mailto:cermakova@hypedigitaly.ai" class="block text-neutral-400 hover:text-primary transition-colors flex items-center gap-2">
                         <iconify-icon icon="mdi:email-outline"></iconify-icon>
@@ -225,13 +242,13 @@ const calendarId = `footer-cal-${Math.random().toString(36).substring(7)}`;
 
         <!-- Navigation -->
         <div class="grid grid-cols-2 md:grid-cols-7 border-b border-white/5 text-sm">
-          <a href="/#sluzby" class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_services}</a>
-          <a href="/#reference" class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_references}</a>
-          <a href="/blog?category=success-story" class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.nav_case_studies}</a>
-          <a href="/#ragus" class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">RAGus.ai</a>
+          <a href={href("/#sluzby")} class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_services}</a>
+          <a href={href("/#reference")} class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_references}</a>
+          <a href={href("/blog")} class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.nav_case_studies}</a>
+          <a href={href("/#ragus")} class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">RAGus.ai</a>
           <a href="#kontakt" class="px-6 py-6 border-r border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_contact}</a>
-          <a href="/privacy-policy" class="px-6 py-6 border-r border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_privacy}</a>
-          <a href="/recommendation" class="px-6 py-6 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_recommendation}</a>
+          <a href={href("/privacy-policy")} class="px-6 py-6 border-r border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_privacy}</a>
+          <a href={href("/recommendation")} class="px-6 py-6 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_recommendation}</a>
         </div>
       </>
     )}

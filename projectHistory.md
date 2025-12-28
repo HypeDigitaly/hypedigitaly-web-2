@@ -1,5 +1,334 @@
 # Project History
 
+## [2025-12-28] Consultation Page Translations Fix
+- **Task:** Fixed missing English translations for the "Konzultace & Podpora" page.
+- **Implementation:**
+  - **Interface Expansion:** Added ~40 new translation keys to the `TranslationKeys` interface in `astro-src/src/scripts/translations.ts` covering the entire consultation page (Hero, Pricing, Ad-hoc Services, Free Consultation, and AI Audit).
+  - **Translation Values:** Added complete Czech and English translations for all new keys in the `translations` object.
+  - **Page Refactoring:** Updated `astro-src/src/pages/konzultace.astro` to remove all hardcoded Czech strings and use the `t` object for localized content.
+- **Impact:** The Consultation page is now fully localized and responds correctly to the `?lang=en` URL parameter.
+
+## [2025-12-28] Language Switcher URL Consistency Fix
+- **Issue Identified:** Language switcher was setting `?lang=` in URL on click, but navigation links didn't preserve the parameter, causing inconsistent URL behavior.
+- **Solution Implemented (Option B - Full URL Consistency):**
+  - **Created `getLocalizedHref()` utility function** in `translations.ts` that:
+    - Returns clean URL for Czech (default language)
+    - Appends `?lang=en` for English
+    - Properly handles existing query params and hash fragments
+  - **Updated all navigation components** to use localized hrefs:
+    - `Navigation.astro` - desktop navigation links
+    - `MobileMenu.astro` - mobile navigation links
+    - `Footer.astro` - footer navigation links
+  - **Updated all components with internal links:**
+    - `BlogCategoryFilter.astro` - category filter links
+    - `CaseStudiesSection.astro` - case study CTA link
+    - `CookieConsent.astro` - privacy policy link
+  - **Updated page internal links:**
+    - `index.astro` - service card CTA buttons
+    - `blog/[slug].astro` - back to blog link
+  - **Added `?lang=cs` redirect to clean URL** in all SSR pages:
+    - Users visiting with `?lang=cs` are 301 redirected to clean URL (Czech is default)
+    - Pages updated: index, chatbot, konzultace, priprava-dat, privacy-policy, recommendation, blog/index, blog/[slug]
+  - **Updated language switcher JS** in `PageLayout.astro`:
+    - Czech: Navigates to clean URL (removes `?lang=` param)
+    - English: Navigates with `?lang=en` appended
+- **Result:** 
+  - URLs are now consistent - English always shows `?lang=en`, Czech uses clean URLs
+  - All internal links preserve the current language
+  - URLs are shareable - copy-pasting a URL shares the language preference
+  - SEO-friendly - both language versions can be indexed
+
+## [2025-12-28] Service Cards Translations Fix
+- **Task:** Fixed missing English translations for service cards on the homepage.
+- **Implementation:**
+  - Added new translation keys: `service_new_badge` ("🔥 Novinka" / "🔥 New"), `service_dataprep_cta` ("Připravit data pro AI" / "Prepare data for AI"), and `service_web_responsive` ("Responzivní" / "Responsive").
+  - Updated `astro-src/src/scripts/translations.ts` with these new keys and their respective values in Czech and English.
+  - Refactored `astro-src/src/pages/index.astro` to use these translation keys instead of hardcoded strings.
+- **Impact:** Ensures consistent English experience in the "Services" grid on the homepage.
+
+## [2025-12-28] Header & Footer Translations
+- **Task:** Added missing translations for the header "Services" dropdown and footer roles/labels.
+- **Implementation:**
+  - **Header:** Defined keys for "AI Chatbot" and "Consulting & Partnership" titles and descriptions. Updated `Navigation.astro` and `MobileMenu.astro`.
+  - **Footer:** Defined keys for executives' roles (CEO, CTO, CCO), company labels (Company ID, VAT ID), and structured address labels (Street, No., City, ZIP, Country). Updated `Footer.astro`.
+  - All keys added to `scripts/translations.ts` for both Czech and English.
+- **Impact:** Improved localization consistency across the site.
+
+## [2025-12-28] Header Services Translation
+- **Root Cause Identified:** Most pages were pre-rendered (static) with hardcoded Czech language, ignoring URL `?lang=` parameter
+- **Solution:** Enabled SSR for ALL pages with unified language detection pattern
+- **Cookie-based Persistence:** Language preference now persists across page navigations without needing `?lang=` in every URL
+- **Language Detection Priority:**
+  1. URL parameter `?lang=en` or `?lang=cs` (explicit choice)
+  2. Cookie `preferredLanguage` (remembered preference)
+  3. Default: Czech (`cs`)
+- **Pages Updated to SSR:**
+  - `index.astro` - Homepage now supports language switching
+  - `chatbot.astro` - AI Chatbot page
+  - `konzultace.astro` - Consultation page
+  - `priprava-dat.astro` - Data preparation page
+  - `blog/index.astro` - Blog listing page
+  - `blog/[slug].astro` - Blog article pages (converted from getStaticPaths to SSR)
+- **UI Improvements:**
+  - Language dropdown now shows checkmark icon on active language
+  - Mobile menu language buttons now have ring highlight for active selection
+- **Files changed:**
+  - All page files in `src/pages/` - Added `prerender = false` + cookie detection
+  - `PageLayout.astro` - Updated JS to set cookie when language selected
+  - `Navigation.astro` - Active language indicator in dropdown
+  - `MobileMenu.astro` - Active language indicator on buttons
+
+## [2025-12-28] Netlify SSR Adapter for Language Switching
+- **Added Netlify adapter:** Installed `@astrojs/netlify` for hybrid rendering
+- **SSR for translation pages:** `privacy-policy.astro` and `recommendation.astro` now use `export const prerender = false` 
+- **How it works:** When user clicks language switcher, page reloads with `?lang=en` or `?lang=cs` - the SSR function reads this parameter and renders the correct language server-side
+- **Benefits:**
+  - No flash of wrong language content
+  - SEO: Search engines can index both language versions
+  - Cookie consent updates with correct language
+- **Files changed:**
+  - `astro.config.mjs` - Added Netlify adapter
+  - `privacy-policy.astro` - Added `prerender = false` + URL param detection
+  - `recommendation.astro` - Added `prerender = false` + URL param detection
+
+## [2025-12-28] Complete Legal Pages Translation & Language Switcher Fix
+- **Language Switcher Improvements:**
+  - Fixed dropdown auto-close: Dropdown now closes automatically when a language is selected
+  - Fixed page reload: Page now properly reloads with `?lang=` parameter to apply server-side translations
+  - Cookie consent and all components now update correctly when language is switched
+- **Privacy Policy (privacy-policy.astro) - Full English Translation:**
+  - Converted from hardcoded Czech to translation system
+  - Added 100+ professional legal translation keys for complete GDPR-compliant policy
+  - Professional English translation with proper legal terminology
+  - Page now supports dynamic language switching via URL parameter
+- **Recommendation Page (recommendation.astro) - Full English Translation:**
+  - Converted from hardcoded Czech to translation system  
+  - Added professional English translations for AI Act compliance, GDPR, and cookie recommendations
+  - Page now supports dynamic language switching via URL parameter
+- **Files changed:**
+  - `PageLayout.astro` - Language switcher dropdown close + proper page reload logic
+  - `translations.ts` - Added ~150 new translation keys for legal pages (privacy_*, rec_*)
+  - `privacy-policy.astro` - Complete refactor to use translation system
+  - `recommendation.astro` - Complete refactor to use translation system
+
+## [2025-12-28] Blog Navigation Default Filter Fix
+- **Changed Blog nav link:** Updated `/blog?category=success-story` → `/blog` in all navigation components
+- **Files updated:** Navigation.astro, MobileMenu.astro, Footer.astro
+- **Result:** Clicking "Blog" in navigation now shows all posts with "Vše" filter selected by default
+
+## [2025-12-28] Case Study Update: Removed Region Logos & Added Mesic.ai Video (Start Position)
+- **Removed related clients logos:** The region logos (Ústecký, Vysočina, etc.) were removed from the "Případová studie: 5 regionů ČR" blog post.
+- **Added YouTube Presentation:** Embedded the Mesic.ai 2025 conference presentation video from October 2025 (Prague Karlín - ČAUI) at the **very beginning** of the article for maximum visibility.
+- **Added Hyperlinks:** Linked "Mesic.ai", "Českou asociací umělé inteligence", and "asociace.ai" to their respective websites in the video description.
+- **New Tab for External Links:** Updated the markdown-to-HTML converter in `[slug].astro` to ensure all external links (starting with `http`) open in a new tab with `target="_blank"`.
+- **Responsive Embed:** Added custom CSS to `[slug].astro` to ensure the YouTube iframe is responsive (16:9) and fits the blog design. Added `start=84` parameter to start at 1:24.
+
+## [2025-12-28] Blog Wide Tables Mobile/Tablet Responsiveness Fix (v2)
+- **Fixed table horizontal scrolling:** Wide comparison tables now properly scroll on mobile/tablet
+- **Key changes to `.table-wide` CSS:**
+  - Added `overflow-x: scroll !important` to force horizontal scrolling
+  - Set table `min-width: max-content` to ensure table takes full natural width
+  - Removed fixed `min-width` values (580px, 650px) that were constraining the table
+  - Changed all cell text to `white-space: nowrap` for consistent horizontal scroll behavior
+- **Mobile container adjustments:**
+  - Added `.article-container` class with reduced padding on mobile (1rem instead of 1.5rem)
+  - Table breaks out with negative margins: -1rem on mobile, -3rem on tablet, up to -10rem on desktop
+- **Enhanced scrollbar visibility:**
+  - Increased scrollbar height from 8px to 10px
+  - Made scrollbar track and thumb more visible with teal colors
+  - Applied scrollbar styling to both `.table-wrapper` and `.table-wide` classes
+  - Changed Firefox scrollbar-width from `thin` to `auto` for better visibility
+- **Simplified JavaScript:** Removed swipe hint animation, kept scroll position tracking for state classes
+
+## [2025-12-28] Blog Tables CSS Rewrite: Consistent & Readable Formatting
+- **Removed hard-coded column-specific styles** - Previous CSS used `td:nth-child(X)` selectors that only worked for one specific table structure
+- **Increased font sizes for readability:**
+  - Table body: 0.75rem → 0.9rem
+  - Table headers: 0.6rem → 0.75rem (uppercase, with improved letter-spacing)
+- **Improved padding and spacing:**
+  - Cells: 0.5rem 0.4rem → 0.875rem 1rem
+  - Better vertical alignment with `vertical-align: top`
+- **Enhanced table visual design:**
+  - Gradient header background with 2px teal border
+  - Rounded corners on first/last header cells and corner cells
+  - Box shadow for depth and subtle inner glow
+  - Improved alternating row backgrounds
+- **Added semantic CSS classes via markdown converter:**
+  - `.cell-positive` (green) - cells with ✅ or "vysoká/high"
+  - `.cell-negative` (red) - cells with ❌
+  - `.cell-rating` (yellow) - cells with ⭐ stars
+  - `.cell-cost`, `.cell-quality`, `.cell-muted` for other indicators
+- **Dynamic row highlighting:**
+  - Rows containing ⭐ or "AI-Decided" get `.highlight-row` class with teal border
+- **Wide comparison table support:**
+  - Tables with 7+ columns (detected by headers like Strategie/Náklady/Kvalita) get `.table-wide` class
+  - Progressive breakout: -1.5rem (320px) → -2rem (480px) → -3rem (640px) → -6rem (768px) → -10rem (1024px) → -14rem (1280px)
+  - Minimum table width of 700px ensures content doesn't collapse
+  - Scroll hint gradient on right edge (fades when not needed)
+- **Comprehensive mobile responsive system:**
+  - 5 breakpoints: <480px, 480-639px, 640-767px, 768px+, 1024px+
+  - Progressive font scaling: 0.7rem → 0.75rem → 0.8rem → 0.85rem → 0.9rem
+  - Touch-friendly: 44px minimum tap target height on touch devices
+  - Smooth momentum scrolling (-webkit-overflow-scrolling: touch)
+  - Custom styled scrollbars (teal accent color)
+  - Word-break and hyphenation for narrow screens
+  - Reduced padding on small screens for space efficiency
+
+## [2025-12-28] Blog Article Cleanup: Removed Competition Section & Enhanced Tables
+- **Removed Section 8 "Srovnání s konkurencí"** - Competition comparison table removed from both Czech and English content
+- **Section renumbering** - Sections 9 and 10 renumbered to 8 and 9 after competition section removal
+- **Replaced SVG table with styled markdown** - Chunking comparison now uses markdown table instead of SVG for better text handling
+- **Fixed markdown table parser** - Replaced complex regex with robust line-by-line table detection:
+  - Properly handles alignment syntax (`:---:`, `:---`, `---:`)
+  - Detects tables by checking for `|` delimiters at start/end of lines
+  - Validates separator row with pattern `/^[|\-:\s]+$/`
+  - More reliable parsing for complex tables with emojis
+- **Enhanced table CSS styling:**
+  - Dark gradient background matching design aesthetic
+  - Teal header row with uppercase labels
+  - Column-specific coloring: Strategy names (white), Pros (green #86efac), Cons (red #fca5a5)
+  - Row 4 (AI-Decided) highlighted with teal border and background
+  - Alternating row backgrounds for better readability
+  - Hover effects with teal tint
+  - Fixed table layout with proper column alignment
+  - Center-aligned Cost and Quality columns
+
+## [2025-12-28] Major Blog Post Rewrite: Complete RAG & Chunking Guide with Examples
+- **New Section: "Main Problems with RAG"** - Added comprehensive section at start covering 4 main reasons 95% of RAG projects fail:
+  - Problem #1: Data Structure (no preprocessing, duplicates)
+  - Problem #2: Chunking (token limits, naive strategies, context loss)
+  - Problem #3: Metadata (missing origin, filters, summaries)
+  - Problem #4: Automated Updates (KB never updated, stale info)
+- **Complete Chunking Section Rewrite** - All 5 strategies now use the same Kepler Space Telescope example for direct comparison:
+  - Strategy 1: Fixed Size Splitting (with output table showing cut sentences)
+  - Strategy 2: Header-Based Splitting (shows intact sections)
+  - Strategy 3: Semantic Chunking (topic-based grouping)
+  - Strategy 4: AI-Decided / Agentic (full 3-phase process with code examples)
+  - Strategy 5: Summarization / Q&A Format (question-answer table)
+- **Enhanced Code Block Examples** - Bad vs Good data now shows:
+  - "Typická realita" with chaotic raw_data.txt (duplicates, inconsistencies)
+  - "Po naší přípravě" with structured chunk_001.json including comments and metadata
+- **New SVG Diagrams Created:**
+  - `rag-problems-diagram.svg` - Visual 4-quadrant diagram showing RAG failure causes
+  - `chunking-comparison-table.svg` - Visual comparison table of all 5 strategies
+- **RAGus.ai Component Integration** - Added %%RAGUS_COMPONENT%% placeholder support in blog posts
+  - Component injected inline within article content
+  - Interactive slideshow with admin panel screenshots
+- **RAGus.ai Hyperlinks** - All mentions of "RAGus.ai" now link to https://ragus.ai
+- **Service CTAs Added** - Multiple links to /priprava-dat for professional data preparation service
+- **JSON Comment Syntax Highlighting** - Code blocks now support // comments with green italic styling
+- **Read Time Updated** - Increased to 35 minutes to reflect comprehensive content
+- **Full Bilingual Parity** - All content in both Czech and English
+
+## [2025-12-28] Enhanced Blog Post: Detailed RAG & Chunking Strategies
+- **Image Replacement:** Switched `rag-flow-diagram.svg` to the cleaner `rag-concept-diagram.svg` in Section 2 for better visual clarity. Added diagram to English version where it was missing.
+- **Content Enrichment:** Expanded the "Chunking Strategies" section based on technical documentation:
+  - Added **Strategy 5 (Summarization/Q&A Format)** for structured fact retrieval.
+  - Added the **3-Phase Process** for Agentic/LLM chunking (Pre-split, Minimal AI Decision, Programmatic Merge) to explain technical efficiency.
+  - Added **Enhancement Strategies** section covering Document Summaries and Search Keywords.
+  - Added **Pro Tip** on combining chunking with summarization for large contexts.
+- **UX Update:** Increased article read time to 20 minutes to reflect the expanded high-value content.
+- **Bilingual Parity:** All additions implemented in both Czech and English versions.
+
+## [2025-12-28] Fixed Lightbox Close Button - Complete Rewrite
+- **Root cause fixed:** Event listeners were being blocked by early return on Astro page transitions
+- **Solution:** Switched to event delegation pattern on document level for bulletproof event handling
+- **Close button redesign:**
+  - Now positioned relative to image (top-right corner of image container)
+  - Red circular background with white X icon for high visibility
+  - Strong hover effects: scale up, glow, brighter red
+  - Active/click state with scale down feedback
+- **HTML structure:** Added `.lightbox-container` wrapper for proper button positioning
+- **Global function:** `closeBlogLightbox()` exposed on window for reliable access
+
+## [2025-12-28] Fixed Image Lightbox Close Button & Click-Outside
+- **Fixed close button (X) not working:** Added `e.stopPropagation()` to prevent event bubbling issues
+- **Fixed click-outside to close:** Changed detection logic from strict `e.target === lightbox` to exclude only the image itself, allowing clicks on dark overlay area, close button, and content wrapper to all properly close the lightbox
+- **Prevented duplicate event listeners:** Added `data-handlers-initialized` attribute check to avoid attaching multiple handlers on Astro page transitions
+- **Improved Escape key handler:** Now only triggers when lightbox is actually active
+
+## [2025-12-28] Fixed Image Lightbox in Blog Posts
+- **Fixed initialization issue:** Lightbox JavaScript now uses `astro:page-load` and a more robust initialization pattern to handle Astro's client-side navigation.
+- **Added safeguards:** Prevented duplicate zoom overlays and event listeners using `data-lightbox-initialized` attribute.
+- **Improved UX:** Added clearing of image source after closing to prevent flashing of previous images; improved image source detection.
+- **Keyboard support:** Refined Escape key handler for better reliability.
+- **Fixed SVG rendering in lightbox:** 
+  - Added explicit `width` and `height` attributes to all 7 SVG files in `/assets/images/blog/ai-data-guide/`
+  - SVGs without explicit dimensions render at 0x0 in `<img>` tags - this was the root cause of "black empty box" issue
+  - Added CSS class-based SVG detection (`svg-image` / `raster-image`) for more reliable styling
+  - Added `min-width` and `min-height` fallbacks in CSS for SVG images
+
+## [2025-12-28] Blog UI/UX Fixes - Images, Layout, Lightbox
+- **Removed white border/outline from all images:**
+  - `.chart-figure` now has transparent background and no border
+  - SVG images get transparent background, PNG/JPG can retain white if needed
+  - BlogCard featured images now use `#0d0d0d` background
+  - Hero image container updated to dark theme
+- **Fixed JSON syntax highlighting** - proper colors for keys, strings, numbers, booleans, braces
+- **SVG lightbox improvements** - SVG images now display with transparent background in expanded view
+- **Changed featured image** for tutorial article to `ai_data-prep-code-block-bad.PNG`
+- **Blog page layout improvements:**
+  - "Vše" button now more visible with icon, shadow, and better styling
+  - All blog cards now equal-sized in 3-column grid (removed featured card distinction)
+  - Cards arranged left-to-right with consistent sizing
+  - Filter buttons have improved active/inactive states
+
+## [2025-12-28] Blog Article Enhanced with SVG Diagrams & Infographics
+- **Created 7 custom SVG diagrams** for the tutorial article "Proč 90% AI projektů selhává?"
+- **New visuals in `/assets/images/blog/ai-data-guide/`:**
+  - `rag-flow-diagram.svg` - RAG pipeline visualization (Retrieval → Augmentation → Generation)
+  - `failure-causes.svg` - 4 main causes of AI project failures (icons with descriptions)
+  - `statistics-chart.svg` - Bar chart showing 41%/35%/52% data quality statistics
+  - `llm-vs-rag.svg` - Side-by-side comparison of LLM vs RAG with checkmarks
+  - `data-prep-process.svg` - 4-step data preparation process infographic
+  - `chunking-strategies.svg` - Comparison of 4 chunking strategies (Token/Header/Semantic/Agentic)
+  - `ai-ready-checklist.svg` - 7 properties of AI-ready data checklist
+- **Diagrams integrated into blog content** at strategic positions for visual engagement
+- **Design style:** Dark theme (#050505 background), teal primary (#00A39A), modern gradients
+
+## [2025-12-28] Blog Markdown Converter Major Upgrade - Complete Formatting Support
+- **Fixed markdown-to-HTML conversion** in `[slug].astro` with comprehensive element support
+- **New conversions added:**
+  - **Blockquotes:** `> text` → `<blockquote>` with styled quote icon and gradient background
+  - **Code blocks:** Triple backticks with language tag → `<pre><code>` with syntax highlighting
+  - **JSON syntax highlighting:** Keys, strings, numbers, booleans, braces colored appropriately
+  - **H4 headers:** `#### text` → `<h4>` with left border accent styling
+  - **Horizontal rules:** `---` → `<hr>` with gradient divider styling
+  - **Inline code:** Single backticks → `<code class="inline-code">` with teal accent
+  - **Inline links:** `[text](url)` → `<a>` with hover effects
+- **CSS styling improvements:**
+  - Code blocks with dark theme, language badge header, custom scrollbar
+  - H4 headers with teal left border accent (3px)
+  - Section dividers with centered gradient fade effect
+  - Blockquotes with decorative quotation mark and gradient background
+  - Inline code with teal background and border
+  - Content links with underline hover effect
+- **JSON syntax colors:** Keys (blue), strings (orange), numbers (green), booleans (blue), braces (gold), brackets (purple)
+
+## [2025-12-28] Fixed Invalid JSON in blog-posts.json
+- **Issue:** Improperly escaped double quote character breaking JSON parsing
+- **Root cause:** Czech blockquote `„Špatná data = špatná AI. Tak jednoduché to je."` used ASCII double quote (code 34) as closing quote instead of typographic quote
+- **Fix:** Replaced ASCII `"` (U+0022) with proper Czech closing quote `"` (U+201D) at position 1874
+- **Result:** JSON now validates correctly
+
+## [2025-12-28] New Blog Article: "Proč 90% AI projektů selhává?"
+- **Created comprehensive SEO-optimized tutorial article** about data importance for AI and RAGus.ai
+- **Category:** Návody (tutorial)
+- **Slug:** `proc-jsou-data-dulezita-pro-ai-kompletni-pruvodce`
+- **Content includes:**
+  - Why 90% of AI projects fail (data quality statistics from Data Trust Report 2025)
+  - RAG technology explanation and benefits vs classic LLM
+  - 4-step data preparation process
+  - Chunking strategies comparison (Token, Header-based, Semantic, Agentic/LLM)
+  - 7 key properties of "AI-ready" data
+  - RAGus.ai platform overview and features
+  - Competition comparison (RAGhubs, RagaAI, RAGnexus, Ragas.io)
+  - Two pricing paths: Professional service vs Self-service
+- **Full bilingual content:** Complete article in Czech and English
+- **SEO tags:** Příprava dat, RAG, RAGus.ai, AI halucinace, Chunking, Znalostní báze, Vector Database
+- **Featured image:** RAGus.ai dashboard screenshot
+- **Read time:** 15 minutes
+
 ## [2025-12-28] Smooth Scroll & Duplicate Calendar Fix
 - **Fixed navigation links:** Changed all `/#kontakt` links to `#kontakt` for smooth scroll on current page
 - **Updated components:** Navigation.astro, MobileMenu.astro, Footer.astro, konzultace.astro, blog/[slug].astro

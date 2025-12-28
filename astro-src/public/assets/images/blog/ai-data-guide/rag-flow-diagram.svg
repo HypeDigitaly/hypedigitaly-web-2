@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 480" width="920" height="480" fill="none">
+  <defs>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00A39A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00C4B4;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="darkGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d0d0d;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f97316;stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:#f97316;stop-opacity:0.05" />
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.05" />
+    </linearGradient>
+    <linearGradient id="pinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ec4899;stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:#ec4899;stop-opacity:0.05" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="tealGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#00A39A" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="920" height="480" fill="#050505"/>
+  
+  <!-- Subtle grid pattern -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="920" height="480" fill="url(#grid)"/>
+  
+  <!-- Title -->
+  <text x="460" y="45" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="white" text-anchor="middle">RAG (Retrieval-Augmented Generation) Pipeline</text>
+  
+  <!-- ==================== MAIN PIPELINE ROW ==================== -->
+  
+  <!-- Step 1: DOTAZ (Query) - Teal filled box -->
+  <rect x="30" y="100" width="130" height="90" rx="12" fill="#0a1f1e" stroke="#00A39A" stroke-width="2"/>
+  <text x="95" y="138" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#00C4B4" text-anchor="middle">DOTAZ</text>
+  <text x="95" y="160" font-family="Arial, sans-serif" font-size="11" fill="#888" text-anchor="middle">Uživatelský</text>
+  <text x="95" y="175" font-family="Arial, sans-serif" font-size="11" fill="#888" text-anchor="middle">dotaz</text>
+  
+  <!-- Arrow 1: DOTAZ → RETRIEVAL -->
+  <path d="M 165 145 L 205 145" stroke="#00A39A" stroke-width="2"/>
+  <polygon points="205,140 218,145 205,150" fill="#00A39A"/>
+  
+  <!-- Step 2: 1. RETRIEVAL -->
+  <rect x="225" y="100" width="150" height="90" rx="12" fill="url(#darkGrad)" stroke="#00A39A" stroke-width="2"/>
+  <text x="300" y="132" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#00C4B4" text-anchor="middle">1. RETRIEVAL</text>
+  <text x="300" y="155" font-family="Arial, sans-serif" font-size="11" fill="#888" text-anchor="middle">Vyhledání</text>
+  <text x="300" y="170" font-family="Arial, sans-serif" font-size="11" fill="#888" text-anchor="middle">relevantních dat</text>
+  
+  <!-- Arrow 2: RETRIEVAL → AUGMENTATION -->
+  <path d="M 380 145 L 420 145" stroke="#00A39A" stroke-width="2"/>
+  <polygon points="420,140 433,145 420,150" fill="#00A39A"/>
+  
+  <!-- Step 3: 2. AUGMENTATION -->
+  <rect x="440" y="100" width="155" height="90" rx="12" fill="url(#darkGrad)" stroke="#00A39A" stroke-width="2"/>
+  <text x="517" y="132" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#00C4B4" text-anchor="middle">2. AUGMENTATION</text>
+  <text x="517" y="155" font-family="Arial, sans-serif" font-size="11" fill="#888" text-anchor="middle">Obohacení</text>
+  <text x="517" y="170" font-family="Arial, sans-serif" font-size="11" fill="#888" text-anchor="middle">kontextu</text>
+  
+  <!-- "+" Circle with Zvětšit label (between retrieval arrow and augmentation) -->
+  <circle cx="426" cy="200" r="18" fill="#0d0d0d" stroke="#00A39A" stroke-width="2"/>
+  <text x="426" y="206" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#00C4B4" text-anchor="middle">+</text>
+  <text x="426" y="235" font-family="Arial, sans-serif" font-size="10" fill="#00A39A" text-anchor="middle">Zvětšit</text>
+  
+  <!-- Dashed line from + circle up to arrow line -->
+  <path d="M 426 182 L 426 145" stroke="#00A39A" stroke-width="1.5" stroke-dasharray="4,3"/>
+  
+  <!-- Arrow 3: AUGMENTATION → GENERATION -->
+  <path d="M 600 145 L 640 145" stroke="#00A39A" stroke-width="2"/>
+  <polygon points="640,140 653,145 640,150" fill="#00A39A"/>
+  
+  <!-- Step 4: 3. GENERATION -->
+  <rect x="660" y="100" width="150" height="90" rx="12" fill="url(#darkGrad)" stroke="#00A39A" stroke-width="2"/>
+  <text x="735" y="132" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#00C4B4" text-anchor="middle">3. GENERATION</text>
+  <text x="735" y="155" font-family="Arial, sans-serif" font-size="11" fill="#888" text-anchor="middle">Generování</text>
+  <text x="735" y="170" font-family="Arial, sans-serif" font-size="11" fill="#888" text-anchor="middle">odpovědi</text>
+  
+  <!-- Arrow 4: GENERATION → RESPONSE -->
+  <path d="M 815 145 L 845 145" stroke="#00A39A" stroke-width="2"/>
+  <polygon points="845,140 858,145 845,150" fill="#00A39A"/>
+  
+  <!-- Step 5: Přesná odpověď (Final Response) - Teal solid box -->
+  <rect x="865" y="105" width="50" height="80" rx="10" fill="url(#tealGrad)" filter="url(#tealGlow)"/>
+  <text x="890" y="140" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">✓</text>
+  <text x="890" y="158" font-family="Arial, sans-serif" font-size="10" font-weight="600" fill="white" text-anchor="middle">Přesná</text>
+  <text x="890" y="172" font-family="Arial, sans-serif" font-size="10" font-weight="600" fill="white" text-anchor="middle">odpověď</text>
+  
+  <!-- ==================== BOTTOM SUPPORTING ELEMENTS ==================== -->
+  
+  <!-- ZNALOSTNÍ BÁZE (Knowledge Base) - Orange -->
+  <rect x="225" y="300" width="150" height="110" rx="12" fill="url(#orangeGrad)" stroke="#f97316" stroke-width="2"/>
+  <text x="300" y="340" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#f97316" text-anchor="middle">ZNALOSTNÍ</text>
+  <text x="300" y="360" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#f97316" text-anchor="middle">BÁZE</text>
+  <text x="300" y="390" font-family="Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">Vaše firemní data</text>
+  
+  <!-- Dashed arrow: Knowledge Base → Retrieval -->
+  <path d="M 300 300 L 300 195" stroke="#f97316" stroke-width="2" stroke-dasharray="6,4"/>
+  <polygon points="294,200 300,188 306,200" fill="#f97316"/>
+  
+  <!-- VECTOR DATABASE - Purple -->
+  <rect x="440" y="300" width="155" height="110" rx="12" fill="url(#purpleGrad)" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="517" y="340" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#8b5cf6" text-anchor="middle">VECTOR</text>
+  <text x="517" y="360" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#8b5cf6" text-anchor="middle">DATABASE</text>
+  <text x="517" y="390" font-family="Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">Embeddings</text>
+  
+  <!-- Dashed arrow: Vector DB → Augmentation -->
+  <path d="M 517 300 L 517 195" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="6,4"/>
+  <polygon points="511,200 517,188 523,200" fill="#8b5cf6"/>
+  
+  <!-- LLM MODEL - Pink/Magenta -->
+  <rect x="660" y="300" width="150" height="110" rx="12" fill="url(#pinkGrad)" stroke="#ec4899" stroke-width="2"/>
+  <text x="735" y="340" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ec4899" text-anchor="middle">LLM MODEL</text>
+  <text x="735" y="370" font-family="Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">GPT-4 / Claude</text>
+  <text x="735" y="388" font-family="Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">Llama / Gemini</text>
+  
+  <!-- Dashed arrow: LLM → Generation -->
+  <path d="M 735 300 L 735 195" stroke="#ec4899" stroke-width="2" stroke-dasharray="6,4"/>
+  <polygon points="729,200 735,188 741,200" fill="#ec4899"/>
+  
+  <!-- ==================== LEGEND ==================== -->
+  <rect x="30" y="445" width="16" height="16" rx="3" fill="#00A39A"/>
+  <text x="55" y="457" font-family="Arial, sans-serif" font-size="12" fill="#888">RAG Pipeline</text>
+  
+  <rect x="160" y="445" width="16" height="16" rx="3" fill="#f97316"/>
+  <text x="185" y="457" font-family="Arial, sans-serif" font-size="12" fill="#888">Vaše data</text>
+  
+  <rect x="280" y="445" width="16" height="16" rx="3" fill="#8b5cf6"/>
+  <text x="305" y="457" font-family="Arial, sans-serif" font-size="12" fill="#888">Vektory</text>
+  
+  <rect x="390" y="445" width="16" height="16" rx="3" fill="#ec4899"/>
+  <text x="415" y="457" font-family="Arial, sans-serif" font-size="12" fill="#888">AI Model</text>
+</svg>

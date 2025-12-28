@@ -1,5 +1,5 @@
 ---
-import { translations, type Language } from '../../scripts/translations';
+import { translations, type Language, getLocalizedHref } from '../../scripts/translations';
 import type { BlogCategory } from '../../types/blog';
 import { blogCategories } from '../../types/blog';
 
@@ -10,12 +10,15 @@ export interface Props {
 
 const { lang = 'cs', currentCategory = 'all' } = Astro.props;
 const t = translations[lang];
+
+// Helper for localized links
+const href = (path: string) => getLocalizedHref(path, lang);
 ---
 
 <div class="flex flex-wrap items-center gap-3 mb-12">
   <!-- All Category -->
   <a 
-    href="/blog" 
+    href={href("/blog")} 
     class={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
       currentCategory === 'all' 
         ? 'bg-white text-neutral-900' 
@@ -43,7 +46,7 @@ const t = translations[lang];
     
     return (
       <a 
-        href={`/blog?category=${category.id}`}
+        href={href(`/blog?category=${category.id}`)}
         class={`px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 transition-all duration-300 ${
           isActive 
             ? activeColors[category.id] 

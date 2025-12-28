@@ -55,9 +55,9 @@ const colors = categoryColors[post.category];
         : 'bg-orange-500 hover:shadow-lg hover:shadow-orange-500/20'
     }`}>
       <div class="bg-[#0A0A0A] rounded-[21px] overflow-hidden">
-        <!-- Featured Image -->
+        <!-- Featured Image - no white border/outline -->
         {post.featured_image && (
-          <div class="aspect-[16/9] overflow-hidden bg-white">
+          <div class="aspect-[16/9] overflow-hidden bg-[#0d0d0d]">
             <img 
               src={post.featured_image} 
               alt={title} 
@@ -116,9 +116,9 @@ const colors = categoryColors[post.category];
       : 'bg-orange-500 hover:shadow-lg hover:shadow-orange-500/20'
   }`}>
     <a href={`/blog/${post.slug}`} class="group block bg-[#0A0A0A] rounded-[14px] overflow-hidden">
-      <!-- Featured Image -->
+      <!-- Featured Image - no white border/outline -->
       {post.featured_image && (
-        <div class="aspect-[16/9] overflow-hidden bg-white">
+        <div class="aspect-[16/9] overflow-hidden bg-[#0d0d0d]">
           <img 
             src={post.featured_image} 
             alt={title} 

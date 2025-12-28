@@ -4,11 +4,39 @@ import ClientsMarquee from '../components/sections/ClientsMarquee.astro';
 import DataPreparationSection from '../components/sections/DataPreparationSection.astro';
 import TestimonialsSection from '../components/sections/TestimonialsSection.astro';
 import CaseStudiesSection from '../components/sections/CaseStudiesSection.astro';
-import { translations, type Language } from '../scripts/translations';
+import { translations, type Language, getLocalizedHref } from '../scripts/translations';
 import faqData from '../data/faq.json';
 
-const lang: Language = 'cs';
+// Server-side rendered page - detects language from URL param or cookie
+export const prerender = false;
+
+const url = Astro.url;
+const langParam = url.searchParams.get('lang');
+
+// Redirect ?lang=cs to clean URL (Czech is default - keeps URLs clean)
+if (langParam === 'cs') {
+  const cleanUrl = new URL(Astro.url);
+  cleanUrl.searchParams.delete('lang');
+  const redirectPath = cleanUrl.pathname + (cleanUrl.search || '') + (cleanUrl.hash || '');
+  return Astro.redirect(redirectPath || '/', 301);
+}
+
+const cookieLang = Astro.cookies.get('preferredLanguage')?.value;
+const lang: Language = (langParam === 'en' || langParam === 'cs') ? langParam : 
+                       (cookieLang === 'en' || cookieLang === 'cs') ? cookieLang : 'cs';
 const t = translations[lang];
+
+// Set cookie if language was explicitly selected via URL param
+if (langParam && (langParam === 'en' || langParam === 'cs')) {
+  Astro.cookies.set('preferredLanguage', langParam, { 
+    path: '/', 
+    maxAge: 60 * 60 * 24 * 365, // 1 year
+    sameSite: 'lax'
+  });
+}
+
+// Helper for localized links
+const href = (path: string) => getLocalizedHref(path, lang);
 ---
 
 <PageLayout 
@@ -384,7 +412,7 @@ const t = translations[lang];
                 <span>{t.service_chatbot_f4}</span>
               </li>
             </ul>
-            <a href="/chatbot" class="vf-button !py-4 !px-8" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
+            <a href={href("/chatbot")} class="vf-button !py-4 !px-8" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
               <div class="vf-points-wrapper">
                 <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
                 <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
@@ -468,7 +496,7 @@ const t = translations[lang];
                 <span class="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
               </span>
               <span class="px-2.5 py-1 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] font-bold rounded-full uppercase tracking-wider shadow-lg shadow-orange-500/30">
-                🔥 Novinka
+                {t.service_new_badge}
               </span>
             </div>
             
@@ -477,13 +505,13 @@ const t = translations[lang];
             </div>
             <h3 class="text-xl font-semibold text-white mb-2 group-hover:text-amber-400 transition-colors">{t.dataprep_nav_title}</h3>
             <p class="text-sm text-neutral-500 mb-4">{t.dataprep_hero_subheadline}</p>
-            <a href="/priprava-dat" class="vf-button !py-3 !min-w-[240px] justify-center" style="--vf-bg: #f59e0b; --vf-hover-bg: #fbbf24; --vf-glow-rgb: 245, 158, 11;">
+            <a href={href("/priprava-dat")} class="vf-button !py-3 !min-w-[240px] justify-center" style="--vf-bg: #f59e0b; --vf-hover-bg: #fbbf24; --vf-glow-rgb: 245, 158, 11;">
               <div class="vf-points-wrapper">
                 <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
                 <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
               </div>
               <span class="vf-inner">
-                <span>Připravit data pro AI</span>
+                <span>{t.service_dataprep_cta}</span>
                 <svg class="vf-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
                   <path d="M5 12h14"></path>
                   <path d="m12 5 7 7-7 7"></path>
@@ -513,7 +541,7 @@ const t = translations[lang];
           <h3 class="text-xl font-semibold text-white mb-2">{t.service_web_title}</h3>
           <p class="text-sm text-neutral-500 mb-4">{t.service_web_desc}</p>
           <div class="flex flex-wrap gap-2 mt-4">
-            <span class="px-2 py-1 bg-pink-500/10 text-pink-400 text-xs rounded">Responzivní</span>
+            <span class="px-2 py-1 bg-pink-500/10 text-pink-400 text-xs rounded">{t.service_web_responsive}</span>
             <span class="px-2 py-1 bg-pink-500/10 text-pink-400 text-xs rounded">SEO</span>
             <span class="px-2 py-1 bg-pink-500/10 text-pink-400 text-xs rounded">CRO</span>
           </div>
@@ -525,7 +553,7 @@ const t = translations[lang];
           </div>
           <h3 class="text-xl font-semibold text-white mb-2">{t.service_consult_title}</h3>
           <p class="text-sm text-neutral-500 mb-4">{t.service_consult_desc}</p>
-          <a href="/konzultace" class="vf-button !py-3 !min-w-[240px] justify-center" style="--vf-bg: #22c55e; --vf-hover-bg: #4ade80; --vf-glow-rgb: 34, 197, 94;">
+          <a href={href("/konzultace")} class="vf-button !py-3 !min-w-[240px] justify-center" style="--vf-bg: #22c55e; --vf-hover-bg: #4ade80; --vf-glow-rgb: 34, 197, 94;">
             <div class="vf-points-wrapper">
               <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
               <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>

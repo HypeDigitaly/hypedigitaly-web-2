@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 350" width="800" height="350" fill="none">
+  <!-- Background -->
+  <rect width="800" height="350" fill="#050505"/>
+  
+  <!-- Title -->
+  <text x="400" y="35" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">Klasické LLM vs. RAG</text>
+  
+  <!-- VS divider -->
+  <line x1="400" y1="60" x2="400" y2="330" stroke="#333" stroke-width="2" stroke-dasharray="8,4"/>
+  <circle cx="400" cy="195" r="22" fill="#050505" stroke="#666" stroke-width="2"/>
+  <text x="400" y="201" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#888" text-anchor="middle">VS</text>
+  
+  <!-- LLM Side (Left) -->
+  <text x="200" y="75" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ef4444" text-anchor="middle">KLASICKÉ LLM</text>
+  
+  <!-- LLM Box -->
+  <rect x="50" y="95" width="300" height="230" rx="16" fill="#0d0d0d" stroke="#ef4444" stroke-width="2"/>
+  
+  <!-- LLM Items -->
+  <g transform="translate(70, 125)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="18" fill="#ef4444">❌</text>
+    <text x="30" y="0" font-family="Arial, sans-serif" font-size="12" fill="#888">Aktuálnost dat</text>
+    <text x="180" y="0" font-family="Arial, sans-serif" font-size="11" fill="#666">Zastaralé (trénink)</text>
+  </g>
+  
+  <g transform="translate(70, 160)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="18" fill="#ef4444">❌</text>
+    <text x="30" y="0" font-family="Arial, sans-serif" font-size="12" fill="#888">Citace zdrojů</text>
+    <text x="180" y="0" font-family="Arial, sans-serif" font-size="11" fill="#666">Nelze ověřit</text>
+  </g>
+  
+  <g transform="translate(70, 195)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="18" fill="#ef4444">❌</text>
+    <text x="30" y="0" font-family="Arial, sans-serif" font-size="12" fill="#888">Halucinace</text>
+    <text x="180" y="0" font-family="Arial, sans-serif" font-size="11" fill="#666">Časté</text>
+  </g>
+  
+  <g transform="translate(70, 230)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="18" fill="#f97316">⚠️</text>
+    <text x="30" y="0" font-family="Arial, sans-serif" font-size="12" fill="#888">Přesnost</text>
+    <text x="180" y="0" font-family="Arial, sans-serif" font-size="11" fill="#f97316">~70-80%</text>
+  </g>
+  
+  <!-- LLM Accuracy bar -->
+  <rect x="70" y="260" width="260" height="20" rx="4" fill="#1a1a1a"/>
+  <rect x="70" y="260" width="195" height="20" rx="4" fill="#ef4444" fill-opacity="0.5"/>
+  <text x="200" y="275" font-family="Arial, sans-serif" font-size="11" fill="white" text-anchor="middle">75%</text>
+  
+  <!-- Bottom label LLM -->
+  <rect x="100" y="295" width="200" height="25" rx="6" fill="#ef4444" fill-opacity="0.15"/>
+  <text x="200" y="312" font-family="Arial, sans-serif" font-size="11" fill="#ef4444" text-anchor="middle">Pouze trénovaná data</text>
+  
+  <!-- RAG Side (Right) -->
+  <text x="600" y="75" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#00C4B4" text-anchor="middle">RAG SYSTÉM</text>
+  
+  <!-- RAG Box -->
+  <rect x="450" y="95" width="300" height="230" rx="16" fill="#0d0d0d" stroke="#00A39A" stroke-width="2"/>
+  
+  <!-- RAG Items -->
+  <g transform="translate(470, 125)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="18" fill="#22c55e">✅</text>
+    <text x="30" y="0" font-family="Arial, sans-serif" font-size="12" fill="#888">Aktuálnost dat</text>
+    <text x="180" y="0" font-family="Arial, sans-serif" font-size="11" fill="#22c55e">Živá data</text>
+  </g>
+  
+  <g transform="translate(470, 160)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="18" fill="#22c55e">✅</text>
+    <text x="30" y="0" font-family="Arial, sans-serif" font-size="12" fill="#888">Citace zdrojů</text>
+    <text x="180" y="0" font-family="Arial, sans-serif" font-size="11" fill="#22c55e">Odkaz na zdroj</text>
+  </g>
+  
+  <g transform="translate(470, 195)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="18" fill="#22c55e">✅</text>
+    <text x="30" y="0" font-family="Arial, sans-serif" font-size="12" fill="#888">Halucinace</text>
+    <text x="180" y="0" font-family="Arial, sans-serif" font-size="11" fill="#22c55e">Minimální</text>
+  </g>
+  
+  <g transform="translate(470, 230)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="18" fill="#22c55e">✅</text>
+    <text x="30" y="0" font-family="Arial, sans-serif" font-size="12" fill="#888">Přesnost</text>
+    <text x="180" y="0" font-family="Arial, sans-serif" font-size="11" fill="#00C4B4">90-99%</text>
+  </g>
+  
+  <!-- RAG Accuracy bar -->
+  <rect x="470" y="260" width="260" height="20" rx="4" fill="#1a1a1a"/>
+  <rect x="470" y="260" width="247" height="20" rx="4" fill="#00A39A" fill-opacity="0.7"/>
+  <text x="600" y="275" font-family="Arial, sans-serif" font-size="11" fill="white" text-anchor="middle">95%</text>
+  
+  <!-- Bottom label RAG -->
+  <rect x="500" y="295" width="200" height="25" rx="6" fill="#00A39A" fill-opacity="0.2"/>
+  <text x="600" y="312" font-family="Arial, sans-serif" font-size="11" fill="#00C4B4" text-anchor="middle">Vaše aktuální data + AI</text>
+</svg>

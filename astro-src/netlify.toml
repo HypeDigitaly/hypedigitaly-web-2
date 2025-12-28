@@ -1,0 +1,8 @@
+# Local dev config - the root netlify.toml is used for actual Netlify deployment
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[dev]
+  command = "npm run dev:local"
+

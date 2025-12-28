@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" width="900" height="320" fill="none">
+  <defs>
+    <linearGradient id="tealGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00A39A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00C4B4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="900" height="320" fill="#050505"/>
+  
+  <!-- Title -->
+  <text x="450" y="40" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="white" text-anchor="middle">4-krokový proces přípravy dat pro AI</text>
+  
+  <!-- Step 1 -->
+  <rect x="30" y="80" width="190" height="180" rx="16" fill="#0d0d0d" stroke="#00A39A" stroke-width="2"/>
+  <circle cx="125" cy="115" r="25" fill="url(#tealGradient)"/>
+  <text x="125" y="123" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">1</text>
+  <text x="125" y="160" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#00C4B4" text-anchor="middle">ZMAPOVÁNÍ</text>
+  <text x="125" y="180" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#00C4B4" text-anchor="middle">ZDROJŮ</text>
+  <text x="125" y="210" font-family="Arial, sans-serif" font-size="10" fill="#888" text-anchor="middle">Web, dokumenty, DB,</text>
+  <text x="125" y="225" font-family="Arial, sans-serif" font-size="10" fill="#888" text-anchor="middle">e-maily, interní systémy</text>
+  <text x="125" y="250" font-family="Arial, sans-serif" font-size="24" fill="#00A39A" text-anchor="middle">🔍</text>
+  
+  <!-- Arrow 1-2 -->
+  <path d="M 225 170 L 255 170" stroke="#00A39A" stroke-width="3"/>
+  <polygon points="255,163 275,170 255,177" fill="#00A39A"/>
+  
+  <!-- Step 2 -->
+  <rect x="250" y="80" width="190" height="180" rx="16" fill="#0d0d0d" stroke="#00A39A" stroke-width="2"/>
+  <circle cx="345" cy="115" r="25" fill="url(#tealGradient)"/>
+  <text x="345" y="123" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">2</text>
+  <text x="345" y="160" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#00C4B4" text-anchor="middle">ČIŠTĚNÍ</text>
+  <text x="345" y="180" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#00C4B4" text-anchor="middle">A SJEDNOCENÍ</text>
+  <text x="345" y="210" font-family="Arial, sans-serif" font-size="10" fill="#888" text-anchor="middle">Pryč s duplicitami</text>
+  <text x="345" y="225" font-family="Arial, sans-serif" font-size="10" fill="#888" text-anchor="middle">Jeden zdroj pravdy</text>
+  <text x="345" y="250" font-family="Arial, sans-serif" font-size="24" fill="#00A39A" text-anchor="middle">🧹</text>
+  
+  <!-- Arrow 2-3 -->
+  <path d="M 445 170 L 475 170" stroke="#00A39A" stroke-width="3"/>
+  <polygon points="475,163 495,170 475,177" fill="#00A39A"/>
+  
+  <!-- Step 3 -->
+  <rect x="470" y="80" width="190" height="180" rx="16" fill="#0d0d0d" stroke="#00A39A" stroke-width="2"/>
+  <circle cx="565" cy="115" r="25" fill="url(#tealGradient)"/>
+  <text x="565" y="123" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">3</text>
+  <text x="565" y="160" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#00C4B4" text-anchor="middle">OBOHACENÍ</text>
+  <text x="565" y="180" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#00C4B4" text-anchor="middle">A ROZDĚLENÍ</text>
+  <text x="565" y="210" font-family="Arial, sans-serif" font-size="10" fill="#888" text-anchor="middle">Metadata, shrnutí,</text>
+  <text x="565" y="225" font-family="Arial, sans-serif" font-size="10" fill="#888" text-anchor="middle">optimální chunking</text>
+  <text x="565" y="250" font-family="Arial, sans-serif" font-size="24" fill="#00A39A" text-anchor="middle">⚙️</text>
+  
+  <!-- Arrow 3-4 -->
+  <path d="M 665 170 L 695 170" stroke="#00A39A" stroke-width="3"/>
+  <polygon points="695,163 715,170 695,177" fill="#00A39A"/>
+  
+  <!-- Step 4 -->
+  <rect x="690" y="80" width="190" height="180" rx="16" fill="#0d0d0d" stroke="url(#tealGradient)" stroke-width="3"/>
+  <circle cx="785" cy="115" r="25" fill="url(#tealGradient)"/>
+  <text x="785" y="123" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">4</text>
+  <text x="785" y="160" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#00C4B4" text-anchor="middle">"DRUHÝ MOZEK"</text>
+  <text x="785" y="180" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#00C4B4" text-anchor="middle">ZNALOSTNÍ BÁZE</text>
+  <text x="785" y="210" font-family="Arial, sans-serif" font-size="10" fill="#888" text-anchor="middle">Centrální zdroj pravdy</text>
+  <text x="785" y="225" font-family="Arial, sans-serif" font-size="10" fill="#888" text-anchor="middle">Vše na jednom místě</text>
+  <text x="785" y="250" font-family="Arial, sans-serif" font-size="24" fill="#00A39A" text-anchor="middle">🧠</text>
+  
+  <!-- Bottom note -->
+  <rect x="250" y="280" width="400" height="30" rx="8" fill="#00A39A" fill-opacity="0.1" stroke="#00A39A" stroke-width="1"/>
+  <text x="450" y="300" font-family="Arial, sans-serif" font-size="12" fill="#00C4B4" text-anchor="middle">Výsledek: AI odpovídá přesně a bez halucinací ✓</text>
+</svg>

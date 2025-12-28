@@ -1,5 +1,5 @@
 ---
-import { translations, type Language } from '../../scripts/translations';
+import { translations, type Language, getLocalizedHref } from '../../scripts/translations';
 
 export interface Props {
   lang?: Language;
@@ -8,12 +8,15 @@ export interface Props {
 
 const { lang = 'cs', simple = false } = Astro.props;
 const t = translations[lang];
+
+// Helper for localized links
+const href = (path: string) => getLocalizedHref(path, lang);
 ---
 
 <div class="fixed z-50 flex animate-on-scroll [animation:animationIn_0.8s_ease-out_0s_both] pr-4 pl-4 top-6 right-0 left-0 justify-center">
   <nav class="flex md:gap-8 bg-neutral-950/90 w-full h-14 max-w-5xl border-white/10 border mr-auto ml-auto pr-3 pl-6 shadow-lg backdrop-blur-xl gap-x-4 gap-y-4 items-center justify-between rounded-lg">
     <div class="flex items-center gap-2">
-      <a href="/" class="flex items-center gap-2">
+      <a href={href("/")} class="flex items-center gap-2">
         <img src="/assets/images/logo.png" alt="HypeDigitaly" class="h-8 w-auto">
       </a>
     </div>
@@ -23,7 +26,7 @@ const t = translations[lang];
         <!-- Services Dropdown -->
         <div class="relative" id="services-dropdown">
           <div class="flex items-center gap-1.5 py-2">
-            <a href="/#sluzby" class="hover:text-white transition-colors">{t.nav_services}</a>
+            <a href={href("/#sluzby")} class="hover:text-white transition-colors">{t.nav_services}</a>
             <button id="services-trigger" class="hover:text-white transition-colors p-1 -m-1">
               <svg id="services-arrow" class="w-4 h-4 transition-transform duration-300 ease-out" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
@@ -32,21 +35,21 @@ const t = translations[lang];
           </div>
           <div id="services-menu" class="absolute left-0 top-full pt-2 opacity-0 invisible transition-all duration-200 pointer-events-none">
             <div class="w-56 rounded-xl bg-neutral-900/95 ring-1 ring-white/10 backdrop-blur-xl shadow-2xl overflow-hidden">
-              <a href="/chatbot" class="flex items-center gap-3 px-4 py-3 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">
+              <a href={href("/chatbot")} class="flex items-center gap-3 px-4 py-3 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">
                 <iconify-icon icon="solar:chat-round-dots-linear" class="text-primary text-lg"></iconify-icon>
                 <div>
-                  <div class="font-medium">AI Chatbot</div>
-                  <div class="text-xs text-neutral-500">Inteligentní konverzační AI</div>
+                  <div class="font-medium">{t.nav_chatbot_title}</div>
+                  <div class="text-xs text-neutral-500">{t.nav_chatbot_desc}</div>
                 </div>
               </a>
-              <a href="/konzultace" class="flex items-center gap-3 px-4 py-3 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">
+              <a href={href("/konzultace")} class="flex items-center gap-3 px-4 py-3 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">
                 <iconify-icon icon="solar:users-group-two-rounded-linear" class="text-primary text-lg"></iconify-icon>
                 <div>
-                  <div class="font-medium">Konzultace & Partnerství</div>
-                  <div class="text-xs text-neutral-500">Strategické AI poradenství</div>
+                  <div class="font-medium">{t.nav_consulting_title}</div>
+                  <div class="text-xs text-neutral-500">{t.nav_consulting_desc}</div>
                 </div>
               </a>
-              <a href="/priprava-dat" class="flex items-center gap-3 px-4 py-3 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">
+              <a href={href("/priprava-dat")} class="flex items-center gap-3 px-4 py-3 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">
                 <iconify-icon icon="solar:database-bold" class="text-primary text-lg"></iconify-icon>
                 <div>
                   <div class="font-medium">{t.dataprep_nav_title}</div>
@@ -56,9 +59,9 @@ const t = translations[lang];
             </div>
           </div>
         </div>
-        <a href="/#reference" class="hover:text-white transition-colors">{t.nav_cases}</a>
-        <a href="/blog?category=success-story" class="hover:text-white transition-colors">{t.nav_case_studies}</a>
-        <a href="/#priprava-dat" class="hover:text-white transition-colors">{t.nav_data_prep}</a>
+        <a href={href("/#reference")} class="hover:text-white transition-colors">{t.nav_cases}</a>
+        <a href={href("/blog")} class="hover:text-white transition-colors">{t.nav_case_studies}</a>
+        <a href={href("/#priprava-dat")} class="hover:text-white transition-colors">{t.nav_data_prep}</a>
         <a href="#kontakt" class="hover:text-white transition-colors">{t.nav_contact}</a>
       </div>
     )}
@@ -74,13 +77,15 @@ const t = translations[lang];
           </svg>
         </button>
         <div id="lang-dropdown" class="hidden absolute right-0 mt-2 w-36 rounded-lg bg-neutral-900/95 ring-1 ring-white/10 backdrop-blur-xl shadow-xl overflow-hidden">
-          <button class="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-white hover:bg-white/5" data-lang="cs">
+          <button class={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-white/5 ${lang === 'cs' ? 'text-primary bg-primary/10' : 'text-neutral-300'}`} data-lang="cs">
             <span class="text-base">🇨🇿</span>
             <span>Čeština</span>
+            {lang === 'cs' && <iconify-icon icon="solar:check-circle-bold" class="ml-auto text-primary"></iconify-icon>}
           </button>
-          <button class="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-neutral-300 hover:bg-white/5" data-lang="en">
+          <button class={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-white/5 ${lang === 'en' ? 'text-primary bg-primary/10' : 'text-neutral-300'}`} data-lang="en">
             <span class="text-base">🇬🇧</span>
             <span>English</span>
+            {lang === 'en' && <iconify-icon icon="solar:check-circle-bold" class="ml-auto text-primary"></iconify-icon>}
           </button>
         </div>
       </div>

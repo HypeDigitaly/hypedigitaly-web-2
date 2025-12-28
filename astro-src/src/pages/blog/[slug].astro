@@ -1,22 +1,52 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
-import { translations, type Language } from '../../scripts/translations';
+import DataPreparationSection from '../../components/sections/DataPreparationSection.astro';
+import { translations, type Language, getLocalizedHref } from '../../scripts/translations';
 import blogData from '../../data/blog-posts.json';
 import clientsData from '../../data/clients.json';
 import type { BlogPost, BlogCategoryInfo } from '../../types/blog';
 import { blogCategories } from '../../types/blog';
 
-export async function getStaticPaths() {
-  const posts = blogData.posts as BlogPost[];
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post }
-  }));
+// Server-side rendered page - detects language from URL param or cookie
+export const prerender = false;
+
+// Get post from slug parameter
+const { slug } = Astro.params;
+const allPosts = blogData.posts as BlogPost[];
+const post = allPosts.find(p => p.slug === slug);
+
+// 404 if post not found
+if (!post) {
+  return Astro.redirect('/blog');
 }
 
-const { post } = Astro.props as { post: BlogPost };
-const lang: Language = 'cs';
+const url = Astro.url;
+const langParam = url.searchParams.get('lang');
+
+// Redirect ?lang=cs to clean URL (Czech is default - keeps URLs clean)
+if (langParam === 'cs') {
+  const cleanUrl = new URL(Astro.url);
+  cleanUrl.searchParams.delete('lang');
+  const redirectPath = cleanUrl.pathname + (cleanUrl.search || '') + (cleanUrl.hash || '');
+  return Astro.redirect(redirectPath || `/blog/${slug}`, 301);
+}
+
+const cookieLang = Astro.cookies.get('preferredLanguage')?.value;
+const lang: Language = (langParam === 'en' || langParam === 'cs') ? langParam : 
+                       (cookieLang === 'en' || cookieLang === 'cs') ? cookieLang : 'cs';
 const t = translations[lang];
+
+// Set cookie if language was explicitly selected via URL param
+if (langParam && (langParam === 'en' || langParam === 'cs')) {
+  Astro.cookies.set('preferredLanguage', langParam, { 
+    path: '/', 
+    maxAge: 60 * 60 * 24 * 365, // 1 year
+    sameSite: 'lax'
+  });
+}
+
+// Helper for localized links
+const href = (path: string) => getLocalizedHref(path, lang);
 
 const title = lang === 'cs' ? post.title_cs : post.title_en;
 const content = lang === 'cs' ? post.content_cs : post.content_en;
@@ -74,20 +104,119 @@ function convertMarkdownToHtml(md: string): string {
     return `%%PCLASS${pClassMatches.length - 1}%%`;
   });
   
-  // Convert tables first with enhanced styling
-  html = html.replace(/\|(.+)\|\n\|[-|\s]+\|\n((?:\|.+\|\n?)+)/g, (match, header, body) => {
-    const headerCells = header.split('|').map((c: string) => c.trim()).filter(Boolean);
-    const headerRow = `<tr>${headerCells.map((c: string) => `<th>${c}</th>`).join('')}</tr>`;
+  // ========== CODE BLOCKS (must be before other conversions) ==========
+  // Convert fenced code blocks with language (```json, ```python, etc.)
+  const codeBlockMatches: string[] = [];
+  html = html.replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang, code) => {
+    const language = lang || 'text';
+    const escapedCode = code
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .trim();
     
-    const bodyRows = body.trim().split('\n').map((row: string) => {
-      const cells = row.split('|').map((c: string) => c.trim()).filter(Boolean);
-      return `<tr>${cells.map((c: string) => `<td>${c}</td>`).join('')}</tr>`;
-    }).join('');
+    // Apply syntax highlighting for JSON
+    let highlightedCode = escapedCode;
+    if (language === 'json') {
+      highlightedCode = highlightJSON(escapedCode);
+    }
     
-    return `<div class="table-wrapper"><table><thead>${headerRow}</thead><tbody>${bodyRows}</tbody></table></div>`;
+    const codeBlock = `<div class="code-block"><div class="code-header"><span class="code-lang">${language.toUpperCase()}</span></div><pre><code class="language-${language}">${highlightedCode}</code></pre></div>`;
+    codeBlockMatches.push(codeBlock);
+    return `%%CODEBLOCK${codeBlockMatches.length - 1}%%`;
   });
   
-  // Convert headers - with section numbers for h2
+  // Convert inline code (single backticks)
+  html = html.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
+  
+  // ========== HORIZONTAL RULES ==========
+  html = html.replace(/^---$/gm, '<hr class="section-divider" />');
+  
+  // ========== BLOCKQUOTES ==========
+  html = html.replace(/^> (.+)$/gm, '<blockquote><p>$1</p></blockquote>');
+  // Merge consecutive blockquotes
+  html = html.replace(/<\/blockquote>\n<blockquote>/g, '\n');
+  
+  // ========== TABLES ==========
+  // Line-by-line table detection for better reliability
+  const lines = html.split('\n');
+  const processedLines: string[] = [];
+  let i = 0;
+  
+  while (i < lines.length) {
+    const line = lines[i];
+    
+    // Check if this line looks like a table header (starts and ends with |)
+    if (line.trim().startsWith('|') && line.trim().endsWith('|')) {
+      // Check if next line is a separator (contains only |, -, :, and spaces)
+      const nextLine = lines[i + 1]?.trim() || '';
+      const isSeparator = nextLine.startsWith('|') && nextLine.endsWith('|') && 
+                          /^[|\-:\s]+$/.test(nextLine);
+      
+      if (isSeparator) {
+        // This is a table! Collect all rows
+        const headerRow = line;
+        const tableRows: string[] = [];
+        let j = i + 2; // Start after separator
+        
+        while (j < lines.length) {
+          const rowLine = lines[j]?.trim() || '';
+          if (rowLine.startsWith('|') && rowLine.endsWith('|')) {
+            tableRows.push(rowLine);
+            j++;
+          } else {
+            break;
+          }
+        }
+        
+        // Build HTML table with semantic classes
+        const headerCells = headerRow.split('|').map((c: string) => c.trim()).filter(Boolean);
+        const thead = `<tr>${headerCells.map((c: string) => `<th>${c}</th>`).join('')}</tr>`;
+        
+        // Detect if this is the wide comparison table (has 7+ columns with specific headers)
+        const isWideComparisonTable = headerCells.length >= 7 && 
+          (headerCells.some((h: string) => h.includes('Strategie') || h.includes('Strategy')) ||
+           headerCells.some((h: string) => h.includes('Náklady') || h.includes('Cost')) ||
+           headerCells.some((h: string) => h.includes('Kvalita') || h.includes('Quality')));
+        
+        // Helper to add semantic classes based on cell content
+        const getCellClass = (content: string): string => {
+          const classes: string[] = [];
+          // Check for emoji indicators
+          if (content.includes('✅')) classes.push('cell-positive');
+          if (content.includes('❌')) classes.push('cell-negative');
+          if (content.includes('⭐')) classes.push('cell-rating');
+          if (content.includes('💰') || content.includes('💲')) classes.push('cell-cost');
+          if (content.includes('📈')) classes.push('cell-quality');
+          // Check for text patterns
+          if (content.toLowerCase().includes('vysoká') || content.toLowerCase().includes('high')) classes.push('cell-positive');
+          if (content.toLowerCase().includes('nízká') || content.toLowerCase().includes('low')) classes.push('cell-muted');
+          return classes.length > 0 ? ` class="${classes.join(' ')}"` : '';
+        };
+        
+        const tbody = tableRows.map((row: string, rowIndex: number) => {
+          const cells = row.split('|').map((c: string) => c.trim()).filter(Boolean);
+          // Check if this row should be highlighted (contains ⭐ in first column or has "AI-Decided")
+          const isHighlightRow = cells.some(c => c.includes('⭐')) || 
+                                  cells.some(c => c.includes('AI-Decided') || c.includes('AI-rozhodnuté'));
+          const rowClass = isHighlightRow ? ' class="highlight-row"' : '';
+          return `<tr${rowClass}>${cells.map((c: string) => `<td${getCellClass(c)}>${c}</td>`).join('')}</tr>`;
+        }).join('');
+        
+        const wrapperClass = isWideComparisonTable ? 'table-wrapper table-wide' : 'table-wrapper';
+        processedLines.push(`<div class="${wrapperClass}"><table><thead>${thead}</thead><tbody>${tbody}</tbody></table></div>`);
+        i = j; // Skip past the table
+        continue;
+      }
+    }
+    
+    processedLines.push(line);
+    i++;
+  }
+  
+  html = processedLines.join('\n');
+  
+  // ========== HEADERS ==========
   html = html.split('\n').map(line => {
     // Match ## X. Title format (where X is a number)
     const h2Match = line.match(/^## (\d+)\. (.+)$/);
@@ -96,9 +225,15 @@ function convertMarkdownToHtml(md: string): string {
       const text = h2Match[2];
       return `<div class="section-header"><span class="section-number">${num}</span><h2>${text}</h2></div>`;
     }
+    // H4 headers (####)
+    if (line.startsWith('#### ')) {
+      return `<h4>${line.slice(5)}</h4>`;
+    }
+    // H3 headers (###)
     if (line.startsWith('### ')) {
       return `<h3>${line.slice(4)}</h3>`;
     }
+    // H2 headers without number
     if (line.startsWith('## ')) {
       sectionNumber++;
       return `<div class="section-header"><span class="section-number">${sectionNumber}</span><h2>${line.slice(3)}</h2></div>`;
@@ -106,9 +241,17 @@ function convertMarkdownToHtml(md: string): string {
     return line;
   }).join('\n');
   
-  // Convert bold text
+  // ========== INLINE LINKS ==========
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, text, url) => {
+    const isExternal = url.startsWith('http');
+    const target = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
+    return `<a href="${url}" class="content-link"${target}>${text}</a>`;
+  });
+  
+  // ========== BOLD TEXT ==========
   html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
   
+  // ========== LISTS ==========
   // Convert unordered lists
   html = html.replace(/(^|\n)(- .+(?:\n- .+)*)/g, (match, pre, list) => {
     const items = list.split('\n- ').filter(Boolean).map((item: string) => 
@@ -125,7 +268,7 @@ function convertMarkdownToHtml(md: string): string {
     return `${pre}<ol>${items}</ol>`;
   });
   
-  // Convert paragraphs - split by double newlines
+  // ========== PARAGRAPHS ==========
   const parts = html.split('\n\n');
   html = parts.map(part => {
     const trimmed = part.trim();
@@ -135,8 +278,11 @@ function convertMarkdownToHtml(md: string): string {
         trimmed.startsWith('<table') || 
         trimmed.startsWith('<ul') || 
         trimmed.startsWith('<ol') ||
+        trimmed.startsWith('<blockquote') ||
+        trimmed.startsWith('<hr') ||
         trimmed.startsWith('%%IMG') ||
-        trimmed.startsWith('%%PCLASS')) {
+        trimmed.startsWith('%%PCLASS') ||
+        trimmed.startsWith('%%CODEBLOCK')) {
       return trimmed;
     }
     if (trimmed.length > 0) {
@@ -144,6 +290,12 @@ function convertMarkdownToHtml(md: string): string {
     }
     return '';
   }).join('\n');
+  
+  // ========== RESTORE PROTECTED CONTENT ==========
+  // Restore code blocks
+  codeBlockMatches.forEach((block, i) => {
+    html = html.replace(`%%CODEBLOCK${i}%%`, block);
+  });
   
   // Wrap images in figure containers with white background
   imgMatches.forEach((img, i) => {
@@ -156,13 +308,55 @@ function convertMarkdownToHtml(md: string): string {
     html = html.replace(`%%PCLASS${i}%%`, p);
   });
   
-  // Clean up empty paragraphs
+  // Clean up empty paragraphs and extra whitespace
   html = html.replace(/<p>\s*<\/p>/g, '');
+  html = html.replace(/<p><br\/><\/p>/g, '');
   
   return html;
 }
 
-const htmlContent = convertMarkdownToHtml(content);
+// JSON Syntax Highlighting Helper (with comment support)
+function highlightJSON(code: string): string {
+  // First, highlight comments (// ...) - process line by line
+  let highlighted = code.split('\n').map(line => {
+    // Check if line contains a comment
+    const commentMatch = line.match(/^(\s*)(\/\/.*)$/);
+    if (commentMatch) {
+      return `${commentMatch[1]}<span class="json-comment">${commentMatch[2]}</span>`;
+    }
+    return line;
+  }).join('\n');
+  
+  // Highlight JSON keys
+  highlighted = highlighted.replace(/"([^"]+)":/g, '<span class="json-key">"$1"</span>:');
+  // Highlight string values (after colon)
+  highlighted = highlighted.replace(/: "([^"]+)"/g, ': <span class="json-string">"$1"</span>');
+  // Highlight numbers
+  highlighted = highlighted.replace(/: (\d+)/g, ': <span class="json-number">$1</span>');
+  // Highlight booleans
+  highlighted = highlighted.replace(/: (true|false)/g, ': <span class="json-boolean">$1</span>');
+  // Highlight null
+  highlighted = highlighted.replace(/: (null)/g, ': <span class="json-null">$1</span>');
+  // Highlight braces
+  highlighted = highlighted.replace(/([{}])/g, '<span class="json-brace">$1</span>');
+  // Highlight brackets
+  highlighted = highlighted.replace(/([[|\]])/g, '<span class="json-bracket">$1</span>');
+  return highlighted;
+}
+
+// Check if content has RAGus component placeholder
+const hasRagusComponent = content.includes('%%RAGUS_COMPONENT%%');
+
+// Split content at RAGus component placeholder if present
+let contentBeforeRagus = '';
+let contentAfterRagus = '';
+if (hasRagusComponent) {
+  const parts = content.split('%%RAGUS_COMPONENT%%');
+  contentBeforeRagus = convertMarkdownToHtml(parts[0]);
+  contentAfterRagus = parts[1] ? convertMarkdownToHtml(parts[1]) : '';
+}
+
+const htmlContent = hasRagusComponent ? '' : convertMarkdownToHtml(content);
 ---
 
 <PageLayout 
@@ -175,7 +369,7 @@ const htmlContent = convertMarkdownToHtml(content);
     <div class="hero-section">
       <div class="max-w-5xl mx-auto px-6">
         <!-- Back Link -->
-        <a href="/blog" class="inline-flex items-center gap-2 text-neutral-400 hover:text-primary transition-colors mb-6 group">
+        <a href={href("/blog")} class="inline-flex items-center gap-2 text-neutral-400 hover:text-primary transition-colors mb-6 group">
           <iconify-icon icon="solar:arrow-left-linear" class="text-lg group-hover:-translate-x-1 transition-transform"></iconify-icon>
           <span>{t.blog_back_to_blog}</span>
         </a>
@@ -261,10 +455,30 @@ const htmlContent = convertMarkdownToHtml(content);
     )}
 
     <!-- ==================== ARTICLE CONTENT ==================== -->
-    <div class="max-w-4xl mx-auto px-6 pb-16">
+    <div class="article-container max-w-4xl mx-auto px-6 pb-16">
       <div class="blog-content">
-        <Fragment set:html={htmlContent} />
+        {hasRagusComponent ? (
+          <>
+            <Fragment set:html={contentBeforeRagus} />
+          </>
+        ) : (
+          <Fragment set:html={htmlContent} />
+        )}
       </div>
+      
+      {/* RAGus.ai Component Injection */}
+      {hasRagusComponent && (
+        <div class="ragus-component-wrapper -mx-6 md:-mx-12 lg:-mx-24 my-12">
+          <DataPreparationSection lang={lang} sectionNumber="" id="ragus-section" />
+        </div>
+      )}
+      
+      {/* Content after RAGus component */}
+      {hasRagusComponent && contentAfterRagus && (
+        <div class="blog-content">
+          <Fragment set:html={contentAfterRagus} />
+        </div>
+      )}
 
       <!-- Tags -->
       <div class="mt-12 pt-8 border-t border-white/10">
@@ -304,26 +518,74 @@ const htmlContent = convertMarkdownToHtml(content);
 
   <!-- ==================== LIGHTBOX MODAL ==================== -->
   <div id="image-lightbox" class="lightbox-overlay">
-    <button class="lightbox-close" aria-label="Zavřít">
-      <iconify-icon icon="solar:close-circle-bold" class="text-3xl"></iconify-icon>
-    </button>
-    <div class="lightbox-content">
-      <img id="lightbox-image" src="" alt="Zvětšený obrázek" />
+    <div class="lightbox-container">
+      <button class="lightbox-close" aria-label="Zavřít">
+        <iconify-icon icon="solar:close-circle-bold" class="text-4xl"></iconify-icon>
+      </button>
+      <div class="lightbox-content">
+        <img id="lightbox-image" src="" alt="Zvětšený obrázek" />
+      </div>
     </div>
   </div>
 </PageLayout>
 
 <script>
-  // Lightbox functionality
-  document.addEventListener('DOMContentLoaded', () => {
+  // Wide table scroll indicator functionality
+  function initTableScrollIndicators() {
+    const wideTables = document.querySelectorAll('.table-wide');
+    
+    wideTables.forEach((wrapper) => {
+      // Skip if already initialized
+      if (wrapper.hasAttribute('data-scroll-initialized')) return;
+      wrapper.setAttribute('data-scroll-initialized', 'true');
+      
+      const updateScrollState = () => {
+        const scrollLeft = wrapper.scrollLeft;
+        const scrollWidth = wrapper.scrollWidth;
+        const clientWidth = wrapper.clientWidth;
+        const maxScroll = scrollWidth - clientWidth;
+        
+        // Add/remove classes based on scroll position
+        if (scrollLeft > 10) {
+          wrapper.classList.add('scrolled-start');
+        } else {
+          wrapper.classList.remove('scrolled-start');
+        }
+        
+        if (maxScroll > 0 && scrollLeft >= maxScroll - 10) {
+          wrapper.classList.add('scrolled-end');
+        } else {
+          wrapper.classList.remove('scrolled-end');
+        }
+      };
+      
+      // Initial state check
+      updateScrollState();
+      
+      // Listen for scroll events
+      wrapper.addEventListener('scroll', updateScrollState, { passive: true });
+      
+      // Also check on resize
+      window.addEventListener('resize', updateScrollState, { passive: true });
+    });
+  }
+  
+  // Lightbox functionality - handles Astro page transitions correctly
+  function initLightbox() {
     const lightbox = document.getElementById('image-lightbox');
     const lightboxImage = document.getElementById('lightbox-image') as HTMLImageElement;
     const closeBtn = document.querySelector('.lightbox-close');
     
-    // Find all chart figures and add click handlers
+    if (!lightbox || !lightboxImage) return;
+    
+    // Find all chart figures
     const chartFigures = document.querySelectorAll('.chart-figure');
     
     chartFigures.forEach((figure) => {
+      // Prevent duplicate initialization
+      if (figure.hasAttribute('data-lightbox-initialized')) return;
+      figure.setAttribute('data-lightbox-initialized', 'true');
+      
       // Add zoom icon overlay
       const zoomOverlay = document.createElement('div');
       zoomOverlay.className = 'zoom-overlay';
@@ -334,41 +596,123 @@ const htmlContent = convertMarkdownToHtml(content);
       figure.addEventListener('click', () => {
         const img = figure.querySelector('img');
         if (img && lightbox && lightboxImage) {
-          lightboxImage.src = img.src;
-          lightboxImage.alt = img.alt;
+          // Get the original src attribute (not the computed absolute URL)
+          const imgSrc = img.getAttribute('src') || img.src;
+          
+          // Check if it's an SVG file
+          const isSvg = imgSrc.toLowerCase().endsWith('.svg');
+          
+          // For SVG files, add class for special handling
+          if (isSvg) {
+            lightboxImage.classList.add('svg-image');
+            lightboxImage.classList.remove('raster-image');
+          } else {
+            lightboxImage.classList.add('raster-image');
+            lightboxImage.classList.remove('svg-image');
+          }
+          
+          lightboxImage.src = imgSrc;
+          lightboxImage.alt = img.alt || 'Zvětšený obrázek';
           lightbox.classList.add('active');
           document.body.style.overflow = 'hidden';
         }
       });
     });
     
-    // Close lightbox handlers
-    const closeLightbox = () => {
-      if (lightbox) {
-        lightbox.classList.remove('active');
+    // Close lightbox function - make it globally accessible
+    (window as any).closeBlogLightbox = () => {
+      const lb = document.getElementById('image-lightbox');
+      const lbImg = document.getElementById('lightbox-image') as HTMLImageElement;
+      if (lb) {
+        lb.classList.remove('active');
         document.body.style.overflow = '';
+        // Clear src and classes after animation
+        setTimeout(() => {
+          if (!lb.classList.contains('active') && lbImg) {
+            lbImg.src = '';
+            lbImg.classList.remove('svg-image', 'raster-image');
+          }
+        }, 300);
       }
     };
     
-    closeBtn?.addEventListener('click', closeLightbox);
-    lightbox?.addEventListener('click', (e) => {
-      if (e.target === lightbox) {
-        closeLightbox();
-      }
-    });
-    
-    // Close on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeLightbox();
-      }
-    });
+    // Use event delegation on document for reliable event handling
+    if (!(window as any).lightboxDelegationInitialized) {
+      (window as any).lightboxDelegationInitialized = true;
+      
+      // Single document-level click handler
+      document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        const lightboxEl = document.getElementById('image-lightbox');
+        
+        if (!lightboxEl || !lightboxEl.classList.contains('active')) return;
+        
+        // Close if clicking the close button or its icon
+        if (target.closest('.lightbox-close')) {
+          e.preventDefault();
+          e.stopPropagation();
+          (window as any).closeBlogLightbox();
+          return;
+        }
+        
+        // Close if clicking on overlay (not on image)
+        if (target.closest('#image-lightbox') && !target.closest('#lightbox-image')) {
+          if (target.id !== 'lightbox-image') {
+            (window as any).closeBlogLightbox();
+          }
+        }
+      });
+      
+      // Escape key handler
+      document.addEventListener('keydown', (e) => {
+        const lightboxEl = document.getElementById('image-lightbox');
+        if (e.key === 'Escape' && lightboxEl?.classList.contains('active')) {
+          (window as any).closeBlogLightbox();
+        }
+      });
+    }
+  }
+
+  // Initialize all blog functionality
+  function initBlogFeatures() {
+    initLightbox();
+    initTableScrollIndicators();
+  }
+
+  // Handle Astro's page lifecycle
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBlogFeatures);
+  } else {
+    initBlogFeatures();
+  }
+
+  // Back/forward cache
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+      initBlogFeatures();
+    }
   });
+
+  // Re-run for Astro view transitions
+  document.addEventListener('astro:page-load', initBlogFeatures);
 </script>
 
 <style>
   .blog-article {
     padding-top: 2rem;
+  }
+
+  /* Article container - allow table overflow on mobile */
+  .article-container {
+    overflow-x: visible;
+  }
+
+  /* On mobile, reduce padding to give tables more room */
+  @media (max-width: 767px) {
+    .article-container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
   }
 
   .hero-section {
@@ -380,10 +724,10 @@ const htmlContent = convertMarkdownToHtml(content);
   }
 
   .hero-image-container {
-    background: white;
+    background: #0d0d0d;
     border-radius: 1rem;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: none;
   }
 
   .hero-image {
@@ -502,71 +846,434 @@ const htmlContent = convertMarkdownToHtml(content);
     font-weight: 600;
   }
 
-  /* Tables */
+  /* ==================== TABLES ==================== */
   .blog-content :global(.table-wrapper) {
     overflow-x: auto;
+    overflow-y: visible;
     margin: 2rem 0;
-    border-radius: 0.75rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.875rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: linear-gradient(145deg, #0a0a0a 0%, #0d0d0d 50%, #0a0a0a 100%);
+    box-shadow: 
+      0 4px 6px -1px rgba(0, 0, 0, 0.3),
+      0 2px 4px -1px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* Wide comparison table - MOBILE FIRST */
+  .blog-content :global(.table-wide) {
+    /* CRITICAL: Force horizontal scrolling */
+    overflow-x: scroll !important;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    /* Full bleed on mobile - break out of container padding */
+    margin-left: -1rem;
+    margin-right: -1rem;
+    width: calc(100% + 2rem);
+    max-width: none !important;
+    position: relative;
+  }
+
+  /* Table inside wide wrapper - ensure it has full width */
+  .blog-content :global(.table-wide table) {
+    width: auto;
+    min-width: max-content; /* CRITICAL: Table takes full width it needs */
+  }
+
+  /* Desktop: break out more */
+  @media (min-width: 768px) {
+    .blog-content :global(.table-wide) {
+      margin-left: -3rem;
+      margin-right: -3rem;
+      width: calc(100% + 6rem);
+      overflow-x: auto;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .blog-content :global(.table-wide) {
+      margin-left: -6rem;
+      margin-right: -6rem;
+      width: calc(100% + 12rem);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .blog-content :global(.table-wide) {
+      margin-left: -10rem;
+      margin-right: -10rem;
+      width: calc(100% + 20rem);
+    }
+  }
+
+  /* Compact styling for wide tables - MOBILE FIRST */
+  .blog-content :global(.table-wide table) {
+    font-size: 0.75rem;
+    /* Let table take natural width for scrolling */
+    width: auto;
+    min-width: max-content;
+  }
+
+  .blog-content :global(.table-wide th),
+  .blog-content :global(.table-wide td) {
+    padding: 0.625rem 0.5rem;
+    white-space: nowrap; /* Keep all content on single line for horizontal scroll */
+  }
+
+  .blog-content :global(.table-wide th) {
+    font-size: 0.6rem;
+    letter-spacing: 0.03em;
+  }
+
+  /* Tablet+ sizing for wide tables */
+  @media (min-width: 640px) {
+    .blog-content :global(.table-wide table) {
+      font-size: 0.8rem;
+    }
+
+    .blog-content :global(.table-wide th),
+    .blog-content :global(.table-wide td) {
+      padding: 0.625rem 0.75rem;
+    }
+
+    .blog-content :global(.table-wide th) {
+      font-size: 0.65rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .blog-content :global(.table-wide table) {
+      font-size: 0.85rem;
+    }
+
+    .blog-content :global(.table-wide th),
+    .blog-content :global(.table-wide td) {
+      padding: 0.75rem 0.875rem;
+    }
+
+    .blog-content :global(.table-wide th) {
+      font-size: 0.7rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .blog-content :global(.table-wide table) {
+      font-size: 0.9rem;
+    }
+
+    .blog-content :global(.table-wide th),
+    .blog-content :global(.table-wide td) {
+      padding: 0.875rem 1rem;
+    }
+
+    .blog-content :global(.table-wide th) {
+      font-size: 0.75rem;
+    }
   }
 
   .blog-content :global(table) {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
+    table-layout: auto;
   }
 
-  .blog-content :global(th),
+  /* Table Headers */
+  .blog-content :global(th) {
+    padding: 0.875rem 1rem;
+    text-align: left;
+    background: linear-gradient(180deg, rgba(0, 163, 154, 0.2) 0%, rgba(0, 163, 154, 0.1) 100%);
+    color: #00D4C8;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid rgba(0, 163, 154, 0.3);
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+
+  .blog-content :global(th:first-child) {
+    border-radius: 0.75rem 0 0 0;
+  }
+
+  .blog-content :global(th:last-child) {
+    border-radius: 0 0.75rem 0 0;
+  }
+
+  /* Table Cells */
   .blog-content :global(td) {
     padding: 0.875rem 1rem;
     text-align: left;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  }
-
-  .blog-content :global(th) {
-    background: rgba(255, 255, 255, 0.05);
-    color: white;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-  }
-
-  .blog-content :global(td) {
-    color: #a3a3a3;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    vertical-align: top;
+    color: #d4d4d4;
+    line-height: 1.6;
+    word-break: normal;
   }
 
   .blog-content :global(tr:last-child td) {
     border-bottom: none;
   }
 
-  .blog-content :global(tbody tr:hover) {
-    background: rgba(255, 255, 255, 0.02);
+  .blog-content :global(tr:last-child td:first-child) {
+    border-radius: 0 0 0 0.75rem;
   }
 
-  /* Chart/Image Figures */
+  .blog-content :global(tr:last-child td:last-child) {
+    border-radius: 0 0 0.75rem 0;
+  }
+
+  /* Row styling */
+  .blog-content :global(tbody tr) {
+    transition: background 0.2s ease;
+  }
+
+  .blog-content :global(tbody tr:nth-child(odd)) {
+    background: rgba(255, 255, 255, 0.015);
+  }
+
+  .blog-content :global(tbody tr:nth-child(even)) {
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .blog-content :global(tbody tr:hover) {
+    background: rgba(0, 163, 154, 0.1);
+  }
+
+  /* Bold/strong text in tables = white for emphasis */
+  .blog-content :global(td strong) {
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  /* Emoji icons in tables - ensure proper display */
+  .blog-content :global(td) {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  /* Green check marks and positive indicators */
+  .blog-content :global(td:has(> ✅)),
+  .blog-content :global(td:contains('✅')) {
+    color: #86efac;
+  }
+
+  /* Red X marks and negative indicators */  
+  .blog-content :global(td:has(> ❌)),
+  .blog-content :global(td:contains('❌')) {
+    color: #fca5a5;
+  }
+
+  /* Semantic cell classes */
+  .blog-content :global(td.cell-positive) {
+    color: #86efac;
+  }
+
+  .blog-content :global(td.cell-negative) {
+    color: #fca5a5;
+  }
+
+  .blog-content :global(td.cell-rating) {
+    color: #fcd34d;
+    text-align: center;
+  }
+
+  .blog-content :global(td.cell-cost) {
+    color: #a3a3a3;
+    text-align: center;
+  }
+
+  .blog-content :global(td.cell-quality) {
+    color: #a3a3a3;
+    text-align: center;
+  }
+
+  .blog-content :global(td.cell-muted) {
+    color: #737373;
+  }
+
+  /* Highlighted rows (e.g., AI-Decided strategy) */
+  .blog-content :global(tr.highlight-row) {
+    background: rgba(0, 163, 154, 0.12) !important;
+    border-left: 3px solid #00A39A;
+  }
+
+  .blog-content :global(tr.highlight-row:hover) {
+    background: rgba(0, 163, 154, 0.18) !important;
+  }
+
+  .blog-content :global(tr.highlight-row td) {
+    border-bottom-color: rgba(0, 163, 154, 0.2);
+  }
+
+  /* ==================== MOBILE RESPONSIVE TABLES ==================== */
+  
+  /* Custom scrollbar for tables - visible on all devices */
+  .blog-content :global(.table-wrapper)::-webkit-scrollbar,
+  .blog-content :global(.table-wide)::-webkit-scrollbar {
+    height: 10px;
+  }
+
+  .blog-content :global(.table-wrapper)::-webkit-scrollbar-track,
+  .blog-content :global(.table-wide)::-webkit-scrollbar-track {
+    background: rgba(0, 163, 154, 0.1);
+    border-radius: 5px;
+  }
+
+  .blog-content :global(.table-wrapper)::-webkit-scrollbar-thumb,
+  .blog-content :global(.table-wide)::-webkit-scrollbar-thumb {
+    background: rgba(0, 163, 154, 0.5);
+    border-radius: 5px;
+    border: 2px solid rgba(0, 163, 154, 0.1);
+  }
+
+  .blog-content :global(.table-wrapper)::-webkit-scrollbar-thumb:hover,
+  .blog-content :global(.table-wide)::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 163, 154, 0.7);
+  }
+
+  /* Firefox scrollbar */
+  .blog-content :global(.table-wrapper),
+  .blog-content :global(.table-wide) {
+    scrollbar-width: auto;
+    scrollbar-color: rgba(0, 163, 154, 0.5) rgba(0, 163, 154, 0.1);
+  }
+
+  /* Extra small screens (phones portrait) */
+  @media (max-width: 479px) {
+    .blog-content :global(.table-wrapper) {
+      margin: 1.25rem -1rem;
+      border-radius: 0.375rem;
+      border-width: 1px;
+    }
+
+    .blog-content :global(table) {
+      font-size: 0.75rem;
+    }
+
+    .blog-content :global(th),
+    .blog-content :global(td) {
+      padding: 0.5rem 0.375rem;
+      line-height: 1.4;
+    }
+
+    .blog-content :global(th) {
+      font-size: 0.6rem;
+      letter-spacing: 0.02em;
+    }
+
+    .blog-content :global(td) {
+      word-break: break-word;
+      hyphens: auto;
+    }
+
+    /* Make emojis slightly smaller on mobile */
+    .blog-content :global(td.cell-positive),
+    .blog-content :global(td.cell-negative),
+    .blog-content :global(td.cell-rating),
+    .blog-content :global(td.cell-cost) {
+      font-size: 0.7rem;
+    }
+  }
+
+  /* Small screens (phones landscape, small tablets) */
+  @media (min-width: 480px) and (max-width: 639px) {
+    .blog-content :global(.table-wrapper) {
+      margin: 1.5rem -0.75rem;
+      border-radius: 0.5rem;
+    }
+
+    .blog-content :global(table) {
+      font-size: 0.8rem;
+    }
+
+    .blog-content :global(th),
+    .blog-content :global(td) {
+      padding: 0.5rem 0.5rem;
+    }
+
+    .blog-content :global(th) {
+      font-size: 0.625rem;
+    }
+  }
+
+  /* Medium screens (tablets) */
+  @media (min-width: 640px) and (max-width: 767px) {
+    .blog-content :global(.table-wrapper) {
+      margin: 1.75rem -0.5rem;
+      border-radius: 0.625rem;
+    }
+
+    .blog-content :global(table) {
+      font-size: 0.85rem;
+    }
+
+    .blog-content :global(th),
+    .blog-content :global(td) {
+      padding: 0.625rem 0.625rem;
+    }
+
+    .blog-content :global(th) {
+      font-size: 0.675rem;
+    }
+  }
+
+  /* Touch-friendly: larger tap targets on touch devices */
+  @media (hover: none) and (pointer: coarse) {
+    .blog-content :global(th),
+    .blog-content :global(td) {
+      min-height: 44px; /* iOS recommended touch target */
+    }
+
+    .blog-content :global(.table-wrapper) {
+      /* Ensure smooth momentum scrolling on iOS */
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+
+  /* Chart/Image Figures - NO WHITE BORDER */
   .blog-content :global(.chart-figure) {
     margin: 2.5rem 0;
-    background: white;
+    background: transparent;
     border-radius: 1rem;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: none;
     position: relative;
     cursor: pointer;
   }
 
-  .blog-content :global(.chart-figure img) {
+  /* SVG diagrams - dark themed, no background */
+  .blog-content :global(.chart-figure img[src$=".svg"]) {
     width: 100%;
     height: auto;
     display: block;
     margin: 0;
     border: none;
-    border-radius: 0;
+    border-radius: 0.75rem;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    background: transparent;
+  }
+
+  /* PNG/JPG images - can have white background if needed */
+  .blog-content :global(.chart-figure img:not([src$=".svg"])) {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0;
+    border: none;
+    border-radius: 0.75rem;
     transition: transform 0.3s ease;
+    background: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .blog-content :global(.chart-figure:hover img) {
     transform: scale(1.02);
+    opacity: 0.95;
   }
 
   .blog-content :global(.chart-figure .zoom-overlay) {
@@ -624,22 +1331,47 @@ const htmlContent = convertMarkdownToHtml(content);
     visibility: visible;
   }
 
+  .lightbox-container {
+    position: relative;
+    max-width: 95vw;
+    max-height: 95vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .lightbox-close {
     position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    background: none;
-    border: none;
+    top: -1rem;
+    right: -1rem;
+    width: 3rem;
+    height: 3rem;
+    background: rgba(220, 38, 38, 0.9);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
     color: white;
     cursor: pointer;
-    opacity: 0.7;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
     z-index: 10001;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   }
 
   .lightbox-close:hover {
-    opacity: 1;
-    transform: scale(1.1);
+    background: rgba(239, 68, 68, 1);
+    transform: scale(1.15);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+  }
+
+  .lightbox-close:active {
+    transform: scale(0.95);
+  }
+
+  .lightbox-close iconify-icon {
+    font-size: 1.5rem;
   }
 
   .lightbox-content {
@@ -656,21 +1388,236 @@ const htmlContent = convertMarkdownToHtml(content);
     object-fit: contain;
     border-radius: 0.5rem;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+
+  /* SVG images in lightbox - need explicit dimensions since SVGs may lack width/height */
+  .lightbox-content img.svg-image {
+    background: transparent;
+    padding: 1rem;
+    width: auto;
+    height: auto;
+    min-width: 300px;
+    min-height: 200px;
+    max-width: 90vw;
+    max-height: 85vh;
+  }
+
+  /* PNG/JPG images in lightbox - white background for charts */
+  .lightbox-content img.raster-image {
     background: white;
+  }
+
+  /* Fallback for attribute-based SVG detection */
+  .lightbox-content img[src$=".svg"],
+  .lightbox-content img[src*=".svg?"],
+  .lightbox-content img[src$=".SVG"] {
+    background: transparent;
+    padding: 1rem;
+    min-width: 300px;
+    min-height: 200px;
   }
 
   /* Blockquotes */
   .blog-content :global(blockquote) {
     border-left: 4px solid #00A39A;
-    padding: 1rem 1.5rem;
+    padding: 1.25rem 1.5rem;
     margin: 2rem 0;
-    background: rgba(0, 163, 154, 0.05);
-    border-radius: 0 0.5rem 0.5rem 0;
+    background: linear-gradient(135deg, rgba(0, 163, 154, 0.08) 0%, rgba(0, 163, 154, 0.03) 100%);
+    border-radius: 0 0.75rem 0.75rem 0;
+    position: relative;
+  }
+
+  .blog-content :global(blockquote::before) {
+    content: '"';
+    position: absolute;
+    top: -0.5rem;
+    left: 1rem;
+    font-size: 3rem;
+    color: rgba(0, 163, 154, 0.3);
+    font-family: Georgia, serif;
+    line-height: 1;
   }
 
   .blog-content :global(blockquote p) {
-    color: #d4d4d4;
+    color: #e5e5e5;
     font-style: italic;
     margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  /* H4 Headers */
+  .blog-content :global(h4) {
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+    padding-left: 1rem;
+    border-left: 3px solid #00A39A;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .blog-content :global(h4) {
+      font-size: 1.0625rem;
+    }
+  }
+
+  /* Horizontal Rules / Section Dividers */
+  .blog-content :global(.section-divider) {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(0, 163, 154, 0.5) 50%, transparent 100%);
+    margin: 3rem 0;
+  }
+
+  /* Code Blocks */
+  .blog-content :global(.code-block) {
+    margin: 2rem 0;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #0d0d0d;
+  }
+
+  .blog-content :global(.code-header) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .blog-content :global(.code-lang) {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #00A39A;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .blog-content :global(.code-block pre) {
+    margin: 0;
+    padding: 1.25rem;
+    overflow-x: auto;
+    background: transparent;
+  }
+
+  .blog-content :global(.code-block code) {
+    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #d4d4d4;
+    white-space: pre;
+  }
+
+  /* JSON Syntax Highlighting */
+  .blog-content :global(.json-key) {
+    color: #9cdcfe;
+  }
+
+  .blog-content :global(.json-string) {
+    color: #ce9178;
+  }
+
+  .blog-content :global(.json-number) {
+    color: #b5cea8;
+  }
+
+  .blog-content :global(.json-boolean) {
+    color: #569cd6;
+  }
+
+  .blog-content :global(.json-null) {
+    color: #569cd6;
+  }
+
+  .blog-content :global(.json-brace) {
+    color: #ffd700;
+    font-weight: 600;
+  }
+
+  .blog-content :global(.json-bracket) {
+    color: #da70d6;
+    font-weight: 600;
+  }
+
+  .blog-content :global(.json-comment) {
+    color: #6a9955;
+    font-style: italic;
+  }
+
+  /* RAGus Component Wrapper */
+  .ragus-component-wrapper {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  /* YouTube Video Embed - Responsive */
+  .blog-content :global(.video-embed) {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    margin: 2rem 0;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .blog-content :global(.video-embed iframe) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 0.75rem;
+  }
+
+  /* Inline Code */
+  .blog-content :global(.inline-code) {
+    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+    font-size: 0.875em;
+    padding: 0.2em 0.4em;
+    background: rgba(0, 163, 154, 0.15);
+    color: #00C4B4;
+    border-radius: 0.25rem;
+    border: 1px solid rgba(0, 163, 154, 0.2);
+  }
+
+  /* Content Links */
+  .blog-content :global(.content-link) {
+    color: #00A39A;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 163, 154, 0.3);
+    transition: all 0.2s ease;
+  }
+
+  .blog-content :global(.content-link:hover) {
+    color: #00C4B4;
+    border-bottom-color: #00C4B4;
+  }
+
+  /* Code Block Scrollbar */
+  .blog-content :global(.code-block pre::-webkit-scrollbar) {
+    height: 6px;
+  }
+
+  .blog-content :global(.code-block pre::-webkit-scrollbar-track) {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .blog-content :global(.code-block pre::-webkit-scrollbar-thumb) {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+  }
+
+  .blog-content :global(.code-block pre::-webkit-scrollbar-thumb:hover) {
+    background: rgba(255, 255, 255, 0.2);
   }
 </style>

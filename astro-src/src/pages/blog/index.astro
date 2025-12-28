@@ -6,15 +6,37 @@ import blogData from '../../data/blog-posts.json';
 import type { BlogPost } from '../../types/blog';
 import { blogCategories } from '../../types/blog';
 
-const lang: Language = 'cs';
+// Server-side rendered page - detects language from URL param or cookie
+export const prerender = false;
+
+const url = Astro.url;
+const langParam = url.searchParams.get('lang');
+
+// Redirect ?lang=cs to clean URL (Czech is default - keeps URLs clean)
+if (langParam === 'cs') {
+  const cleanUrl = new URL(Astro.url);
+  cleanUrl.searchParams.delete('lang');
+  const redirectPath = cleanUrl.pathname + (cleanUrl.search || '') + (cleanUrl.hash || '');
+  return Astro.redirect(redirectPath || '/blog', 301);
+}
+
+const cookieLang = Astro.cookies.get('preferredLanguage')?.value;
+const lang: Language = (langParam === 'en' || langParam === 'cs') ? langParam : 
+                       (cookieLang === 'en' || cookieLang === 'cs') ? cookieLang : 'cs';
 const t = translations[lang];
 
-// Get all posts - filtering will be done client-side
-const allPosts = blogData.posts as BlogPost[];
+// Set cookie if language was explicitly selected via URL param
+if (langParam && (langParam === 'en' || langParam === 'cs')) {
+  Astro.cookies.set('preferredLanguage', langParam, { 
+    path: '/', 
+    maxAge: 60 * 60 * 24 * 365, // 1 year
+    sameSite: 'lax'
+  });
+}
 
-// Get featured post (first featured or first post)
-const featuredPost = allPosts.find(post => post.featured) || allPosts[0];
-const regularPosts = allPosts.filter(post => post !== featuredPost);
+// Get all posts - filtering will be done client-side
+// Posts are displayed in equal-sized cards from left to right
+const allPosts = blogData.posts as BlogPost[];
 ---
 
 <PageLayout 
@@ -61,12 +83,15 @@ const regularPosts = allPosts.filter(post => post !== featuredPost);
       <!-- Category Filter - Client-side -->
       <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both]">
         <div id="blog-filters" class="flex flex-wrap items-center gap-3 mb-12">
-          <!-- All Category -->
+          <!-- All Category - Always visible with clear styling -->
           <button 
             data-filter="all"
-            class="filter-btn active px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-white text-neutral-900"
+            class="filter-btn active px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 bg-white text-neutral-900 shadow-md hover:shadow-lg"
           >
-            {t.blog_category_all}
+            <span class="flex items-center gap-2">
+              <iconify-icon icon="solar:list-bold" class="text-base"></iconify-icon>
+              {t.blog_category_all}
+            </span>
           </button>
           
           <!-- Dynamic Categories -->
@@ -75,7 +100,7 @@ const regularPosts = allPosts.filter(post => post !== featuredPost);
             return (
               <button 
                 data-filter={category.id}
-                class={`filter-btn px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 transition-all duration-300 border ${
+                class={`filter-btn px-5 py-2.5 rounded-full text-sm font-semibold flex items-center gap-2 transition-all duration-300 border ${
                   category.id === 'success-story' 
                     ? 'bg-primary/10 text-primary border-primary/30 hover:bg-primary/20' 
                     : 'bg-orange-500/10 text-orange-400 border-orange-500/30 hover:bg-orange-500/20'
@@ -89,25 +114,16 @@ const regularPosts = allPosts.filter(post => post !== featuredPost);
         </div>
       </div>
 
-      <!-- Blog Posts Container -->
+      <!-- Blog Posts Container - All cards equal size, left to right -->
       <div id="blog-posts-container">
-        <!-- Featured Post -->
-        {featuredPost && (
-          <div class="blog-post animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] mb-12" data-category={featuredPost.category}>
-            <BlogCard post={featuredPost} lang={lang} featured={true} />
-          </div>
-        )}
-
-        <!-- Regular Posts Grid -->
-        {regularPosts.length > 0 && (
-          <div id="regular-posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {regularPosts.map((post, index) => (
-              <div class={`blog-post animate-on-scroll [animation:animationIn_0.8s_ease-out_${0.6 + index * 0.1}s_both]`} data-category={post.category}>
-                <BlogCard post={post} lang={lang} />
-              </div>
-            ))}
-          </div>
-        )}
+        <!-- All Posts Grid - Equal sized cards -->
+        <div id="posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {allPosts.map((post, index) => (
+            <div class={`blog-post animate-on-scroll [animation:animationIn_0.8s_ease-out_${0.4 + index * 0.1}s_both]`} data-category={post.category}>
+              <BlogCard post={post} lang={lang} />
+            </div>
+          ))}
+        </div>
       </div>
 
       <!-- No Posts Message (hidden by default) -->
@@ -156,29 +172,29 @@ const regularPosts = allPosts.filter(post => post !== featuredPost);
           const btnFilter = btn.getAttribute('data-filter');
           const isActive = btnFilter === filter;
           
-          btn.classList.remove('active', 'bg-white', 'text-neutral-900', 'bg-primary', 'bg-orange-500');
+          btn.classList.remove('active', 'bg-white', 'text-neutral-900', 'bg-primary', 'bg-orange-500', 'shadow-md', 'shadow-lg', 'bg-white/10', 'text-white');
           
           if (isActive) {
             btn.classList.add('active');
             if (btnFilter === 'all') {
-              btn.classList.add('bg-white', 'text-neutral-900');
+              btn.classList.add('bg-white', 'text-neutral-900', 'shadow-lg');
             } else if (btnFilter === 'success-story') {
-              btn.classList.add('bg-primary', 'text-white');
+              btn.classList.add('bg-primary', 'text-white', 'shadow-lg');
               btn.classList.remove('bg-primary/10', 'text-primary');
             } else if (btnFilter === 'tutorial') {
-              btn.classList.add('bg-orange-500', 'text-white');
+              btn.classList.add('bg-orange-500', 'text-white', 'shadow-lg');
               btn.classList.remove('bg-orange-500/10', 'text-orange-400');
             }
           } else {
             if (btnFilter === 'all') {
-              btn.classList.add('bg-white/5', 'text-neutral-400');
-              btn.classList.remove('bg-white', 'text-neutral-900');
+              btn.classList.add('bg-white/10', 'text-white');
+              btn.classList.remove('bg-white', 'text-neutral-900', 'shadow-lg');
             } else if (btnFilter === 'success-story') {
               btn.classList.add('bg-primary/10', 'text-primary');
-              btn.classList.remove('bg-primary', 'text-white');
+              btn.classList.remove('bg-primary', 'text-white', 'shadow-lg');
             } else if (btnFilter === 'tutorial') {
               btn.classList.add('bg-orange-500/10', 'text-orange-400');
-              btn.classList.remove('bg-orange-500', 'text-white');
+              btn.classList.remove('bg-orange-500', 'text-white', 'shadow-lg');
             }
           }
         });

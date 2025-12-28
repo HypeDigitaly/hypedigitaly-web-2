@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 450" width="1050" height="450" fill="none">
+  <defs>
+    <!-- Glow filters -->
+    <filter id="tealGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#00A39A" flood-opacity="0.3"/>
+    </filter>
+    <filter id="yellowGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#fbbf24" flood-opacity="0.3"/>
+    </filter>
+    <filter id="purpleGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#8b5cf6" flood-opacity="0.3"/>
+    </filter>
+    <filter id="pinkGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#f472b6" flood-opacity="0.3"/>
+    </filter>
+    <filter id="blueGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#60a5fa" flood-opacity="0.3"/>
+    </filter>
+    
+    <!-- Arrow marker -->
+    <marker id="arrowHead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="rgba(255,255,255,0.5)"/>
+    </marker>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1050" height="450" fill="#050505"/>
+  
+  <!-- Title -->
+  <text x="525" y="50" font-family="Geist, system-ui, sans-serif" font-size="24" font-weight="700" fill="white" text-anchor="middle">Princip RAG (Retrieval Augmented Generation)</text>
+  
+  <!-- ==================== KROK 1: PŘÍPRAVA DAT ==================== -->
+  <text x="50" y="410" font-family="Geist, system-ui, sans-serif" font-size="16" font-weight="600" fill="#00C4B4">1. Nahrání a zpracování vašich dat</text>
+  
+  <!-- Documents Stack -->
+  <g transform="translate(40, 180)">
+    <rect x="0" y="0" width="130" height="110" rx="15" fill="#141414" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+    <rect x="15" y="15" width="130" height="110" rx="15" fill="#1a1a1a" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+    <rect x="30" y="30" width="130" height="110" rx="15" fill="#222" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+    <text x="95" y="80" font-family="Geist, system-ui, sans-serif" font-size="13" font-weight="600" fill="white" text-anchor="middle">Vaše data</text>
+    <text x="95" y="100" font-family="Geist, system-ui, sans-serif" font-size="11" fill="#888" text-anchor="middle">(PDF, weby, texty)</text>
+  </g>
+  
+  <!-- Arrow to Vector DB -->
+  <line x1="210" y1="265" x2="270" y2="265" stroke="rgba(255,255,255,0.4)" stroke-width="2" marker-end="url(#arrowHead)"/>
+  
+  <!-- ==================== KROK 2: VYHLEDÁNÍ A ODPOVĚĎ ==================== -->
+  <text x="440" y="410" font-family="Geist, system-ui, sans-serif" font-size="16" font-weight="600" fill="#60a5fa">2. Vyhledání informací a vytvoření odpovědi</text>
+  
+  <!-- User Query -->
+  <g transform="translate(290, 100)">
+    <text x="65" y="-15" font-family="Geist, system-ui, sans-serif" font-size="13" font-weight="600" fill="#60a5fa" text-anchor="middle">Dotaz uživatele</text>
+    <rect x="0" y="0" width="130" height="30" rx="6" fill="#1e293b" stroke="#60a5fa" stroke-width="1.5" filter="url(#blueGlow)"/>
+    <!-- Down Arrow -->
+    <line x1="65" y1="35" x2="65" y2="70" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" marker-end="url(#arrowHead)"/>
+  </g>
+  
+  <!-- Vector DB -->
+  <g transform="translate(290, 210)">
+    <rect x="0" y="0" width="130" height="110" rx="18" fill="#451a03" stroke="#fbbf24" stroke-width="2" filter="url(#yellowGlow)"/>
+    <text x="65" y="55" font-family="Geist, system-ui, sans-serif" font-size="14" font-weight="700" fill="#fbbf24" text-anchor="middle">Vektorová</text>
+    <text x="65" y="75" font-family="Geist, system-ui, sans-serif" font-size="14" font-weight="700" fill="#fbbf24" text-anchor="middle">databáze</text>
+  </g>
+  
+  <!-- Arrow to Chunks -->
+  <line x1="430" y1="265" x2="470" y2="265" stroke="rgba(255,255,255,0.4)" stroke-width="2" marker-end="url(#arrowHead)"/>
+  
+  <!-- Top-K Chunks -->
+  <g transform="translate(490, 210)">
+    <text x="65" y="-15" font-family="Geist, system-ui, sans-serif" font-size="13" font-weight="600" fill="#f472b6" text-anchor="middle">Nalezené úryvky</text>
+    <rect x="0" y="0" width="130" height="25" rx="4" fill="#500724" stroke="#f472b6" stroke-width="1.5" filter="url(#pinkGlow)"/>
+    <rect x="0" y="40" width="130" height="25" rx="4" fill="#500724" stroke="#f472b6" stroke-width="1.5" filter="url(#pinkGlow)"/>
+    <rect x="0" y="80" width="130" height="25" rx="4" fill="#500724" stroke="#f472b6" stroke-width="1.5" filter="url(#pinkGlow)"/>
+  </g>
+  
+  <!-- Arrow to LLM -->
+  <line x1="630" y1="265" x2="670" y2="265" stroke="rgba(255,255,255,0.4)" stroke-width="2" marker-end="url(#arrowHead)"/>
+  
+  <!-- LLM -->
+  <g transform="translate(690, 210)">
+    <rect x="0" y="0" width="130" height="110" rx="18" fill="#2e1065" stroke="#8b5cf6" stroke-width="2" filter="url(#purpleGlow)"/>
+    <text x="65" y="55" font-family="Geist, system-ui, sans-serif" font-size="14" font-weight="700" fill="#a78bfa" text-anchor="middle">AI Model</text>
+    <text x="65" y="75" font-family="Geist, system-ui, sans-serif" font-size="11" fill="#8b5cf6" text-anchor="middle">(např. ChatGPT)</text>
+  </g>
+  
+  <!-- Arrow to Response -->
+  <line x1="830" y1="265" x2="870" y2="265" stroke="rgba(255,255,255,0.4)" stroke-width="2" marker-end="url(#arrowHead)"/>
+  
+  <!-- Response -->
+  <g transform="translate(890, 210)">
+    <rect x="0" y="0" width="130" height="110" rx="18" fill="#064e3b" stroke="#00C4B4" stroke-width="2" filter="url(#tealGlow)"/>
+    <text x="65" y="55" font-family="Geist, system-ui, sans-serif" font-size="14" font-weight="700" fill="#00C4B4" text-anchor="middle">Výsledná</text>
+    <text x="65" y="75" font-family="Geist, system-ui, sans-serif" font-size="14" font-weight="700" fill="#00C4B4" text-anchor="middle">odpověď</text>
+  </g>
+  
+  <!-- Subtle connecting line between steps -->
+  <path d="M 50 380 L 1000 380" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="10,10"/>
+</svg>

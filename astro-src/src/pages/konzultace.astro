@@ -2,13 +2,38 @@
 import PageLayout from '../layouts/PageLayout.astro';
 import { translations, type Language } from '../scripts/translations';
 
-const lang: Language = 'cs';
+// Server-side rendered page - detects language from URL param or cookie
+export const prerender = false;
+
+const url = Astro.url;
+const langParam = url.searchParams.get('lang');
+
+// Redirect ?lang=cs to clean URL (Czech is default - keeps URLs clean)
+if (langParam === 'cs') {
+  const cleanUrl = new URL(Astro.url);
+  cleanUrl.searchParams.delete('lang');
+  const redirectPath = cleanUrl.pathname + (cleanUrl.search || '') + (cleanUrl.hash || '');
+  return Astro.redirect(redirectPath || '/', 301);
+}
+
+const cookieLang = Astro.cookies.get('preferredLanguage')?.value;
+const lang: Language = (langParam === 'en' || langParam === 'cs') ? langParam : 
+                       (cookieLang === 'en' || cookieLang === 'cs') ? cookieLang : 'cs';
 const t = translations[lang];
+
+// Set cookie if language was explicitly selected via URL param
+if (langParam && (langParam === 'en' || langParam === 'cs')) {
+  Astro.cookies.set('preferredLanguage', langParam, { 
+    path: '/', 
+    maxAge: 60 * 60 * 24 * 365, // 1 year
+    sameSite: 'lax'
+  });
+}
 ---
 
 <PageLayout 
-  title="Konzultace & Podpora | HypeDigitaly - AI Audity, Školení, Workshopy"
-  description="AI konzultace, audity, školení a workshopy od HypeDigitaly. Vstupní programy, implementace AI do vaší firmy a dlouhodobé partnerství."
+  title={t.consult_meta_title}
+  description={t.consult_meta_desc}
   lang={lang}
 >
   <!-- ==================== HERO SECTION ==================== -->
@@ -40,33 +65,33 @@ const t = translations[lang];
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center max-w-5xl mx-auto mb-16">
         <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[0.95] md:text-5xl lg:text-6xl text-3xl font-medium text-white tracking-tighter mb-8">
-          Varianty spolupráce
+          {t.consult_pricing_title}
         </h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
         <!-- Quick Audit -->
         <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] p-8 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-white/10 transition-all">
-          <div class="text-xs text-neutral-500 uppercase tracking-wider mb-2">Vstupní program</div>
-          <h3 class="text-2xl font-bold text-white mb-2">AI Quick Audit</h3>
-          <p class="text-neutral-500 mb-6">Jednorázová diagnostika procesu</p>
-          <div class="text-3xl font-bold text-white mb-6">25 994 Kč</div>
+          <div class="text-xs text-neutral-500 uppercase tracking-wider mb-2">{t.consult_quick_audit_badge}</div>
+          <h3 class="text-2xl font-bold text-white mb-2">{t.consult_quick_audit_title}</h3>
+          <p class="text-neutral-500 mb-6">{t.consult_quick_audit_desc}</p>
+          <div class="text-3xl font-bold text-white mb-6">{t.consult_quick_audit_price}</div>
           <ul class="space-y-3 mb-8">
             <li class="flex items-center gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
-              Hloubková analýza vybraného procesu
+              {t.consult_quick_audit_f1}
             </li>
             <li class="flex items-center gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
-              Odhalení problematických míst
+              {t.consult_quick_audit_f2}
             </li>
             <li class="flex items-center gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
-              Návrh technického řešení
+              {t.consult_quick_audit_f3}
             </li>
             <li class="flex items-center gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
-              Výpočet návratnosti investice
+              {t.consult_quick_audit_f4}
             </li>
           </ul>
           <a href="#kontakt" class="vf-button w-full !py-4" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
@@ -74,73 +99,73 @@ const t = translations[lang];
               <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
               <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
             </div>
-            <span class="vf-inner">Objednat audit</span>
+            <span class="vf-inner">{t.consult_quick_audit_cta}</span>
           </a>
         </div>
 
         <!-- AI Sprint -->
         <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] p-8 bg-gradient-to-br from-primary/10 via-[#0A0A0A] to-[#0A0A0A] border-2 border-primary/30 rounded-2xl hover:border-primary/50 transition-all relative">
-          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-white text-xs font-bold rounded-full">DOPORUČUJEME</div>
-          <div class="text-xs text-primary uppercase tracking-wider mb-2">Implementační program</div>
-          <h3 class="text-2xl font-bold text-white mb-2">AI Sprint (30 dní)</h3>
-          <p class="text-neutral-500 mb-6">Kompletní zavedení do provozu</p>
-          <div class="text-3xl font-bold text-white mb-6">119 994 Kč</div>
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-white text-xs font-bold rounded-full">{t.consult_sprint_recommended}</div>
+          <div class="text-xs text-primary uppercase tracking-wider mb-2">{t.consult_sprint_badge}</div>
+          <h3 class="text-2xl font-bold text-white mb-2">{t.consult_sprint_title}</h3>
+          <p class="text-neutral-500 mb-6">{t.consult_sprint_desc}</p>
+          <div class="text-3xl font-bold text-white mb-6">{t.consult_sprint_price}</div>
           <ul class="space-y-3 mb-8">
             <li class="flex items-center gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
-              Nasazení nástrojů do workflow
+              {t.consult_sprint_f1}
             </li>
             <li class="flex items-center gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
-              Praktické zaškolení týmu
+              {t.consult_sprint_f2}
             </li>
             <li class="flex items-center gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
-              AI roadmapa a poradenství
+              {t.consult_sprint_f3}
             </li>
             <li class="flex items-center gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
-              30denní prioritní podpora
+              {t.consult_sprint_f4}
             </li>
             <li class="flex items-center gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
-              Záruka výsledků
+              {t.consult_sprint_f5}
             </li>
           </ul>
           <a href="#kontakt" class="shiny-cta group">
             <span class="btn-content">
-              <span class="font-semibold">Zahájit spolupráci</span>
+              <span class="font-semibold">{t.consult_sprint_cta}</span>
             </span>
           </a>
         </div>
 
         <!-- AI Partner -->
         <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] p-8 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-white/10 transition-all">
-          <div class="text-xs text-neutral-500 uppercase tracking-wider mb-2">Partnerský program</div>
-          <h3 class="text-2xl font-bold text-white mb-2">AI Partner</h3>
-          <p class="text-neutral-500 mb-6">Minimálně 3–6 měsíců</p>
-          <div class="text-3xl font-bold text-white mb-1">99 994 Kč</div>
-          <div class="text-neutral-500 text-sm mb-6">/měsíc</div>
+          <div class="text-xs text-neutral-500 uppercase tracking-wider mb-2">{t.consult_partner_badge}</div>
+          <h3 class="text-2xl font-bold text-white mb-2">{t.consult_partner_title}</h3>
+          <p class="text-neutral-500 mb-6">{t.consult_partner_desc}</p>
+          <div class="text-3xl font-bold text-white mb-1">{t.consult_partner_price}</div>
+          <div class="text-neutral-500 text-sm mb-6">{t.consult_partner_unit}</div>
           <ul class="space-y-3 mb-8">
             <li class="flex items-center gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
-              Ucelená AI strategie
+              {t.consult_partner_f1}
             </li>
             <li class="flex items-center gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
-              Správa inovační roadmapy
+              {t.consult_partner_f2}
             </li>
             <li class="flex items-center gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
-              Vzdělávání a adopce v týmu
+              {t.consult_partner_f3}
             </li>
             <li class="flex items-center gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
-              Koučink managementu
+              {t.consult_partner_f4}
             </li>
             <li class="flex items-center gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
-              Pravidelný reporting výsledků
+              {t.consult_partner_f5}
             </li>
           </ul>
           <a href="#kontakt" class="vf-button w-full !py-4" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
@@ -148,7 +173,7 @@ const t = translations[lang];
               <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
               <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
             </div>
-            <span class="vf-inner">Sjednat partnerství</span>
+            <span class="vf-inner">{t.consult_partner_cta}</span>
           </a>
         </div>
       </div>
@@ -156,113 +181,113 @@ const t = translations[lang];
       <!-- Ad-hoc Services Grid -->
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
         <div class="flex items-center gap-2">
-          <span class="text-white">02</span>
+          <span class="text-white">{t.consult_adhoc_tag}</span>
           <span class="w-12 h-px bg-white/10"></span>
         </div>
-        <div class="text-white/40">// AD-HOC SLUŽBY</div>
-        <div class="hidden md:block text-right">KONZULTACE & ŠKOLENÍ</div>
+        <div class="text-white/40">{t.consult_adhoc_label}</div>
+        <div class="hidden md:block text-right">{t.consult_adhoc_section_right}</div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <!-- Online konzultace -->
         <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] group relative p-8 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
-          <h3 class="text-2xl font-bold text-white mb-4">Online konzultace</h3>
+          <h3 class="text-2xl font-bold text-white mb-4">{t.consult_online_title}</h3>
           <div class="mb-6">
-            <span class="text-4xl font-bold text-white">5 000 Kč</span>
-            <span class="text-sm text-neutral-500">/hodina</span>
+            <span class="text-4xl font-bold text-white">{t.consult_online_price}</span>
+            <span class="text-sm text-neutral-500">{t.consult_online_unit}</span>
           </div>
-          <p class="text-sm text-neutral-500 mb-6">Rychlá pomoc na dálku přes Google Meet nebo Zoom</p>
+          <p class="text-sm text-neutral-500 mb-6">{t.consult_online_desc}</p>
           <ul class="space-y-3 mb-8">
             <li class="flex items-start gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:videocamera-bold" class="text-primary text-lg mt-0.5"></iconify-icon>
-              <span>Řešení konkrétního problému</span>
+              <span>{t.consult_online_f1}</span>
             </li>
             <li class="flex items-start gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:videocamera-bold" class="text-primary text-lg mt-0.5"></iconify-icon>
-              <span>Konzultace k aktuálním nástrojům</span>
+              <span>{t.consult_online_f2}</span>
             </li>
             <li class="flex items-start gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:videocamera-bold" class="text-primary text-lg mt-0.5"></iconify-icon>
-              <span>Review vašich AI promptů</span>
+              <span>{t.consult_online_f3}</span>
             </li>
             <li class="flex items-start gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:videocamera-bold" class="text-primary text-lg mt-0.5"></iconify-icon>
-              <span>Sdílení obrazovky a praktické ukázky</span>
+              <span>{t.consult_online_f4}</span>
             </li>
           </ul>
           <a href="#kontakt" class="w-full flex items-center justify-center gap-2 py-3 bg-white/5 border border-white/10 rounded-lg text-white font-medium hover:bg-white/10 transition-colors">
-            Rezervovat online
+            {t.consult_online_cta}
           </a>
         </div>
 
         <!-- ADHOC CONSULTING -->
         <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] group relative p-8 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
-          <h3 class="text-2xl font-bold text-white mb-4">Ad hoc konzultace</h3>
+          <h3 class="text-2xl font-bold text-white mb-4">{t.consult_adhoc_title}</h3>
           <div class="mb-6">
-            <span class="text-4xl font-bold text-white">5 000 Kč</span>
-            <span class="text-sm text-neutral-500">/hodina</span>
+            <span class="text-4xl font-bold text-white">{t.consult_adhoc_price}</span>
+            <span class="text-sm text-neutral-500">{t.consult_adhoc_unit}</span>
           </div>
-          <p class="text-sm text-neutral-500 mb-6">Operativní nárazová konzultace</p>
+          <p class="text-sm text-neutral-500 mb-6">{t.consult_adhoc_desc}</p>
           <ul class="space-y-3 mb-8">
             <li class="flex items-start gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg mt-0.5"></iconify-icon>
-              <span>Vhodnost využití AI</span>
+              <span>{t.consult_adhoc_f1}</span>
             </li>
             <li class="flex items-start gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg mt-0.5"></iconify-icon>
-              <span>Čím a jak začít</span>
+              <span>{t.consult_adhoc_f2}</span>
             </li>
             <li class="flex items-start gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg mt-0.5"></iconify-icon>
-              <span>Jak s AI nástroji pracovat</span>
+              <span>{t.consult_adhoc_f3}</span>
             </li>
             <li class="flex items-start gap-3 text-sm text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg mt-0.5"></iconify-icon>
-              <span>Orientace v nástrojích, cenách, licencích</span>
+              <span>{t.consult_adhoc_f4}</span>
             </li>
           </ul>
           <a href="#kontakt" class="w-full flex items-center justify-center gap-2 py-3 bg-white/5 border border-white/10 rounded-lg text-white font-medium hover:bg-white/10 transition-colors">
-            Sjednat konzultaci
+            {t.consult_adhoc_cta}
           </a>
         </div>
 
         <!-- Ad hoc školení -->
         <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] group relative p-8 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
-          <h3 class="text-2xl font-bold text-white mb-4">Ad hoc školení / workshopy</h3>
+          <h3 class="text-2xl font-bold text-white mb-4">{t.consult_training_title}</h3>
           <div class="mb-6">
-            <span class="text-4xl font-bold text-white">5 000 Kč</span>
-            <span class="text-sm text-neutral-500">/hodina</span>
+            <span class="text-4xl font-bold text-white">{t.consult_training_price}</span>
+            <span class="text-sm text-neutral-500">{t.consult_training_unit}</span>
           </div>
-          <p class="text-sm text-neutral-500 mb-2">Fyzické nebo online školení</p>
-          <p class="text-xs text-primary mb-4">půldenní, denní i vícedenní školení</p>
+          <p class="text-sm text-neutral-500 mb-2">{t.consult_training_desc}</p>
+          <p class="text-xs text-primary mb-4">{t.consult_training_duration}</p>
           <ul class="space-y-2 mb-8 h-[180px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/10">
             <li class="flex items-start gap-3 text-xs text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-base mt-0.5"></iconify-icon>
-              <span>Co je a co není AI & jak funguje</span>
+              <span>{t.consult_training_f1}</span>
             </li>
             <li class="flex items-start gap-3 text-xs text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-base mt-0.5"></iconify-icon>
-              <span>Prompt engineering (efektivní prompty)</span>
+              <span>{t.consult_training_f2}</span>
             </li>
             <li class="flex items-start gap-3 text-xs text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-base mt-0.5"></iconify-icon>
-              <span>Nástroje pro text, video, automatizace</span>
+              <span>{t.consult_training_f3}</span>
             </li>
             <li class="flex items-start gap-3 text-xs text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-base mt-0.5"></iconify-icon>
-              <span>Využití v marketingu, sales, financích</span>
+              <span>{t.consult_training_f4}</span>
             </li>
             <li class="flex items-start gap-3 text-xs text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-base mt-0.5"></iconify-icon>
-              <span>AI ACT, autorská práva, ochrana dat</span>
+              <span>{t.consult_training_f5}</span>
             </li>
             <li class="flex items-start gap-3 text-xs text-neutral-300">
               <iconify-icon icon="solar:check-circle-bold" class="text-primary text-base mt-0.5"></iconify-icon>
-              <span>Workshopy MS Copilot & ChatGPT</span>
+              <span>{t.consult_training_f6}</span>
             </li>
           </ul>
           <a href="#kontakt" class="w-full flex items-center justify-center gap-2 py-3 bg-white/5 border border-white/10 rounded-lg text-white font-medium hover:bg-white/10 transition-colors">
-            Poptat školení
+            {t.consult_training_cta}
           </a>
         </div>
       </div>
@@ -274,9 +299,9 @@ const t = translations[lang];
         </div>
         <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
           <div class="flex-1 text-center md:text-left">
-            <div class="inline-block px-3 py-1 bg-primary/20 text-primary text-xs font-bold rounded-full mb-3">ZDARMA</div>
-            <h3 class="text-2xl font-bold text-white mb-2">Konzultace ZDARMA</h3>
-            <p class="text-neutral-400">Pojďme probrat vaše potřeby</p>
+            <div class="inline-block px-3 py-1 bg-primary/20 text-primary text-xs font-bold rounded-full mb-3">{t.consult_free_badge}</div>
+            <h3 class="text-2xl font-bold text-white mb-2">{t.consult_free_title}</h3>
+            <p class="text-neutral-400">{t.consult_free_desc}</p>
           </div>
           <a href="#kontakt" class="vf-button" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
             <div class="vf-points-wrapper">
@@ -284,7 +309,7 @@ const t = translations[lang];
               <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
             </div>
             <span class="vf-inner">
-              <span>Rezervovat 30 min ZDARMA</span>
+              <span>{t.consult_free_cta}</span>
               <svg class="vf-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
                 <path d="M5 12h14"></path>
                 <path d="m12 5 7 7-7 7"></path>
@@ -298,19 +323,19 @@ const t = translations[lang];
       <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] p-8 bg-[#0A0A0A] border border-white/5 rounded-2xl">
         <div class="flex flex-col md:flex-row items-center justify-between gap-6">
           <div class="flex-1">
-            <h3 class="text-xl font-bold text-white mb-2">Komplexní AI Audit organizace</h3>
-            <p class="text-sm text-neutral-500">Celková analýza firemních procesů, prověření dat a systémů, mapa příležitostí, prioritizační rámec a odhad návratnosti. Přesně zjistíme, kde AI přinese největší úspory a kde má investice smysl.</p>
+            <h3 class="text-xl font-bold text-white mb-2">{t.consult_audit_title}</h3>
+            <p class="text-sm text-neutral-500">{t.consult_audit_desc}</p>
           </div>
           <div class="text-center md:text-right">
-            <div class="text-2xl font-bold text-white mb-1">60–120 tis. Kč</div>
-            <div class="text-xs text-neutral-500 mb-4">Cena závisí na rozsahu firmy a komplexitě procesů</div>
+            <div class="text-2xl font-bold text-white mb-1">{t.consult_audit_price}</div>
+            <div class="text-xs text-neutral-500 mb-4">{t.consult_audit_price_desc}</div>
             <a href="#kontakt" class="vf-button !w-full md:!w-auto !py-3 !px-6" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
               <div class="vf-points-wrapper">
                 <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
                 <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
               </div>
               <span class="vf-inner">
-                <span>Objednat AI Audit</span>
+                <span>{t.consult_audit_cta}</span>
                 <svg class="vf-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
                   <path d="M5 12h14"></path>
                   <path d="m12 5 7 7-7 7"></path>

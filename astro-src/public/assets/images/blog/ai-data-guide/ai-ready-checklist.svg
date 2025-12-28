@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="600" height="450" fill="none">
+  <defs>
+    <linearGradient id="checkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00A39A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00C4B4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="600" height="450" fill="#050505"/>
+  
+  <!-- Title -->
+  <text x="300" y="40" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">7 vlastností "AI-ready" dat</text>
+  <text x="300" y="60" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">Co dělá data připravená pro umělou inteligenci</text>
+  
+  <!-- Item 1 -->
+  <rect x="30" y="85" width="540" height="45" rx="10" fill="#0d0d0d" stroke="#00A39A" stroke-width="1"/>
+  <circle cx="60" cy="107" r="15" fill="url(#checkGrad)"/>
+  <text x="60" y="113" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">✓</text>
+  <text x="90" y="102" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">Celé myšlenky, ne útržky</text>
+  <text x="90" y="118" font-family="Arial, sans-serif" font-size="11" fill="#888">Text není useklý v půlce věty</text>
+  
+  <!-- Item 2 -->
+  <rect x="30" y="138" width="540" height="45" rx="10" fill="#0d0d0d" stroke="#00A39A" stroke-width="1"/>
+  <circle cx="60" cy="160" r="15" fill="url(#checkGrad)"/>
+  <text x="60" y="166" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">✓</text>
+  <text x="90" y="155" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">Jasná hierarchie</text>
+  <text x="90" y="171" font-family="Arial, sans-serif" font-size="11" fill="#888">AI přesně ví, kde hledat odpovědi</text>
+  
+  <!-- Item 3 -->
+  <rect x="30" y="191" width="540" height="45" rx="10" fill="#0d0d0d" stroke="#00A39A" stroke-width="1"/>
+  <circle cx="60" cy="213" r="15" fill="url(#checkGrad)"/>
+  <text x="60" y="219" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">✓</text>
+  <text x="90" y="208" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">Předpřipravené otázky</text>
+  <text x="90" y="224" font-family="Arial, sans-serif" font-size="11" fill="#888">Ke každému bloku jsou přiřazené otázky, na které odpovídá</text>
+  
+  <!-- Item 4 -->
+  <rect x="30" y="244" width="540" height="45" rx="10" fill="#0d0d0d" stroke="#00A39A" stroke-width="1"/>
+  <circle cx="60" cy="266" r="15" fill="url(#checkGrad)"/>
+  <text x="60" y="272" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">✓</text>
+  <text x="90" y="261" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">Shrnutí u každého bloku</text>
+  <text x="90" y="277" font-family="Arial, sans-serif" font-size="11" fill="#888">AI okamžitě chápe kontext</text>
+  
+  <!-- Item 5 -->
+  <rect x="30" y="297" width="540" height="45" rx="10" fill="#0d0d0d" stroke="#00A39A" stroke-width="1"/>
+  <circle cx="60" cy="319" r="15" fill="url(#checkGrad)"/>
+  <text x="60" y="325" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">✓</text>
+  <text x="90" y="314" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">Propojení mezi částmi</text>
+  <text x="90" y="330" font-family="Arial, sans-serif" font-size="11" fill="#888">Každý blok ví, co bylo před ním</text>
+  
+  <!-- Item 6 -->
+  <rect x="30" y="350" width="540" height="45" rx="10" fill="#0d0d0d" stroke="#00A39A" stroke-width="1"/>
+  <circle cx="60" cy="372" r="15" fill="url(#checkGrad)"/>
+  <text x="60" y="378" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">✓</text>
+  <text x="90" y="367" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">Metadata pro filtraci</text>
+  <text x="90" y="383" font-family="Arial, sans-serif" font-size="11" fill="#888">Datum, kategorie, zdroj</text>
+  
+  <!-- Item 7 -->
+  <rect x="30" y="403" width="540" height="45" rx="10" fill="#0d0d0d" stroke="#00A39A" stroke-width="1"/>
+  <circle cx="60" cy="425" r="15" fill="url(#checkGrad)"/>
+  <text x="60" y="431" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">✓</text>
+  <text x="90" y="420" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">Původ každé informace</text>
+  <text x="90" y="436" font-family="Arial, sans-serif" font-size="11" fill="#888">AI může citovat zdroj</text>
+</svg>

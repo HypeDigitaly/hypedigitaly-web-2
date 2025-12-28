@@ -1,5 +1,5 @@
 ---
-import { translations, type Language } from '../../scripts/translations';
+import { translations, type Language, getLocalizedHref } from '../../scripts/translations';
 import clientsData from '../../data/clients.json';
 
 export interface Props {
@@ -10,6 +10,9 @@ export interface Props {
 
 const { lang = 'cs', sectionNumber = '05', id = 'pripadove-studie' } = Astro.props;
 const t = translations[lang];
+
+// Helper for localized links
+const href = (path: string) => getLocalizedHref(path, lang);
 
 // Get clients with stats
 const clientsWithStats = clientsData.clients.filter(c => c.stats);
@@ -62,7 +65,7 @@ const clientsWithStats = clientsData.clients.filter(c => c.stats);
       </div>
 
       <!-- Read Full Study Button -->
-      <a href="/blog/pripadova-studie-5-kraju-cr" class="vf-button !py-4 !px-8" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
+      <a href={href("/blog/pripadova-studie-5-kraju-cr")} class="vf-button !py-4 !px-8" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
         <div class="vf-points-wrapper">
           <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
           <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>

@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 450" width="1100" height="450">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#050505"/>
+      <stop offset="100%" style="stop-color:#0a0a0a"/>
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00A39A"/>
+      <stop offset="100%" style="stop-color:#00C4B8"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1100" height="450" fill="url(#bgGrad2)"/>
+  
+  <!-- Grid pattern -->
+  <pattern id="grid2" width="30" height="30" patternUnits="userSpaceOnUse">
+    <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1"/>
+  </pattern>
+  <rect width="1100" height="450" fill="url(#grid2)"/>
+  
+  <!-- Title -->
+  <text x="550" y="35" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700">Srovnání Chunking Strategií</text>
+  
+  <!-- Table Header -->
+  <g transform="translate(20, 55)">
+    <rect x="0" y="0" width="1060" height="40" rx="8" fill="rgba(0,163,154,0.15)"/>
+    
+    <text x="30" y="26" fill="#00A39A" font-family="system-ui, sans-serif" font-size="11" font-weight="700">#</text>
+    <text x="60" y="26" fill="#00A39A" font-family="system-ui, sans-serif" font-size="11" font-weight="700">STRATEGIE</text>
+    <text x="200" y="26" fill="#00A39A" font-family="system-ui, sans-serif" font-size="11" font-weight="700">TECHNICKÝ NÁZEV</text>
+    <text x="400" y="26" fill="#00A39A" font-family="system-ui, sans-serif" font-size="11" font-weight="700">CO DĚLÁ</text>
+    <text x="580" y="26" fill="#00A39A" font-family="system-ui, sans-serif" font-size="11" font-weight="700">✅ VÝHODY</text>
+    <text x="740" y="26" fill="#00A39A" font-family="system-ui, sans-serif" font-size="11" font-weight="700">❌ NEVÝHODY</text>
+    <text x="920" y="26" fill="#00A39A" font-family="system-ui, sans-serif" font-size="11" font-weight="700">💰</text>
+    <text x="980" y="26" fill="#00A39A" font-family="system-ui, sans-serif" font-size="11" font-weight="700">📈 KVALITA</text>
+  </g>
+  
+  <!-- Row 1: Fixed Size -->
+  <g transform="translate(20, 100)">
+    <rect x="0" y="0" width="1060" height="60" rx="6" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    
+    <circle cx="30" cy="30" r="14" fill="rgba(156,163,175,0.2)"/>
+    <text x="30" y="35" text-anchor="middle" fill="#9ca3af" font-family="system-ui, sans-serif" font-size="12" font-weight="700">1</text>
+    
+    <text x="60" y="28" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Fixed Size</text>
+    <text x="60" y="44" fill="#6b7280" font-family="system-ui, sans-serif" font-size="10">(Pevná velikost)</text>
+    
+    <text x="200" y="35" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="10">Recursive Character Splitter</text>
+    
+    <text x="400" y="35" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="10">Řeže po N tokenech</text>
+    
+    <text x="580" y="35" fill="#86efac" font-family="system-ui, sans-serif" font-size="10">Rychlé, jednoduché</text>
+    
+    <text x="740" y="28" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="10">Usekne věty,</text>
+    <text x="740" y="42" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="10">ztrácí kontext</text>
+    
+    <text x="920" y="35" fill="#22c55e" font-family="system-ui, sans-serif" font-size="11">💲 Nízké</text>
+    
+    <text x="980" y="35" fill="#9ca3af" font-family="system-ui, sans-serif" font-size="11">⭐ Nízká</text>
+  </g>
+  
+  <!-- Row 2: By Headers -->
+  <g transform="translate(20, 165)">
+    <rect x="0" y="0" width="1060" height="60" rx="6" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    
+    <circle cx="30" cy="30" r="14" fill="rgba(59,130,246,0.2)"/>
+    <text x="30" y="35" text-anchor="middle" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="12" font-weight="700">2</text>
+    
+    <text x="60" y="28" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="600">By Headers</text>
+    <text x="60" y="44" fill="#6b7280" font-family="system-ui, sans-serif" font-size="10">(Podle nadpisů)</text>
+    
+    <text x="200" y="35" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="10">Markdown Header Chunking</text>
+    
+    <text x="400" y="35" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="10">Dělí podle nadpisů #, ##</text>
+    
+    <text x="580" y="35" fill="#86efac" font-family="system-ui, sans-serif" font-size="10">Drží sekce pohromadě</text>
+    
+    <text x="740" y="28" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="10">Vyžaduje</text>
+    <text x="740" y="42" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="10">strukturu</text>
+    
+    <text x="920" y="35" fill="#22c55e" font-family="system-ui, sans-serif" font-size="11">💲 Nízké</text>
+    
+    <text x="980" y="35" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="11">⭐⭐ Střední</text>
+  </g>
+  
+  <!-- Row 3: By Meaning -->
+  <g transform="translate(20, 230)">
+    <rect x="0" y="0" width="1060" height="60" rx="6" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    
+    <circle cx="30" cy="30" r="14" fill="rgba(168,85,247,0.2)"/>
+    <text x="30" y="35" text-anchor="middle" fill="#a855f7" font-family="system-ui, sans-serif" font-size="12" font-weight="700">3</text>
+    
+    <text x="60" y="28" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="600">By Meaning</text>
+    <text x="60" y="44" fill="#6b7280" font-family="system-ui, sans-serif" font-size="10">(Podle významu)</text>
+    
+    <text x="200" y="35" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="10">Semantic Chunking</text>
+    
+    <text x="400" y="35" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="10">AI detekuje změnu tématu</text>
+    
+    <text x="580" y="35" fill="#86efac" font-family="system-ui, sans-serif" font-size="10">Chytrá seskupení</text>
+    
+    <text x="740" y="28" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="10">Pomalejší,</text>
+    <text x="740" y="42" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="10">vyžaduje ladění</text>
+    
+    <text x="920" y="35" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="11">💲💲 Střední</text>
+    
+    <text x="980" y="35" fill="#22c55e" font-family="system-ui, sans-serif" font-size="11">⭐⭐⭐ Vysoká</text>
+  </g>
+  
+  <!-- Row 4: AI-Decided (highlighted) -->
+  <g transform="translate(20, 295)">
+    <rect x="0" y="0" width="1060" height="60" rx="6" fill="rgba(0,163,154,0.08)" stroke="rgba(0,163,154,0.3)" stroke-width="2"/>
+    
+    <circle cx="30" cy="30" r="14" fill="url(#tealGrad)"/>
+    <text x="30" y="35" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="700">4</text>
+    
+    <text x="60" y="28" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="600">AI-Decided ⭐</text>
+    <text x="60" y="44" fill="#00A39A" font-family="system-ui, sans-serif" font-size="10">(Agentní / LLM)</text>
+    
+    <text x="200" y="35" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="10">LLM-Based / Agentic</text>
+    
+    <text x="400" y="35" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="10">AI čte a rozhoduje o zlomech</text>
+    
+    <text x="580" y="35" fill="#86efac" font-family="system-ui, sans-serif" font-size="10">Zvládá chaotický text</text>
+    
+    <text x="740" y="28" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="10">Vyžaduje AI</text>
+    <text x="740" y="42" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="10">zpracování</text>
+    
+    <text x="920" y="35" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="11">💲💲 Střední</text>
+    
+    <text x="980" y="28" fill="#00C4B8" font-family="system-ui, sans-serif" font-size="11">⭐⭐⭐⭐</text>
+    <text x="980" y="42" fill="#00C4B8" font-family="system-ui, sans-serif" font-size="10">Velmi vysoká</text>
+  </g>
+  
+  <!-- Row 5: Summarization -->
+  <g transform="translate(20, 360)">
+    <rect x="0" y="0" width="1060" height="60" rx="6" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    
+    <circle cx="30" cy="30" r="14" fill="rgba(249,115,22,0.2)"/>
+    <text x="30" y="35" text-anchor="middle" fill="#f97316" font-family="system-ui, sans-serif" font-size="12" font-weight="700">5</text>
+    
+    <text x="60" y="28" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Summarization</text>
+    <text x="60" y="44" fill="#6b7280" font-family="system-ui, sans-serif" font-size="10">(Q&amp;A formát)</text>
+    
+    <text x="200" y="35" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="10">Structured Output / Q&amp;A</text>
+    
+    <text x="400" y="35" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="10">Převádí na otázka-odpověď</text>
+    
+    <text x="580" y="35" fill="#86efac" font-family="system-ui, sans-serif" font-size="10">Perfektní pro FAQ</text>
+    
+    <text x="740" y="35" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="10">Ztrácí narativ</text>
+    
+    <text x="920" y="35" fill="#ef4444" font-family="system-ui, sans-serif" font-size="11">💲💲💲 Vysoké</text>
+    
+    <text x="980" y="28" fill="#00C4B8" font-family="system-ui, sans-serif" font-size="11">⭐⭐⭐⭐</text>
+    <text x="980" y="42" fill="#00C4B8" font-family="system-ui, sans-serif" font-size="10">Velmi vysoká</text>
+  </g>
+</svg>

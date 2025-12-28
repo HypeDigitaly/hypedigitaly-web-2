@@ -2,8 +2,33 @@
 import PageLayout from '../layouts/PageLayout.astro';
 import { translations, type Language } from '../scripts/translations';
 
-const lang: Language = 'cs';
+// Server-side rendered page - detects language from URL param or cookie
+export const prerender = false;
+
+const url = Astro.url;
+const langParam = url.searchParams.get('lang');
+
+// Redirect ?lang=cs to clean URL (Czech is default - keeps URLs clean)
+if (langParam === 'cs') {
+  const cleanUrl = new URL(Astro.url);
+  cleanUrl.searchParams.delete('lang');
+  const redirectPath = cleanUrl.pathname + (cleanUrl.search || '') + (cleanUrl.hash || '');
+  return Astro.redirect(redirectPath || '/', 301);
+}
+
+const cookieLang = Astro.cookies.get('preferredLanguage')?.value;
+const lang: Language = (langParam === 'en' || langParam === 'cs') ? langParam : 
+                       (cookieLang === 'en' || cookieLang === 'cs') ? cookieLang : 'cs';
 const t = translations[lang];
+
+// Set cookie if language was explicitly selected via URL param
+if (langParam && (langParam === 'en' || langParam === 'cs')) {
+  Astro.cookies.set('preferredLanguage', langParam, { 
+    path: '/', 
+    maxAge: 60 * 60 * 24 * 365, // 1 year
+    sameSite: 'lax'
+  });
+}
 ---
 
 <PageLayout 
@@ -311,57 +336,57 @@ tel. 123456789 nebo email info@mě...`}</code></pre>
       <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] mt-12 p-6 bg-gradient-to-r from-green-500/5 via-[#0A0A0A] to-green-500/5 border border-green-500/10 rounded-2xl">
         <h4 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
           <iconify-icon icon="solar:info-circle-bold" class="text-green-400"></iconify-icon>
-          Co dělá data „AI-ready"?
+          {t.dataprep_aiready_title}
         </h4>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div class="p-3 bg-white/[0.02] rounded-lg border border-white/5">
             <div class="flex items-center gap-2 mb-2">
               <span class="w-2 h-2 rounded-full bg-green-400"></span>
-              <span class="text-sm font-semibold text-white">Celé myšlenky, ne útržky</span>
+              <span class="text-sm font-semibold text-white">{t.dataprep_aiready_item_1_title}</span>
             </div>
-            <p class="text-xs text-neutral-500 leading-relaxed">Text není useklý v půlce věty. AI dostane kompletní informaci a nemusí hádat, co následuje.</p>
+            <p class="text-xs text-neutral-500 leading-relaxed">{t.dataprep_aiready_item_1_desc}</p>
           </div>
           <div class="p-3 bg-white/[0.02] rounded-lg border border-white/5">
             <div class="flex items-center gap-2 mb-2">
               <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-              <span class="text-sm font-semibold text-white">Jasná hierarchie</span>
+              <span class="text-sm font-semibold text-white">{t.dataprep_aiready_item_2_title}</span>
             </div>
-            <p class="text-xs text-neutral-500 leading-relaxed">AI přesně ví, kde hledat odpovědi a kde jsou jen pomocná data. Žádné plácání v temnotě.</p>
+            <p class="text-xs text-neutral-500 leading-relaxed">{t.dataprep_aiready_item_2_desc}</p>
           </div>
           <div class="p-3 bg-white/[0.02] rounded-lg border border-white/5">
             <div class="flex items-center gap-2 mb-2">
               <span class="w-2 h-2 rounded-full bg-orange-400"></span>
-              <span class="text-sm font-semibold text-white">Předpřipravené otázky</span>
+              <span class="text-sm font-semibold text-white">{t.dataprep_aiready_item_3_title}</span>
             </div>
-            <p class="text-xs text-neutral-500 leading-relaxed">Ke každému kousku textu jsou přiřazené otázky, na které odpovídá. AI najde správnou odpověď, i když se uživatel zeptá jinak.</p>
+            <p class="text-xs text-neutral-500 leading-relaxed">{t.dataprep_aiready_item_3_desc}</p>
           </div>
           <div class="p-3 bg-white/[0.02] rounded-lg border border-white/5">
             <div class="flex items-center gap-2 mb-2">
               <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
-              <span class="text-sm font-semibold text-white">Shrnutí u každého bloku</span>
+              <span class="text-sm font-semibold text-white">{t.dataprep_aiready_item_4_title}</span>
             </div>
-            <p class="text-xs text-neutral-500 leading-relaxed">AI okamžitě chápe kontext. Nemusí číst celý dokument, aby pochopila, o čem daný kousek je.</p>
+            <p class="text-xs text-neutral-500 leading-relaxed">{t.dataprep_aiready_item_4_desc}</p>
           </div>
           <div class="p-3 bg-white/[0.02] rounded-lg border border-white/5">
             <div class="flex items-center gap-2 mb-2">
               <span class="w-2 h-2 rounded-full bg-purple-400"></span>
-              <span class="text-sm font-semibold text-white">Propojení mezi částmi</span>
+              <span class="text-sm font-semibold text-white">{t.dataprep_aiready_item_5_title}</span>
             </div>
-            <p class="text-xs text-neutral-500 leading-relaxed">Každý blok ví, co bylo před ním. AI chápe souvislosti, i když je informace rozdělená do více částí.</p>
+            <p class="text-xs text-neutral-500 leading-relaxed">{t.dataprep_aiready_item_5_desc}</p>
           </div>
           <div class="p-3 bg-white/[0.02] rounded-lg border border-white/5">
             <div class="flex items-center gap-2 mb-2">
               <span class="w-2 h-2 rounded-full bg-blue-400"></span>
-              <span class="text-sm font-semibold text-white">Metadata pro filtraci</span>
+              <span class="text-sm font-semibold text-white">{t.dataprep_aiready_item_6_title}</span>
             </div>
-            <p class="text-xs text-neutral-500 leading-relaxed">Datum, kategorie, zdroj. AI může hledat přesně tam, kde má. „Najdi v dokumentech z roku 2024" – hotovo.</p>
+            <p class="text-xs text-neutral-500 leading-relaxed">{t.dataprep_aiready_item_6_desc}</p>
           </div>
           <div class="p-3 bg-white/[0.02] rounded-lg border border-white/5">
             <div class="flex items-center gap-2 mb-2">
               <span class="w-2 h-2 rounded-full bg-yellow-400"></span>
-              <span class="text-sm font-semibold text-white">Původ každé informace</span>
+              <span class="text-sm font-semibold text-white">{t.dataprep_aiready_item_7_title}</span>
             </div>
-            <p class="text-xs text-neutral-500 leading-relaxed">I malý útržek textu ví, odkud pochází. AI může citovat zdroj a vy víte, že to není vymyšlené.</p>
+            <p class="text-xs text-neutral-500 leading-relaxed">{t.dataprep_aiready_item_7_desc}</p>
           </div>
         </div>
       </div>
@@ -456,7 +481,7 @@ tel. 123456789 nebo email info@mě...`}</code></pre>
           <span class="text-white">05</span>
           <span class="w-12 h-px bg-white/10"></span>
         </div>
-        <div class="text-white/40">// SELF-SERVICE PLATFORMA</div>
+        <div class="text-white/40">{t.dataprep_ragus_section_tag}</div>
         <div class="hidden md:block text-right">{t.dataprep_ragus_label}</div>
       </div>
 
@@ -652,7 +677,7 @@ tel. 123456789 nebo email info@mě...`}</code></pre>
       <div class="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
         <!-- Professional Service (Orange) -->
         <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] relative p-8 bg-gradient-to-br from-orange-500/10 via-[#0A0A0A] to-[#0A0A0A] border border-orange-500/30 rounded-2xl hover:border-orange-500/50 transition-all duration-300">
-          <div class="absolute top-4 right-4 px-3 py-1 bg-orange-500/20 text-orange-400 text-xs font-bold rounded-full">DOPORUČENO</div>
+          <div class="absolute top-4 right-4 px-3 py-1 bg-orange-500/20 text-orange-400 text-xs font-bold rounded-full">{t.dataprep_service_recommended}</div>
           
           <div class="w-14 h-14 rounded-2xl bg-orange-500/20 flex items-center justify-center text-orange-400 mb-6">
             <iconify-icon icon="solar:users-group-rounded-bold" class="text-3xl"></iconify-icon>
@@ -667,7 +692,7 @@ tel. 123456789 nebo email info@mě...`}</code></pre>
             </div>
             <p class="text-sm text-neutral-500">{t.dataprep_service_price_1_desc}</p>
             <div class="flex items-center gap-2 text-neutral-400">
-              <span class="text-sm">nebo</span>
+              <span class="text-sm">{t.dataprep_service_price_alt}</span>
             </div>
             <div class="flex items-baseline gap-2">
               <span class="text-2xl font-bold text-white">{t.dataprep_service_price_2}</span>
@@ -707,7 +732,7 @@ tel. 123456789 nebo email info@mě...`}</code></pre>
 
         <!-- Self-Service RAGus.ai (Teal) -->
         <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] relative p-8 bg-gradient-to-br from-primary/10 via-[#0A0A0A] to-[#0A0A0A] border border-primary/30 rounded-2xl hover:border-primary/50 transition-all duration-300">
-          <div class="absolute top-4 right-4 px-3 py-1 bg-primary/20 text-primary text-xs font-bold rounded-full">SELF-SERVICE</div>
+          <div class="absolute top-4 right-4 px-3 py-1 bg-primary/20 text-primary text-xs font-bold rounded-full">{t.dataprep_diy_label}</div>
           
           <div class="w-14 h-14 rounded-2xl bg-primary/20 flex items-center justify-center mb-6">
             <iconify-icon icon="solar:cloud-bold" class="text-3xl text-primary"></iconify-icon>
@@ -785,7 +810,7 @@ tel. 123456789 nebo email info@mě...`}</code></pre>
           <span class="w-12 h-px bg-white/10"></span>
         </div>
         <div class="text-white/40">{t.dataprep_faq_tag}</div>
-        <div class="hidden md:block text-right">FAQ</div>
+        <div class="hidden md:block text-right">{t.faq_label}</div>
       </div>
 
       <div class="text-center max-w-3xl mx-auto mb-16">
