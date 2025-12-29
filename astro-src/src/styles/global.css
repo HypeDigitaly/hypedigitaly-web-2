@@ -1,5 +1,20 @@
 @import "tailwindcss";
 
+/* ==================== SCROLL BEHAVIOR ==================== */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scroll offset for fixed header (navigation is ~80px) */
+section[id],
+[id^="sluzby"],
+[id^="reference"],
+[id^="priprava-dat"],
+[id^="kontakt"],
+[id^="ragus"] {
+  scroll-margin-top: 6rem;
+}
+
 /* ==================== TAILWIND V4 CUSTOM THEME ==================== */
 @theme {
   --color-primary: #00A39A;

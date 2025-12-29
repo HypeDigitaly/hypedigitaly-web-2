@@ -1,5 +1,32 @@
 # Project History
 
+## [2025-12-29] Navigation Fix - Universal Local-First Scroll Logic for RAGus.ai
+- **Fixed RAGus.ai Link Not Scrolling Locally**: Resolved critical issue where clicking "RAGus.ai" (`/#priprava-dat`) in the header navigation would navigate users away from their current page (e.g., `/chatbot`) to the index page, instead of scrolling to the local RAGus.ai section.
+- **Root Cause Identified**: Multiple issues causing the problem:
+  1. Footer had inconsistent link (`/#ragus`) while header used (`/#priprava-dat`)
+  2. Scroll interceptor only had specific page mappings, not a universal "local-first" check
+- **Universal Local-First Check**: Added priority-based scroll interception in `BaseLayout.astro`:
+  - **Priority 1**: If the target `#hash` element exists directly on the current page, scroll locally
+  - **Priority 2**: Fall back to page-specific mappings (for pages where section has different ID like `/priprava-dat` → `#ragus`)
+- **Footer Link Consistency**: Fixed `Footer.astro` to use `/#priprava-dat` (matching header nav) instead of `/#ragus`
+- **Affected Pages**: Fix applies to all pages with local RAGus.ai sections (`/chatbot`, `/`, `/blog/*`)
+- **Files Modified**: `astro-src/src/layouts/BaseLayout.astro`, `astro-src/src/components/sections/Footer.astro`
+
+## [2025-12-29] Navigation Fix - Smart Hash Mapping & Cross-Page Scroll Logic
+- **Fixed Persistent Navigation Issue**: Resolved problem where clicking "RAGus.ai" while on the `/priprava-dat` page would navigate back to the index page instead of scrolling to the local section.
+- **Added Robust Index Page Handling**: Introduced explicit `isIndexHashLink` check to ensure all hash links targeting the index page (`/#section`) are intercepted when the user is already on the index. This fixes edge cases with path/query parameter variations.
+- **Implemented Smart Mapping**: Added a `pageHashMap` to the global scroll handler in `BaseLayout.astro`. It now automatically intercepts navigation to `/#priprava-dat` when the user is already on the detailed data preparation page and redirects the scroll target to the local `#ragus` ID.
+- **Path Normalization**: Added `normalizePath` helper function to handle trailing slash inconsistencies between URLs and current location pathname.
+- **Localized Path Support**: Updated the script to handle localized paths (e.g., `/en/priprava-dat`) during mapping checks.
+- **Files Modified**: `astro-src/src/layouts/BaseLayout.astro`.
+
+## [2025-12-29] Navigation Fix - RAGus.ai Link & Smooth Scroll Offset
+- **Fixed Navigation Double-Click Issue**: Updated global smooth scroll logic to correctly handle path-prefixed hashes (e.g., `/#section`). The previous logic only matched links starting with `#`, bypassing the smooth scroll handler for the primary "RAGus.ai" link.
+- **Improved Scroll Positioning**: Added `scroll-margin-top: 6rem` (96px) to all major sections in `global.css`. This ensures that when navigating to a section, its top edge is not covered by the fixed navigation header, resolving the issue where users had to scroll manually after clicking.
+- **Enhanced URL Handling**: Smooth scroll now uses the `URL` API to reliably detect same-page navigation across different URL formats (localized paths, query parameters).
+- **Mobile Menu Integration**: Added logic to automatically close the mobile menu and restore body scrolling when an internal anchor link is clicked.
+- **Files Modified**: `astro-src/src/styles/global.css`, `astro-src/src/layouts/BaseLayout.astro`.
+
 ## [2025-12-29] UI/UX Fix - RAGus Slideshow Arrow Visibility & Contrast
 - **Enhanced Inline Arrows**: Increased background opacity (60% -> 80%) and border thickness/opacity (1px/10% -> 2px/30%). Added `shadow-lg` and hover/active scale animations for better definition and feedback.
 - **Critical Modal Arrow Fix**: Significantly improved visibility of fullscreen modal navigation. Changed from nearly invisible `bg-white/10` to robust `bg-black/70` with `backdrop-blur-md`. Increased border visibility (20% -> 40%) and added `shadow-xl`.
