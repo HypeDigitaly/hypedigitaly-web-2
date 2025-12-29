@@ -475,6 +475,11 @@
     display: flex;
     flex-direction: column;
   }
+
+  /* Ensure expanded state stays full width on mobile */
+  .cookie-banner.expanded .cookie-banner-inner {
+    width: 100%;
+  }
   
   .cookie-subtitle {
     display: none; /* Hide subtitle on mobile for space */

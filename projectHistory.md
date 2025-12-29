@@ -2,6 +2,7 @@
 
 ## [2025-12-29] Cookie Consent UI/UX Fix - Alignment & Mobile Responsiveness
 - **Desktop Layout**: Widened the cookie panel (480px default, 540px expanded) and refactored the button row to display all 3 buttons horizontally in a single row using `flex-wrap: nowrap`.
+- **Mobile Expanded Fix**: Added an override to ensure the expanded details panel stays at `width: 100%` on mobile devices, preventing it from overflowing the viewport.
 - **Desktop Alignment**: Removed `margin-left: auto` from the "Přijmout vše" button and ensured all buttons share space equally using `flex: 1`.
 - **Mobile Viewport Overflow**: 
   - Constrained `.cookie-banner-inner` height using `calc(100vh - 1.5rem)` to prevent the modal from stretching beyond the screen.
