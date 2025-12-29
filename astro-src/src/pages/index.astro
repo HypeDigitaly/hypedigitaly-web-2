@@ -1094,15 +1094,23 @@ const pageDescription = lang === 'cs'
         </p>
       </div>
 
-      <!-- Cal.com Widget -->
+      <!-- Cal.com Widget with Lazy Loading -->
       <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] max-w-4xl mx-auto mb-12">
         <div class="bg-[#0A0A0A] border border-white/5 rounded-2xl p-8">
           <div class="text-center mb-8">
             <h3 class="text-2xl font-bold text-white mb-2">{t.cal_title}</h3>
             <p class="text-neutral-500">{t.cal_desc}</p>
           </div>
-          <!-- Cal inline embed code begins -->
-          <div style="width:100%;height:630px;overflow:scroll" id="my-cal-inline-30-min-online"></div>
+          <!-- Cal inline embed with lazy loading -->
+          <div style="width:100%;height:630px;overflow:auto" id="my-cal-inline-30-min-online" data-cal-lazy>
+            <!-- Loading placeholder -->
+            <div class="flex items-center justify-center h-full">
+              <div class="text-center">
+                <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary mb-4"></div>
+                <p class="text-neutral-400 text-sm">{t.cal_title}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1144,39 +1152,59 @@ const pageDescription = lang === 'cs'
   </section>
 
   <script is:inline>
-    // Cal.com embed
-    (function (C, A, L) { 
-      let p = function (a, ar) { a.q.push(ar); }; 
-      let d = C.document; 
-      C.Cal = C.Cal || function () { 
-        let cal = C.Cal; 
-        let ar = arguments; 
-        if (!cal.loaded) { 
-          cal.ns = {}; 
-          cal.q = cal.q || []; 
-          d.head.appendChild(d.createElement("script")).src = A; 
-          cal.loaded = true; 
-        } 
-        if (ar[0] === L) { 
-          const api = function () { p(api, arguments); }; 
-          const namespace = ar[1]; 
-          api.q = api.q || []; 
-          if(typeof namespace === "string"){ 
-            cal.ns[namespace] = cal.ns[namespace] || api; 
-            p(cal.ns[namespace], ar); 
-            p(cal, ["initNamespace", namespace]); 
-          } else p(cal, ar); 
-          return;
-        } 
-        p(cal, ar); 
-      }; 
-    })(window, "https://app.cal.com/embed/embed.js", "init");
-    Cal("init", "30-min-online", {origin:"https://app.cal.com"});
-    Cal.ns["30-min-online"]("inline", {
-      elementOrSelector:"#my-cal-inline-30-min-online",
-      config: {"layout":"month_view","theme":"light"},
-      calLink: "hypedigitaly-pavelcermak/30-min-online",
-    });
-    Cal.ns["30-min-online"]("ui", {"theme":"light","cssVarsPerTheme":{"light":{"cal-brand":"#00A39A"}},"hideEventTypeDetails":false,"layout":"month_view"});
+    // Lazy-load Cal.com embed using Intersection Observer
+    (function() {
+      const calContainer = document.getElementById('my-cal-inline-30-min-online');
+      if (!calContainer) return;
+
+      const observer = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) {
+          // Element is visible, load Cal.com
+          observer.disconnect();
+          
+          // Remove placeholder
+          calContainer.innerHTML = '';
+          
+          // Load Cal.com script and initialize
+          (function (C, A, L) { 
+            let p = function (a, ar) { a.q.push(ar); }; 
+            let d = C.document; 
+            C.Cal = C.Cal || function () { 
+              let cal = C.Cal; 
+              let ar = arguments; 
+              if (!cal.loaded) { 
+                cal.ns = {}; 
+                cal.q = cal.q || []; 
+                d.head.appendChild(d.createElement("script")).src = A; 
+                cal.loaded = true; 
+              } 
+              if (ar[0] === L) { 
+                const api = function () { p(api, arguments); }; 
+                const namespace = ar[1]; 
+                api.q = api.q || []; 
+                if(typeof namespace === "string"){ 
+                  cal.ns[namespace] = cal.ns[namespace] || api; 
+                  p(cal.ns[namespace], ar); 
+                  p(cal, ["initNamespace", namespace]); 
+                } else p(cal, ar); 
+                return;
+              } 
+              p(cal, ar); 
+            }; 
+          })(window, "https://app.cal.com/embed/embed.js", "init");
+          Cal("init", "30-min-online", {origin:"https://app.cal.com"});
+          Cal.ns["30-min-online"]("inline", {
+            elementOrSelector:"#my-cal-inline-30-min-online",
+            config: {"layout":"month_view","theme":"light"},
+            calLink: "hypedigitaly-pavelcermak/30-min-online",
+          });
+          Cal.ns["30-min-online"]("ui", {"theme":"light","cssVarsPerTheme":{"light":{"cal-brand":"#00A39A"}},"hideEventTypeDetails":false,"layout":"month_view"});
+        }
+      }, {
+        rootMargin: '100px' // Start loading 100px before it becomes visible
+      });
+
+      observer.observe(calContainer);
+    })();
   </script>
 </PageLayout>

@@ -199,19 +199,25 @@ const websiteSchema = {
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon.ico">
   <link rel="apple-touch-icon" href="/assets/images/logo.png">
   
-  <!-- Preconnect for Performance -->
+  <!-- Preconnect for Performance - Critical Resources -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://code.iconify.design">
+  
+  <!-- DNS Prefetch for Third-Party Resources (lazy-loaded) -->
   <link rel="dns-prefetch" href="https://www.youtube.com">
   <link rel="dns-prefetch" href="https://www.google.com">
   <link rel="dns-prefetch" href="https://app.cal.com">
   
-  <!-- Fonts -->
+  <!-- Fonts with optimized loading -->
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" as="style">
   
-  <!-- Iconify -->
-  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js" defer></script>
+  <!-- Preload critical CSS -->
+  <link rel="preload" href="/src/styles/global.css" as="style">
+  
+  <!-- Iconify - Async loading for better performance -->
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js" defer async></script>
   
   <!-- Structured Data: Organization -->
   <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
@@ -224,7 +230,7 @@ const websiteSchema = {
 <body class="relative min-h-screen overflow-x-hidden selection:bg-primary/20 selection:text-white font-geist">
   <slot />
   
-  <!-- Core JavaScript -->
+  <!-- Core JavaScript - Optimized -->
   <script>
     // ==================== SCROLL ANIMATIONS ====================
     (function () {
@@ -249,19 +255,21 @@ const websiteSchema = {
       });
     })();
 
-    // ==================== SMOOTH SCROLL ====================
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+    // ==================== SMOOTH SCROLL (Event Delegation) ====================
+    document.addEventListener('click', function(e) {
+      const anchor = e.target.closest('a[href^="#"]');
+      if (anchor) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const targetId = anchor.getAttribute('href');
+        const target = document.querySelector(targetId);
         if (target) {
           target.scrollIntoView({
             behavior: 'smooth',
             block: 'start'
           });
         }
-      });
-    });
+      }
+    }, { passive: false });
   </script>
   
   <slot name="scripts" />

@@ -9,7 +9,24 @@ export default defineConfig({
   devToolbar: {
     enabled: false
   },
+  build: {
+    inlineStylesheets: 'auto', // Inline critical CSS automatically
+    assets: '_astro' // Consistent asset path for caching
+  },
+  compressHTML: true, // Minify HTML output
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    build: {
+      cssCodeSplit: true, // Enable CSS code splitting
+      minify: 'esbuild', // Use esbuild for faster minification
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // Split vendor code for better caching
+            'cookie-consent': ['./src/scripts/cookie-consent.ts'],
+          }
+        }
+      }
+    }
   }
 });
