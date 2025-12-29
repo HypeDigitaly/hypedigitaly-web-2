@@ -1,5 +1,26 @@
 # Project History
 
+## [2025-12-29] Privacy Policy Update - Analytics & Platforms Disclosure
+- **Privacy Policy Page**:
+  - Updated Section 7 (Processors) to include **Microsoft Clarity** and **Google Analytics 4** under the analytics category.
+  - Added **Netlify** to the website operation category and removed Framer (no longer in use).
+  - Updated all privacy links to point to official GDPR/Terms documentation for each platform.
+- **Files Modified**: `astro-src/src/pages/privacy-policy.astro`.
+
+## [2025-12-29] Analytics Implementation - GA4 & Microsoft Clarity Integration
+- **Google Analytics 4 (GA4)**:
+  - Integrated tracking ID `G-Q87Y31XNEB` into `BaseLayout.astro`.
+  - Implemented **Google Consent Mode v2** with default denied state to ensure GDPR compliance.
+  - Configured GA4 with `anonymize_ip: true` and secure cookie flags.
+- **Microsoft Clarity**:
+  - Integrated Project ID `ut81mc242l` for heatmaps and session recordings.
+  - Enabled deep behavioral insights (scroll depth, click patterns, frustration metrics).
+- **Privacy & Compliance**:
+  - Both scripts are wrapped in the existing **Cookie Consent system**.
+  - Scripts use `type="text/plain"` and `data-cookiecategory="analytics"`, meaning they only execute after the user explicitly accepts analytics cookies.
+  - Seamlessly integrated with `CookieConsentManager` for real-time activation upon consent.
+- **Files Modified**: `astro-src/src/layouts/BaseLayout.astro`.
+
 ## [2025-12-29] Accessibility & WCAG Compliance - Major Contrast & ARIA Update
 - **WCAG 2.1/2.2 Compliance**:
   - Implemented a "Skip to Content" link in `BaseLayout.astro` for keyboard users and screen readers.

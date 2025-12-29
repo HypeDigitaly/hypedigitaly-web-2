@@ -233,6 +233,42 @@ const websiteSchema = {
   <!-- Structured Data: WebSite -->
   <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
   
+  <!-- Google Consent Mode v2 (Default Denied) -->
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'functionality_storage': 'denied',
+      'personalization_storage': 'denied',
+      'wait_for_update': 500
+    });
+  </script>
+
+  <!-- Google Analytics 4 (GA4) - Conditional on Cookie Consent -->
+  <script is:inline type="text/plain" data-cookiecategory="analytics" src="https://www.googletagmanager.com/gtag/js?id=G-Q87Y31XNEB" async></script>
+  <script is:inline type="text/plain" data-cookiecategory="analytics">
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Q87Y31XNEB', {
+      'anonymize_ip': true,
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+
+  <!-- Microsoft Clarity - Conditional on Cookie Consent -->
+  <script is:inline type="text/plain" data-cookiecategory="analytics">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ut81mc242l");
+  </script>
+
   <slot name="head" />
 </head>
 <body class="relative min-h-screen overflow-x-hidden selection:bg-primary/20 selection:text-white font-geist">
