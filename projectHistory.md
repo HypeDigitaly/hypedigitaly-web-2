@@ -1,5 +1,45 @@
 # Project History
 
+## [2025-12-29] UI/UX Fix - RAGus Slideshow Arrow Visibility & Contrast
+- **Enhanced Inline Arrows**: Increased background opacity (60% -> 80%) and border thickness/opacity (1px/10% -> 2px/30%). Added `shadow-lg` and hover/active scale animations for better definition and feedback.
+- **Critical Modal Arrow Fix**: Significantly improved visibility of fullscreen modal navigation. Changed from nearly invisible `bg-white/10` to robust `bg-black/70` with `backdrop-blur-md`. Increased border visibility (20% -> 40%) and added `shadow-xl`.
+- **Improved Icon Clarity**: Added `drop-shadow` to arrow icons within buttons to ensure they remain crisp against complex image backgrounds.
+- **Mobile Responsiveness**: Adjusted arrow sizes for better tap targets on smaller screens and forced 100% opacity on touch devices to ensure they are always discoverable.
+- **Files Modified**: `astro-src/src/components/ui/RagusSlideshow.astro`.
+
+## [2025-12-29] UI/UX Fix - RAGus Slideshow Close Button & Outside Click
+- **Fixed Image Cloning Regression**: Resolved issue where slides were not being shown in the modal. Moving the close button inside the container caused the "empty container" check to fail. Updated logic to specifically check for the presence of `.ragus-modal-slide` elements instead of generic children.
+- **Close Button Positioning**: Moved the close button inside the slideshow content box container. Positioned it exactly at the top-right corner with a negative offset (`-0.75rem`) to make it visually "pop" on the corner junction, matching the requested styling.
+- **Enhanced Click-Outside-to-Close**: Enabled `pointer-events-auto` on the modal content wrapper and implemented robust click detection. Clicking anywhere on the backdrop area (outside the blue slideshow rectangle) now automatically closes the modal.
+- **Improved Layout Robustness**: Set `overflow: visible` on the modal slides container to ensure the corner-positioned close button is not clipped, while maintaining `rounded-2xl` masking on the slides themselves.
+- **Files Modified**: `astro-src/src/components/ui/RagusSlideshow.astro`.
+
+## [2025-12-29] UI/UX Fix - RAGus Slideshow Centering & Scroll Behavior
+- **Fixed Centering (Move to Body)**: Implemented dynamic Teleport-like behavior by moving the slideshow modal to `document.body` on initialization. This resolves the persistent issue where CSS transforms on parent containers (like `animate-on-scroll`) were trapping the `fixed` modal and causing it to be off-center.
+- **Improved Background Interaction**: Removed body scroll lock (`overflow: hidden`) and implemented `pointer-events: none` on the backdrop. This allows the background to remain scrollable and "alive" while the modal is open, fulfilling the requirement for a reactive background.
+- **Enhanced Backdrop**: Re-verified `backdrop-blur-lg` and updated the close logic to work with the non-capturing backdrop via event delegation on the modal container.
+- **Standardized Navigation**: Restructured modal navigation elements (arrows and dots) to be consistently centered regardless of the viewport size or parent constraints.
+- **Files Modified**: `astro-src/src/components/ui/RagusSlideshow.astro`.
+
+## [2025-12-29] UI/UX Fix - RAGus Slideshow Modal Scaling
+- **Fixed Modal Display**: Resolved issue where images in the zoomed/fullscreen state were being cut off or improperly scaled.
+- **Robust Sizing**: Implemented explicit viewport-relative sizing for the modal container and fixed absolute positioning for slides.
+- **Refined Logic**: Cleaned up slide cloning logic to rely on CSS for layout rather than hardcoded inline classes in JavaScript.
+- **Standardization**: Verified that the fix applies site-wide through the unified `RagusSlideshow.astro` component.
+
+## [2025-12-29] Component Refactoring - Reusable RAGus.ai Slideshow
+- **Extracted RAGus Slideshow**: Refactored duplicated RAGus.ai slideshow logic into a reusable `RagusSlideshow.astro` component in `src/components/ui/`.
+- **Bug Fixes**:
+  - Added missing close (X) button to the fullscreen modal.
+  - Implemented enhanced "click outside to close" logic to prevent modal from closing when clicking on images or navigation.
+  - Standardized behavior across all pages using the component.
+- **Customization**: Added `variant` prop to support both teal (`primary`) and orange color schemes.
+- **Improved Performance**: Used `loading="lazy"` for slideshow images.
+- **Files Modified/Created**:
+  - `astro-src/src/components/ui/RagusSlideshow.astro` (New)
+  - `astro-src/src/components/sections/DataPreparationSection.astro` (Updated to use component)
+  - `astro-src/src/pages/priprava-dat.astro` (Updated to use component)
+
 ## [2025-12-29] Cookie Consent UI/UX Fix - Alignment & Mobile Responsiveness
 - **Desktop Layout**: Widened the cookie panel (480px default, 540px expanded) and refactored the button row to display all 3 buttons horizontally in a single row using `flex-wrap: nowrap`.
 - **Mobile Expanded Fix**: Added an override to ensure the expanded details panel stays at `width: 100%` on mobile devices, preventing it from overflowing the viewport.
