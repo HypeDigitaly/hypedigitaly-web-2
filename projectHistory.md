@@ -1,5 +1,25 @@
 # Project History
 
+## [2025-12-29] Performance Optimization - Comprehensive PageSpeed Improvements
+- **Resource Loading Optimization**: 
+  - Implemented async loading for Google Fonts to prevent render-blocking.
+  - Added DNS prefetch hints for third-party resources (YouTube, Google Maps, Cal.com).
+  - Added preload hints for critical hero assets (logos) with `fetchpriority="high"`.
+  - Deferred Iconify script loading to reduce initial bundle size and TBT.
+- **LCP & FCP Improvements**:
+  - Replaced above-the-fold Iconify icons with inline SVGs in all hero sections.
+  - Set `fetchpriority="high"` and `loading="eager"` for navigation logos.
+  - Implemented YouTube facade pattern site-wide to prevent heavy iframe loading on initial page load.
+- **CLS Prevention**:
+  - Added explicit width/height dimensions to all logos in `ClientsMarquee.astro`.
+  - Added `loading="lazy"` and `decoding="async"` to non-critical marquee images.
+- **Mobile Performance**:
+  - Disabled expensive CSS animations (shimmer effects, floating bubbles) on mobile devices (<768px).
+  - Reduced main thread work by limiting particle animations on small screens.
+- **Build Optimization**:
+  - Updated Astro configuration to inline all stylesheets, eliminating render-blocking CSS requests.
+- **Files Modified**: `BaseLayout.astro`, `Navigation.astro`, `ClientsMarquee.astro`, `index.astro`, `chatbot.astro`, `priprava-dat.astro`, `konzultace.astro`, `global.css`, `astro.config.mjs`.
+
 ## [2025-12-29] Navigation & Scroll Fix - Professional Anchor Positioning
 - **Robust Scroll Logic**: Completely rewrote the smooth scroll interceptor in `BaseLayout.astro`. It now calculates exact pixel positions instead of relying on `scrollIntoView`, ensuring perfectly consistent offsets from the fixed navbar (~96px).
 - **Layout Shift Resilience**: Implemented a "Verify & Retry" mechanism. The script now re-verifies the scroll position after a short delay to account for layout shifts from loading images or lazy-loaded components (Cal.com, Google Maps).

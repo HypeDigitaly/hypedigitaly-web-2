@@ -199,25 +199,33 @@ const websiteSchema = {
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon.ico">
   <link rel="apple-touch-icon" href="/assets/images/logo.png">
   
+  <!-- Preload Critical Hero Assets -->
+  <link rel="preload" href="/assets/images/HD_Color_logo.png" as="image" fetchpriority="high">
+  <link rel="preload" href="/assets/images/logo.png" as="image" media="(min-width: 1024px)" fetchpriority="high">
+  
   <!-- Preconnect for Performance - Critical Resources -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://code.iconify.design">
+  <link rel="preconnect" href="https://i.ytimg.com">
   
   <!-- DNS Prefetch for Third-Party Resources (lazy-loaded) -->
   <link rel="dns-prefetch" href="https://www.youtube.com">
   <link rel="dns-prefetch" href="https://www.google.com">
   <link rel="dns-prefetch" href="https://app.cal.com">
+  <link rel="dns-prefetch" href="https://i.ytimg.com">
   
-  <!-- Fonts with optimized loading -->
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" as="style">
+  <!-- Fonts with optimized loading (Async) -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </noscript>
   
   <!-- Preload critical CSS -->
   <link rel="preload" href="/src/styles/global.css" as="style">
   
-  <!-- Iconify - Async loading for better performance -->
-  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js" defer async></script>
+  <!-- Iconify - Defer loading to prevent blocking -->
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js" defer></script>
   
   <!-- Structured Data: Organization -->
   <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />

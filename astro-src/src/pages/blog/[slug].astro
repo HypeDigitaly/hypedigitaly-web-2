@@ -268,6 +268,18 @@ function convertMarkdownToHtml(md: string): string {
     return `${pre}<ol>${items}</ol>`;
   });
   
+  // ========== VIDEO EMBEDS ==========
+  // Convert standard YouTube iframes to facades
+  html = html.replace(/<div class="video-embed">[\s\S]*?iframe.*?src="https:\/\/www\.youtube\.com\/embed\/([^"?]+).*?".*?<\/iframe>[\s\S]*?<\/div>/g, (match, videoId) => {
+    return `<div class="video-embed" data-video-id="${videoId}" onclick="this.innerHTML='<iframe src=\\'https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0\\' allow=\\'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\\' allowfullscreen class=\\'w-full h-full absolute inset-0\\'></iframe>'; this.onclick=null;">
+      <div class="video-facade" style="background-image: url('https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg')">
+        <div class="play-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" class="ml-1"><path d="M8 5v14l11-7z"></path></svg>
+        </div>
+      </div>
+    </div>`;
+  });
+
   // ========== PARAGRAPHS ==========
   const parts = html.split('\n\n');
   html = parts.map(part => {
@@ -1638,7 +1650,7 @@ const breadcrumbSchema = {
     margin-bottom: 3rem;
   }
 
-  /* YouTube Video Embed - Responsive */
+  // YouTube Video Embed - Responsive with Facade support
   .blog-content :global(.video-embed) {
     position: relative;
     width: 100%;
@@ -1648,9 +1660,11 @@ const breadcrumbSchema = {
     overflow: hidden;
     background: #0a0a0a;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
   }
 
-  .blog-content :global(.video-embed iframe) {
+  .blog-content :global(.video-embed iframe),
+  .blog-content :global(.video-embed .video-facade) {
     position: absolute;
     top: 0;
     left: 0;
@@ -1658,6 +1672,30 @@ const breadcrumbSchema = {
     height: 100%;
     border: none;
     border-radius: 0.75rem;
+  }
+
+  .blog-content :global(.video-embed .video-facade) {
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .blog-content :global(.video-embed .play-button) {
+    width: 4rem;
+    height: 4rem;
+    background: rgba(0, 163, 154, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: transform 0.3s ease;
+  }
+
+  .blog-content :global(.video-embed:hover .play-button) {
+    transform: scale(1.1);
   }
 
   /* Inline Code */

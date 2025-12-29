@@ -10,7 +10,7 @@ export default defineConfig({
     enabled: false
   },
   build: {
-    inlineStylesheets: 'auto', // Inline critical CSS automatically
+    inlineStylesheets: 'always', // Inline all CSS for maximum performance (eliminates render-blocking CSS)
     assets: '_astro' // Consistent asset path for caching
   },
   compressHTML: true, // Minify HTML output

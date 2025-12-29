@@ -18,9 +18,9 @@ const href = (path: string) => getLocalizedHref(path, lang);
     <div class="flex items-center gap-2">
       <a href={href("/")} class="flex items-center gap-2">
         <!-- Mobile: Square icon logo -->
-        <img src="/assets/images/HD_Color_logo.png" alt="HypeDigitaly" width="36" height="36" class="h-9 w-auto lg:hidden">
+        <img src="/assets/images/HD_Color_logo.png" alt="HypeDigitaly" width="36" height="36" class="h-9 w-auto lg:hidden" fetchpriority="high" loading="eager">
         <!-- Desktop: Full text logo -->
-        <img src="/assets/images/logo.png" alt="HypeDigitaly" width="180" height="32" class="h-8 w-auto hidden lg:block">
+        <img src="/assets/images/logo.png" alt="HypeDigitaly" width="180" height="32" class="h-8 w-auto hidden lg:block" fetchpriority="high" loading="eager">
       </a>
     </div>
 

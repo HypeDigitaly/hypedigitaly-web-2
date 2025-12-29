@@ -41,7 +41,11 @@ const marqueeId = `logo-marquee-${Math.random().toString(36).substr(2, 9)}`;
               <img 
                 src={client.logo} 
                 alt={lang === 'cs' ? client.name_cs : client.name_en} 
-                class={`h-16 ${client.grayscale_class} ${client.invert ? 'brightness-0 invert' : ''}`}
+                class={`h-16 w-auto ${client.grayscale_class} ${client.invert ? 'brightness-0 invert' : ''}`}
+                width="120"
+                height="64"
+                loading="lazy"
+                decoding="async"
                 draggable="false"
               >
             </a>
@@ -54,7 +58,11 @@ const marqueeId = `logo-marquee-${Math.random().toString(36).substr(2, 9)}`;
               <img 
                 src={client.logo} 
                 alt={lang === 'cs' ? client.name_cs : client.name_en} 
-                class={`h-16 ${client.grayscale_class} ${client.invert ? 'brightness-0 invert' : ''}`}
+                class={`h-16 w-auto ${client.grayscale_class} ${client.invert ? 'brightness-0 invert' : ''}`}
+                width="120"
+                height="64"
+                loading="lazy"
+                decoding="async"
                 draggable="false"
               >
             </a>

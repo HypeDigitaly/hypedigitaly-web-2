@@ -179,6 +179,26 @@ section[id] {
   content-visibility: visible !important;
 }
 
+/* Reduce animation complexity on mobile for better TBT */
+@media (max-width: 768px) {
+  .shiny-cta::before,
+  .shiny-cta::after {
+    animation: none !important;
+  }
+  
+  .vf-points-wrapper .vf-point {
+    animation: none !important;
+  }
+  
+  .nav-bubbles-wrapper .nav-bubble {
+    animation: none !important;
+  }
+  
+  .blog-btn-bubbles .blog-btn-bubble {
+    animation: none !important;
+  }
+}
+
 /* ==================== CODE BLOCK MOBILE FIXES ==================== */
 /* Ensure code blocks scroll horizontally instead of breaking layout */
 pre {
