@@ -1,5 +1,21 @@
 # Project History
 
+## [2025-12-29] Blog YouTube Video Layout Fix - Invalid CSS Comment
+- **Root Cause Identified**: Invalid CSS comment syntax (`//` instead of `/* */`) was invalidating the entire `.video-embed` CSS rule block in `[slug].astro`.
+- **Impact**: YouTube video embeds in blog posts (e.g., "Případová studie: 5 krajů ČR") were displaying at absurdly large proportions because the responsive container styles weren't being applied.
+- **Fix Applied**: Corrected CSS comment syntax to standard `/* ... */` to ensure the responsive container styles are correctly parsed by the browser.
+- **Files Modified**: `astro-src/src/pages/blog/[slug].astro`.
+
+## [2025-12-29] Privacy Policy Audit & Platform Disclosure Update
+- **Comprehensive Analysis**: Performed a full project audit to identify all third-party platforms, plugins, and libraries in use.
+- **Privacy Policy Update**:
+  - Updated Section 7 (Processors) in `privacy-policy.astro`.
+  - Added **Google Fonts**, **Iconify**, and **Google Maps** to the website operation category.
+  - Added **Cal.com** to the service provision category for scheduling.
+  - Removed **Framer** from the processors list as it is no longer in use.
+  - Verified all privacy documentation links for correctness and GDPR compliance.
+- **Files Modified**: `astro-src/src/pages/privacy-policy.astro`.
+
 ## [2025-12-29] Privacy Policy Update - Analytics & Platforms Disclosure
 - **Privacy Policy Page**:
   - Updated Section 7 (Processors) to include **Microsoft Clarity** and **Google Analytics 4** under the analytics category.
