@@ -1,5 +1,30 @@
 # Project History
 
+## [2025-12-29] Accessibility & WCAG Compliance - Major Contrast & ARIA Update
+- **WCAG 2.1/2.2 Compliance**:
+  - Implemented a "Skip to Content" link in `BaseLayout.astro` for keyboard users and screen readers.
+  - Added proper ARIA roles and attributes to critical navigation elements:
+    - Mobile menu now functions as a modal dialog (`role="dialog"`, `aria-modal="true"`).
+    - Services dropdown and language switcher now have correct `aria-expanded`, `aria-haspopup`, and `aria-controls` attributes.
+    - Explicit `aria-label` added to all icon-only buttons (mobile menu toggle, close buttons).
+    - Decorative icons hidden from screen readers using `aria-hidden="true"`.
+- **Enhanced Keyboard Navigation**:
+  - Implemented focus traps for the mobile menu and cookie consent banner to ensure users can't tab out of active overlays.
+  - Added "Escape" key support to close all active overlays (menu, dropdowns, cookie banner).
+  - Synchronized `aria-expanded` states with JavaScript logic for real-time screen reader updates.
+- **Color Contrast Optimization**:
+  - Improved text contrast globally to meet WCAG AA standards (4.5:1 ratio):
+    - Replaced `text-neutral-500` (#737373) with `text-neutral-400` (#a3a3a3) for better visibility on dark backgrounds.
+    - Updated `text-neutral-600` to `text-neutral-500` for secondary UI elements.
+  - Updated all major pages: Homepage, AI Chatbot, Data Preparation, Consultation, and Blog.
+- **Visible Focus Indicators**:
+  - Added global `:focus-visible` styles in `global.css` with high-contrast teal outlines and offset rings.
+  - Ensured all interactive elements have a clear visual state when navigated via keyboard.
+- **Semantic Structure**:
+  - Added `role="main"` to the primary content container in `PageLayout.astro`.
+  - Standardized heading levels and button types for better document flow.
+- **Files Modified**: `BaseLayout.astro`, `PageLayout.astro`, `Navigation.astro`, `MobileMenu.astro`, `CookieConsent.astro`, `cookie-consent.ts`, `global.css`, `index.astro`, `chatbot.astro`, `priprava-dat.astro`, `konzultace.astro`, `BlogCard.astro`, `BlogCategoryFilter.astro`, `Footer.astro`.
+
 ## [2025-12-29] Performance Optimization - Comprehensive PageSpeed Improvements
 - **Resource Loading Optimization**: 
   - Implemented async loading for Google Fonts to prevent render-blocking.
@@ -7,7 +32,7 @@
   - Added preload hints for critical hero assets (logos) with `fetchpriority="high"`.
   - Deferred Iconify script loading to reduce initial bundle size and TBT.
 - **LCP & FCP Improvements**:
-  - Replaced above-the-fold Iconify icons with inline SVGs in all hero sections.
+  - Replaced above-the-fold Iconify icons with inline SVGs in all hero sections (Homepage, Chatbot, Data Prep, Consultation, Blog Index, Blog Post).
   - Set `fetchpriority="high"` and `loading="eager"` for navigation logos.
   - Implemented YouTube facade pattern site-wide to prevent heavy iframe loading on initial page load.
 - **CLS Prevention**:
@@ -18,7 +43,7 @@
   - Reduced main thread work by limiting particle animations on small screens.
 - **Build Optimization**:
   - Updated Astro configuration to inline all stylesheets, eliminating render-blocking CSS requests.
-- **Files Modified**: `BaseLayout.astro`, `Navigation.astro`, `ClientsMarquee.astro`, `index.astro`, `chatbot.astro`, `priprava-dat.astro`, `konzultace.astro`, `global.css`, `astro.config.mjs`.
+- **Files Modified**: `BaseLayout.astro`, `Navigation.astro`, `ClientsMarquee.astro`, `index.astro`, `chatbot.astro`, `priprava-dat.astro`, `konzultace.astro`, `blog/index.astro`, `blog/[slug].astro`, `CaseStudiesSection.astro`, `global.css`, `astro.config.mjs`.
 
 ## [2025-12-29] Navigation & Scroll Fix - Professional Anchor Positioning
 - **Robust Scroll Logic**: Completely rewrote the smooth scroll interceptor in `BaseLayout.astro`. It now calculates exact pixel positions instead of relying on `scrollIntoView`, ensuring perfectly consistent offsets from the fixed navbar (~96px).

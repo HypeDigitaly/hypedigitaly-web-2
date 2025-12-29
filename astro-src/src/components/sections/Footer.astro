@@ -22,7 +22,7 @@ const calendarId = `footer-cal-${Math.random().toString(36).substring(7)}`;
   <section id="kontakt" class="bg-[#050505] border-t border-white/5 py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <!-- Section Header -->
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-[0.2em] gap-4">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-400 uppercase tracking-[0.2em] gap-4">
         <div class="flex items-center gap-2">
           <span class="text-white">●</span>
           <span class="w-12 h-px bg-white/10"></span>
@@ -34,7 +34,7 @@ const calendarId = `footer-cal-${Math.random().toString(36).substring(7)}`;
       <div class="text-center max-w-5xl mx-auto mb-16">
         <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[0.95] md:text-6xl lg:text-7xl text-3xl font-medium text-white tracking-tighter mb-8">
           <span>{t.cta_headline_1}</span>
-          <span class="text-neutral-600 transition-colors hover:text-primary duration-500">{t.cta_headline_2}</span>
+          <span class="text-neutral-500 transition-colors hover:text-primary duration-500">{t.cta_headline_2}</span>
         </h2>
         <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg text-neutral-400 font-light max-w-2xl mx-auto leading-relaxed">
           {t.cta_subheadline}
@@ -173,78 +173,78 @@ const calendarId = `footer-cal-${Math.random().toString(36).substring(7)}`;
               {t.footer_desc}
             </p>
             <div class="flex items-center gap-4">
-              <a href="https://linkedin.com/company/hypedigitaly" target="_blank" class="w-10 h-10 border border-white/10 rounded-lg flex items-center justify-center text-white hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all">
-                <iconify-icon icon="mdi:linkedin" class="text-xl"></iconify-icon>
+              <a href="https://linkedin.com/company/hypedigitaly" target="_blank" class="w-10 h-10 border border-white/10 rounded-lg flex items-center justify-center text-white hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all" aria-label="LinkedIn">
+                <iconify-icon icon="mdi:linkedin" class="text-xl" aria-hidden="true"></iconify-icon>
               </a>
-              <a href="https://www.instagram.com/hypedigitaly_ai/" target="_blank" class="w-10 h-10 border border-white/10 rounded-lg flex items-center justify-center text-white hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all">
-                <iconify-icon icon="mdi:instagram" class="text-xl"></iconify-icon>
+              <a href="https://www.instagram.com/hypedigitaly_ai/" target="_blank" class="w-10 h-10 border border-white/10 rounded-lg flex items-center justify-center text-white hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all" aria-label="Instagram">
+                <iconify-icon icon="mdi:instagram" class="text-xl" aria-hidden="true"></iconify-icon>
               </a>
-              <a href="https://www.facebook.com/HypeDigitalyAI/" target="_blank" class="w-10 h-10 border border-white/10 rounded-lg flex items-center justify-center text-white hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all">
-                <iconify-icon icon="mdi:facebook" class="text-xl"></iconify-icon>
+              <a href="https://www.facebook.com/HypeDigitalyAI/" target="_blank" class="w-10 h-10 border border-white/10 rounded-lg flex items-center justify-center text-white hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all" aria-label="Facebook">
+                <iconify-icon icon="mdi:facebook" class="text-xl" aria-hidden="true"></iconify-icon>
               </a>
             </div>
           </div>
 
           <!-- Company Info -->
-          <div class="p-8 md:p-12 md:border-r border-white/5 text-neutral-400 text-sm">
+          <div class="p-8 md:p-12 md:border-r border-white/5 text-neutral-300 text-sm">
             <h4 class="text-white font-medium mb-6 uppercase tracking-wider text-xs">{t.footer_company_title}</h4>
             <div class="space-y-4">
               <div>
                 <p class="text-white font-medium mb-2">HypeDigitaly s.r.o.</p>
                 <div class="grid grid-cols-[auto_1fr] gap-x-3 text-xs leading-relaxed">
-                  <span class="text-neutral-500">{t.footer_label_street}</span>
+                  <span class="text-neutral-400">{t.footer_label_street}</span>
                   <span class="text-neutral-300">Velká Hradební</span>
                   
-                  <span class="text-neutral-500">{t.footer_label_number}</span>
+                  <span class="text-neutral-400">{t.footer_label_number}</span>
                   <span class="text-neutral-300">2800/54</span>
                   
-                  <span class="text-neutral-500">{t.footer_label_zip}</span>
+                  <span class="text-neutral-400">{t.footer_label_zip}</span>
                   <span class="text-neutral-300">400 01</span>
                   
-                  <span class="text-neutral-500">{t.footer_label_city}</span>
+                  <span class="text-neutral-400">{t.footer_label_city}</span>
                   <span class="text-neutral-300">Ústí nad Labem</span>
 
-                  <span class="text-neutral-500">{t.footer_label_country}</span>
+                  <span class="text-neutral-400">{t.footer_label_country}</span>
                   <span class="text-neutral-300">{t.footer_country_name}</span>
                 </div>
               </div>
               <div class="grid grid-cols-2 gap-2 text-xs">
                 <div>
-                  <span class="text-neutral-500 block">{t.footer_ico_label}</span>
+                  <span class="text-neutral-400 block">{t.footer_ico_label}</span>
                   <span class="text-neutral-300">17665655</span>
                 </div>
                 <div>
-                  <span class="text-neutral-500 block">{t.footer_dic_label}</span>
+                  <span class="text-neutral-400 block">{t.footer_dic_label}</span>
                   <span class="text-neutral-300">CZ17665655</span>
                 </div>
               </div>
               <div class="pt-4 border-t border-white/5">
-                <span class="text-neutral-500 block text-xs uppercase mb-2">{t.footer_executives}</span>
+                <span class="text-neutral-400 block text-xs uppercase mb-2">{t.footer_executives}</span>
                 <div class="space-y-4">
                   <div>
                     <p class="text-neutral-300 leading-tight mb-1">Pavel Čermák</p>
-                    <p class="text-neutral-500 text-[10px] uppercase tracking-wider mb-2">{t.footer_pavel_role}</p>
+                    <p class="text-neutral-400 text-[10px] uppercase tracking-wider mb-2">{t.footer_pavel_role}</p>
                     <div class="space-y-1 text-xs">
-                      <a href="mailto:pavelcermak@hypedigitaly.ai" class="block text-neutral-400 hover:text-primary transition-colors flex items-center gap-2">
-                        <iconify-icon icon="mdi:email-outline"></iconify-icon>
+                      <a href="mailto:pavelcermak@hypedigitaly.ai" class="block text-neutral-300 hover:text-primary transition-colors flex items-center gap-2">
+                        <iconify-icon icon="mdi:email-outline" aria-hidden="true"></iconify-icon>
                         pavelcermak@hypedigitaly.ai
                       </a>
-                      <a href="tel:+420774996248" class="block text-neutral-400 hover:text-primary transition-colors flex items-center gap-2">
-                        <iconify-icon icon="mdi:phone-outline"></iconify-icon>
+                      <a href="tel:+420774996248" class="block text-neutral-300 hover:text-primary transition-colors flex items-center gap-2">
+                        <iconify-icon icon="mdi:phone-outline" aria-hidden="true"></iconify-icon>
                         +420 774 996 248
                       </a>
                     </div>
                   </div>
                   <div>
                     <p class="text-neutral-300 leading-tight mb-1">Miroslava Čermáková</p>
-                    <p class="text-neutral-500 text-[10px] uppercase tracking-wider mb-2">{t.footer_mirka_role}</p>
+                    <p class="text-neutral-400 text-[10px] uppercase tracking-wider mb-2">{t.footer_mirka_role}</p>
                     <div class="space-y-1 text-xs">
-                      <a href="mailto:cermakova@hypedigitaly.ai" class="block text-neutral-400 hover:text-primary transition-colors flex items-center gap-2">
-                        <iconify-icon icon="mdi:email-outline"></iconify-icon>
+                      <a href="mailto:cermakova@hypedigitaly.ai" class="block text-neutral-300 hover:text-primary transition-colors flex items-center gap-2">
+                        <iconify-icon icon="mdi:email-outline" aria-hidden="true"></iconify-icon>
                         cermakova@hypedigitaly.ai
                       </a>
-                      <a href="tel:+420775197255" class="block text-neutral-400 hover:text-primary transition-colors flex items-center gap-2">
-                        <iconify-icon icon="mdi:phone-outline"></iconify-icon>
+                      <a href="tel:+420775197255" class="block text-neutral-300 hover:text-primary transition-colors flex items-center gap-2">
+                        <iconify-icon icon="mdi:phone-outline" aria-hidden="true"></iconify-icon>
                         +420 775 197 255
                       </a>
                     </div>
@@ -267,13 +267,13 @@ const calendarId = `footer-cal-${Math.random().toString(36).substring(7)}`;
 
         <!-- Navigation -->
         <div class="grid grid-cols-2 md:grid-cols-7 border-b border-white/5 text-sm">
-          <a href={href("/#sluzby")} class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_services}</a>
-          <a href={href("/#reference")} class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_references}</a>
-          <a href={href("/blog")} class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.nav_case_studies}</a>
-          <a href={href("/#priprava-dat")} class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">RAGus.ai</a>
-          <a href="#kontakt" class="px-6 py-6 border-r border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_contact}</a>
-          <a href={href("/privacy-policy")} class="px-6 py-6 border-r border-white/5 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_privacy}</a>
-          <a href={href("/recommendation")} class="px-6 py-6 text-neutral-400 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_recommendation}</a>
+          <a href={href("/#sluzby")} class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-300 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_services}</a>
+          <a href={href("/#reference")} class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-300 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_references}</a>
+          <a href={href("/blog")} class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-300 hover:text-white hover:bg-white/[0.02] transition-colors">{t.nav_case_studies}</a>
+          <a href={href("/#priprava-dat")} class="px-6 py-6 border-r border-b md:border-b-0 border-white/5 text-neutral-300 hover:text-white hover:bg-white/[0.02] transition-colors">RAGus.ai</a>
+          <a href="#kontakt" class="px-6 py-6 border-r border-white/5 text-neutral-300 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_contact}</a>
+          <a href={href("/privacy-policy")} class="px-6 py-6 border-r border-white/5 text-neutral-300 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_privacy}</a>
+          <a href={href("/recommendation")} class="px-6 py-6 text-neutral-300 hover:text-white hover:bg-white/[0.02] transition-colors">{t.footer_recommendation}</a>
         </div>
       </>
     )}

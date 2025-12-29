@@ -14,11 +14,17 @@ const href = (path: string) => getLocalizedHref(path, lang);
 ---
 
 <!-- Cookie Consent Banner - Bottom LEFT Popup -->
-<div id="cookie-consent-banner" class="cookie-banner hidden">
+<div 
+  id="cookie-consent-banner" 
+  class="cookie-banner hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="cookie-title"
+>
   <div class="cookie-banner-inner">
     <!-- Header -->
     <div class="cookie-header">
-      <h3 class="cookie-title">{t.cookie_title || 'Nastavení cookies'}</h3>
+      <h3 id="cookie-title" class="cookie-title">{t.cookie_title || 'Nastavení cookies'}</h3>
       <p class="cookie-subtitle">{t.cookie_subtitle || 'Respektujeme vaše soukromí'}</p>
     </div>
 
@@ -33,16 +39,17 @@ const href = (path: string) => getLocalizedHref(path, lang);
       <div class="cookie-category">
         <div class="cookie-category-header">
           <div class="cookie-category-info">
-            <div class="cookie-category-icon necessary">
+            <div class="cookie-category-icon necessary" aria-hidden="true">
               <iconify-icon icon="solar:shield-check-bold" class="text-lg"></iconify-icon>
             </div>
             <div>
-              <h4 class="cookie-category-title">{t.cookie_necessary_title || 'Nezbytné'}</h4>
+              <h4 class="cookie-category-title" id="cat-necessary-title">{t.cookie_necessary_title || 'Nezbytné'}</h4>
               <span class="cookie-category-badge necessary">{t.cookie_always_active || 'Vždy aktivní'}</span>
             </div>
           </div>
-          <label class="cookie-toggle disabled">
-            <input type="checkbox" id="cookie-necessary" checked disabled>
+          <label class="cookie-toggle disabled" for="cookie-necessary">
+            <span class="sr-only">{t.cookie_necessary_title || 'Nezbytné'}</span>
+            <input type="checkbox" id="cookie-necessary" checked disabled aria-labelledby="cat-necessary-title">
             <span class="cookie-toggle-slider"></span>
           </label>
         </div>
@@ -55,16 +62,17 @@ const href = (path: string) => getLocalizedHref(path, lang);
       <div class="cookie-category">
         <div class="cookie-category-header">
           <div class="cookie-category-info">
-            <div class="cookie-category-icon functional">
+            <div class="cookie-category-icon functional" aria-hidden="true">
               <iconify-icon icon="solar:settings-bold" class="text-lg"></iconify-icon>
             </div>
             <div>
-              <h4 class="cookie-category-title">{t.cookie_functional_title || 'Funkční'}</h4>
+              <h4 class="cookie-category-title" id="cat-functional-title">{t.cookie_functional_title || 'Funkční'}</h4>
               <span class="cookie-category-badge">{t.cookie_optional || 'Volitelné'}</span>
             </div>
           </div>
-          <label class="cookie-toggle">
-            <input type="checkbox" id="cookie-functional">
+          <label class="cookie-toggle" for="cookie-functional">
+            <span class="sr-only">{t.cookie_functional_title || 'Funkční'}</span>
+            <input type="checkbox" id="cookie-functional" aria-labelledby="cat-functional-title">
             <span class="cookie-toggle-slider"></span>
           </label>
         </div>
@@ -77,16 +85,17 @@ const href = (path: string) => getLocalizedHref(path, lang);
       <div class="cookie-category">
         <div class="cookie-category-header">
           <div class="cookie-category-info">
-            <div class="cookie-category-icon analytics">
+            <div class="cookie-category-icon analytics" aria-hidden="true">
               <iconify-icon icon="solar:chart-2-bold" class="text-lg"></iconify-icon>
             </div>
             <div>
-              <h4 class="cookie-category-title">{t.cookie_analytics_title || 'Analytické'}</h4>
+              <h4 class="cookie-category-title" id="cat-analytics-title">{t.cookie_analytics_title || 'Analytické'}</h4>
               <span class="cookie-category-badge">{t.cookie_optional || 'Volitelné'}</span>
             </div>
           </div>
-          <label class="cookie-toggle">
-            <input type="checkbox" id="cookie-analytics">
+          <label class="cookie-toggle" for="cookie-analytics">
+            <span class="sr-only">{t.cookie_analytics_title || 'Analytické'}</span>
+            <input type="checkbox" id="cookie-analytics" aria-labelledby="cat-analytics-title">
             <span class="cookie-toggle-slider"></span>
           </label>
         </div>
@@ -99,18 +108,19 @@ const href = (path: string) => getLocalizedHref(path, lang);
       <div class="cookie-category">
         <div class="cookie-category-header">
           <div class="cookie-category-info">
-            <div class="cookie-category-icon marketing">
+            <div class="cookie-category-icon marketing" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
                 <path d="M18 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM6.5 9a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM7 11a4 4 0 0 0-4 4v5h8v-5a4 4 0 0 0-4-4Zm11-1a3 3 0 0 0-3 3v7h6v-7a3 3 0 0 0-3-3Z"/>
               </svg>
             </div>
             <div>
-              <h4 class="cookie-category-title">{t.cookie_marketing_title || 'Marketingové'}</h4>
+              <h4 class="cookie-category-title" id="cat-marketing-title">{t.cookie_marketing_title || 'Marketingové'}</h4>
               <span class="cookie-category-badge">{t.cookie_optional || 'Volitelné'}</span>
             </div>
           </div>
-          <label class="cookie-toggle">
-            <input type="checkbox" id="cookie-marketing">
+          <label class="cookie-toggle" for="cookie-marketing">
+            <span class="sr-only">{t.cookie_marketing_title || 'Marketingové'}</span>
+            <input type="checkbox" id="cookie-marketing" aria-labelledby="cat-marketing-title">
             <span class="cookie-toggle-slider"></span>
           </label>
         </div>
@@ -123,8 +133,15 @@ const href = (path: string) => getLocalizedHref(path, lang);
     <!-- Buttons - Simplified Layout -->
     <div class="cookie-buttons">
       <div class="cookie-btn-row">
-        <button id="cookie-show-details" class="cookie-btn-details" data-show-text={t.cookie_customize || 'Přizpůsobit'} data-hide-text={t.cookie_hide_details || 'Skrýt detaily'}>
-          <iconify-icon icon="solar:settings-minimalistic-bold" class="text-base"></iconify-icon>
+        <button 
+          id="cookie-show-details" 
+          class="cookie-btn-details" 
+          data-show-text={t.cookie_customize || 'Přizpůsobit'} 
+          data-hide-text={t.cookie_hide_details || 'Skrýt detaily'}
+          aria-expanded="false"
+          aria-controls="cookie-details"
+        >
+          <iconify-icon icon="solar:settings-minimalistic-bold" class="text-base" aria-hidden="true"></iconify-icon>
           <span>{t.cookie_customize || 'Přizpůsobit'}</span>
         </button>
         <button id="cookie-reject-all" class="cookie-btn-reject">

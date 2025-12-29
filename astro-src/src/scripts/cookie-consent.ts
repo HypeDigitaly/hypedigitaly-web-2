@@ -60,6 +60,9 @@ class CookieConsentManager {
   private bindEvents() {
     this.showDetailsBtn?.addEventListener('click', () => this.toggleDetails());
 
+    // Focus trap listener
+    this.banner?.addEventListener('keydown', (e) => this.handleTrapFocus(e));
+
     this.acceptAllBtn?.addEventListener('click', () => {
       this.saveConsent({
         necessary: true,
@@ -148,12 +151,55 @@ class CookieConsentManager {
   private showBanner() {
     this.banner?.classList.remove('hidden');
     this.banner?.classList.add('cookie-banner-visible');
+    
+    // Accessibility: Manage focus
+    setTimeout(() => {
+      const focusable = this.getFocusableElements();
+      if (focusable.length > 0) focusable[0].focus();
+    }, 100);
+  }
+
+  private getFocusableElements(): HTMLElement[] {
+    if (!this.banner) return [];
+    return Array.from(this.banner.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    )) as HTMLElement[];
+  }
+
+  private handleTrapFocus(e: KeyboardEvent) {
+    if (!this.banner || this.banner.classList.contains('hidden')) return;
+
+    const focusableElements = this.getFocusableElements();
+    const firstFocusableElement = focusableElements[0];
+    const lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+    const isTabPressed = e.key === 'Tab' || e.keyCode === 9;
+
+    if (!isTabPressed) {
+      if (e.key === 'Escape') this.hideBanner();
+      return;
+    }
+
+    if (e.shiftKey) {
+      if (document.activeElement === firstFocusableElement) {
+        lastFocusableElement.focus();
+        e.preventDefault();
+      }
+    } else {
+      if (document.activeElement === lastFocusableElement) {
+        firstFocusableElement.focus();
+        e.preventDefault();
+      }
+    }
   }
 
   private hideBanner() {
     this.banner?.classList.add('hidden');
     this.banner?.classList.remove('cookie-banner-visible');
     this.resetDetailsState();
+    
+    // Accessibility: Return focus to trigger or body
+    this.settingsBtn?.focus();
   }
   
   private resetDetailsState() {

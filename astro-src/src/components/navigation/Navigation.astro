@@ -30,33 +30,40 @@ const href = (path: string) => getLocalizedHref(path, lang);
         <div class="relative" id="services-dropdown">
           <div class="flex items-center gap-1.5 py-2">
             <a href={href("/#sluzby")} class="hover:text-white transition-colors">{t.nav_services}</a>
-            <button id="services-trigger" class="hover:text-white transition-colors p-1 -m-1">
-              <svg id="services-arrow" class="w-4 h-4 transition-transform duration-300 ease-out" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button 
+              id="services-trigger" 
+              class="hover:text-white transition-colors p-1 -m-1"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-controls="services-menu"
+              aria-label={t.nav_services_label || "Services menu"}
+            >
+              <svg id="services-arrow" class="w-4 h-4 transition-transform duration-300 ease-out" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
               </svg>
             </button>
           </div>
-          <div id="services-menu" class="absolute left-0 top-full pt-2 opacity-0 invisible transition-all duration-200 pointer-events-none">
+          <div id="services-menu" class="absolute left-0 top-full pt-2 opacity-0 invisible transition-all duration-200 pointer-events-none" role="menu">
             <div class="w-56 rounded-xl bg-neutral-900/95 ring-1 ring-white/10 backdrop-blur-xl shadow-2xl overflow-hidden">
               <a href={href("/chatbot")} class="flex items-center gap-3 px-4 py-3 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">
-                <iconify-icon icon="solar:chat-round-dots-linear" class="text-primary text-lg"></iconify-icon>
+                <iconify-icon icon="solar:chat-round-dots-linear" class="text-primary text-lg" aria-hidden="true"></iconify-icon>
                 <div>
                   <div class="font-medium">{t.nav_chatbot_title}</div>
-                  <div class="text-xs text-neutral-500">{t.nav_chatbot_desc}</div>
+                  <div class="text-xs text-neutral-400">{t.nav_chatbot_desc}</div>
                 </div>
               </a>
               <a href={href("/konzultace")} class="flex items-center gap-3 px-4 py-3 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">
-                <iconify-icon icon="solar:users-group-two-rounded-linear" class="text-primary text-lg"></iconify-icon>
+                <iconify-icon icon="solar:users-group-two-rounded-linear" class="text-primary text-lg" aria-hidden="true"></iconify-icon>
                 <div>
                   <div class="font-medium">{t.nav_consulting_title}</div>
-                  <div class="text-xs text-neutral-500">{t.nav_consulting_desc}</div>
+                  <div class="text-xs text-neutral-400">{t.nav_consulting_desc}</div>
                 </div>
               </a>
               <a href={href("/priprava-dat")} class="flex items-center gap-3 px-4 py-3 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">
-                <iconify-icon icon="solar:database-bold" class="text-primary text-lg"></iconify-icon>
+                <iconify-icon icon="solar:database-bold" class="text-primary text-lg" aria-hidden="true"></iconify-icon>
                 <div>
                   <div class="font-medium">{t.dataprep_nav_title}</div>
-                  <div class="text-xs text-neutral-500">{t.dataprep_nav_desc}</div>
+                  <div class="text-xs text-neutral-400">{t.dataprep_nav_desc}</div>
                 </div>
               </a>
             </div>
@@ -72,14 +79,21 @@ const href = (path: string) => getLocalizedHref(path, lang);
     <div class="flex items-center gap-3 text-sm font-medium">
       <!-- Language Switcher -->
       <div class="relative" id="lang-switcher">
-        <button id="lang-trigger" class="hidden sm:flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-neutral-300 hover:bg-neutral-800 transition">
-          <span class="text-base" id="lang-flag">{lang === 'cs' ? '🇨🇿' : '🇬🇧'}</span>
+        <button 
+          id="lang-trigger" 
+          class="hidden sm:flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-neutral-300 hover:bg-neutral-800 transition"
+          aria-expanded="false"
+          aria-haspopup="true"
+          aria-controls="lang-dropdown"
+          aria-label={t.nav_lang_label || "Select language"}
+        >
+          <span class="text-base" id="lang-flag" aria-hidden="true">{lang === 'cs' ? '🇨🇿' : '🇬🇧'}</span>
           <span id="lang-text">{lang === 'cs' ? 'Čeština' : 'English'}</span>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
           </svg>
         </button>
-        <div id="lang-dropdown" class="hidden absolute right-0 mt-2 w-36 rounded-lg bg-neutral-900/95 ring-1 ring-white/10 backdrop-blur-xl shadow-xl overflow-hidden">
+        <div id="lang-dropdown" class="hidden absolute right-0 mt-2 w-36 rounded-lg bg-neutral-900/95 ring-1 ring-white/10 backdrop-blur-xl shadow-xl overflow-hidden" role="menu">
           <button class={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-white/5 ${lang === 'cs' ? 'text-primary bg-primary/10' : 'text-neutral-300'}`} data-lang="cs">
             <span class="text-base">🇨🇿</span>
             <span>Čeština</span>
@@ -107,7 +121,7 @@ const href = (path: string) => getLocalizedHref(path, lang);
           <span class="nav-bubble"></span>
         </span>
         <span class="text-xs font-semibold tracking-tight relative z-10">{t.nav_cta}</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary relative z-10">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary relative z-10" aria-hidden="true">
           <path d="M5 12h14"></path>
           <path d="m12 5 7 7-7 7"></path>
         </svg>
@@ -115,8 +129,14 @@ const href = (path: string) => getLocalizedHref(path, lang);
 
       <!-- Mobile Menu Button -->
       {!simple && (
-        <button id="mobile-menu-btn" class="lg:hidden p-2 text-neutral-400 hover:text-white">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <button 
+          id="mobile-menu-btn" 
+          class="lg:hidden p-2 text-neutral-400 hover:text-white"
+          aria-label={t.nav_open_menu_label || "Open menu"}
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <line x1="3" x2="21" y1="6" y2="6"></line>
             <line x1="3" x2="21" y1="12" y2="12"></line>
             <line x1="3" x2="21" y1="18" y2="18"></line>

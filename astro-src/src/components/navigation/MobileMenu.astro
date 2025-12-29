@@ -12,10 +12,20 @@ const t = translations[lang];
 const href = (path: string) => getLocalizedHref(path, lang);
 ---
 
-<div id="mobile-menu" class="fixed inset-0 z-[60] bg-neutral-950/98 backdrop-blur-xl hidden">
+<div 
+  id="mobile-menu" 
+  class="fixed inset-0 z-[60] bg-neutral-950/98 backdrop-blur-xl hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-label={t.nav_mobile_menu_label || "Mobile navigation menu"}
+>
   <div class="flex flex-col h-full pt-24 px-6 pb-8">
-    <button id="mobile-menu-close" class="absolute top-6 right-6 p-2 text-neutral-400 hover:text-white">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <button 
+      id="mobile-menu-close" 
+      class="absolute top-6 right-6 p-2 text-neutral-400 hover:text-white"
+      aria-label={t.nav_close_menu_label || "Close menu"}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <line x1="18" x2="6" y1="6" y2="18"></line>
         <line x1="6" x2="18" y1="6" y2="18"></line>
       </svg>
@@ -71,13 +81,13 @@ const href = (path: string) => getLocalizedHref(path, lang);
       <a href="#kontakt" class="w-full flex items-center justify-center gap-2 py-4 bg-primary text-white font-semibold rounded-lg">
         {t.nav_cta}
       </a>
-      <div class="flex flex-col gap-2 mt-6 text-sm text-neutral-500">
+    <div class="flex flex-col gap-2 mt-6 text-sm text-neutral-400">
         <a href="mailto:info@hypedigitaly.ai" class="flex items-center gap-2">
-          <iconify-icon icon="solar:letter-linear" class="text-lg"></iconify-icon>
+          <iconify-icon icon="solar:letter-linear" class="text-lg" aria-hidden="true"></iconify-icon>
           info@hypedigitaly.ai
         </a>
         <a href="tel:+420774996248" class="flex items-center gap-2">
-          <iconify-icon icon="solar:phone-linear" class="text-lg"></iconify-icon>
+          <iconify-icon icon="solar:phone-linear" class="text-lg" aria-hidden="true"></iconify-icon>
           +420 774 996 248
         </a>
       </div>

@@ -236,6 +236,9 @@ const websiteSchema = {
   <slot name="head" />
 </head>
 <body class="relative min-h-screen overflow-x-hidden selection:bg-primary/20 selection:text-white font-geist">
+  <a href="#main-content" class="skip-link">
+    {lang === 'cs' ? 'Přeskočit na hlavní obsah' : 'Skip to main content'}
+  </a>
   <slot />
   
   <!-- Core JavaScript - Optimized -->

@@ -52,8 +52,9 @@ const href = (path: string) => getLocalizedHref(path, lang);
             ? activeColors[category.id] 
             : `${inactiveColors[category.id]} border`
         }`}
+        aria-current={isActive ? 'page' : undefined}
       >
-        <iconify-icon icon={category.icon} class="text-base"></iconify-icon>
+        <iconify-icon icon={category.icon} class="text-base" aria-hidden="true"></iconify-icon>
         {name}
       </a>
     );

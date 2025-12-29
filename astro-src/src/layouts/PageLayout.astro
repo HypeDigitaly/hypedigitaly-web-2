@@ -41,7 +41,7 @@ const {
   <Navigation lang={lang} simple={simpleNav} />
   <MobileMenu lang={lang} />
   
-  <main class="z-10 relative pt-32 overflow-x-hidden">
+  <main id="main-content" class="z-10 relative pt-32 overflow-x-hidden" role="main">
     <slot />
   </main>
   
@@ -76,12 +76,14 @@ const {
 
         langTrigger?.addEventListener('click', (e) => {
           e.stopPropagation();
-          langDropdown?.classList.toggle('hidden');
+          const isHidden = langDropdown?.classList.toggle('hidden');
+          langTrigger.setAttribute('aria-expanded', (!isHidden).toString());
         });
 
         document.addEventListener('click', (e) => {
           if (!e.target.closest('#lang-switcher')) {
             langDropdown?.classList.add('hidden');
+            langTrigger?.setAttribute('aria-expanded', 'false');
           }
         });
 
@@ -119,14 +121,53 @@ const {
       const mobileMenuClose = document.getElementById('mobile-menu-close');
       const mobileMenu = document.getElementById('mobile-menu');
 
+      function getFocusableElements(container) {
+        return container.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      }
+
+      function handleTrapFocus(e, container) {
+        const focusableElements = getFocusableElements(container);
+        const firstFocusableElement = focusableElements[0];
+        const lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+        const isTabPressed = e.key === 'Tab' || e.keyCode === 9;
+
+        if (!isTabPressed) return;
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstFocusableElement) {
+            lastFocusableElement.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === lastFocusableElement) {
+            firstFocusableElement.focus();
+            e.preventDefault();
+          }
+        }
+      }
+
       function openMobileMenu() {
         mobileMenu?.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
+        mobileMenuBtn?.setAttribute('aria-expanded', 'true');
+        
+        // Focus first element in menu
+        setTimeout(() => {
+          const focusableElements = getFocusableElements(mobileMenu);
+          if (focusableElements.length > 0) focusableElements[0].focus();
+        }, 100);
+
+        mobileMenu?.addEventListener('keydown', (e) => handleTrapFocus(e, mobileMenu));
       }
 
       function closeMobileMenu() {
         mobileMenu?.classList.add('hidden');
         document.body.style.overflow = '';
+        mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+        mobileMenuBtn?.focus();
+        
+        mobileMenu?.removeEventListener('keydown', (e) => handleTrapFocus(e, mobileMenu));
       }
 
       mobileMenuBtn?.addEventListener('click', () => {
@@ -149,6 +190,16 @@ const {
         }
       });
 
+      // Escape key to close
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (!mobileMenu?.classList.contains('hidden')) closeMobileMenu();
+          if (servicesOpen) closeServicesDropdown();
+          langDropdown?.classList.add('hidden');
+          langTrigger?.setAttribute('aria-expanded', 'false');
+        }
+      });
+
       // ==================== DESKTOP SERVICES DROPDOWN ====================
       const servicesTrigger = document.getElementById('services-trigger');
       const servicesMenu = document.getElementById('services-menu');
@@ -162,6 +213,7 @@ const {
         servicesMenu?.classList.add('opacity-100', 'visible', 'pointer-events-auto');
         servicesArrow?.classList.add('rotate-180');
         servicesTrigger?.classList.add('text-white');
+        servicesTrigger?.setAttribute('aria-expanded', 'true');
       }
 
       function closeServicesDropdown() {
@@ -170,6 +222,7 @@ const {
         servicesMenu?.classList.remove('opacity-100', 'visible', 'pointer-events-auto');
         servicesArrow?.classList.remove('rotate-180');
         servicesTrigger?.classList.remove('text-white');
+        servicesTrigger?.setAttribute('aria-expanded', 'false');
       }
 
       servicesTrigger?.addEventListener('click', (e) => {
@@ -188,6 +241,11 @@ const {
         if (!e.target.closest('#services-dropdown')) {
           closeServicesDropdown();
         }
+      });
+
+      // Keyboard support for services menu
+      servicesMenu?.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeServicesDropdown();
       });
 
       // ==================== MOBILE SERVICES SUBMENU ====================
