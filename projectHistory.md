@@ -1,5 +1,40 @@
 # Project History
 
+## [2025-12-29] Comprehensive SEO Optimization - Structured Data & Technical SEO
+- **robots.txt:** Created comprehensive robots.txt with sitemap reference and crawler directives.
+- **Dynamic Sitemap:** Implemented SSR-based `/sitemap.xml` endpoint with:
+  - All static pages with proper priority and changefreq.
+  - All blog posts with dynamic URLs.
+  - Full hreflang support (cs/en/x-default) for all URLs.
+  - XML namespace for xhtml links.
+- **Canonical URLs:** Added dynamic canonical URL generation in BaseLayout.astro based on current path and language.
+- **Hreflang Tags:** Implemented bidirectional hreflang tags for Czech/English in BaseLayout.astro.
+- **Organization JSON-LD:** Added comprehensive Organization schema to BaseLayout with:
+  - Company details (name, address, contact, geo coordinates).
+  - Social media links (LinkedIn, Instagram, Facebook, YouTube).
+  - Founder information, founding date, area served.
+  - knowsAbout for semantic relevance.
+- **WebSite JSON-LD:** Added WebSite schema for sitelinks search box potential.
+- **Article JSON-LD:** Added to blog post pages [slug].astro with:
+  - Headline, description, author, publisher, datePublished, wordCount, timeRequired.
+  - Keywords from tags, article section from category.
+- **BreadcrumbList JSON-LD:** Added to all service pages, blog listing, and individual blog posts.
+- **FAQ JSON-LD:** Added FAQPage schema to index.astro and chatbot.astro with localized Q&A.
+- **Service JSON-LD:** Added Service schema to chatbot.astro, priprava-dat.astro, konzultace.astro with offers and provider info.
+- **SoftwareApplication JSON-LD:** Added for RAGus.ai on priprava-dat page.
+- **ItemList JSON-LD:** Added service catalog to homepage.
+- **CollectionPage JSON-LD:** Added to blog listing with all posts as ItemList.
+- **Meta Enhancements:**
+  - Added robots meta with max-image-preview:large, max-snippet:-1.
+  - Added author, publisher meta tags.
+  - Added og:locale and og:locale:alternate for language variants.
+  - Added article:* Open Graph tags for blog posts.
+  - Added twitter:image:alt for accessibility.
+  - Added apple-touch-icon for iOS.
+- **Preconnect/DNS-Prefetch:** Added hints for YouTube, Google, Cal.com, Iconify.
+- **Fixed Hardcoded Titles:** Localized priprava-dat.astro title and description (was Czech-only).
+- **Files Modified:** BaseLayout.astro, PageLayout.astro, index.astro, chatbot.astro, priprava-dat.astro, konzultace.astro, blog/index.astro, blog/[slug].astro, sitemap.xml.ts (new), robots.txt (new).
+
 ## [2025-12-28] Cookie Consent UX Optimization (Option A+B)
 - **Compact Layout:** Reduced vertical footprint of the cookie banner on all devices.
 - **Shortened Description:** Simplified the initial cookie explanation to focus on core functionality.

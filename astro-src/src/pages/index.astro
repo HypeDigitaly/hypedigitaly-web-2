@@ -37,14 +37,102 @@ if (langParam && (langParam === 'en' || langParam === 'cs')) {
 
 // Helper for localized links
 const href = (path: string) => getLocalizedHref(path, lang);
+
+// SEO: FAQ Structured Data
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqData.items.map(item => ({
+    "@type": "Question",
+    "name": lang === 'cs' ? item.question_cs : item.question_en,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": lang === 'cs' ? item.answer_cs : item.answer_en
+    }
+  }))
+};
+
+// SEO: Service Structured Data (main services on homepage)
+const SITE_URL = 'https://hypedigitaly.ai';
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "Service",
+        "name": lang === 'cs' ? "AI Chatbot" : "AI Chatbot",
+        "description": lang === 'cs' 
+          ? "Inteligentní AI chatbot s 90%+ přesností odpovědí. První v ČR nasazený na krajských webech."
+          : "Intelligent AI chatbot with 90%+ response accuracy. First in Czech Republic deployed on regional government websites.",
+        "provider": {
+          "@type": "Organization",
+          "name": "HypeDigitaly"
+        },
+        "url": `${SITE_URL}/chatbot`,
+        "areaServed": {
+          "@type": "Country",
+          "name": "Czech Republic"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "Service",
+        "name": lang === 'cs' ? "Příprava dat pro AI" : "AI Data Preparation",
+        "description": lang === 'cs'
+          ? "Připravíme vaše data pro AI tak, aby odpovídala přesně a bez halucinací."
+          : "We prepare your data for AI to respond accurately without hallucinations.",
+        "provider": {
+          "@type": "Organization",
+          "name": "HypeDigitaly"
+        },
+        "url": `${SITE_URL}/priprava-dat`
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "Service",
+        "name": lang === 'cs' ? "Konzultace & Podpora" : "Consulting & Support",
+        "description": lang === 'cs'
+          ? "AI konzultace, audity a partnerství na klíč."
+          : "AI consulting, audits and turnkey partnerships.",
+        "provider": {
+          "@type": "Organization",
+          "name": "HypeDigitaly"
+        },
+        "url": `${SITE_URL}/konzultace`
+      }
+    }
+  ]
+};
+
+// Page meta
+const pageTitle = lang === 'cs' 
+  ? "HypeDigitaly | AI Transformation Partner - První AI agentura v ČR"
+  : "HypeDigitaly | AI Transformation Partner - First AI Agency in Czech Republic";
+const pageDescription = lang === 'cs'
+  ? "HypeDigitaly je AI Transformation Partner. Pomáháme organizacím implementovat AI chatboty, voiceboty, AI agenty a automatizace. Jsme první společnost v ČR, která nasadila AI chatboty na krajské weby."
+  : "HypeDigitaly is an AI Transformation Partner. We help organizations implement AI chatbots, voicebots, AI agents and automation. We are the first company in Czech Republic to deploy AI chatbots on regional government websites.";
 ---
 
 <PageLayout 
-  title="HypeDigitaly | AI Transformation Partner - První AI agentura v ČR"
-  description="HypeDigitaly je AI Transformation Partner. Pomáháme organizacím implementovat AI chatboty, voiceboty, AI agenty a automatizace. Jsme první společnost v ČR, která nasadila AI chatboty na krajské weby."
+  title={pageTitle}
+  description={pageDescription}
   lang={lang}
   showCalendar={false}
 >
+  <!-- FAQ Structured Data -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  
+  <!-- Service Structured Data -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
   <!-- ==================== HERO SECTION ==================== -->
   <section class="relative max-w-7xl mx-auto px-4 sm:px-6 pt-12 pb-24 overflow-hidden">
     <div class="text-center max-w-5xl mx-auto relative z-10">

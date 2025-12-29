@@ -357,13 +357,94 @@ if (hasRagusComponent) {
 }
 
 const htmlContent = hasRagusComponent ? '' : convertMarkdownToHtml(content);
+
+// SEO: Build structured data
+const SITE_URL = 'https://hypedigitaly.ai';
+const postUrl = `${SITE_URL}/blog/${post.slug}`;
+const excerpt = lang === 'cs' ? post.excerpt_cs : post.excerpt_en;
+const fullFeaturedImage = post.featured_image?.startsWith('http') 
+  ? post.featured_image 
+  : `${SITE_URL}${post.featured_image}`;
+
+// Article structured data
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": title,
+  "description": excerpt,
+  "image": fullFeaturedImage,
+  "datePublished": post.published_date,
+  "dateModified": post.published_date,
+  "author": {
+    "@type": "Person",
+    "name": post.author,
+    "url": "https://www.linkedin.com/in/cermakai/",
+    "jobTitle": authorRole
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "HypeDigitaly",
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${SITE_URL}/assets/images/logo.png`
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": postUrl
+  },
+  "articleSection": categoryName,
+  "keywords": tags.join(', '),
+  "wordCount": content.split(/\s+/).length,
+  "timeRequired": `PT${post.read_time_minutes}M`,
+  "inLanguage": lang === 'cs' ? "cs-CZ" : "en-US"
+};
+
+// BreadcrumbList structured data
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": lang === 'cs' ? "Domů" : "Home",
+      "item": SITE_URL
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": `${SITE_URL}/blog`
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": title,
+      "item": postUrl
+    }
+  ]
+};
 ---
 
 <PageLayout 
   title={`${title} | HypeDigitaly Blog`}
   description={lang === 'cs' ? post.excerpt_cs : post.excerpt_en}
   lang={lang}
+  ogImage={fullFeaturedImage}
+  articleMeta={{
+    publishedTime: post.published_date,
+    modifiedTime: post.published_date,
+    author: post.author,
+    section: categoryName,
+    tags: tags
+  }}
 >
+  <!-- Article Structured Data -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  
+  <!-- BreadcrumbList Structured Data -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   <article class="blog-article">
     <!-- ==================== HERO SECTION ==================== -->
     <div class="hero-section">

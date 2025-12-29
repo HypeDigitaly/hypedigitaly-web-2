@@ -29,14 +29,115 @@ if (langParam && (langParam === 'en' || langParam === 'cs')) {
     sameSite: 'lax'
   });
 }
+
+// SEO: Constants
+const SITE_URL = 'https://hypedigitaly.ai';
+
+// SEO: Localized meta tags (FIX: was hardcoded in Czech)
+const pageTitle = lang === 'cs' 
+  ? "Příprava dat pro AI | HypeDigitaly - Čistá data, přesná AI"
+  : "AI Data Preparation | HypeDigitaly - Clean Data, Accurate AI";
+const pageDescription = lang === 'cs'
+  ? "Připravíme vaše data pro AI tak, aby odpovídala přesně a bez halucinací. Zpracujeme libovolný formát, centralizujeme do jednoho místa. 99% přesnost."
+  : "We prepare your data for AI to respond accurately without hallucinations. We process any format, centralize into one place. 99% accuracy.";
+
+// SEO: Service Structured Data
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": lang === 'cs' ? "Příprava dat pro AI" : "AI Data Preparation",
+  "description": pageDescription,
+  "provider": {
+    "@type": "Organization",
+    "name": "HypeDigitaly s.r.o.",
+    "url": SITE_URL
+  },
+  "url": `${SITE_URL}/priprava-dat`,
+  "areaServed": {
+    "@type": "Country",
+    "name": "Czech Republic"
+  },
+  "serviceType": lang === 'cs' ? "Příprava dat" : "Data Preparation",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": lang === 'cs' ? "Hodinová sazba" : "Hourly Rate",
+      "price": "2500",
+      "priceCurrency": "CZK",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "2500",
+        "priceCurrency": "CZK",
+        "unitText": lang === 'cs' ? "hodina" : "hour"
+      }
+    },
+    {
+      "@type": "Offer",
+      "name": lang === 'cs' ? "Paušál za datový zdroj" : "Per Data Source",
+      "price": "15000",
+      "priceCurrency": "CZK"
+    }
+  ]
+};
+
+// SEO: BreadcrumbList
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": lang === 'cs' ? "Domů" : "Home",
+      "item": SITE_URL
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": lang === 'cs' ? "Příprava dat pro AI" : "AI Data Preparation",
+      "item": `${SITE_URL}/priprava-dat`
+    }
+  ]
+};
+
+// SEO: SoftwareApplication for RAGus.ai (mentioned on this page)
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "RAGus.ai",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "description": lang === 'cs' 
+    ? "RAG-as-a-Service platforma pro AI agentury a enterprise týmy"
+    : "RAG-as-a-Service platform for AI agencies and enterprise teams",
+  "url": "https://ragus.ai",
+  "offers": {
+    "@type": "Offer",
+    "price": "49.99",
+    "priceCurrency": "USD",
+    "priceValidUntil": "2025-12-31"
+  },
+  "creator": {
+    "@type": "Organization",
+    "name": "HypeDigitaly"
+  }
+};
 ---
 
 <PageLayout 
-  title="Příprava dat pro AI | HypeDigitaly - Čistá data, přesná AI"
-  description="Připravíme vaše data pro AI tak, aby odpovídala přesně a bez halucinací. Zpracujeme libovolný formát, centralizujeme do jednoho místa. 99% přesnost."
+  title={pageTitle}
+  description={pageDescription}
   lang={lang}
   showCalendar={false}
 >
+  <!-- Service Structured Data -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  
+  <!-- Breadcrumb Structured Data -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  
+  <!-- RAGus.ai Software Structured Data -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
   <!-- ==================== HERO SECTION ==================== -->
   <section class="relative max-w-7xl mx-auto px-4 sm:px-6 pt-12 pb-24 overflow-hidden">
     <div class="text-center max-w-5xl mx-auto relative z-10">

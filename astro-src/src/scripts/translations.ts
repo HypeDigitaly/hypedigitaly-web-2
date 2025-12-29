@@ -1437,7 +1437,7 @@ export const translations: Record<Language, TranslationKeys> = {
     // Cookie Consent
     cookie_title: "Nastavení cookies",
     cookie_subtitle: "Respektujeme vaše soukromí",
-    cookie_description: "Používáme cookies k zajištění správného fungování webu a ke zlepšení vašeho zážitku. Některé cookies jsou nezbytné, jiné nám pomáhají analyzovat návštěvnost a personalizovat obsah. Vyberte si, které cookies chcete povolit.",
+    cookie_description: "Používáme cookies k zajištění správného fungování webu a ke zlepšení vašeho zážitku.",
     cookie_necessary_title: "Nezbytné",
     cookie_necessary_desc: "Tyto cookies jsou nezbytné pro správné fungování webu. Bez nich by web nefungoval správně. Zahrnují cookies pro správu relace, jazykové preference a základní bezpečnostní funkce.",
     cookie_functional_title: "Funkční",
@@ -2255,7 +2255,7 @@ export const translations: Record<Language, TranslationKeys> = {
     // Cookie Consent
     cookie_title: "Cookie Settings",
     cookie_subtitle: "We respect your privacy",
-    cookie_description: "We use cookies to ensure proper website functionality and to improve your experience. Some cookies are essential, others help us analyze traffic and personalize content. Choose which cookies you want to allow.",
+    cookie_description: "We use cookies to ensure proper website functionality and to improve your experience.",
     cookie_necessary_title: "Necessary",
     cookie_necessary_desc: "These cookies are essential for the proper functioning of the website. Without them, the website would not work correctly. They include session management, language preferences, and basic security features.",
     cookie_functional_title: "Functional",

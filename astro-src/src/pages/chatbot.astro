@@ -32,14 +32,133 @@ if (langParam && (langParam === 'en' || langParam === 'cs')) {
     sameSite: 'lax'
   });
 }
+
+// SEO: Constants
+const SITE_URL = 'https://hypedigitaly.ai';
+
+// SEO: Page meta (localized)
+const pageTitle = lang === 'cs' 
+  ? "AI Chatbot | HypeDigitaly - Nejlepší AI chatbot v ČR"
+  : "AI Chatbot | HypeDigitaly - Best AI Chatbot in Czech Republic";
+const pageDescription = lang === 'cs'
+  ? "Inteligentní AI chatbot s 90%+ přesností odpovědí. První v ČR nasazený na krajských webech. Automatizujte zákaznickou podporu 24/7."
+  : "Intelligent AI chatbot with 90%+ response accuracy. First in Czech Republic deployed on regional government websites. Automate customer support 24/7.";
+
+// SEO: FAQ Structured Data for chatbot page
+const chatbotFaqItems = [
+  { q: t.chatbot_faq_1_q, a: t.chatbot_faq_1_a },
+  { q: t.chatbot_faq_2_q, a: t.chatbot_faq_2_a },
+  { q: t.chatbot_faq_3_q, a: t.chatbot_faq_3_a },
+  { q: t.chatbot_faq_4_q, a: t.chatbot_faq_4_a },
+  { q: t.chatbot_faq_5_q, a: t.chatbot_faq_5_a },
+  { q: t.chatbot_faq_6_q, a: t.chatbot_faq_6_a },
+  { q: t.chatbot_faq_7_q, a: t.chatbot_faq_7_a },
+  { q: t.chatbot_faq_8_q, a: t.chatbot_faq_8_a },
+  { q: t.chatbot_faq_9_q, a: t.chatbot_faq_9_a },
+  { q: t.chatbot_faq_10_q, a: t.chatbot_faq_10_a },
+  { q: t.chatbot_faq_11_q, a: t.chatbot_faq_11_a },
+  { q: t.chatbot_faq_12_q, a: t.chatbot_faq_12_a },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": chatbotFaqItems.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+
+// SEO: Service Structured Data
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "AI Chatbot",
+  "description": pageDescription,
+  "provider": {
+    "@type": "Organization",
+    "name": "HypeDigitaly s.r.o.",
+    "url": SITE_URL
+  },
+  "url": `${SITE_URL}/chatbot`,
+  "areaServed": {
+    "@type": "Country",
+    "name": "Czech Republic"
+  },
+  "serviceType": "AI Chatbot Development",
+  "offers": {
+    "@type": "Offer",
+    "availability": "https://schema.org/InStock",
+    "priceCurrency": "CZK"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": lang === 'cs' ? "AI Chatbot služby" : "AI Chatbot Services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": lang === 'cs' ? "Vývoj AI Chatbota" : "AI Chatbot Development"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": lang === 'cs' ? "RAG integrace" : "RAG Integration"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": lang === 'cs' ? "Správa znalostní báze" : "Knowledge Base Management"
+        }
+      }
+    ]
+  }
+};
+
+// SEO: BreadcrumbList
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": lang === 'cs' ? "Domů" : "Home",
+      "item": SITE_URL
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "AI Chatbot",
+      "item": `${SITE_URL}/chatbot`
+    }
+  ]
+};
 ---
 
 <PageLayout 
-  title="AI Chatbot | HypeDigitaly - Nejlepší AI chatbot v ČR"
-  description="Inteligentní AI chatbot s 90%+ přesností odpovědí. První v ČR nasazený na krajských webech. Automatizujte zákaznickou podporu 24/7."
+  title={pageTitle}
+  description={pageDescription}
   lang={lang}
   showCalendar={false}
 >
+  <!-- FAQ Structured Data -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  
+  <!-- Service Structured Data -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  
+  <!-- Breadcrumb Structured Data -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   <!-- ==================== HERO SECTION ==================== -->
   <section class="relative max-w-7xl mx-auto px-4 sm:px-6 pt-12 pb-24 overflow-hidden">
     <div class="text-center max-w-5xl mx-auto relative z-10">
