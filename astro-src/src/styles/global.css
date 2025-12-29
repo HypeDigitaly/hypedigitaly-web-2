@@ -169,9 +169,14 @@ body {
 
 /* ==================== PERFORMANCE OPTIMIZATIONS ==================== */
 /* Content visibility for off-screen sections - improves rendering performance */
-section {
+/* EXCEPTION: Sections with IDs (navigation targets) MUST be visible for accurate scroll calculation */
+section:not([id]) {
   content-visibility: auto;
   contain-intrinsic-size: auto 500px;
+}
+
+section[id] {
+  content-visibility: visible !important;
 }
 
 /* ==================== CODE BLOCK MOBILE FIXES ==================== */

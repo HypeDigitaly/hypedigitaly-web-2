@@ -255,96 +255,128 @@ const websiteSchema = {
       });
     })();
 
-    // ==================== SMOOTH SCROLL (Event Delegation) ====================
-    document.addEventListener('click', function(e) {
-      // Improved selector to catch both internal and path-prefixed hashes (e.g., /#section)
-      const anchor = e.target.closest('a[href*="#"]');
-      if (!anchor) return;
+    // ==================== SMOOTH SCROLL (Robust Implementation) ====================
+    (function() {
+      const NAVBAR_HEIGHT = 96; // 6rem = 96px
 
-      try {
-        const url = new URL(anchor.href);
-        const currentPath = window.location.pathname;
-        
-        // Normalize paths for comparison (handle trailing slashes and root path)
-        const normalizePath = (path) => {
-          if (!path || path === '/') return '/';
-          return path.replace(/\/$/, '');
-        };
-        
-        const normalizedUrlPath = normalizePath(url.pathname);
-        const normalizedCurrentPath = normalizePath(currentPath);
-        
-        // Check if same page (compare paths, ignore query params for this check)
-        const isSamePage = url.origin === window.location.origin && 
-                          normalizedUrlPath === normalizedCurrentPath;
-        
-        // Special case: links pointing to index page hash (/#section) when already on index
-        const isIndexHashLink = normalizedUrlPath === '/' && normalizedCurrentPath === '/' && url.hash;
+      // Helper to calculate target scroll position
+      const getTargetPosition = (element) => {
+        const elementTop = element.getBoundingClientRect().top + window.scrollY;
+        return elementTop - NAVBAR_HEIGHT;
+      };
 
-        // Page-specific hash mappings: when on certain pages, map external hashes to local equivalents
-        // Used when the local section has a DIFFERENT ID than the link's hash
-        const pageHashMap = {
-          '/priprava-dat': {
-            'priprava-dat': 'ragus'  // /#priprava-dat (link) -> #ragus (local ID on this page)
+      // Robust scroll function with verification
+      const performScroll = (targetId, isInitialLoad = false) => {
+        const target = document.querySelector(targetId);
+        if (!target) return;
+
+        const targetPos = getTargetPosition(target);
+        
+        // Initial scroll
+        window.scrollTo({
+          top: targetPos,
+          behavior: isInitialLoad ? 'auto' : 'smooth'
+        });
+
+        // Verification & Retry for layout shifts
+        setTimeout(() => {
+          const currentPos = getTargetPosition(target);
+          if (Math.abs(window.scrollY - currentPos) > 10) {
+            window.scrollTo({
+              top: currentPos,
+              behavior: 'smooth'
+            });
           }
-        };
+        }, isInitialLoad ? 100 : 500);
+      };
 
-        let targetHash = url.hash;
-        let shouldIntercept = isSamePage || isIndexHashLink;
-
-        // ====== UNIVERSAL LOCAL-FIRST CHECK ======
-        // If clicking a link like /#hash and current page HAS that exact #hash element,
-        // intercept and scroll locally instead of navigating to another page.
-        // This handles cases like /chatbot having its own #priprava-dat section.
-        if (!shouldIntercept && url.hash) {
-          const hashWithoutPound = url.hash.substring(1);
-          
-          // Priority 1: Direct ID match on current page - scroll locally
-          if (document.getElementById(hashWithoutPound)) {
-            shouldIntercept = true;
+      // Handle hash in URL on page load
+      const handleHashOnLoad = () => {
+        if (window.location.hash) {
+          // Wait for DOM and images to be somewhat stable
+          if (document.readyState === 'complete') {
+            performScroll(window.location.hash, true);
+          } else {
+            window.addEventListener('load', () => performScroll(window.location.hash, true), { once: true });
           }
+        }
+      };
+
+      // Page-specific hash mappings
+      const pageHashMap = {
+        '/priprava-dat': {
+          'priprava-dat': 'ragus'
+        }
+      };
+
+      // Normalize paths for comparison
+      const normalizePath = (path) => {
+        if (!path || path === '/') return '/';
+        return path.replace(/\/$/, '').replace(/^\/(en|cs)(\/|$)/, '/');
+      };
+
+      // Handle clicks
+      document.addEventListener('click', function(e) {
+        const anchor = e.target.closest('a[href*="#"]');
+        if (!anchor) return;
+
+        try {
+          const url = new URL(anchor.href);
+          if (url.origin !== window.location.origin) return;
+
+          const normalizedUrlPath = normalizePath(url.pathname);
+          const normalizedCurrentPath = normalizePath(window.location.pathname);
           
-          // Priority 2: Page-specific mappings (for pages where section has different ID)
-          if (!shouldIntercept) {
-            // Normalize path: remove language prefix (e.g. /en/priprava-dat -> /priprava-dat)
-            const cleanPath = normalizedCurrentPath.replace(/^\/(en|cs)(\/|$)/, '/');
-            
-            const mappings = pageHashMap[cleanPath || '/'];
-            if (mappings && mappings[hashWithoutPound]) {
-              const localId = mappings[hashWithoutPound];
-              if (document.getElementById(localId)) {
-                targetHash = '#' + localId;
-                shouldIntercept = true;
+          let targetHash = url.hash;
+          let shouldIntercept = normalizedUrlPath === normalizedCurrentPath;
+
+          // Universal local-first check
+          if (!shouldIntercept && targetHash) {
+            const hashWithoutPound = targetHash.substring(1);
+            if (document.getElementById(hashWithoutPound)) {
+              shouldIntercept = true;
+            } else {
+              // Check mappings
+              const mappings = pageHashMap[normalizedCurrentPath];
+              if (mappings && mappings[hashWithoutPound]) {
+                const localId = mappings[hashWithoutPound];
+                if (document.getElementById(localId)) {
+                  targetHash = '#' + localId;
+                  shouldIntercept = true;
+                }
               }
             }
           }
-        }
 
-        if (shouldIntercept && targetHash) {
-          const target = document.querySelector(targetHash);
-          if (target) {
-            e.preventDefault();
-            
-            // Close mobile menu if it's open
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-              mobileMenu.classList.add('hidden');
-              document.body.style.overflow = '';
+          if (shouldIntercept && targetHash) {
+            const target = document.querySelector(targetHash);
+            if (target) {
+              e.preventDefault();
+              
+              // Close mobile menu
+              const mobileMenu = document.getElementById('mobile-menu');
+              if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                const closeBtn = document.getElementById('mobile-menu-close');
+                if (closeBtn) closeBtn.click();
+                else {
+                  mobileMenu.classList.add('hidden');
+                  document.body.style.overflow = '';
+                }
+              }
+
+              performScroll(targetHash);
+              history.pushState(null, '', targetHash);
             }
-
-            target.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
-            });
-            
-            // Update URL hash without triggering native scroll
-            history.pushState(null, '', targetHash);
           }
+        } catch (err) {
+          // Fallback
         }
-      } catch (err) {
-        // Fallback for invalid URLs
-      }
-    }, { passive: false });
+      }, { passive: false });
+
+      // Initialize on load and on Astro page transitions
+      handleHashOnLoad();
+      document.addEventListener('astro:page-load', handleHashOnLoad);
+    })();
   </script>
   
   <slot name="scripts" />

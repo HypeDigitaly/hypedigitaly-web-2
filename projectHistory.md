@@ -1,5 +1,20 @@
 # Project History
 
+## [2025-12-29] Navigation & Scroll Fix - Professional Anchor Positioning
+- **Robust Scroll Logic**: Completely rewrote the smooth scroll interceptor in `BaseLayout.astro`. It now calculates exact pixel positions instead of relying on `scrollIntoView`, ensuring perfectly consistent offsets from the fixed navbar (~96px).
+- **Layout Shift Resilience**: Implemented a "Verify & Retry" mechanism. The script now re-verifies the scroll position after a short delay to account for layout shifts from loading images or lazy-loaded components (Cal.com, Google Maps).
+- **Initial Load Support**: Added native support for hash-in-URL on page load. If a user visits `/#priprava-dat` directly, the page will now wait for full stability before scrolling to the correct position.
+- **Rendering Performance Fix**: Disabled `content-visibility: auto` for all sections with `id` attributes in `global.css`. This ensures the browser can calculate exact dimensions for navigation targets even if they haven't been scrolled into view yet.
+- **Enhanced Local-First Blog Navigation**: Standardized RAGus.ai section IDs in blog posts to `priprava-dat`. This enables the "local-first" logic to correctly scroll to the embedded RAGus component within blog articles instead of navigating back to the homepage.
+- **Astro Transition Compatibility**: Integrated logic with `astro:page-load` to ensure navigation remains robust across client-side page transitions.
+- **Files Modified**: `BaseLayout.astro`, `global.css`, `[slug].astro`.
+
+## [2025-12-29] UI/UX Fix - Centered Scroll Position for RAGus.ai & All Hash Links
+- **Improved Scroll Centering**: Updated the global smooth scroll logic in `BaseLayout.astro` to use `block: 'center'` instead of `block: 'start'`. 
+- **Enhanced Visibility**: This ensures that when a user clicks on "RAGus.ai" or any other hash link, the target section is perfectly centered in the viewport, providing better visual context and a more professional experience.
+- **Universal Fix**: Applied to all cross-page and local hash navigation handled by the custom scroll interceptor.
+- **Files Modified**: `astro-src/src/layouts/BaseLayout.astro`
+
 ## [2025-12-29] Navigation Fix - Universal Local-First Scroll Logic for RAGus.ai
 - **Fixed RAGus.ai Link Not Scrolling Locally**: Resolved critical issue where clicking "RAGus.ai" (`/#priprava-dat`) in the header navigation would navigate users away from their current page (e.g., `/chatbot`) to the index page, instead of scrolling to the local RAGus.ai section.
 - **Root Cause Identified**: Multiple issues causing the problem:
