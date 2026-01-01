@@ -312,9 +312,9 @@
                   <th>#</th>
                   <th>URL</th>
                   <th class="hide-mobile">Jazyk</th>
-                  <th>Priorita</th>
+                  <th>Lastmod</th>
+                  <th class="hide-mobile">Priorita</th>
                   <th class="hide-mobile">Frekvence</th>
-                  <th class="hide-mobile">Poslední změna</th>
                 </tr>
               </thead>
               <tbody>
@@ -341,9 +341,12 @@
                         </xsl:otherwise>
                       </xsl:choose>
                     </td>
-                    <td>
+                    <td class="date">
+                      <xsl:value-of select="sitemap:lastmod"/>
+                    </td>
+                    <td class="hide-mobile">
                       <xsl:attribute name="class">
-                        <xsl:choose>
+                        hide-mobile <xsl:choose>
                           <xsl:when test="$priority &gt;= 0.8">priority-high</xsl:when>
                           <xsl:when test="$priority &gt;= 0.5">priority-medium</xsl:when>
                           <xsl:otherwise>priority-low</xsl:otherwise>
@@ -353,9 +356,6 @@
                     </td>
                     <td class="hide-mobile freq">
                       <xsl:value-of select="sitemap:changefreq"/>
-                    </td>
-                    <td class="hide-mobile date">
-                      <xsl:value-of select="sitemap:lastmod"/>
                     </td>
                   </tr>
                 </xsl:for-each>

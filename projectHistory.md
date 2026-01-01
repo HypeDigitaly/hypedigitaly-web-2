@@ -1,14 +1,39 @@
 # Project History
 
+## [2026-01-01] Sitemap Lastmod Automation - Git-Based Date Tracking
+- **Enhancement**: Implemented automatic `lastmod` date generation for sitemap.xml based on Git commit history.
+- **Problem Solved**: Previously, lastmod dates were hardcoded and required manual updates. Now they automatically reflect when each page was actually last modified and pushed to GitHub.
+- **How It Works**:
+  - A `prebuild` script (`scripts/generate-lastmod.js`) runs before each build
+  - It queries Git history for the last commit date of each source file
+  - Results are saved to `src/data/page-lastmod.json` manifest
+  - `sitemap.xml.ts` reads from this manifest to generate accurate lastmod values
+- **File-to-URL Mapping**:
+  - Static pages: Each `.astro` file's Git commit date → corresponding URL's lastmod
+  - Blog posts: `blog-posts.json` Git commit date → all blog post URLs' lastmod
+- **Netlify Configuration**: Updated build command to fetch full Git history (`git fetch --unshallow`) for accurate date tracking
+- **Files Created**:
+  - `astro-src/scripts/generate-lastmod.js` - Git date extraction script
+  - `astro-src/src/data/page-lastmod.json` - Auto-generated manifest (committed as template)
+- **Files Modified**:
+  - `astro-src/package.json` - Added `prebuild` script
+  - `astro-src/src/pages/sitemap.xml.ts` - Reads from manifest instead of hardcoded dates
+  - `netlify.toml` - Added git unshallow command and GIT_LFS_SKIP_SMUDGE env var
+
 ## [2025-12-31] Sitemap XSL Stylesheet - Professional Visual Display
 - **Enhancement**: Added XSL stylesheet to transform the XML sitemap into a beautiful, human-readable HTML page when viewed in browsers.
 - **Features**:
   - Dark theme matching the site's aesthetic
   - Statistics header showing total URLs, Czech URLs, and English URLs
   - Color-coded language badges (CS = blue, EN = yellow)
+  - **Lastmod column always visible** - shows actual last modified date for each URL
   - Priority indicators (green = high, yellow = medium, gray = low)
   - Responsive design for mobile devices
   - Clickable URLs that open in new tabs
+- **Lastmod Dates Implementation**:
+  - Each static page now has a manually tracked `lastmod` date in `sitemap.xml.ts`
+  - Blog posts use their `published_date` from blog-posts.json
+  - **IMPORTANT**: When modifying page content, update the `lastmod` date in `staticPages` array
 - **Technical Implementation**:
   - Created `sitemap.xsl` in public folder
   - Added `<?xml-stylesheet?>` processing instruction to sitemap.xml
