@@ -62,3 +62,47 @@
     Cache-Control = "public, max-age=31536000, immutable"
     Access-Control-Allow-Origin = "*"
 
+# ============================================================
+# LANGUAGE URL REDIRECTS
+# Fix for incorrectly indexed path-based language URLs
+# Redirect /en/* and /cs/* to query parameter format (?lang=en)
+# ============================================================
+
+# English path redirects → query parameter format
+[[redirects]]
+  from = "/en"
+  to = "/?lang=en"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/en/"
+  to = "/?lang=en"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/en/*"
+  to = "/:splat?lang=en"
+  status = 301
+  force = true
+
+# Czech path redirects → clean URLs (Czech is default language)
+[[redirects]]
+  from = "/cs"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/cs/"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/cs/*"
+  to = "/:splat"
+  status = 301
+  force = true
+

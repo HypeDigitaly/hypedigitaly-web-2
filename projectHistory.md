@@ -1,5 +1,40 @@
 # Project History
 
+## [2025-12-31] SEO Fix - Language URL 404 Error Resolution
+- **Problem Identified**: Google indexed non-existent path-based language URLs (e.g., `hypedigitaly.ai/en/`, `hypedigitaly.ai/en/chatbot`) causing 404 errors.
+- **Root Cause**: The site uses query parameter-based language switching (`?lang=en`) but path-based URLs (`/en/`) were being crawled.
+- **Solution Implemented (Query Parameter Strategy)**:
+  - **Netlify Redirects**: Added 301 permanent redirects in `netlify.toml` to redirect all `/en/*` → `?lang=en` and `/cs/*` → clean URLs.
+  - **robots.txt Update**: Added `Disallow` rules for `/en/` and `/cs/` paths to prevent future crawling of non-existent URLs.
+  - **Custom 404 Page**: Created `404.astro` with intelligent URL detection that:
+    - Detects if user accessed a path-based language URL (`/en/chatbot`)
+    - Shows a helpful message in the detected language
+    - Auto-redirects to the correct URL format after 5 seconds
+    - Provides immediate redirect link and navigation options
+  - **Translations**: Added 10 new translation keys for the 404 page in both Czech and English.
+- **SEO Strategy Decision**: Analyzed path-based (`/en/`) vs query parameter (`?lang=en`) approaches. Chose to maintain current `?lang=en` implementation due to:
+  - Already complete and consistent implementation
+  - Proper hreflang tags already configured
+  - Migration would risk temporary ranking drop with minimal SEO gain
+  - Query parameters are Google-supported (though not preferred)
+- **Post-Deployment Actions Required**:
+  1. Submit URL removal requests in Google Search Console for `/en/*` URLs
+  2. Re-submit sitemap to trigger fresh crawl
+  3. Monitor Coverage report for 404 reduction
+- **Files Modified**: `netlify.toml`, `astro-src/public/robots.txt`, `astro-src/src/scripts/translations.ts`.
+- **Files Created**: `astro-src/src/pages/404.astro`.
+
+## [2025-12-29] UI Enhancement - Scroll Navigation Buttons (Top/Bottom)
+- **New Feature**: Implemented floating "Scroll to Top" and "Scroll to Bottom" buttons.
+- **Strategic Positioning**: Placed on the **Right Edge, Vertically Centered** to avoid conflicts with future chatbot widgets (bottom-right) and existing cookie consent (bottom-left).
+- **Design & UX**: 
+  - Sleek, glassmorphic dark theme matching the project's aesthetic.
+  - Contextual visibility: Top button appears after 200px scroll; Bottom button disappears when near the bottom.
+  - Smooth scroll integration using the existing robust scroll logic.
+  - Full i18n support with Czech and English translations.
+- **Accessibility**: Added ARIA labels, titles, and reduced-motion support.
+- **Files Modified**: `BaseLayout.astro`, `global.css`, `translations.ts`, `ScrollButtons.astro` (new).
+
 ## [2025-12-29] Blog YouTube Video Layout Fix - Invalid CSS Comment
 - **Root Cause Identified**: Invalid CSS comment syntax (`//` instead of `/* */`) was invalidating the entire `.video-embed` CSS rule block in `[slug].astro`.
 - **Impact**: YouTube video embeds in blog posts (e.g., "Případová studie: 5 krajů ČR") were displaying at absurdly large proportions because the responsive container styles weren't being applied.

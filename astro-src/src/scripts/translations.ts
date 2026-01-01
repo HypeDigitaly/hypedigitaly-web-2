@@ -8,6 +8,10 @@ export interface TranslationKeys {
   nav_contact: string;
   nav_cta: string;
   
+  // Scroll Navigation
+  scroll_to_top: string;
+  scroll_to_bottom: string;
+  
   // Hero
   hero_badge: string;
   hero_headline_1: string;
@@ -811,6 +815,18 @@ export interface TranslationKeys {
   rec_ai_act_title: string;
   rec_ai_act_text: string;
 
+  // 404 Page
+  error_404_title: string;
+  error_404_headline: string;
+  error_404_subheadline: string;
+  error_404_detected_lang_url: string;
+  error_404_redirect_message: string;
+  error_404_redirect_in: string;
+  error_404_seconds: string;
+  error_404_click_here: string;
+  error_404_or_go_home: string;
+  error_404_back_home: string;
+
   [key: string]: string;
 }
 
@@ -822,6 +838,10 @@ export const translations: Record<Language, TranslationKeys> = {
     nav_data_prep: "RAGus.ai",
     nav_contact: "Kontakt",
     nav_cta: "Bezplatná konzultace",
+    
+    // Scroll Navigation
+    scroll_to_top: "Přejít nahoru",
+    scroll_to_bottom: "Přejít dolů",
     
     // Hero
     hero_badge: "AI partner pro společnosti i veřejnou správu",
@@ -1632,6 +1652,18 @@ export const translations: Record<Language, TranslationKeys> = {
     rec_storage_item_4: "ID uživatele (unikátní ID)",
     rec_ai_act_title: "Upozornění na interakci s AI (AI Act)",
     rec_ai_act_text: "Dle legislativy AI Act je povinné zajistit, aby byl uživatel před interakcí s AI o tomto transparentně informován. V rámci užívání chatbotu tedy vždy musí být před konverzací s AI o tomto dopředu upozorněno. Toto v chatbotu musí vždy být jasně a zřetelně uvedeno.",
+
+    // 404 Page
+    error_404_title: "Stránka nenalezena | HypeDigitaly",
+    error_404_headline: "Stránka nenalezena",
+    error_404_subheadline: "Omlouváme se, ale stránka, kterou hledáte, neexistuje nebo byla přesunuta.",
+    error_404_detected_lang_url: "Vypadá to, že jste použili neplatnou URL s jazykovou předponou",
+    error_404_redirect_message: "Přesměrováváme vás na správnou adresu",
+    error_404_redirect_in: "Přesměrování za",
+    error_404_seconds: "vteřin",
+    error_404_click_here: "klikněte zde pro okamžité přesměrování",
+    error_404_or_go_home: "nebo se vraťte na",
+    error_404_back_home: "Zpět na úvodní stránku",
   },
   en: {
     // Navigation
@@ -1640,6 +1672,10 @@ export const translations: Record<Language, TranslationKeys> = {
     nav_data_prep: "RAGus.ai",
     nav_contact: "Contact",
     nav_cta: "Free consultation",
+    
+    // Scroll Navigation
+    scroll_to_top: "Go to top",
+    scroll_to_bottom: "Go to bottom",
     
     // Hero
     hero_badge: "Strategic AI partner for business and public administration · from strategy to execution",
@@ -2450,6 +2486,18 @@ export const translations: Record<Language, TranslationKeys> = {
     rec_storage_item_4: "User ID (unique identifier)",
     rec_ai_act_title: "AI Interaction Disclosure (AI Act)",
     rec_ai_act_text: "Under the AI Act legislation, it is mandatory to ensure that the user is transparently informed before interacting with AI. Therefore, when using the chatbot, there must always be a clear and visible notice before the conversation with AI. This must always be clearly and prominently stated in the chatbot.",
+
+    // 404 Page
+    error_404_title: "Page Not Found | HypeDigitaly",
+    error_404_headline: "Page Not Found",
+    error_404_subheadline: "Sorry, the page you're looking for doesn't exist or has been moved.",
+    error_404_detected_lang_url: "It looks like you used an invalid URL with a language prefix",
+    error_404_redirect_message: "Redirecting you to the correct address",
+    error_404_redirect_in: "Redirecting in",
+    error_404_seconds: "seconds",
+    error_404_click_here: "click here for immediate redirect",
+    error_404_or_go_home: "or go back to",
+    error_404_back_home: "Back to Homepage",
   }
 };
 
