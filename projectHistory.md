@@ -1,5 +1,21 @@
 # Project History
 
+## [2025-12-31] Sitemap XSL Stylesheet - Professional Visual Display
+- **Enhancement**: Added XSL stylesheet to transform the XML sitemap into a beautiful, human-readable HTML page when viewed in browsers.
+- **Features**:
+  - Dark theme matching the site's aesthetic
+  - Statistics header showing total URLs, Czech URLs, and English URLs
+  - Color-coded language badges (CS = blue, EN = yellow)
+  - Priority indicators (green = high, yellow = medium, gray = low)
+  - Responsive design for mobile devices
+  - Clickable URLs that open in new tabs
+- **Technical Implementation**:
+  - Created `sitemap.xsl` in public folder
+  - Added `<?xml-stylesheet?>` processing instruction to sitemap.xml
+  - Proper XML namespace handling for sitemap schema
+- **Files Created**: `astro-src/public/sitemap.xsl`
+- **Files Modified**: `astro-src/src/pages/sitemap.xml.ts`
+
 ## [2025-12-31] SEO Fix - Language URL 404 Error Resolution
 - **Problem Identified**: Google indexed non-existent path-based language URLs (e.g., `hypedigitaly.ai/en/`, `hypedigitaly.ai/en/chatbot`) causing 404 errors.
 - **Root Cause**: The site uses query parameter-based language switching (`?lang=en`) but path-based URLs (`/en/`) were being crawled.
