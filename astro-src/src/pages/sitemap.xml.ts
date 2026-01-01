@@ -41,7 +41,8 @@ function generateUrlEntry(
   }
   
   entry += `
-  </url>`;
+  </url>
+`;
   
   return entry;
 }
@@ -120,11 +121,12 @@ export const GET: APIRoute = async () => {
     );
   }
 
-  sitemap += `</urlset>`;
+  sitemap += `
+</urlset>`;
 
   return new Response(sitemap, {
     headers: {
-      'Content-Type': 'application/xml',
+      'Content-Type': 'application/xml; charset=utf-8',
       'Cache-Control': 'public, max-age=3600' // Cache for 1 hour
     }
   });
