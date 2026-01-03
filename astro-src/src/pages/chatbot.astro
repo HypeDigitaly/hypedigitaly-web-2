@@ -1,10 +1,11 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import ClientsMarquee from '../components/sections/ClientsMarquee.astro';
-import DataPreparationSection from '../components/sections/DataPreparationSection.astro';
+import AdminPanelUnifiedSection from '../components/sections/AdminPanelUnifiedSection.astro';
 import TestimonialsSection from '../components/sections/TestimonialsSection.astro';
 import YoutubeFacade from '../components/ui/YoutubeFacade.astro';
-import { translations, type Language } from '../scripts/translations';
+import ExpandableImage from '../components/ui/ExpandableImage.astro';
+import { translations, type Language, getLocalizedHref } from '../scripts/translations';
 
 // Server-side rendered page - detects language from URL param or cookie
 export const prerender = false;
@@ -59,6 +60,9 @@ const chatbotFaqItems = [
   { q: t.chatbot_faq_10_q, a: t.chatbot_faq_10_a },
   { q: t.chatbot_faq_11_q, a: t.chatbot_faq_11_a },
   { q: t.chatbot_faq_12_q, a: t.chatbot_faq_12_a },
+  { q: t.chatbot_faq_13_q, a: t.chatbot_faq_13_a },
+  { q: t.chatbot_faq_14_q, a: t.chatbot_faq_14_a },
+  { q: t.chatbot_faq_15_q, a: t.chatbot_faq_15_a },
 ];
 
 const faqSchema = {
@@ -223,13 +227,17 @@ const breadcrumbSchema = {
         </div>
         
         <!-- First in CZ Badge -->
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both] mt-8 flex items-center gap-4 p-5 bg-gradient-to-r from-primary/10 to-transparent border border-primary/20 rounded-xl">
-          <div class="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center text-primary flex-shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="text-primary"><path d="M12 15a4 4 0 1 0 0-8a4 4 0 0 0 0 8Z"/><path fill-rule="evenodd" d="M12 1C6.477 1 2 5.477 2 11c0 4.135 2.52 7.682 6.11 9.194l-.24 1.683A1 1 0 0 0 8.86 23h6.28a1 1 0 0 0 .99-1.123l-.24-1.683C19.48 18.682 22 15.135 22 11c0-5.523-4.477-10-10-10Zm0 2a8 8 0 0 0-8 8c0 3.51 2.264 6.49 5.43 7.58a1 1 0 0 1 .68.953l.21 1.467h3.36l.21-1.467a1 1 0 0 1 .68-.953C17.736 17.49 20 14.51 20 11a8 8 0 0 0-8-8Z" clip-rule="evenodd"/></svg>
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both] mt-12 max-w-5xl mx-auto bg-[#030303] border border-primary/20 rounded-[2rem] p-8 md:p-10 flex flex-col md:flex-row items-center gap-10 relative overflow-hidden group hover:border-primary/40 transition-all duration-500 shadow-[0_0_50px_rgba(0,163,154,0.03)]">
+          <!-- Decorative Background Glow -->
+          <div class="absolute -top-24 -left-24 w-48 h-48 bg-primary/5 blur-[80px] rounded-full group-hover:bg-primary/10 transition-colors duration-500"></div>
+          
+          <div class="relative z-10 flex-shrink-0 w-20 h-20 rounded-2xl bg-[#080808] border border-primary/30 flex items-center justify-center shadow-2xl">
+            <iconify-icon icon="solar:chat-round-dots-bold" class="text-4xl text-primary drop-shadow-[0_0_10px_rgba(0,163,154,0.4)]"></iconify-icon>
           </div>
-          <div>
-            <h3 class="text-lg font-bold text-white mb-1" data-i18n="first_title">{t.first_title}</h3>
-            <p class="text-sm text-neutral-400 leading-relaxed" data-i18n="first_desc">{t.first_desc}</p>
+          
+          <div class="relative z-10 text-center md:text-center flex-grow">
+            <h3 class="text-2xl font-bold text-white mb-3 tracking-tight" data-i18n="first_title">{t.first_title}</h3>
+            <p class="text-neutral-400 text-lg leading-relaxed font-light" data-i18n="first_desc">{t.first_desc}</p>
           </div>
         </div>
       </div>
@@ -531,11 +539,298 @@ const breadcrumbSchema = {
     </div>
   </section>
 
-  <!-- ==================== TESTIMONIALS SECTION ==================== -->
-  <TestimonialsSection lang={lang} sectionNumber="03" id="reference" />
+  <!-- ==================== PRICING SECTION ==================== -->
+  <section id="cenik" class="bg-[#050505] border-t border-white/5 py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-400 uppercase tracking-[0.2em] gap-4">
+        <div class="flex items-center gap-2">
+          <span class="text-white">03</span>
+          <span class="w-12 h-px bg-white/10"></span>
+        </div>
+        <div class="text-white/40" data-i18n="chatbot_price_tag">{t.chatbot_price_tag}</div>
+        <div class="hidden md:block text-right" data-i18n="chatbot_price_headline">{t.chatbot_price_headline}</div>
+      </div>
 
-  <!-- ==================== DATA PREPARATION SECTION ==================== -->
-  <DataPreparationSection lang={lang} sectionNumber="04" id="priprava-dat" />
+      <div class="text-center mb-16">
+        <div class="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-2 mb-6">
+          <iconify-icon icon="solar:buildings-2-linear" class="text-primary"></iconify-icon>
+          <span class="text-xs md:text-sm font-medium text-primary uppercase tracking-wider" data-i18n="chatbot_price_public_admin_badge">
+            {t.chatbot_price_public_admin_badge}
+          </span>
+        </div>
+
+        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] text-4xl md:text-5xl font-medium text-white tracking-tight mb-6">
+          <span data-i18n="chatbot_price_headline">{t.chatbot_price_headline}</span>
+        </h2>
+
+        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.25s_both] text-lg text-neutral-400 font-light max-w-3xl mx-auto leading-relaxed">
+          <span data-i18n="chatbot_price_description">{t.chatbot_price_description}</span>
+        </p>
+      </div>
+
+      <!-- Pricing Table Visual -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] overflow-x-auto">
+        <table class="w-full border-collapse bg-[#0A0A0A] border border-white/10 rounded-2xl overflow-hidden min-w-[800px]">
+          <thead>
+            <tr class="bg-white/5">
+              <th class="p-6 text-left text-sm font-mono text-neutral-400 uppercase tracking-wider border-b border-white/10" data-i18n="chatbot_price_column_population">{t.chatbot_price_column_population}</th>
+              <th class="p-6 text-center text-sm font-mono text-neutral-400 uppercase tracking-wider border-b border-white/10" data-i18n="chatbot_price_setup">{t.chatbot_price_setup}</th>
+              <th class="p-6 text-center text-sm font-mono text-neutral-400 uppercase tracking-wider border-b border-white/10" data-i18n="chatbot_price_monthly">{t.chatbot_price_monthly}</th>
+              <th class="p-6 text-center text-sm font-mono text-neutral-400 uppercase tracking-wider border-b border-white/10" data-i18n="chatbot_price_credits_header">{t.chatbot_price_credits_header}</th>
+            </tr>
+          </thead>
+          <tbody class="text-white">
+            <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
+              <td class="p-6 font-medium" data-i18n="chatbot_price_tier1">{t.chatbot_price_tier1}</td>
+              <td class="p-6 text-center font-bold text-primary" data-i18n="chatbot_price_tier1_setup">{t.chatbot_price_tier1_setup}</td>
+              <td class="p-6 text-center" data-i18n="chatbot_price_tier1_monthly">{t.chatbot_price_tier1_monthly}</td>
+              <td class="p-6 text-center text-neutral-400" data-i18n="chatbot_price_tier1_credits">{t.chatbot_price_tier1_credits}</td>
+            </tr>
+            <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
+              <td class="p-6 font-medium" data-i18n="chatbot_price_tier2">{t.chatbot_price_tier2}</td>
+              <td class="p-6 text-center font-bold text-primary" data-i18n="chatbot_price_tier2_setup">{t.chatbot_price_tier2_setup}</td>
+              <td class="p-6 text-center" data-i18n="chatbot_price_tier2_monthly">{t.chatbot_price_tier2_monthly}</td>
+              <td class="p-6 text-center text-neutral-400" data-i18n="chatbot_price_tier2_credits">{t.chatbot_price_tier2_credits}</td>
+            </tr>
+            <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
+              <td class="p-6 font-medium" data-i18n="chatbot_price_tier3">{t.chatbot_price_tier3}</td>
+              <td class="p-6 text-center font-bold text-primary" data-i18n="chatbot_price_tier3_setup">{t.chatbot_price_tier3_setup}</td>
+              <td class="p-6 text-center" data-i18n="chatbot_price_tier3_monthly">{t.chatbot_price_tier3_monthly}</td>
+              <td class="p-6 text-center text-neutral-400" data-i18n="chatbot_price_tier3_credits">{t.chatbot_price_tier3_credits}</td>
+            </tr>
+            <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
+              <td class="p-6 font-medium" data-i18n="chatbot_price_tier4">{t.chatbot_price_tier4}</td>
+              <td class="p-6 text-center font-bold text-primary" data-i18n="chatbot_price_tier4_setup">{t.chatbot_price_tier4_setup}</td>
+              <td class="p-6 text-center" data-i18n="chatbot_price_tier4_monthly">{t.chatbot_price_tier4_monthly}</td>
+              <td class="p-6 text-center text-neutral-400" data-i18n="chatbot_price_tier4_credits">{t.chatbot_price_tier4_credits}</td>
+            </tr>
+            <tr class="hover:bg-white/[0.02] transition-colors">
+              <td class="p-6 font-medium" data-i18n="chatbot_price_tier5">{t.chatbot_price_tier5}</td>
+              <td class="p-6 text-center font-bold text-primary" data-i18n="chatbot_price_tier5_setup">{t.chatbot_price_tier5_setup}</td>
+              <td class="p-6 text-center" data-i18n="chatbot_price_tier5_monthly">{t.chatbot_price_tier5_monthly}</td>
+              <td class="p-6 text-center text-neutral-400" data-i18n="chatbot_price_tier5_credits">{t.chatbot_price_tier5_credits}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-8 flex flex-wrap justify-center gap-8 text-sm text-neutral-400 font-mono uppercase tracking-wider">
+        <div class="flex items-center gap-2">
+          <iconify-icon icon="solar:check-read-linear" class="text-primary"></iconify-icon>
+          <span data-i18n="chatbot_price_include_1">{t.chatbot_price_include_1}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <iconify-icon icon="solar:check-read-linear" class="text-primary"></iconify-icon>
+          <span data-i18n="chatbot_price_include_2">{t.chatbot_price_include_2}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <iconify-icon icon="solar:check-read-linear" class="text-primary"></iconify-icon>
+          <span data-i18n="chatbot_price_include_3">{t.chatbot_price_include_3}</span>
+        </div>
+      </div>
+
+      <!-- Footer Info Box -->
+      <div class="mt-16 max-w-4xl mx-auto animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both]">
+        <div class="bg-[#030303] border border-primary/20 rounded-[2rem] p-8 md:p-10 relative overflow-hidden group hover:border-primary/30 transition-all duration-500 shadow-[0_0_50px_rgba(0,163,154,0.02)]">
+          <!-- Decorative Background Glow -->
+          <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-primary/5 blur-[80px] rounded-full group-hover:bg-primary/10 transition-colors duration-500"></div>
+          
+          <div class="relative z-10 text-center space-y-4">
+            <p class="text-neutral-400 text-lg leading-relaxed font-light max-w-3xl mx-auto" data-i18n="chatbot_price_footnote">
+              {t.chatbot_price_footnote}
+            </p>
+            
+            <!-- Additional pricing details -->
+            <div class="pt-6 border-t border-white/5 grid md:grid-cols-3 gap-4 text-sm">
+              <div class="flex flex-col items-center gap-2 p-4 bg-white/[0.02] rounded-xl">
+                <iconify-icon icon="solar:add-circle-linear" class="text-xl text-primary"></iconify-icon>
+                <span class="text-neutral-400 text-center leading-snug" data-i18n="chatbot_price_extra_credit">{t.chatbot_price_extra_credit}</span>
+              </div>
+              <div class="flex flex-col items-center gap-2 p-4 bg-white/[0.02] rounded-xl">
+                <iconify-icon icon="solar:clock-circle-linear" class="text-xl text-primary"></iconify-icon>
+                <span class="text-neutral-400 text-center leading-snug" data-i18n="chatbot_price_hourly_rate">{t.chatbot_price_hourly_rate}</span>
+              </div>
+              <div class="flex flex-col items-center gap-2 p-4 bg-white/[0.02] rounded-xl">
+                <iconify-icon icon="solar:refresh-circle-linear" class="text-xl text-primary"></iconify-icon>
+                <span class="text-neutral-400 text-center leading-snug" data-i18n="chatbot_price_credit_rollover">{t.chatbot_price_credit_rollover}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TECHNOLOGY SECTION ==================== -->
+  <section id="technologie" class="bg-[#080808] border-t border-white/5 py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-400 uppercase tracking-[0.2em] gap-4">
+        <div class="flex items-center gap-2">
+          <span class="text-white">04</span>
+          <span class="w-12 h-px bg-white/10"></span>
+        </div>
+        <div class="text-white/40" data-i18n="chatbot_tech_tag">{t.chatbot_tech_tag}</div>
+        <div class="hidden md:block text-right" data-i18n="chatbot_tech_headline">{t.chatbot_tech_headline}</div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] text-4xl md:text-5xl font-medium text-white tracking-tight mb-8">
+            <span data-i18n="chatbot_tech_headline">{t.chatbot_tech_headline}</span>
+          </h2>
+          
+          <div class="space-y-8">
+            <!-- Tech 1 -->
+            <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] flex gap-4">
+              <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                <iconify-icon icon="solar:database-bold" class="text-2xl"></iconify-icon>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white mb-2" data-i18n="chatbot_tech_rag_title">{t.chatbot_tech_rag_title}</h3>
+                <p class="text-neutral-400 leading-relaxed" data-i18n="chatbot_tech_rag_desc">{t.chatbot_tech_rag_desc}</p>
+              </div>
+            </div>
+
+            <!-- Tech 2 -->
+            <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] flex gap-4">
+              <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                <iconify-icon icon="solar:cpu-bold" class="text-2xl"></iconify-icon>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white mb-2" data-i18n="chatbot_tech_llm_title">{t.chatbot_tech_llm_title}</h3>
+                <p class="text-neutral-400 leading-relaxed" data-i18n="chatbot_tech_llm_desc">{t.chatbot_tech_llm_desc}</p>
+              </div>
+            </div>
+
+            <!-- Tech 3 -->
+            <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] flex gap-4">
+              <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                <iconify-icon icon="solar:transmission-bold" class="text-2xl"></iconify-icon>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white mb-2" data-i18n="chatbot_tech_stream_title">{t.chatbot_tech_stream_title}</h3>
+                <p class="text-neutral-400 leading-relaxed" data-i18n="chatbot_tech_stream_desc">{t.chatbot_tech_stream_desc}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RAG Mechanism Graph -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] space-y-8">
+          <ExpandableImage 
+            src="/assets/images/RAG_mechanismus_graph.PNG" 
+            alt="RAG Mechanism Architecture" 
+            class="max-w-lg mx-auto"
+          />
+          <ExpandableImage 
+            src="/assets/images/Fallback_mechanism_graph.PNG" 
+            alt="Multi-LLM Fallback Logic" 
+            class="max-w-lg mx-auto opacity-80 hover:opacity-100 transition-opacity"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TESTIMONIALS SECTION ==================== -->
+  <TestimonialsSection lang={lang} sectionNumber="05" id="reference" />
+
+  <!-- ==================== ADMIN PANEL / RAGus.ai UNIFIED SECTION ==================== -->
+  <AdminPanelUnifiedSection lang={lang} sectionNumber="06" id="ragus" />
+
+  <!-- ==================== SECURITY SECTION ==================== -->
+  <section id="bezpecnost" class="bg-[#050505] border-t border-white/5 py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-400 uppercase tracking-[0.2em] gap-4">
+        <div class="flex items-center gap-2">
+          <span class="text-white">07</span>
+          <span class="w-12 h-px bg-white/10"></span>
+        </div>
+        <div class="text-white/40" data-i18n="chatbot_sec_tag">{t.chatbot_sec_tag}</div>
+        <div class="hidden md:block text-right" data-i18n="chatbot_sec_headline">{t.chatbot_sec_headline}</div>
+      </div>
+
+      <div class="text-center mb-16">
+        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] text-4xl md:text-5xl font-medium text-white tracking-tight mb-6">
+          <span data-i18n="chatbot_sec_headline">{t.chatbot_sec_headline}</span>
+        </h2>
+      </div>
+
+      <!-- Trust Badges Grid -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+        <div class="p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl text-center group hover:border-primary/30 transition-all">
+          <iconify-icon icon="solar:shield-keyhole-bold" class="text-primary text-3xl mb-3 group-hover:scale-110 transition-transform"></iconify-icon>
+          <div class="text-white font-bold text-sm" data-i18n="chatbot_sec_cert_iso">{t.chatbot_sec_cert_iso}</div>
+          <div class="text-[10px] text-neutral-500 uppercase tracking-widest mt-1">Information Security</div>
+        </div>
+        <div class="p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl text-center group hover:border-primary/30 transition-all">
+          <iconify-icon icon="solar:verified-check-bold" class="text-primary text-3xl mb-3 group-hover:scale-110 transition-transform"></iconify-icon>
+          <div class="text-white font-bold text-sm" data-i18n="chatbot_sec_cert_soc">{t.chatbot_sec_cert_soc}</div>
+          <div class="text-[10px] text-neutral-500 uppercase tracking-widest mt-1">Audit Control</div>
+        </div>
+        <div class="p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl text-center group hover:border-primary/30 transition-all">
+          <iconify-icon icon="solar:lock-bold" class="text-primary text-3xl mb-3 group-hover:scale-110 transition-transform"></iconify-icon>
+          <div class="text-white font-bold text-sm" data-i18n="chatbot_sec_cert_gdpr">{t.chatbot_sec_cert_gdpr}</div>
+          <div class="text-[10px] text-neutral-500 uppercase tracking-widest mt-1">Data Privacy</div>
+        </div>
+        <div class="p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl text-center group hover:border-primary/30 transition-all">
+          <iconify-icon icon="solar:star-bold" class="text-primary text-3xl mb-3 group-hover:scale-110 transition-transform"></iconify-icon>
+          <div class="text-white font-bold text-sm" data-i18n="chatbot_sec_cert_aiact">{t.chatbot_sec_cert_aiact}</div>
+          <div class="text-[10px] text-neutral-500 uppercase tracking-widest mt-1">AI Regulation</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Security Card 1 -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] p-8 bg-[#0A0A0A] border border-white/5 rounded-3xl">
+          <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
+            <iconify-icon icon="solar:user-block-bold" class="text-primary"></iconify-icon>
+            <span data-i18n="chatbot_sec_pii_title">{t.chatbot_sec_pii_title}</span>
+          </h3>
+          <p class="text-neutral-400 leading-relaxed mb-6" data-i18n="chatbot_sec_pii_desc">{t.chatbot_sec_pii_desc}</p>
+          <div class="flex items-center gap-4 text-sm font-mono text-primary/80">
+            <span class="px-3 py-1 rounded-full bg-primary/10 border border-primary/20">NO PII</span>
+            <span class="px-3 py-1 rounded-full bg-primary/10 border border-primary/20">NO SENSITIVE DATA</span>
+          </div>
+        </div>
+
+        <!-- Security Card 2 -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] p-8 bg-[#0A0A0A] border border-white/5 rounded-3xl">
+          <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
+            <iconify-icon icon="solar:document-text-bold" class="text-primary"></iconify-icon>
+            <span data-i18n="chatbot_sec_dpa_title">{t.chatbot_sec_dpa_title}</span>
+          </h3>
+          <p class="text-neutral-400 leading-relaxed mb-6" data-i18n="chatbot_sec_dpa_desc">{t.chatbot_sec_dpa_desc}</p>
+          <a href={getLocalizedHref("/privacy-policy", lang)} class="text-primary hover:text-primary/80 text-sm font-bold flex items-center gap-2 group">
+            <span data-i18n="footer_privacy">{t.footer_privacy}</span>
+            <iconify-icon icon="solar:alt-arrow-right-linear" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
+          </a>
+        </div>
+      </div>
+
+      <!-- Data Residency Transparency -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] mt-8 p-8 bg-gradient-to-br from-white/5 to-transparent border border-white/10 rounded-3xl">
+        <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-3">
+          <iconify-icon icon="solar:server-bold" class="text-primary"></iconify-icon>
+          <span data-i18n="chatbot_sec_storage_title">{t.chatbot_sec_storage_title}</span>
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="p-4 bg-black/40 rounded-xl border border-white/5">
+            <div class="text-xs text-neutral-500 uppercase tracking-widest mb-2">Temporary (72h)</div>
+            <div class="text-white text-sm font-medium" data-i18n="chatbot_sec_storage_ip">{t.chatbot_sec_storage_ip}</div>
+          </div>
+          <div class="p-4 bg-black/40 rounded-xl border border-white/5">
+            <div class="text-xs text-neutral-500 uppercase tracking-widest mb-2">Browser Cache</div>
+            <div class="text-white text-sm font-medium" data-i18n="chatbot_sec_storage_browser">{t.chatbot_sec_storage_browser}</div>
+          </div>
+          <div class="p-4 bg-black/40 rounded-xl border border-white/5">
+            <div class="text-xs text-neutral-500 uppercase tracking-widest mb-2">Cloud Hosting</div>
+            <div class="text-white text-sm font-medium" data-i18n="chatbot_sec_storage_transcripts">{t.chatbot_sec_storage_transcripts}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ==================== FAQ SECTION ==================== -->
   <section id="faq" class="bg-[#050505] border-t border-white/5 py-24">
@@ -543,7 +838,7 @@ const breadcrumbSchema = {
       <!-- Section Header -->
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-400 uppercase tracking-[0.2em] gap-4">
         <div class="flex items-center gap-2">
-          <span class="text-white">05</span>
+          <span class="text-white">08</span>
           <span class="w-12 h-px bg-white/10"></span>
         </div>
         <div class="text-white/40" data-i18n="chatbot_faq_tag">{t.chatbot_faq_tag}</div>
@@ -711,6 +1006,45 @@ const breadcrumbSchema = {
             </div>
           </div>
         </div>
+
+        <!-- FAQ 13 - AI Act -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_1.5s_both] faq-item bg-[#0A0A0A] border border-white/5 rounded-xl overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+            <span class="text-lg font-medium text-white" data-i18n="chatbot_faq_13_q">{t.chatbot_faq_13_q}</span>
+            <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon text-neutral-400 text-xl transition-transform duration-300"></iconify-icon>
+          </button>
+          <div class="faq-answer">
+            <div class="px-6 pb-6 text-neutral-400" data-i18n="chatbot_faq_13_a">
+              {t.chatbot_faq_13_a}
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 14 - Web Search -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_1.6s_both] faq-item bg-[#0A0A0A] border border-white/5 rounded-xl overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+            <span class="text-lg font-medium text-white" data-i18n="chatbot_faq_14_q">{t.chatbot_faq_14_q}</span>
+            <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon text-neutral-400 text-xl transition-transform duration-300"></iconify-icon>
+          </button>
+          <div class="faq-answer">
+            <div class="px-6 pb-6 text-neutral-400" data-i18n="chatbot_faq_14_a">
+              {t.chatbot_faq_14_a}
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 15 - Updates -->
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_1.7s_both] faq-item bg-[#0A0A0A] border border-white/5 rounded-xl overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+            <span class="text-lg font-medium text-white" data-i18n="chatbot_faq_15_q">{t.chatbot_faq_15_q}</span>
+            <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon text-neutral-400 text-xl transition-transform duration-300"></iconify-icon>
+          </button>
+          <div class="faq-answer">
+            <div class="px-6 pb-6 text-neutral-400" data-i18n="chatbot_faq_15_a">
+              {t.chatbot_faq_15_a}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -721,7 +1055,7 @@ const breadcrumbSchema = {
       <!-- Section Header -->
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-400 uppercase tracking-[0.2em] gap-4">
         <div class="flex items-center gap-2">
-          <span class="text-white">06</span>
+          <span class="text-white">09</span>
           <span class="w-12 h-px bg-white/10"></span>
         </div>
         <div class="text-white/40" data-i18n="chatbot_contact_tag">{t.chatbot_contact_tag}</div>

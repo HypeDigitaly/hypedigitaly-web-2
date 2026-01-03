@@ -482,6 +482,87 @@ export interface TranslationKeys {
   chatbot_contact_desc: string;
   chatbot_contact_cta: string;
 
+  // Chatbot Security & Tech (New)
+  chatbot_sec_tag: string;
+  chatbot_sec_headline: string;
+  chatbot_sec_pii_title: string;
+  chatbot_sec_pii_desc: string;
+  chatbot_sec_dpa_title: string;
+  chatbot_sec_dpa_desc: string;
+  chatbot_sec_storage_title: string;
+  chatbot_sec_storage_ip: string;
+  chatbot_sec_storage_browser: string;
+  chatbot_sec_storage_transcripts: string;
+  chatbot_sec_cert_iso: string;
+  chatbot_sec_cert_soc: string;
+  chatbot_sec_cert_gdpr: string;
+  chatbot_sec_cert_aiact: string;
+  chatbot_tech_tag: string;
+  chatbot_tech_headline: string;
+  chatbot_tech_rag_title: string;
+  chatbot_tech_rag_desc: string;
+  chatbot_tech_llm_title: string;
+  chatbot_tech_llm_desc: string;
+  chatbot_tech_stream_title: string;
+  chatbot_tech_stream_desc: string;
+
+  // Chatbot Admin Panel (New)
+  chatbot_admin_tag: string;
+  chatbot_admin_headline: string;
+  chatbot_admin_f1_title: string;
+  chatbot_admin_f1_desc: string;
+  chatbot_admin_f2_title: string;
+  chatbot_admin_f2_desc: string;
+  chatbot_admin_f3_title: string;
+  chatbot_admin_f3_desc: string;
+
+  // Chatbot Pricing (New)
+  chatbot_price_tag: string;
+  chatbot_price_headline: string;
+  chatbot_price_setup: string;
+  chatbot_price_monthly: string;
+  chatbot_price_tier1: string;
+  chatbot_price_tier2: string;
+  chatbot_price_tier3: string;
+  chatbot_price_tier4: string;
+  chatbot_price_tier5: string;
+  chatbot_price_include_1: string;
+  chatbot_price_include_2: string;
+  chatbot_price_include_3: string;
+  chatbot_price_public_admin_badge: string;
+  chatbot_price_description: string;
+  chatbot_price_credits_header: string;
+  chatbot_price_footnote: string;
+  chatbot_price_custom_cta: string;
+  chatbot_price_column_population: string;
+  chatbot_price_extra_credit: string;
+  chatbot_price_hourly_rate: string;
+  chatbot_price_credit_rollover: string;
+  // Pricing table values (i18n for CZK/USD)
+  chatbot_price_tier1_setup: string;
+  chatbot_price_tier1_monthly: string;
+  chatbot_price_tier1_credits: string;
+  chatbot_price_tier2_setup: string;
+  chatbot_price_tier2_monthly: string;
+  chatbot_price_tier2_credits: string;
+  chatbot_price_tier3_setup: string;
+  chatbot_price_tier3_monthly: string;
+  chatbot_price_tier3_credits: string;
+  chatbot_price_tier4_setup: string;
+  chatbot_price_tier4_monthly: string;
+  chatbot_price_tier4_credits: string;
+  chatbot_price_tier5_setup: string;
+  chatbot_price_tier5_monthly: string;
+  chatbot_price_tier5_credits: string;
+
+  // More Chatbot FAQs
+  chatbot_faq_13_q: string;
+  chatbot_faq_13_a: string;
+  chatbot_faq_14_q: string;
+  chatbot_faq_14_a: string;
+  chatbot_faq_15_q: string;
+  chatbot_faq_15_a: string;
+
   // Consultation page
   consult_hero_badge: string;
   consult_hero_headline_1: string;
@@ -1443,6 +1524,87 @@ export const translations: Record<Language, TranslationKeys> = {
     chatbot_contact_desc: "Domluvte si krátkou nezávaznou konzultaci na 30 minut online přes Google Meet, nebo nás kontaktujte emailem či telefonicky.",
     chatbot_contact_cta: "Domluvit schůzku",
 
+    // Chatbot Security & Tech
+    chatbot_sec_tag: "// BEZPEČNOST & DATA",
+    chatbot_sec_headline: "Bezpečnost a zpracování dat",
+    chatbot_sec_pii_title: "AI asistent nezpracovává osobní údaje (PII)",
+    chatbot_sec_pii_desc: "Náš systém je navržen s důrazem na maximální ochranu soukromí. Nezpracováváme jména, rodná čísla ani jiné citlivé údaje. Pracujeme pouze s veřejně dostupnými informacemi z vašich zdrojů.",
+    chatbot_sec_dpa_title: "Zpracovatelská smlouva (DPA)",
+    chatbot_sec_dpa_desc: "V souladu s článkem 28 GDPR uzavíráme se zákazníky smlouvu jasně definující role: Vy jste Správce, my Zpracovatel. Vše je právně ošetřeno advokátní kanceláří LEGITAS.",
+    chatbot_sec_storage_title: "Co a kde systém ukládá?",
+    chatbot_sec_storage_ip: "IP adresa (72h) - ochrana proti spamu a DDoS útokům",
+    chatbot_sec_storage_browser: "LocalStorage - historie posledních ~10 zpráv pro kontext",
+    chatbot_sec_storage_transcripts: "Transkripty - Voiceflow AWS (EU/USA) - text bez PII",
+    chatbot_sec_cert_iso: "ISO/IEC 27001:2022",
+    chatbot_sec_cert_soc: "SOC 2 Type II",
+    chatbot_sec_cert_gdpr: "GDPR Compliant",
+    chatbot_sec_cert_aiact: "AI Act Ready",
+    chatbot_tech_tag: "// TECHNOLOGIE",
+    chatbot_tech_headline: "Použitá technologie a modely",
+    chatbot_tech_rag_title: "Retrieval Augmented Generation (RAG)",
+    chatbot_tech_rag_desc: "Moderní architektura, která odděluje data od modelu. AI se 'netrénuje' na vašich datech, ale pouze v nich vyhledává odpovědi v reálném čase.",
+    chatbot_tech_llm_title: "Multi-LLM Architecture",
+    chatbot_tech_llm_desc: "Využíváme špičkové modely GPT-5, Claude 4.5 a Gemini 2.5. Při výpadku jednoho modelu systém automaticky přepne na záložní bez přerušení služby.",
+    chatbot_tech_stream_title: "Streaming technologie",
+    chatbot_tech_stream_desc: "Uživatel vidí odpověď okamžitě jak se generuje ('pršení písmen'). To dramaticky zkracuje pocitovou dobu čekání na odpověď.",
+
+    // Chatbot Admin Panel
+    chatbot_admin_tag: "// ADMIN PANEL",
+    chatbot_admin_headline: "Dashboard pro správu a monitoring",
+    chatbot_admin_f1_title: "Samostatná úprava znalostí",
+    chatbot_admin_f1_desc: "Klient si může chatbota vylepšovat a opravovat sám přes admin panel bez nutnosti programování.",
+    chatbot_admin_f2_title: "Transkripce a hodnocení",
+    chatbot_admin_f2_desc: "Možnost procházet historii konverzací a označovat úspěšné či neúspěšné interakce pro další učení.",
+    chatbot_admin_f3_title: "Analýza sentimentu a trendů",
+    chatbot_admin_f3_desc: "Kategorizace nejčastějších dotazů a sledování spokojenosti uživatelů v reálném čase.",
+
+    // Chatbot Pricing
+    chatbot_price_tag: "// CENÍK",
+    chatbot_price_headline: "Ceník pro veřejnou správu",
+    chatbot_price_setup: "Cena implementace",
+    chatbot_price_monthly: "Cena měsíčně",
+    chatbot_price_tier1: "do 10 000 obyvatel",
+    chatbot_price_tier2: "10 000 – 30 000",
+    chatbot_price_tier3: "30 000 – 60 000",
+    chatbot_price_tier4: "Větší / krajská města",
+    chatbot_price_tier5: "Kraje",
+    chatbot_price_include_1: "1 000 AI odpovědí měsíčně",
+    chatbot_price_include_2: "Technická podpora a údržba",
+    chatbot_price_include_3: "Administrační panel RAGus.ai",
+    chatbot_price_public_admin_badge: "Pro veřejnou správu",
+    chatbot_price_description: "Cena se odvíjí od počtu obyvatel, který odráží komplexitu webových stránek, rozsah služeb a očekávanou zátěž chatbota. Čím větší obec nebo kraj, tím komplexnější implementace a větší nárok na AI kredity.",
+    chatbot_price_column_population: "Počet obyvatel",
+    chatbot_price_credits_header: "AI kredity / měs.",
+    chatbot_price_footnote: "Ceny jsou uvedeny bez DPH. Každý projekt zahrnuje kompletní přípravu dat, školení, technickou podporu, pravidelné aktualizace a přístup do platformy RAGus.ai.",
+    chatbot_price_extra_credit: "Dodatečný AI kredit nad rámec balíčku: 4 Kč bez DPH (4,84 Kč s DPH) za odpověď",
+    chatbot_price_hourly_rate: "Hodinová sazba pro rozvoj a opravy: 2 000 Kč bez DPH (2 420 Kč s DPH)",
+    chatbot_price_credit_rollover: "Nevyužité AI kredity se převádějí do dalšího měsíce",
+    chatbot_price_custom_cta: "Máte specifické požadavky nebo nestandardní projekt? Kontaktujte nás pro individuální nabídku.",
+    // Pricing table values (CZK)
+    chatbot_price_tier1_setup: "10 000,-",
+    chatbot_price_tier1_monthly: "3 500,-",
+    chatbot_price_tier1_credits: "500",
+    chatbot_price_tier2_setup: "35 000,-",
+    chatbot_price_tier2_monthly: "4 000,-",
+    chatbot_price_tier2_credits: "700",
+    chatbot_price_tier3_setup: "65 000,-",
+    chatbot_price_tier3_monthly: "4 500,-",
+    chatbot_price_tier3_credits: "750",
+    chatbot_price_tier4_setup: "100 000 - 150 000,-",
+    chatbot_price_tier4_monthly: "5 000,-",
+    chatbot_price_tier4_credits: "1 000",
+    chatbot_price_tier5_setup: "150 000,-",
+    chatbot_price_tier5_monthly: "5 000,-",
+    chatbot_price_tier5_credits: "1 000",
+
+    // More Chatbot FAQs
+    chatbot_faq_13_q: "Je chatbot v souladu s nařízením AI Act?",
+    chatbot_faq_13_a: "Ano, náš AI asistent spadá do kategorie minimálního rizika. Neprovádí automatizované rozhodování ani profilování. Před zahájením konverzace vyžadujeme explicitní souhlas uživatele.",
+    chatbot_faq_14_q: "Může chatbot vyhledávat informace na celém internetu?",
+    chatbot_faq_14_a: "Ano, v případě potřeby může vyhledávat aktuální data přes Google. Tato funkce je volitelná a uživatel ji může vypnout přímo ve widgetu.",
+    chatbot_faq_15_q: "Jak probíhá aktualizace dat, když změníme web?",
+    chatbot_faq_15_a: "Náš systém automaticky skenuje váš web přes XML sitemapu a RSS kanály. Jakmile přidáte novou aktualitu nebo změníte text na webu, chatbot se to do pár hodin dozví.",
+
     // Consultation page
     consult_hero_badge: "Konzultace & Partnerství",
     consult_hero_headline_1: "AI strategie na míru",
@@ -2357,7 +2519,7 @@ export const translations: Record<Language, TranslationKeys> = {
     chatbot_faq_tag: "// FREQUENTLY ASKED",
     chatbot_faq_headline: "Frequently asked questions",
     chatbot_faq_1_q: "How much does it cost?",
-    chatbot_faq_1_a: "Pricing depends on organization size: Up to 10,000 residents from $440 development + $150/month. For 10-30k residents from $1,550 + $180/month. For 30-60k from $2,850 + $200/month. For larger cities, regional capitals and regions from $6,600 + $220/month. Monthly fee includes technical support, maintenance and AI credits.",
+    chatbot_faq_1_a: "Pricing depends on organization size: Up to 10,000 residents from $1,500 development + $500/month. For 10-30k residents from $5,000 + $500/month. For 30-60k from $9,000 + $600/month. For larger cities, regional capitals and regions from $20,000 + $700/month. Monthly fee includes technical support, maintenance and AI credits.",
     chatbot_faq_2_q: "What will chatbot implementation bring me?",
     chatbot_faq_2_a: "24/7 communication, unlimited capacity for thousands of queries simultaneously, intelligent website guide, analytical insights of most common questions, and multilingual support (Czech, English, German, Ukrainian and more). Our clients save an average of 150-425 work hours monthly.",
     chatbot_faq_3_q: "What makes your chatbot different?",
@@ -2369,9 +2531,9 @@ export const translations: Record<Language, TranslationKeys> = {
     chatbot_faq_6_q: "What technologies do you use?",
     chatbot_faq_6_a: "We use RAG technology with live connection to your website and automatic updates. The chatbot can also search web search engines (Google etc.). Everything is fully GDPR compliant – documentation prepared by law firm LEGITAS. Includes abuse protection with automatic detection of inappropriate behavior.",
     chatbot_faq_7_q: "Do you offer extension modules?",
-    chatbot_faq_7_a: "Yes, we offer optional modules: Council and assembly resolutions ($1,750), Official bulletin board ($1,750), Grant titles (from $1,550), Traffic data and information (from $1,550), Social and healthcare services (from $1,750). Module implementation takes 5-10 additional days.",
+    chatbot_faq_7_a: "Yes, we offer optional modules: Council and assembly resolutions ($5,000), Official bulletin board ($5,000), Grant titles (from $5,000), Traffic data and information (from $5,000), Social and healthcare services (from $5,000). Module implementation takes 5-10 additional days.",
     chatbot_faq_8_q: "What is the return on investment?",
-    chatbot_faq_8_a: "Based on analysis of 35,095 AI responses from 5 regions (January–July 2025): ROI is 2–5 months. Annual savings reach $16,300–$45,000. Monthly time savings are 150–425 hours. User satisfaction rating is 4.6/5.",
+    chatbot_faq_8_a: "Based on analysis of 35,095 AI responses from 5 regions (January–July 2025): ROI is 2–5 months. Annual savings reach $50,000–$150,000. Monthly time savings are 150–425 hours. User satisfaction rating is 4.6/5.",
     chatbot_faq_9_q: "What if we have scattered and poor-quality data?",
     chatbot_faq_9_a: "This is exactly what we solve. Data preparation is part of implementation – we connect your systems, clean duplicates, unify formats and structure data so the chatbot works accurately. Our RAG technology with automatic synchronization ensures data is always up-to-date. Quality input = quality output.",
     chatbot_faq_10_q: "How do you ensure the chatbot won't hallucinate?",
@@ -2388,7 +2550,7 @@ export const translations: Record<Language, TranslationKeys> = {
     chatbot_results_desc: "Analysis of 35,095 AI responses from 5 regions (January–July 2025) shows concrete benefits of AI chatbot deployment.",
     chatbot_results_stat_1: "8,800",
     chatbot_results_stat_1_label: "hours of work saved",
-    chatbot_results_stat_2: "$77,000",
+    chatbot_results_stat_2: "$250,000",
     chatbot_results_stat_2_label: "total savings",
     chatbot_results_stat_3: "2-5",
     chatbot_results_stat_3_label: "months ROI",
@@ -2406,6 +2568,87 @@ export const translations: Record<Language, TranslationKeys> = {
     chatbot_contact_desc: "Schedule a short 30-minute consultation via Google Meet, or contact us by email or phone.",
     chatbot_contact_cta: "Schedule meeting",
 
+    // Chatbot Security & Tech
+    chatbot_sec_tag: "// SECURITY & DATA",
+    chatbot_sec_headline: "Security and Data Processing",
+    chatbot_sec_pii_title: "AI Assistant does not process PII",
+    chatbot_sec_pii_desc: "Our system is designed with maximum privacy focus. We don't process names, ID numbers, or other sensitive data. We only work with publicly available information from your sources.",
+    chatbot_sec_dpa_title: "Data Processing Agreement (DPA)",
+    chatbot_sec_dpa_desc: "In accordance with Article 28 GDPR, we conclude an agreement defining roles: You are the Controller, we are the Processor. Legally handled by LEGITAS law firm.",
+    chatbot_sec_storage_title: "What and where is data stored?",
+    chatbot_sec_storage_ip: "IP address (72h) - spam and DDoS protection",
+    chatbot_sec_storage_browser: "LocalStorage - history of last ~10 messages for context",
+    chatbot_sec_storage_transcripts: "Transcripts - Voiceflow AWS (EU/USA) - text without PII",
+    chatbot_sec_cert_iso: "ISO/IEC 27001:2022",
+    chatbot_sec_cert_soc: "SOC 2 Type II",
+    chatbot_sec_cert_gdpr: "GDPR Compliant",
+    chatbot_sec_cert_aiact: "AI Act Ready",
+    chatbot_tech_tag: "// TECHNOLOGY",
+    chatbot_tech_headline: "Used Technology and Models",
+    chatbot_tech_rag_title: "Retrieval Augmented Generation (RAG)",
+    chatbot_tech_rag_desc: "Modern architecture separating data from the model. AI is not 'trained' on your data, but only searches it for answers in real-time.",
+    chatbot_tech_llm_title: "Multi-LLM Architecture",
+    chatbot_tech_llm_desc: "We use top-tier models like GPT-5, Claude 4.5, and Gemini 2.5. If one model fails, the system automatically switches to a backup without service interruption.",
+    chatbot_tech_stream_title: "Streaming Technology",
+    chatbot_tech_stream_desc: "The user sees the answer immediately as it's generated (letter by letter). This dramatically shortens the perceived waiting time.",
+
+    // Chatbot Admin Panel
+    chatbot_admin_tag: "// ADMIN PANEL",
+    chatbot_admin_headline: "Dashboard for Management and Monitoring",
+    chatbot_admin_f1_title: "Independent Knowledge Editing",
+    chatbot_admin_f1_desc: "Clients can improve and correct the chatbot themselves via the admin panel without any programming required.",
+    chatbot_admin_f2_title: "Transcripts and Rating",
+    chatbot_admin_f2_desc: "Ability to browse conversation history and mark successful or unsuccessful interactions for further learning.",
+    chatbot_admin_f3_title: "Sentiment and Trend Analysis",
+    chatbot_admin_f3_desc: "Categorization of most common queries and monitoring user satisfaction in real-time.",
+
+    // Chatbot Pricing
+    chatbot_price_tag: "// PRICING",
+    chatbot_price_headline: "Public Administration Pricing",
+    chatbot_price_setup: "Implementation cost",
+    chatbot_price_monthly: "Monthly operation",
+    chatbot_price_tier1: "up to 10,000 residents",
+    chatbot_price_tier2: "10,000 – 30,000",
+    chatbot_price_tier3: "30,000 – 60,000",
+    chatbot_price_tier4: "Larger / regional cities",
+    chatbot_price_tier5: "Regions",
+    chatbot_price_include_1: "1,000 AI answers monthly",
+    chatbot_price_include_2: "Technical support and maintenance",
+    chatbot_price_include_3: "RAGus.ai Admin Panel",
+    chatbot_price_public_admin_badge: "For Public Administration",
+    chatbot_price_description: "Pricing is based on population count, which reflects website complexity, service scope, and expected chatbot load. Larger municipalities and regions require more complex implementation and higher AI credit allocation.",
+    chatbot_price_column_population: "Population",
+    chatbot_price_credits_header: "AI credits / month",
+    chatbot_price_footnote: "Prices exclude VAT. Each project includes complete data preparation, training, technical support, regular updates, and access to the RAGus.ai platform.",
+    chatbot_price_extra_credit: "Additional AI credit beyond package: $0.20 excl. VAT ($0.25 incl. VAT) per response",
+    chatbot_price_hourly_rate: "Hourly rate for development and fixes: $300 excl. VAT ($360 incl. VAT)",
+    chatbot_price_credit_rollover: "Unused AI credits roll over to the next month",
+    chatbot_price_custom_cta: "Have specific requirements or a non-standard project? Contact us for a custom quote.",
+    // Pricing table values (USD - premium rounded)
+    chatbot_price_tier1_setup: "$1,500",
+    chatbot_price_tier1_monthly: "$500",
+    chatbot_price_tier1_credits: "500",
+    chatbot_price_tier2_setup: "$5,000",
+    chatbot_price_tier2_monthly: "$500",
+    chatbot_price_tier2_credits: "700",
+    chatbot_price_tier3_setup: "$9,000",
+    chatbot_price_tier3_monthly: "$600",
+    chatbot_price_tier3_credits: "750",
+    chatbot_price_tier4_setup: "$15,000 - $20,000",
+    chatbot_price_tier4_monthly: "$700",
+    chatbot_price_tier4_credits: "1,000",
+    chatbot_price_tier5_setup: "$20,000",
+    chatbot_price_tier5_monthly: "$700",
+    chatbot_price_tier5_credits: "1,000",
+
+    // More Chatbot FAQs
+    chatbot_faq_13_q: "Is the chatbot compliant with the AI Act?",
+    chatbot_faq_13_a: "Yes, our AI assistant falls into the minimal risk category. It does not perform automated decision-making or profiling. We require explicit user consent before starting a conversation.",
+    chatbot_faq_14_q: "Can the chatbot search the entire internet?",
+    chatbot_faq_14_a: "Yes, if needed, it can search for current data via Google. This feature is optional and users can disable it directly in the widget.",
+    chatbot_faq_15_q: "How are data updated when we change the website?",
+    chatbot_faq_15_a: "Our system automatically scans your website via XML sitemap and RSS feeds. As soon as you add new news or change text on the web, the chatbot will know within a few hours.",
+
     // Consultation page
     consult_hero_badge: "Consulting & Partnership",
     consult_hero_headline_1: "Custom AI strategy",
@@ -2417,7 +2660,7 @@ export const translations: Record<Language, TranslationKeys> = {
     consult_quick_audit_badge: "Entry Program",
     consult_quick_audit_title: "AI Quick Audit",
     consult_quick_audit_desc: "One-time process diagnostic",
-    consult_quick_audit_price: "$1,150",
+    consult_quick_audit_price: "$3,500",
     consult_quick_audit_f1: "Deep analysis of selected process",
     consult_quick_audit_f2: "Identification of bottleneck areas",
     consult_quick_audit_f3: "Technical solution design",
@@ -2427,7 +2670,7 @@ export const translations: Record<Language, TranslationKeys> = {
     consult_sprint_badge: "Implementation Program",
     consult_sprint_title: "AI Sprint (30 days)",
     consult_sprint_desc: "Complete operational implementation",
-    consult_sprint_price: "$5,300",
+    consult_sprint_price: "$16,000",
     consult_sprint_f1: "Deployment of tools into workflow",
     consult_sprint_f2: "Practical team training",
     consult_sprint_f3: "AI roadmap and consulting",
@@ -2437,7 +2680,7 @@ export const translations: Record<Language, TranslationKeys> = {
     consult_partner_badge: "Partner Program",
     consult_partner_title: "AI Partner",
     consult_partner_desc: "Minimum 3–6 months",
-    consult_partner_price: "$4,400",
+    consult_partner_price: "$15,000",
     consult_partner_unit: "/month",
     consult_partner_f1: "Comprehensive AI strategy",
     consult_partner_f2: "Innovation roadmap management",
@@ -2484,7 +2727,7 @@ export const translations: Record<Language, TranslationKeys> = {
     consult_free_cta: "Book 30 min FREE",
     consult_audit_title: "Comprehensive Organizational AI Audit",
     consult_audit_desc: "Complete analysis of business processes, data and systems review, opportunity map, prioritization framework, and ROI estimate. We'll identify exactly where AI brings the most savings and where investment makes sense.",
-    consult_audit_price: "$2,650–$5,300",
+    consult_audit_price: "$8,000–$16,000",
     consult_audit_price_desc: "Price depends on company size and process complexity",
     consult_audit_cta: "Order AI Audit",
 
@@ -2578,10 +2821,10 @@ export const translations: Record<Language, TranslationKeys> = {
     dataprep_service_recommended: "RECOMMENDED",
     dataprep_service_title: "Professional Service",
     dataprep_service_desc: "Complete turnkey data preparation. We do it for you.",
-    dataprep_service_price_1: "from $110/hour",
+    dataprep_service_price_1: "from $300/hour",
     dataprep_service_price_1_desc: "Hourly rate for smaller projects",
     dataprep_service_price_alt: "or",
-    dataprep_service_price_2: "$660+",
+    dataprep_service_price_2: "$2,000+",
     dataprep_service_price_2_desc: "Flat rate per data source",
     dataprep_service_feature_1: "Analysis and audit of all sources",
     dataprep_service_feature_2: "Extraction from any format",
@@ -2640,7 +2883,7 @@ export const translations: Record<Language, TranslationKeys> = {
     dataprep_faq_5_q: "What's the difference between professional service and RAGus.ai?",
     dataprep_faq_5_a: "Professional service = we do everything for you turnkey, including consultation and integration. RAGus.ai = self-service SaaS platform where you prepare data yourself using our advanced tools.",
     dataprep_faq_6_q: "What determines the final price for data preparation?",
-    dataprep_faq_6_a: "Price depends on data volume, number of sources, and their complexity. Professional service from $110/hour or $660+ per data source. Self-service RAGus.ai from $49.99/month. You'll get exact pricing after free consultation.",
+    dataprep_faq_6_a: "Price depends on data volume, number of sources, and their complexity. Professional service from $300/hour or $2,000+ per data source. Self-service RAGus.ai from $49.99/month. You'll get exact pricing after free consultation.",
     dataprep_contact_tag: "// CONTACT",
     dataprep_contact_label: "FREE CONSULTATION",
     dataprep_contact_headline: "I want quality AI data",

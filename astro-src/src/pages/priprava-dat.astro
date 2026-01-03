@@ -1,7 +1,7 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import { translations, type Language } from '../scripts/translations';
-import RagusSlideshow from '../components/ui/RagusSlideshow.astro';
+import AdminPanelUnifiedSection from '../components/sections/AdminPanelUnifiedSection.astro';
 
 // Server-side rendered page - detects language from URL param or cookie
 export const prerender = false;
@@ -575,124 +575,8 @@ tel. 123456789 nebo email info@mě...`}</code></pre>
     </div>
   </section>
 
-  <!-- ==================== RAGUS.AI SECTION (TEAL ACCENT) ==================== -->
-  <section id="ragus" class="bg-[#050505] border-t border-white/5 py-24 overflow-x-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-400 uppercase tracking-[0.2em] gap-4">
-        <div class="flex items-center gap-2">
-          <span class="text-white">05</span>
-          <span class="w-12 h-px bg-white/10"></span>
-        </div>
-        <div class="text-white/40">{t.dataprep_ragus_section_tag}</div>
-        <div class="hidden md:block text-right">{t.dataprep_ragus_label}</div>
-      </div>
-
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <!-- Left Column: Content -->
-        <div>
-          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] mb-6 inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-lg text-primary text-sm font-medium">
-            <iconify-icon icon="solar:cloud-bold"></iconify-icon>
-            <span>{t.dataprep_ragus_badge}</span>
-          </div>
-
-          <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] leading-[0.95] md:text-5xl lg:text-6xl text-3xl font-medium text-white tracking-tighter mb-8">
-            <span>{t.dataprep_ragus_headline_1}</span>
-            <span class="text-neutral-500"> {t.dataprep_ragus_headline_2}</span>
-          </h2>
-
-          <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] text-lg text-neutral-400 mb-6 leading-relaxed">
-            {t.dataprep_ragus_desc}
-          </p>
-
-          <!-- Comparison: Service vs RAGus -->
-          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] mb-8 p-4 bg-white/[0.02] rounded-xl border border-white/5">
-            <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
-              <iconify-icon icon="solar:transfer-horizontal-bold" class="text-primary"></iconify-icon>
-              {t.dataprep_ragus_comparison_title}
-            </h4>
-            <div class="grid sm:grid-cols-2 gap-4 text-sm">
-              <div class="p-3 bg-orange-500/5 border border-orange-500/20 rounded-lg">
-                <div class="font-semibold text-orange-400 mb-2">🧑‍💼 {t.dataprep_ragus_service_label}</div>
-                <ul class="space-y-1 text-neutral-400 text-xs">
-                  <li>• {t.dataprep_ragus_service_point_1}</li>
-                  <li>• {t.dataprep_ragus_service_point_2}</li>
-                  <li>• {t.dataprep_ragus_service_point_3}</li>
-                </ul>
-              </div>
-              <div class="p-3 bg-primary/5 border border-primary/20 rounded-lg">
-                <div class="font-semibold text-primary mb-2">🚀 RAGus.ai</div>
-                <ul class="space-y-1 text-neutral-400 text-xs">
-                  <li>• {t.dataprep_ragus_platform_point_1}</li>
-                  <li>• {t.dataprep_ragus_platform_point_2}</li>
-                  <li>• {t.dataprep_ragus_platform_point_3}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <ul class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] space-y-3 mb-8">
-            <li class="flex items-start gap-3">
-              <iconify-icon icon="solar:check-circle-bold" class="text-primary text-xl mt-0.5"></iconify-icon>
-              <span class="text-neutral-300">{t.dataprep_ragus_feature_1}</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <iconify-icon icon="solar:check-circle-bold" class="text-primary text-xl mt-0.5"></iconify-icon>
-              <span class="text-neutral-300">{t.dataprep_ragus_feature_2}</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <iconify-icon icon="solar:check-circle-bold" class="text-primary text-xl mt-0.5"></iconify-icon>
-              <span class="text-neutral-300">{t.dataprep_ragus_feature_3}</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <iconify-icon icon="solar:check-circle-bold" class="text-primary text-xl mt-0.5"></iconify-icon>
-              <span class="text-neutral-300">{t.dataprep_ragus_feature_4}</span>
-            </li>
-          </ul>
-
-          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both] flex flex-wrap gap-4">
-            <a href="https://ragus.ai" target="_blank" class="vf-button" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
-              <div class="vf-points-wrapper">
-                <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
-                <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
-              </div>
-              <span class="vf-inner">
-                <span>{t.dataprep_ragus_cta}</span>
-                <svg class="vf-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
-                  <path d="M7 7h10v10"></path>
-                  <path d="M7 17 17 7"></path>
-                </svg>
-              </span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Right Column: RAGus Slideshow -->
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both]">
-          <RagusSlideshow lang={lang} variant="teal" />
-        </div>
-      </div>
-
-      <!-- Target Audience with Teal Accent -->
-      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.8s_both] grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
-        <div class="p-4 bg-primary/5 rounded-xl text-center border border-primary/10">
-          <iconify-icon icon="solar:code-bold" class="text-2xl text-primary mb-2" aria-hidden="true"></iconify-icon>
-          <div class="text-sm text-neutral-400">{t.dataprep_ragus_target_1}</div>
-        </div>
-        <div class="p-4 bg-primary/5 rounded-xl text-center border border-primary/10">
-          <iconify-icon icon="solar:buildings-bold" class="text-2xl text-primary mb-2" aria-hidden="true"></iconify-icon>
-          <div class="text-sm text-neutral-400">{t.dataprep_ragus_target_2}</div>
-        </div>
-        <div class="p-4 bg-primary/5 rounded-xl text-center border border-primary/10">
-          <iconify-icon icon="solar:user-bold" class="text-2xl text-primary mb-2" aria-hidden="true"></iconify-icon>
-          <div class="text-sm text-neutral-400">{t.dataprep_ragus_target_3}</div>
-        </div>
-        <div class="p-4 bg-primary/5 rounded-xl text-center border border-primary/10">
-          <iconify-icon icon="solar:widget-bold" class="text-2xl text-primary mb-2" aria-hidden="true"></iconify-icon>
-          <div class="text-sm text-neutral-400">{t.dataprep_ragus_target_4}</div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- ==================== RAGUS.AI UNIFIED SECTION ==================== -->
+  <AdminPanelUnifiedSection lang={lang} sectionNumber="05" id="ragus" />
 
   <!-- ==================== PRICING SECTION ==================== -->
   <section id="cenik" class="bg-[#050505] border-t border-white/5 py-24 overflow-x-hidden">

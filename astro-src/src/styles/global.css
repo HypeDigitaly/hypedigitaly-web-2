@@ -704,9 +704,33 @@ a:hover .logo-grayscale-jpg {
 }
 
 .shiny-cta-purple {
-  --gradient-shine: #A855F7;
-  --gradient-base: #7C3AED;
-  --shadow-color: rgba(124, 58, 237, 0.4);
+  --gradient-shine: #c084fc;
+  --gradient-base: #a855f7;
+  --shadow-color: rgba(168, 85, 247, 0.4);
+}
+
+.shiny-cta-blue {
+  --gradient-shine: #60a5fa;
+  --gradient-base: #3b82f6;
+  --shadow-color: rgba(59, 130, 246, 0.4);
+}
+
+.shiny-cta-orange {
+  --gradient-shine: #fb923c;
+  --gradient-base: #f97316;
+  --shadow-color: rgba(249, 115, 22, 0.4);
+}
+
+.shiny-cta-cyan {
+  --gradient-shine: #22d3ee;
+  --gradient-base: #06b6d4;
+  --shadow-color: rgba(6, 182, 212, 0.4);
+}
+
+.shiny-cta-pink {
+  --gradient-shine: #f472b6;
+  --gradient-base: #ec4899;
+  --shadow-color: rgba(236, 72, 153, 0.4);
 }
 
 @keyframes border-spin {

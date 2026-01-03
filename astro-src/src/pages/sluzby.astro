@@ -6,6 +6,7 @@ import ServicesOverviewGrid from '../components/sections/ServicesOverviewGrid.as
 import ProcessSection from '../components/sections/ProcessSection.astro';
 import ProblemSection from '../components/sections/ProblemSection.astro';
 import DeliverablesGrid from '../components/sections/DeliverablesGrid.astro';
+import AdminPanelUnifiedSection from '../components/sections/AdminPanelUnifiedSection.astro';
 import { translations, type Language, getLocalizedHref } from '../scripts/translations';
 
 // Server-side rendered page - detects language from URL param or cookie
@@ -83,7 +84,7 @@ const breadcrumbSchema = {
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
   <!-- ==================== SECTION 01: HERO WITH SERVICES CARDS ==================== -->
-  <section class="relative bg-[#050505] pt-28 pb-12">
+  <section class="relative pt-28 pb-12">
     <!-- Background decorative elements (complementary to DigitalRain) -->
     <div class="absolute inset-0 pointer-events-none overflow-hidden">
       <div class="absolute top-10 left-1/4 w-[500px] h-[500px] bg-primary/8 rounded-full blur-[100px]"></div>
@@ -184,7 +185,10 @@ const breadcrumbSchema = {
   <!-- ==================== SECTION 06: TECH STACK ==================== -->
   <TechStackSection lang={lang} />
 
-  <!-- ==================== SECTION 07: VOICEFLOW CERTIFIED EXPERT ==================== -->
+  <!-- ==================== SECTION 07: RAGus.ai UNIFIED SECTION ==================== -->
+  <AdminPanelUnifiedSection lang={lang} sectionNumber="07" id="ragus" />
+
+  <!-- ==================== SECTION 08: VOICEFLOW CERTIFIED EXPERT ==================== -->
   <section class="bg-[#050505] border-t border-white/5 py-16">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
       <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] inline-flex flex-col md:flex-row items-center gap-6 md:gap-10 p-8 rounded-2xl bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 backdrop-blur-sm">

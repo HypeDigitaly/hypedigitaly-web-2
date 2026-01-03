@@ -1,6 +1,6 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
-import DataPreparationSection from '../../components/sections/DataPreparationSection.astro';
+import AdminPanelUnifiedSection from '../../components/sections/AdminPanelUnifiedSection.astro';
 import { translations, type Language, getLocalizedHref } from '../../scripts/translations';
 import blogData from '../../data/blog-posts.json';
 import clientsData from '../../data/clients.json';
@@ -562,7 +562,7 @@ const breadcrumbSchema = {
       {/* RAGus.ai Component Injection */}
       {hasRagusComponent && (
         <div class="ragus-component-wrapper -mx-6 md:-mx-12 lg:-mx-24 my-12">
-          <DataPreparationSection lang={lang} sectionNumber="" id="priprava-dat" />
+          <AdminPanelUnifiedSection lang={lang} sectionNumber="" id="ragus" />
         </div>
       )}
       

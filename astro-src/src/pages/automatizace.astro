@@ -80,7 +80,7 @@ const relatedServices = [
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
   <!-- Hero Section -->
-  <section class="relative bg-[#050505] pt-32 pb-20 overflow-hidden">
+  <section class="relative pt-32 pb-20 overflow-hidden">
     <div class="absolute inset-0 pointer-events-none">
       <div class="absolute top-20 left-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl"></div>
       <div class="absolute bottom-20 right-1/4 w-72 h-72 bg-orange-600/5 rounded-full blur-3xl"></div>
@@ -111,14 +111,10 @@ const relatedServices = [
           {t.automation_subtitle}
         </p>
 
-        <a href="#kontakt" class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] vf-button !py-4 !px-10" style="--vf-bg: #f97316; --vf-hover-bg: #fb923c; --vf-glow-rgb: 249, 115, 22;">
-          <div class="vf-points-wrapper">
-            <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
-            <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
-          </div>
-          <span class="vf-inner !text-lg">
+        <a href="#kontakt" class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] shiny-cta shiny-cta-orange group max-w-2xl">
+          <span class="btn-content text-lg">
             <span>{t.automation_cta}</span>
-            <svg class="vf-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-white/80 group-hover:translate-x-1 transition-transform">
               <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
             </svg>
           </span>
@@ -173,14 +169,10 @@ const relatedServices = [
       <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] p-8 md:p-12 rounded-2xl bg-gradient-to-br from-orange-500/10 via-[#0A0A0A] to-[#0A0A0A] border border-orange-500/20">
         <h2 class="text-2xl md:text-3xl font-medium text-white mb-4">{t.service_cta_title}</h2>
         <p class="text-neutral-400 mb-8">{t.service_cta_subtitle}</p>
-        <a href="#kontakt" class="vf-button !py-4 !px-10 mx-auto" style="--vf-bg: #f97316; --vf-hover-bg: #fb923c; --vf-glow-rgb: 249, 115, 22;">
-          <div class="vf-points-wrapper">
-            <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
-            <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
-          </div>
-          <span class="vf-inner !text-lg">
+        <a href="#kontakt" class="shiny-cta shiny-cta-orange group w-fit mx-auto">
+          <span class="btn-content text-lg">
             <span>{t.service_cta_button}</span>
-            <svg class="vf-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-white/80 group-hover:translate-x-1 transition-transform">
               <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
             </svg>
           </span>

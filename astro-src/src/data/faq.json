@@ -69,6 +69,13 @@
       "question_en": "How can we provide feedback?",
       "answer_cs": "Zpětnou vazbu lze zadávat několika způsoby: 1) Přímo v administračním panelu – u každé konverzace můžete označit kvalitu odpovědi a přidat korekci. 2) Uživatelé chatbota mohou hodnotit odpovědi palcem nahoru/dolů. 3) Pravidelné reporty nám umožňují identifikovat oblasti pro vylepšení. Veškerá zpětná vazba se automaticky promítá do trénování AI pro vyšší přesnost.",
       "answer_en": "Feedback can be provided in several ways: 1) Directly in the admin panel – you can rate response quality and add corrections for each conversation. 2) Chatbot users can rate responses with thumbs up/down. 3) Regular reports help us identify areas for improvement. All feedback is automatically incorporated into AI training for higher accuracy."
+    },
+    {
+      "id": "faq-11",
+      "question_cs": "Je vaše řešení bezpečné a v souladu s GDPR?",
+      "question_en": "Is your solution secure and GDPR compliant?",
+      "answer_cs": "Bezpečnost je naší prioritou. Všechna řešení jsou plně v souladu s GDPR a novým nařízením EU AI Act. AI asistent nezpracovává osobní údaje (PII), neukládá citlivé informace a data se nepoužívají k trénování veřejných modelů. Celý systém je chráněn proti DDoS útokům a spamu.",
+      "answer_en": "Security is our priority. All solutions are fully compliant with GDPR and the new EU AI Act. The AI assistant does not process personal data (PII), does not store sensitive information, and data is not used to train public models. The entire system is protected against DDoS attacks and spam."
     }
   ]
 }

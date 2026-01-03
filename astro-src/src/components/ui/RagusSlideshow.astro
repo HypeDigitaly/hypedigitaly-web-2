@@ -1,21 +1,30 @@
 ---
 import { translations, type Language } from '../../scripts/translations';
 
+interface SlideData {
+  src: string;
+  alt: string;
+}
+
 interface Props {
   lang: Language;
   variant?: 'teal' | 'orange';
+  customSlides?: SlideData[];
 }
 
-const { lang, variant = 'orange' } = Astro.props;
+const { lang, variant = 'orange', customSlides } = Astro.props;
 const t = translations[lang];
 
-// Image data - consistent across the site for RAGus.ai
-const slides = [
+// Default image data for RAGus.ai (used when no custom slides provided)
+const defaultSlides: SlideData[] = [
   { src: "/assets/images/ragus/01.PNG", alt: "RAGus.ai Dashboard" },
   { src: "/assets/images/ragus/02.PNG", alt: "RAGus.ai Features" },
   { src: "/assets/images/ragus/03.PNG", alt: "RAGus.ai Analytics" },
   { src: "/assets/images/ragus/04.PNG", alt: "RAGus.ai Management" }
 ];
+
+// Use custom slides if provided, otherwise use defaults
+const slides = customSlides || defaultSlides;
 
 const accentClass = variant === 'teal' ? 'primary' : 'orange-400';
 const dotActiveClass = variant === 'teal' ? 'bg-primary' : 'bg-orange-400';

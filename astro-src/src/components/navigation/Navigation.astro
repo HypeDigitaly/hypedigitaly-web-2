@@ -29,7 +29,7 @@ const href = (path: string) => getLocalizedHref(path, lang);
         <a href={href("/sluzby")} class="hover:text-white transition-colors">{t.nav_services}</a>
         <a href={href("/#reference")} class="hover:text-white transition-colors">{t.nav_cases}</a>
         <a href={href("/blog")} class="hover:text-white transition-colors">{t.nav_case_studies}</a>
-        <a href={href("/#priprava-dat")} class="hover:text-white transition-colors">{t.nav_data_prep}</a>
+        <a href="#ragus" data-ragus-link class="hover:text-white transition-colors">{t.nav_data_prep}</a>
         <a href="#kontakt" class="hover:text-white transition-colors">{t.nav_contact}</a>
       </div>
     )}
@@ -105,3 +105,20 @@ const href = (path: string) => getLocalizedHref(path, lang);
   </nav>
 </div>
 
+<script is:inline>
+  // RAGus.ai navigation link - smart scrolling with homepage fallback
+  document.addEventListener('DOMContentLoaded', function() {
+    const ragusLinks = document.querySelectorAll('[data-ragus-link]');
+    ragusLinks.forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        const ragusSection = document.getElementById('ragus');
+        if (!ragusSection) {
+          // Section doesn't exist on this page - navigate to homepage section
+          e.preventDefault();
+          window.location.href = '/#ragus';
+        }
+        // If section exists, default anchor behavior handles smooth scroll
+      });
+    });
+  });
+</script>
