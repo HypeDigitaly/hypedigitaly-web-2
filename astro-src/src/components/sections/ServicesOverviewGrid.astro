@@ -1,0 +1,369 @@
+---
+/**
+ * ServicesOverviewGrid.astro
+ * 
+ * Reusable Aura-style services card grid component.
+ * Used identically on both landing page (index.astro) and services hub (/sluzby).
+ * 
+ * Features:
+ * - 4-column responsive grid with playful card transforms
+ * - Floating "Featured" and "Hot" badges above cards
+ * - Hover animations with spring effect
+ * - Color-coded service icons and glows
+ */
+import { translations, type Language, getLocalizedHref } from '../../scripts/translations';
+
+interface Props {
+  lang: Language;
+  showHeader?: boolean;
+  showCta?: boolean;
+  showDeliverables?: boolean;
+  className?: string;
+}
+
+const { lang, showHeader = false, showCta = true, showDeliverables = true, className = '' } = Astro.props;
+const t = translations[lang];
+const href = (path: string) => getLocalizedHref(path, lang);
+
+// What We Deliver cards configuration
+const deliverables = [
+  {
+    icon: "solar:database-bold",
+    title: t.deliver_1_title,
+    desc: t.deliver_1_desc,
+    delay: 0.3,
+  },
+  {
+    icon: "solar:magic-stick-3-bold",
+    title: t.deliver_2_title,
+    desc: t.deliver_2_desc,
+    delay: 0.4,
+  },
+  {
+    icon: "solar:chart-2-bold",
+    title: t.deliver_3_title,
+    desc: t.deliver_3_desc,
+    delay: 0.5,
+  },
+  {
+    icon: "solar:settings-minimalistic-bold",
+    title: t.deliver_4_title,
+    desc: t.deliver_4_desc,
+    delay: 0.6,
+  },
+  {
+    icon: "solar:users-group-rounded-bold",
+    title: t.deliver_5_title,
+    desc: t.deliver_5_desc,
+    delay: 0.7,
+  },
+  {
+    icon: "solar:graph-up-bold",
+    title: t.deliver_6_title,
+    desc: t.deliver_6_desc,
+    delay: 0.8,
+  },
+];
+
+// Service cards configuration
+const services = [
+  {
+    id: "chatbot",
+    icon: "solar:chat-round-dots-bold",
+    title: t.service_chatbot_title,
+    desc: t.service_chatbot_desc,
+    href: href("/chatbot"),
+    colorHex: "#00C4B4",
+    featured: true,
+  },
+  {
+    id: "voicebot",
+    icon: "solar:microphone-3-bold",
+    title: t.service_voicebot_title,
+    desc: t.service_voicebot_desc,
+    href: href("/voicebot"),
+    colorHex: "#a855f7",
+    result: t.service_voicebot_result,
+  },
+  {
+    id: "ai-agent",
+    icon: "mdi:robot-outline",
+    title: t.service_agent_title,
+    desc: t.service_agent_desc,
+    href: href("/ai-agent"),
+    colorHex: "#3b82f6",
+    result: t.service_agent_result,
+  },
+  {
+    id: "automation",
+    icon: "solar:settings-bold",
+    title: t.service_automation_title,
+    desc: t.service_automation_desc,
+    href: href("/automatizace"),
+    colorHex: "#f97316",
+    result: t.service_automation_result,
+  },
+  {
+    id: "data-prep",
+    icon: "solar:database-bold",
+    title: t.dataprep_nav_title,
+    desc: t.dataprep_hero_subheadline,
+    href: href("/priprava-dat"),
+    colorHex: "#f59e0b",
+    hot: true,
+  },
+  {
+    id: "dev",
+    icon: "solar:code-bold",
+    title: t.service_dev_title,
+    desc: t.service_dev_desc,
+    href: href("/vyvoj-aplikaci"),
+    colorHex: "#06b6d4",
+    tags: ["Frontend", "API", "SQL"],
+  },
+  {
+    id: "web",
+    icon: "solar:palette-bold",
+    title: t.service_web_title,
+    desc: t.service_web_desc,
+    href: href("/web-design"),
+    colorHex: "#ec4899",
+    tags: [t.service_web_responsive, "SEO", "CRO"],
+  },
+  {
+    id: "consult",
+    icon: "solar:hand-shake-bold",
+    title: t.service_consult_title,
+    desc: t.service_consult_desc,
+    href: href("/konzultace"),
+    colorHex: "#22c55e",
+  },
+];
+
+// Card transforms removed for clean alignment
+const transforms = [
+  '', // chatbot
+  '', // voicebot
+  '', // ai-agent
+  '', // automation
+  '', // data-prep
+  '', // dev
+  '', // web
+  '', // consult
+];
+
+const exploreText = t.services_hub_explore || (lang === 'cs' ? 'Zjistit více' : 'Learn more');
+---
+
+<div class:list={["services-overview-grid", className]}>
+  <!-- Optional Unified Header -->
+  {showHeader && (
+    <div class="text-center max-w-5xl mx-auto mb-16">
+      <!-- Badge -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.1s_both] inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8">
+        <iconify-icon icon="solar:star-bold" class="text-primary"></iconify-icon>
+        <span class="text-sm font-medium text-primary">{t.services_hub_badge}</span>
+      </div>
+      
+      <!-- Headline -->
+      <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[0.95] md:text-6xl lg:text-7xl text-3xl font-medium text-white tracking-tighter mb-8">
+        <span>{t.services_hub_title}</span>{' '}
+        <span class="text-neutral-500 transition-colors hover:text-primary duration-500">{t.services_hub_title_2}</span>
+      </h2>
+      
+      <!-- Subheadline -->
+      <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg text-neutral-400 font-light max-w-2xl mx-auto leading-relaxed">
+        {t.services_hub_subtitle}
+      </p>
+    </div>
+  )}
+
+  <!-- Cards Grid Container (relative for floating tags positioning) -->
+  <div class="relative">
+    <!-- Service Cards - Aura Style Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 pt-8">
+    {services.map((service, index) => (
+      <a 
+        href={service.href}
+        class="service-hero-card group relative flex flex-col p-4 sm:p-5 rounded-2xl transition-all duration-500 cursor-pointer hover:scale-105 hover:z-10"
+        style={`animation: animationIn 0.6s ease-out ${0.3 + index * 0.06}s both;`}
+        data-service-id={service.id}
+      >
+        {/* Featured Badge - attached to card */}
+        {service.featured && (
+          <div class="absolute -top-3 left-3 z-20">
+            <span class="inline-flex items-center gap-1.5 text-xs font-medium text-white bg-primary rounded-full py-1 px-3 shadow-lg shadow-primary/30">
+              {t.service_featured}
+              <iconify-icon icon="solar:arrow-right-up-bold" class="text-white/80 text-sm"></iconify-icon>
+            </span>
+          </div>
+        )}
+        
+        {/* Hot/New Badge - attached to card */}
+        {service.hot && (
+          <div class="absolute -top-3 left-3 z-20">
+            <span class="inline-flex items-center gap-1.5 text-xs font-medium text-white bg-gradient-to-r from-amber-500 to-orange-500 rounded-full py-1 px-3 shadow-lg shadow-orange-500/30">
+              {t.service_new_badge}
+              <iconify-icon icon="solar:fire-bold" class="text-white/90 text-sm"></iconify-icon>
+            </span>
+          </div>
+        )}
+
+        {/* Card Background */}
+        <div class="absolute inset-0 rounded-2xl bg-[#0c0c0c]/90 backdrop-blur-sm ring-1 ring-white/[0.08] group-hover:ring-white/[0.15] transition-all duration-500"></div>
+        
+        {/* Gradient glow on hover */}
+        <div 
+          class="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          style={`background: radial-gradient(400px circle at 50% 100%, ${service.colorHex}15, transparent 70%);`}
+        ></div>
+        
+        {/* Top border highlight */}
+        <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent rounded-t-2xl"></div>
+
+        {/* Content */}
+        <div class="relative z-10">
+          {/* Icon */}
+          <div 
+            class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mb-3 transition-all duration-300 group-hover:scale-110"
+            style={`background: ${service.colorHex}15;`}
+          >
+            <iconify-icon 
+              icon={service.icon} 
+              class="text-2xl sm:text-[26px]"
+              style={`color: ${service.colorHex};`}
+            ></iconify-icon>
+          </div>
+
+          {/* Title */}
+          <h3 class="text-sm sm:text-base font-semibold text-white mb-1.5 group-hover:text-white transition-colors line-clamp-1">
+            {service.title}
+          </h3>
+
+          {/* Description - truncated */}
+          <p class="text-xs text-neutral-500 mb-3 line-clamp-2 leading-relaxed">
+            {service.desc}
+          </p>
+
+          {/* Result or Tags - compact */}
+          {service.result && (
+            <div class="flex items-center gap-1.5 text-xs font-medium" style={`color: ${service.colorHex};`}>
+              <iconify-icon icon="solar:arrow-right-up-bold"></iconify-icon>
+              <span class="truncate">{service.result}</span>
+            </div>
+          )}
+          {service.tags && (
+            <div class="flex flex-wrap gap-1.5">
+              {service.tags.slice(0, 2).map((tag: string) => (
+                <span 
+                  class="px-2 py-0.5 text-[10px] rounded"
+                  style={`background: ${service.colorHex}15; color: ${service.colorHex};`}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* CTA */}
+          <div class="mt-3 pt-3 border-t border-white/[0.05] flex items-center justify-between">
+            <span class="text-xs text-neutral-600 group-hover:text-neutral-400 transition-colors">
+              {exploreText}
+            </span>
+            <iconify-icon 
+              icon="solar:arrow-right-bold" 
+              class="text-base text-neutral-700 group-hover:text-white group-hover:translate-x-0.5 transition-all duration-300"
+            ></iconify-icon>
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
+  </div>
+  <!-- End of Cards Grid Container -->
+
+  <!-- What We Deliver Section -->
+  {showDeliverables && (
+    <div class="mt-20">
+      <!-- Section Header -->
+      <div class="text-center max-w-4xl mx-auto mb-12">
+        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] text-3xl md:text-4xl lg:text-5xl font-medium text-white tracking-tight mb-6">
+          <span>{t.deliver_headline_1}</span>{' '}
+          <span class="text-neutral-500">{t.deliver_headline_2}</span>
+        </h2>
+        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-base md:text-lg text-neutral-400 font-light max-w-2xl mx-auto leading-relaxed">
+          {t.deliver_subheadline}
+        </p>
+      </div>
+
+      <!-- Deliverables Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {deliverables.map((item) => (
+          <div 
+            class="animate-on-scroll deliverable-card group relative p-6 bg-[#0A0A0A]/80 ring-1 ring-white/[0.06] rounded-2xl hover:ring-primary/20 transition-all duration-300"
+            style={`animation: animationIn 0.8s ease-out ${item.delay}s both;`}
+          >
+            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
+              <iconify-icon icon={item.icon} class="text-2xl"></iconify-icon>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
+            <p class="text-sm text-neutral-400 leading-relaxed">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <!-- CTA Below Cards -->
+  {showCta && (
+    <div class="mt-16 text-center">
+      <a href="#kontakt" class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.9s_both] shiny-cta group inline-flex max-w-md mx-auto">
+        <span class="btn-content">
+          <span class="text-lg font-semibold tracking-tight">{t.services_hub_cta}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white/80 group-hover:translate-x-1 transition-transform">
+            <path d="M5 12h14"></path>
+            <path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </span>
+      </a>
+    </div>
+  )}
+</div>
+
+<style>
+  .service-hero-card {
+    /* Smooth transitions for all transforms */
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                box-shadow 0.3s ease,
+                z-index 0s;
+  }
+  
+  .service-hero-card:hover {
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Line clamping */
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Deliverable cards hover effect */
+  .deliverable-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .deliverable-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.4);
+  }
+</style>

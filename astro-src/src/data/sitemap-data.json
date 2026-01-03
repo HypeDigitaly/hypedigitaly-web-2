@@ -1,0 +1,87 @@
+{
+  "generated": "2026-01-03T10:19:22.582Z",
+  "description": "Auto-generated from /pages directory scan + Git commit dates. Do not edit manually.",
+  "staticPages": [
+    {
+      "path": "/",
+      "priority": 1,
+      "changefreq": "weekly"
+    },
+    {
+      "path": "/chatbot",
+      "priority": 0.9,
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/sluzby",
+      "priority": 0.9,
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/konzultace",
+      "priority": 0.8,
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/priprava-dat",
+      "priority": 0.8,
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/ai-agent",
+      "priority": 0.7,
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/automatizace",
+      "priority": 0.7,
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/blog",
+      "priority": 0.7,
+      "changefreq": "weekly"
+    },
+    {
+      "path": "/voicebot",
+      "priority": 0.7,
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/vyvoj-aplikaci",
+      "priority": 0.7,
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/web-design",
+      "priority": 0.7,
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/privacy-policy",
+      "priority": 0.3,
+      "changefreq": "yearly"
+    },
+    {
+      "path": "/recommendation",
+      "priority": 0.3,
+      "changefreq": "yearly"
+    }
+  ],
+  "lastmod": {
+    "/": "2025-12-29",
+    "/chatbot": "2025-12-29",
+    "/sluzby": "2026-01-03",
+    "/konzultace": "2025-12-29",
+    "/priprava-dat": "2025-12-29",
+    "/ai-agent": "2026-01-03",
+    "/automatizace": "2026-01-03",
+    "/blog": "2025-12-29",
+    "/voicebot": "2026-01-03",
+    "/vyvoj-aplikaci": "2026-01-03",
+    "/web-design": "2026-01-03",
+    "/privacy-policy": "2025-12-29",
+    "/recommendation": "2025-12-28"
+  },
+  "blogPostsLastMod": "2025-12-28"
+}

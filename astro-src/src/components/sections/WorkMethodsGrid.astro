@@ -1,0 +1,116 @@
+---
+/**
+ * WorkMethodsGrid.astro
+ * 
+ * Reusable "How We Work" methodology grid component.
+ * Used on both landing page (index.astro) and services hub (/sluzby).
+ * 
+ * Features:
+ * - 4-card grid showing work methodology
+ * - Consistent styling with ServicesOverviewGrid
+ * - Smooth animations on scroll
+ */
+import { translations, type Language } from '../../scripts/translations';
+
+interface Props {
+  lang: Language;
+  className?: string;
+}
+
+const { lang, className = '' } = Astro.props;
+const t = translations[lang];
+
+// Work methods configuration
+const workMethods = [
+  {
+    icon: "solar:document-text-bold",
+    title: t.work_method_1_title,
+    desc: t.work_method_1_desc,
+    delay: 0.1,
+  },
+  {
+    icon: "solar:users-group-rounded-bold",
+    title: t.work_method_2_title,
+    desc: t.work_method_2_desc,
+    delay: 0.2,
+  },
+  {
+    icon: "solar:refresh-circle-bold",
+    title: t.work_method_3_title,
+    desc: t.work_method_3_desc,
+    delay: 0.3,
+  },
+  {
+    icon: "solar:medal-star-bold",
+    title: t.work_method_4_title,
+    desc: t.work_method_4_desc,
+    delay: 0.4,
+  },
+];
+---
+
+<div class:list={["work-methods-grid", className]}>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {workMethods.map((method) => (
+      <div 
+        class="work-method-card group animate-on-scroll flex items-start gap-4 p-6 rounded-xl bg-[#0A0A0A]/80 ring-1 ring-white/[0.06] hover:ring-primary/20 transition-all duration-500"
+        style={`animation: animationIn 0.8s ease-out ${method.delay}s both;`}
+      >
+        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
+          <iconify-icon icon={method.icon} class="text-xl text-primary"></iconify-icon>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-semibold text-white mb-1 group-hover:text-primary transition-colors duration-300">
+            {method.title}
+          </h4>
+          <p class="text-sm text-neutral-400 leading-relaxed">
+            {method.desc}
+          </p>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .work-method-card:hover {
+    transform: translateY(-2px);
+    background: rgba(10, 10, 10, 0.9);
+  }
+  
+  /* Subtle gradient on hover */
+  .work-method-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 163, 154, 0.06), transparent 40%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+  
+  .work-method-card {
+    position: relative;
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+  }
+  
+  .work-method-card:hover::before {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  // Mouse tracking for glow effect
+  document.querySelectorAll('.work-method-card').forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = (card as HTMLElement).getBoundingClientRect();
+      const x = ((e as MouseEvent).clientX - rect.left) / rect.width * 100;
+      const y = ((e as MouseEvent).clientY - rect.top) / rect.height * 100;
+      (card as HTMLElement).style.setProperty('--mouse-x', `${x}%`);
+      (card as HTMLElement).style.setProperty('--mouse-y', `${y}%`);
+    });
+  });
+</script>
+

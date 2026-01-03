@@ -4,7 +4,12 @@ import ClientsMarquee from '../components/sections/ClientsMarquee.astro';
 import DataPreparationSection from '../components/sections/DataPreparationSection.astro';
 import TestimonialsSection from '../components/sections/TestimonialsSection.astro';
 import CaseStudiesSection from '../components/sections/CaseStudiesSection.astro';
-import YoutubeFacade from '../components/ui/YoutubeFacade.astro';
+import TechStackSection from '../components/sections/TechStackSection.astro';
+import ServicesOverviewGrid from '../components/sections/ServicesOverviewGrid.astro';
+import WorkMethodsGrid from '../components/sections/WorkMethodsGrid.astro';
+import ProcessSection from '../components/sections/ProcessSection.astro';
+import ProblemSection from '../components/sections/ProblemSection.astro';
+import DeliverablesGrid from '../components/sections/DeliverablesGrid.astro';
 import YoutubeFacade from '../components/ui/YoutubeFacade.astro';
 import { translations, type Language, getLocalizedHref } from '../scripts/translations';
 import faqData from '../data/faq.json';
@@ -135,6 +140,7 @@ const pageDescription = lang === 'cs'
   
   <!-- Service Structured Data -->
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+
   <!-- ==================== HERO SECTION ==================== -->
   <section class="relative max-w-7xl mx-auto px-4 sm:px-6 pt-12 pb-24 overflow-hidden">
     <div class="text-center max-w-5xl mx-auto relative z-10">
@@ -216,461 +222,62 @@ const pageDescription = lang === 'cs'
   <!-- ==================== TRUSTED BY SECTION ==================== -->
   <ClientsMarquee lang={lang} />
 
-  <!-- ==================== PROBLEM SECTION ==================== -->
-  <section class="bg-[#050505] border-t border-white/5 py-24">
+  <!-- ==================== SECTION 02: SERVICES CARDS ==================== -->
+  <section id="sluzby" class="bg-[#050505] border-t border-white/5 py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <!-- Section Header -->
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-400 uppercase tracking-[0.2em] gap-4">
+      <!-- Section Number Bar -->
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 text-[10px] md:text-xs font-mono text-neutral-400 uppercase tracking-[0.2em] gap-4">
         <div class="flex items-center gap-2">
           <span class="text-white">02</span>
           <span class="w-12 h-px bg-white/10"></span>
         </div>
-        <div class="text-white/40">{t.problem_tag}</div>
-        <div class="hidden md:block text-right">{t.problem_label}</div>
+        <div class="text-white/40">{t.services_hub_badge}</div>
+        <div class="hidden md:block text-right">{lang === 'cs' ? 'NAŠE SLUŽBY' : 'OUR SERVICES'}</div>
       </div>
 
-      <div class="text-center max-w-5xl mx-auto mb-16">
-        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[0.95] md:text-6xl lg:text-7xl text-3xl font-medium text-white tracking-tighter mb-8">
-          <span>{t.problem_headline}</span>
-          <span class="text-neutral-400 transition-colors hover:text-primary duration-500">{t.problem_headline_2}</span>
-        </h2>
-        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg text-neutral-400 font-light max-w-2xl mx-auto leading-relaxed">
-          {t.problem_subheadline}
-        </p>
-      </div>
-
-      <!-- Pain Points Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-red-500/30 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center text-red-400 mb-4" aria-hidden="true">
-            <iconify-icon icon="solar:database-bold" class="text-2xl" aria-hidden="true"></iconify-icon>
-          </div>
-          <h3 class="text-xl font-semibold text-white mb-3">{t.pain_1_title}</h3>
-          <p class="text-sm text-neutral-400 leading-relaxed">{t.pain_1_desc}</p>
-        </div>
-
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-orange-500/30 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400 mb-4" aria-hidden="true">
-            <iconify-icon icon="solar:settings-minimalistic-bold" class="text-2xl" aria-hidden="true"></iconify-icon>
-          </div>
-          <h3 class="text-xl font-semibold text-white mb-3">{t.pain_2_title}</h3>
-          <p class="text-sm text-neutral-400 leading-relaxed">{t.pain_2_desc}</p>
-        </div>
-
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-yellow-500/30 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center text-yellow-400 mb-4" aria-hidden="true">
-            <iconify-icon icon="solar:chart-square-bold" class="text-2xl" aria-hidden="true"></iconify-icon>
-          </div>
-          <h3 class="text-xl font-semibold text-white mb-3">{t.pain_3_title}</h3>
-          <p class="text-sm text-neutral-400 leading-relaxed">{t.pain_3_desc}</p>
-        </div>
-      </div>
+      <!-- Services Grid with unified header -->
+      <ServicesOverviewGrid lang={lang} showHeader={true} showCta={true} showDeliverables={false} />
     </div>
   </section>
 
-  <!-- ==================== WHAT WE DELIVER SECTION ==================== -->
-  <section class="bg-[#050505] border-t border-white/5 py-24">
+  <!-- ==================== SECTION 03: PROCESS (JAK PROBÍHÁ SPOLUPRÁCE) ==================== -->
+  <ProcessSection lang={lang} sectionNumber="03" />
+
+  <!-- ==================== SECTION 04: PROBLEM (Z JAKÉHO DŮVODU ORGANIZACE S AI NEUSPĚJÍ) ==================== -->
+  <ProblemSection lang={lang} sectionNumber="04" />
+
+  <!-- ==================== SECTION 05: DELIVERABLES (CO OD NÁS ZÍSKÁTE) + CTA ==================== -->
+  <DeliverablesGrid lang={lang} sectionNumber="05" showHeader={true} showCta={true} />
+
+  <!-- ==================== SECTION 06: HOW WE WORK ==================== -->
+  <section class="bg-[#050505] border-t border-white/5 py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-400 uppercase tracking-[0.2em] gap-4">
+      <!-- Section Number Header -->
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 text-[10px] md:text-xs font-mono text-neutral-400 uppercase tracking-[0.2em] gap-4">
         <div class="flex items-center gap-2">
-          <span class="text-white">03</span>
+          <span class="text-white">06</span>
           <span class="w-12 h-px bg-white/10"></span>
         </div>
-        <div class="text-white/40">{t.deliver_tag}</div>
-        <div class="hidden md:block text-right">{t.deliver_label}</div>
+        <div class="text-white/40">{t.how_we_work_tag}</div>
+        <div class="hidden md:block text-right">{t.how_we_work_label}</div>
       </div>
 
-      <div class="text-center max-w-5xl mx-auto mb-20">
-        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[0.95] md:text-6xl lg:text-7xl text-3xl font-medium text-white tracking-tighter mb-8">
-          <span>{t.deliver_headline_1}</span>
-          <span class="text-neutral-500 transition-colors hover:text-primary duration-500">{t.deliver_headline_2}</span>
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-medium text-white tracking-tight">
+          {t.how_we_work_headline_1} <span class="text-neutral-500">{t.how_we_work_headline_2}</span>
         </h2>
-        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg text-neutral-400 font-light max-w-3xl mx-auto leading-relaxed">
-          {t.deliver_subheadline}
+        <p class="mt-4 text-base text-neutral-400 font-light max-w-xl mx-auto">
+          {t.how_we_work_subheadline}
         </p>
       </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] group relative p-8 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
-          <div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6">
-            <iconify-icon icon="solar:database-bold" class="text-3xl"></iconify-icon>
-          </div>
-          <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">{t.deliver_1_title}</h3>
-          <p class="text-sm text-neutral-400 leading-relaxed">{t.deliver_1_desc}</p>
-        </div>
-
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] group relative p-8 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
-          <div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6">
-            <iconify-icon icon="solar:magic-stick-3-bold" class="text-3xl"></iconify-icon>
-          </div>
-          <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">{t.deliver_2_title}</h3>
-          <p class="text-sm text-neutral-400 leading-relaxed">{t.deliver_2_desc}</p>
-        </div>
-
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] group relative p-8 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
-          <div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6">
-            <iconify-icon icon="solar:chart-2-bold" class="text-3xl"></iconify-icon>
-          </div>
-          <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">{t.deliver_3_title}</h3>
-          <p class="text-sm text-neutral-400 leading-relaxed">{t.deliver_3_desc}</p>
-        </div>
-
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] group relative p-8 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
-          <div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6">
-            <iconify-icon icon="solar:settings-minimalistic-bold" class="text-3xl"></iconify-icon>
-          </div>
-          <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">{t.deliver_4_title}</h3>
-          <p class="text-sm text-neutral-400 leading-relaxed">{t.deliver_4_desc}</p>
-        </div>
-
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both] group relative p-8 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
-          <div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6">
-            <iconify-icon icon="solar:users-group-rounded-bold" class="text-3xl"></iconify-icon>
-          </div>
-          <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">{t.deliver_5_title}</h3>
-          <p class="text-sm text-neutral-400 leading-relaxed">{t.deliver_5_desc}</p>
-        </div>
-
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.8s_both] group relative p-8 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
-          <div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6">
-            <iconify-icon icon="solar:graph-up-bold" class="text-3xl"></iconify-icon>
-          </div>
-          <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">{t.deliver_6_title}</h3>
-          <p class="text-sm text-neutral-400 leading-relaxed">{t.deliver_6_desc}</p>
-        </div>
-      </div>
+      <WorkMethodsGrid lang={lang} />
     </div>
   </section>
 
-  <!-- ==================== PROCESS SECTION ==================== -->
-  <section class="bg-[#050505] border-t border-white/5 py-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-400 uppercase tracking-[0.2em] gap-4">
-        <div class="flex items-center gap-2">
-          <span class="text-white">04</span>
-          <span class="w-12 h-px bg-white/10"></span>
-        </div>
-        <div class="text-white/40">{t.process_tag}</div>
-        <div class="hidden md:block text-right">{t.process_label}</div>
-      </div>
+  <!-- ==================== SECTION 07: TECH STACK ==================== -->
+  <TechStackSection lang={lang} />
 
-      <div class="text-center max-w-5xl mx-auto mb-20">
-        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[0.95] md:text-6xl lg:text-7xl text-3xl font-medium text-white tracking-tighter mb-8">
-          <span>{t.process_headline_1}</span>
-          <span class="text-neutral-500 transition-colors hover:text-primary duration-500">{t.process_headline_2}</span>
-        </h2>
-        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg text-neutral-400 font-light max-w-3xl mx-auto leading-relaxed">
-          {t.process_subheadline}
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
-          <div class="flex items-center justify-between mb-4">
-            <span class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">1</span>
-            <span class="text-xs text-neutral-500 uppercase tracking-wider">Discovery</span>
-          </div>
-          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-primary transition-colors">{t.phase_1_title}</h3>
-          <p class="text-sm text-neutral-400 leading-relaxed mb-4">{t.phase_1_desc}</p>
-          <div class="pt-4 border-t border-white/5">
-            <div class="text-xs text-primary font-medium">{t.phase_1_output}</div>
-          </div>
-        </div>
-
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
-          <div class="flex items-center justify-between mb-4">
-            <span class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">2</span>
-            <span class="text-xs text-neutral-500 uppercase tracking-wider">AI Audit</span>
-          </div>
-          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-primary transition-colors">{t.phase_2_title}</h3>
-          <p class="text-sm text-neutral-400 leading-relaxed mb-4">{t.phase_2_desc}</p>
-          <div class="pt-4 border-t border-white/5">
-            <div class="text-xs text-primary font-medium">{t.phase_2_output}</div>
-          </div>
-        </div>
-
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
-          <div class="flex items-center justify-between mb-4">
-            <span class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">3</span>
-            <span class="text-xs text-neutral-500 uppercase tracking-wider">Strategie</span>
-          </div>
-          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-primary transition-colors">{t.phase_3_title}</h3>
-          <p class="text-sm text-neutral-400 leading-relaxed mb-4">{t.phase_3_desc}</p>
-          <div class="pt-4 border-t border-white/5">
-            <div class="text-xs text-primary font-medium">{t.phase_3_output}</div>
-          </div>
-        </div>
-
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
-          <div class="flex items-center justify-between mb-4">
-            <span class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">4</span>
-            <span class="text-xs text-neutral-500 uppercase tracking-wider">Delivery</span>
-          </div>
-          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-primary transition-colors">{t.phase_4_title}</h3>
-          <p class="text-sm text-neutral-400 leading-relaxed mb-4">{t.phase_4_desc}</p>
-          <div class="pt-4 border-t border-white/5">
-            <div class="text-xs text-primary font-medium">{t.phase_4_output}</div>
-          </div>
-        </div>
-      </div>
-
-      <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.8s_both] text-center text-sm text-neutral-400 mt-12 max-w-2xl mx-auto">
-        {t.process_note}
-      </p>
-    </div>
-  </section>
-
-  <!-- ==================== SERVICES SECTION ==================== -->
-  <section id="sluzby" class="bg-[#050505] border-t border-white/5 py-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-400 uppercase tracking-[0.2em] gap-4">
-        <div class="flex items-center gap-2">
-          <span class="text-white">05</span>
-          <span class="w-12 h-px bg-white/10"></span>
-        </div>
-        <div class="text-white/40">{t.services_tag}</div>
-        <div class="hidden md:block text-right">{t.services_label}</div>
-      </div>
-
-      <div class="text-center max-w-5xl mx-auto mb-16">
-        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[0.95] md:text-6xl lg:text-7xl text-3xl font-medium text-white tracking-tighter mb-8">
-          <span>{t.services_headline_1}</span>
-          <span class="text-neutral-500 transition-colors hover:text-primary duration-500">{t.services_headline_2}</span>
-        </h2>
-        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg text-neutral-400 font-light max-w-2xl mx-auto leading-relaxed">
-          {t.services_subheadline}
-        </p>
-      </div>
-
-      <!-- How we work Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] flex items-start gap-4 p-6 bg-[#0A0A0A] border border-white/5 rounded-xl">
-          <iconify-icon icon="solar:document-text-bold" class="text-2xl text-primary flex-shrink-0"></iconify-icon>
-          <div>
-            <h4 class="font-semibold text-white mb-1">{t.work_method_1_title}</h4>
-            <p class="text-sm text-neutral-400">{t.work_method_1_desc}</p>
-          </div>
-        </div>
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] flex items-start gap-4 p-6 bg-[#0A0A0A] border border-white/5 rounded-xl">
-          <iconify-icon icon="solar:users-group-rounded-bold" class="text-2xl text-primary flex-shrink-0"></iconify-icon>
-          <div>
-            <h4 class="font-semibold text-white mb-1">{t.work_method_2_title}</h4>
-            <p class="text-sm text-neutral-400">{t.work_method_2_desc}</p>
-          </div>
-        </div>
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] flex items-start gap-4 p-6 bg-[#0A0A0A] border border-white/5 rounded-xl">
-          <iconify-icon icon="solar:refresh-circle-bold" class="text-2xl text-primary flex-shrink-0"></iconify-icon>
-          <div>
-            <h4 class="font-semibold text-white mb-1">{t.work_method_3_title}</h4>
-            <p class="text-sm text-neutral-400">{t.work_method_3_desc}</p>
-          </div>
-        </div>
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both] flex items-start gap-4 p-6 bg-[#0A0A0A] border border-white/5 rounded-xl">
-          <iconify-icon icon="solar:medal-star-bold" class="text-2xl text-primary flex-shrink-0"></iconify-icon>
-          <div>
-            <h4 class="font-semibold text-white mb-1">{t.work_method_4_title}</h4>
-            <p class="text-sm text-neutral-400">{t.work_method_4_desc}</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Featured Service: AI Chatbot -->
-      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] mb-8 group relative p-8 bg-gradient-to-br from-primary/10 via-[#0A0A0A] to-[#0A0A0A] border border-primary/30 rounded-2xl hover:border-primary/50 transition-all duration-500 overflow-hidden">
-        <div class="absolute top-4 right-4 px-3 py-1 bg-primary/20 text-primary text-xs font-bold rounded-full">{t.service_featured}</div>
-        <div class="grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <div class="w-16 h-16 rounded-2xl bg-primary/20 flex items-center justify-center text-primary mb-6">
-              <iconify-icon icon="solar:chat-round-dots-bold" class="text-3xl"></iconify-icon>
-            </div>
-            <h3 class="text-3xl font-bold text-white mb-4">{t.service_chatbot_title}</h3>
-            <p class="text-neutral-400 mb-6">{t.service_chatbot_desc}</p>
-            <ul class="space-y-3 mb-6">
-              <li class="flex items-center gap-3 text-sm text-neutral-300">
-                <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
-                <span>{t.service_chatbot_f1}</span>
-              </li>
-              <li class="flex items-center gap-3 text-sm text-neutral-300">
-                <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
-                <span>{t.service_chatbot_f2}</span>
-              </li>
-              <li class="flex items-center gap-3 text-sm text-neutral-300">
-                <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
-                <span>{t.service_chatbot_f3}</span>
-              </li>
-              <li class="flex items-center gap-3 text-sm text-neutral-300">
-                <iconify-icon icon="solar:check-circle-bold" class="text-primary text-lg"></iconify-icon>
-                <span>{t.service_chatbot_f4}</span>
-              </li>
-            </ul>
-            <a href={href("/chatbot")} class="vf-button !py-4 !px-8" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
-              <div class="vf-points-wrapper">
-                <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
-                <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
-              </div>
-              <span class="vf-inner !text-lg">
-                <span>{t.service_chatbot_more}</span>
-                <svg class="vf-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
-                  <path d="M5 12h14"></path>
-                  <path d="m12 5 7 7-7 7"></path>
-                </svg>
-              </span>
-            </a>
-          </div>
-          <div class="aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-lg bg-gray-900">
-            <YoutubeFacade videoId="cECRY6dQ0NA" title={t.service_chatbot_title} />
-          </div>
-        </div>
-        
-        <!-- First in CZ Badge -->
-        <div class="mt-6 flex items-center gap-4 p-4 bg-gradient-to-r from-primary/10 to-transparent border border-primary/20 rounded-xl">
-          <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary flex-shrink-0">
-            <iconify-icon icon="solar:cup-star-bold" class="text-2xl"></iconify-icon>
-          </div>
-          <div>
-            <h4 class="text-lg font-bold text-white mb-1">{t.first_title}</h4>
-            <p class="text-sm text-neutral-400">{t.first_desc}</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Other Services Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-purple-500/30 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 mb-4">
-            <iconify-icon icon="solar:microphone-3-bold" class="text-2xl"></iconify-icon>
-          </div>
-          <h3 class="text-xl font-semibold text-white mb-2">{t.service_voicebot_title}</h3>
-          <p class="text-sm text-neutral-400 mb-4">{t.service_voicebot_desc}</p>
-          <div class="flex items-center gap-2 text-sm text-purple-400 font-medium">
-            <iconify-icon icon="solar:arrow-right-up-bold"></iconify-icon>
-            <span>{t.service_voicebot_result}</span>
-          </div>
-        </div>
-
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-blue-500/30 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 mb-4">
-            <iconify-icon icon="mdi:robot-outline" class="text-2xl"></iconify-icon>
-          </div>
-          <h3 class="text-xl font-semibold text-white mb-2">{t.service_agent_title}</h3>
-          <p class="text-sm text-neutral-400 mb-4">{t.service_agent_desc}</p>
-          <div class="flex items-center gap-2 text-sm text-blue-400 font-medium">
-            <iconify-icon icon="solar:arrow-right-up-bold"></iconify-icon>
-            <span>{t.service_agent_result}</span>
-          </div>
-        </div>
-
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-orange-500/30 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400 mb-4">
-            <iconify-icon icon="solar:settings-bold" class="text-2xl"></iconify-icon>
-          </div>
-          <h3 class="text-xl font-semibold text-white mb-2">{t.service_automation_title}</h3>
-          <p class="text-sm text-neutral-400 mb-4">{t.service_automation_desc}</p>
-          <div class="flex items-center gap-2 text-sm text-orange-400 font-medium">
-            <iconify-icon icon="solar:arrow-right-up-bold"></iconify-icon>
-            <span>{t.service_automation_result}</span>
-          </div>
-        </div>
-
-        <!-- DATA PREPARATION - NOVINKA / HOT -->
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.65s_both] group relative p-6 rounded-2xl transition-all duration-300 service-hot-card overflow-hidden">
-          <!-- Animated gradient border -->
-          <div class="absolute inset-0 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 opacity-75 blur-[1px] group-hover:opacity-100 transition-opacity"></div>
-          <div class="absolute inset-[2px] rounded-[14px] bg-[#0A0A0A]"></div>
-          
-          <!-- Content wrapper -->
-          <div class="relative z-10">
-            <!-- HOT Badge with pulse animation -->
-            <div class="absolute -top-2 -right-2 flex items-center gap-1.5">
-              <span class="relative flex h-3 w-3">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
-              </span>
-              <span class="px-2.5 py-1 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] font-bold rounded-full uppercase tracking-wider shadow-lg shadow-orange-500/30">
-                {t.service_new_badge}
-              </span>
-            </div>
-            
-            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-              <iconify-icon icon="solar:database-bold" class="text-2xl text-amber-400"></iconify-icon>
-            </div>
-            <h3 class="text-xl font-semibold text-white mb-2 group-hover:text-amber-400 transition-colors">{t.dataprep_nav_title}</h3>
-            <p class="text-sm text-neutral-400 mb-4">{t.dataprep_hero_subheadline}</p>
-            <a href={href("/priprava-dat")} class="vf-button !py-3 !min-w-[240px] justify-center" style="--vf-bg: #f59e0b; --vf-hover-bg: #fbbf24; --vf-glow-rgb: 245, 158, 11;">
-              <div class="vf-points-wrapper">
-                <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
-                <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
-              </div>
-              <span class="vf-inner">
-                <span>{t.service_dataprep_cta}</span>
-                <svg class="vf-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
-                  <path d="M5 12h14"></path>
-                  <path d="m12 5 7 7-7 7"></path>
-                </svg>
-              </span>
-            </a>
-          </div>
-        </div>
-
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-cyan-500/30 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-4">
-            <iconify-icon icon="solar:code-bold" class="text-2xl"></iconify-icon>
-          </div>
-          <h3 class="text-xl font-semibold text-white mb-2">{t.service_dev_title}</h3>
-          <p class="text-sm text-neutral-400 mb-4">{t.service_dev_desc}</p>
-          <div class="flex flex-wrap gap-2 mt-4">
-            <span class="px-2 py-1 bg-cyan-500/10 text-cyan-400 text-xs rounded">Frontend</span>
-            <span class="px-2 py-1 bg-cyan-500/10 text-cyan-400 text-xs rounded">API</span>
-            <span class="px-2 py-1 bg-cyan-500/10 text-cyan-400 text-xs rounded">SQL</span>
-          </div>
-        </div>
-
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.8s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-pink-500/30 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-400 mb-4">
-            <iconify-icon icon="solar:palette-bold" class="text-2xl"></iconify-icon>
-          </div>
-          <h3 class="text-xl font-semibold text-white mb-2">{t.service_web_title}</h3>
-          <p class="text-sm text-neutral-400 mb-4">{t.service_web_desc}</p>
-          <div class="flex flex-wrap gap-2 mt-4">
-            <span class="px-2 py-1 bg-pink-500/10 text-pink-400 text-xs rounded">{t.service_web_responsive}</span>
-            <span class="px-2 py-1 bg-pink-500/10 text-pink-400 text-xs rounded">SEO</span>
-            <span class="px-2 py-1 bg-pink-500/10 text-pink-400 text-xs rounded">CRO</span>
-          </div>
-        </div>
-
-        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.9s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-green-500/30 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center text-green-400 mb-4">
-            <iconify-icon icon="solar:hand-shake-bold" class="text-2xl"></iconify-icon>
-          </div>
-          <h3 class="text-xl font-semibold text-white mb-2">{t.service_consult_title}</h3>
-          <p class="text-sm text-neutral-400 mb-4">{t.service_consult_desc}</p>
-          <a href={href("/konzultace")} class="vf-button !py-3 !min-w-[240px] justify-center" style="--vf-bg: #22c55e; --vf-hover-bg: #4ade80; --vf-glow-rgb: 34, 197, 94;">
-            <div class="vf-points-wrapper">
-              <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
-              <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
-            </div>
-            <span class="vf-inner">
-              <span>{t.service_consult_more}</span>
-              <svg class="vf-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
-                <path d="M5 12h14"></path>
-                <path d="m12 5 7 7-7 7"></path>
-              </svg>
-            </span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== TESTIMONIALS SECTION ==================== -->
-  <TestimonialsSection lang={lang} sectionNumber="06" id="reference" />
-
-  <!-- ==================== CASE STUDIES SECTION ==================== -->
-  <CaseStudiesSection lang={lang} sectionNumber="05" id="pripadove-studie" />
-
-  <!-- ==================== DATA PREPARATION SECTION ==================== -->
-  <DataPreparationSection lang={lang} sectionNumber="07" id="priprava-dat" />
-
-  <!-- ==================== VOICEFLOW CERTIFIED EXPERT ==================== -->
+  <!-- ==================== SECTION 08: VOICEFLOW CERTIFIED EXPERT ==================== -->
   <section class="bg-[#050505] border-t border-white/5 py-16">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
       <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] inline-flex flex-col md:flex-row items-center gap-6 md:gap-10 p-8 rounded-2xl bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 backdrop-blur-sm">
@@ -707,265 +314,16 @@ const pageDescription = lang === 'cs'
     </div>
   </section>
 
-  <!-- ==================== TECH STACK SECTION ==================== -->
-  <section class="bg-[#050505] border-t border-white/5 py-20 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <p class="text-center text-xs text-neutral-500 font-bold tracking-widest mb-4 uppercase">{t.tech_title}</p>
-      <p class="text-center text-sm text-neutral-400 mb-12 max-w-2xl mx-auto">{t.tech_subtitle}</p>
-      
-      <!-- Tech Stack Marquee Container -->
-      <div class="tech-marquee-container relative">
-        <!-- Gradient Fade Left -->
-        <div class="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none bg-gradient-to-r from-[#050505] to-transparent"></div>
-        <!-- Gradient Fade Right -->
-        <div class="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none bg-gradient-to-l from-[#050505] to-transparent"></div>
-        
-        <!-- Row 1: LLM Providers & AI -->
-        <div class="tech-marquee mb-8">
-          <div class="tech-marquee-track animate-marquee">
-            <!-- First set -->
-            <div class="tech-item group" title="OpenAI">
-              <iconify-icon icon="simple-icons:openai" height="36" style="color: #FFFFFF"></iconify-icon>
-              <span class="tech-label">OpenAI</span>
-            </div>
-            <div class="tech-item group" title="Anthropic Claude">
-              <iconify-icon icon="simple-icons:anthropic" height="32" style="color: #D4A574"></iconify-icon>
-              <span class="tech-label">Claude</span>
-            </div>
-            <div class="tech-item group" title="Google Gemini">
-              <iconify-icon icon="simple-icons:googlegemini" height="32" style="color: #8E75B2"></iconify-icon>
-              <span class="tech-label">Gemini</span>
-            </div>
-            <div class="tech-item group" title="Microsoft Azure">
-              <iconify-icon icon="logos:microsoft-azure" height="32"></iconify-icon>
-              <span class="tech-label">Azure AI</span>
-            </div>
-            <div class="tech-item group" title="Google Cloud">
-              <iconify-icon icon="logos:google-cloud" height="28"></iconify-icon>
-              <span class="tech-label">Google Cloud</span>
-            </div>
-            <div class="tech-item group" title="AWS">
-              <iconify-icon icon="logos:aws" height="24"></iconify-icon>
-              <span class="tech-label">AWS</span>
-            </div>
-            <!-- Duplicate for seamless loop -->
-            <div class="tech-item group" title="OpenAI">
-              <iconify-icon icon="simple-icons:openai" height="36" style="color: #FFFFFF"></iconify-icon>
-              <span class="tech-label">OpenAI</span>
-            </div>
-            <div class="tech-item group" title="Anthropic Claude">
-              <iconify-icon icon="simple-icons:anthropic" height="32" style="color: #D4A574"></iconify-icon>
-              <span class="tech-label">Claude</span>
-            </div>
-            <div class="tech-item group" title="Google Gemini">
-              <iconify-icon icon="simple-icons:googlegemini" height="32" style="color: #8E75B2"></iconify-icon>
-              <span class="tech-label">Gemini</span>
-            </div>
-            <div class="tech-item group" title="Microsoft Azure">
-              <iconify-icon icon="logos:microsoft-azure" height="32"></iconify-icon>
-              <span class="tech-label">Azure AI</span>
-            </div>
-            <div class="tech-item group" title="Google Cloud">
-              <iconify-icon icon="logos:google-cloud" height="28"></iconify-icon>
-              <span class="tech-label">Google Cloud</span>
-            </div>
-            <div class="tech-item group" title="AWS">
-              <iconify-icon icon="logos:aws" height="24"></iconify-icon>
-              <span class="tech-label">AWS</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Row 2: No-Code Platforms & Vector Stores -->
-        <div class="tech-marquee mb-8">
-          <div class="tech-marquee-track animate-marquee-reverse">
-            <!-- First set -->
-            <div class="tech-item group" title="Voiceflow">
-              <img src="/assets/images/Voiceflow_Logo.png" alt="Voiceflow" width="32" height="32" class="object-contain">
-              <span class="tech-label">Voiceflow</span>
-            </div>
-            <div class="tech-item group" title="n8n">
-              <iconify-icon icon="simple-icons:n8n" height="32" style="color: #EA4B71"></iconify-icon>
-              <span class="tech-label">n8n</span>
-            </div>
-            <div class="tech-item group" title="Qdrant">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 1L22 7V17L12 23L2 17V7L12 1Z" fill="#E84A5F"/>
-                <path d="M12 1L22 7V17L12 11V1Z" fill="#BE2D4A"/>
-                <path d="M12 1L2 7L12 11V1Z" fill="#FF6B8A"/>
-                <path d="M2 7L12 11V23L2 17V7Z" fill="#E84A5F"/>
-                <path d="M12 8L17 11V15L12 18L7 15V11L12 8Z" fill="white"/>
-                <path d="M9 12L12 10L15 12V14L12 16L9 14V12Z" fill="#FF6B8A"/>
-                <path d="M12 10L15 12V14L12 12V10Z" fill="#BE2D4A"/>
-                <path d="M15 14V18" stroke="#BE2D4A" stroke-width="1.5"/>
-              </svg>
-              <span class="tech-label">Qdrant</span>
-            </div>
-            <div class="tech-item group" title="Pinecone">
-              <img src="/assets/images/PineCone_Logo.png" alt="Pinecone" width="32" height="32" class="object-contain brightness-0 invert">
-              <span class="tech-label">Pinecone</span>
-            </div>
-            <div class="tech-item group" title="Supabase">
-              <iconify-icon icon="logos:supabase-icon" height="32"></iconify-icon>
-              <span class="tech-label">Supabase</span>
-            </div>
-            <div class="tech-item group" title="GitHub">
-              <iconify-icon icon="logos:github-icon" height="32" class="invert"></iconify-icon>
-              <span class="tech-label">GitHub</span>
-            </div>
-            <!-- Duplicate for seamless loop -->
-            <div class="tech-item group" title="Voiceflow">
-              <img src="/assets/images/Voiceflow_Logo.png" alt="Voiceflow" width="32" height="32" class="object-contain">
-              <span class="tech-label">Voiceflow</span>
-            </div>
-            <div class="tech-item group" title="n8n">
-              <iconify-icon icon="simple-icons:n8n" height="32" style="color: #EA4B71"></iconify-icon>
-              <span class="tech-label">n8n</span>
-            </div>
-            <div class="tech-item group" title="Qdrant">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 1L22 7V17L12 23L2 17V7L12 1Z" fill="#E84A5F"/>
-                <path d="M12 1L22 7V17L12 11V1Z" fill="#BE2D4A"/>
-                <path d="M12 1L2 7L12 11V1Z" fill="#FF6B8A"/>
-                <path d="M2 7L12 11V23L2 17V7Z" fill="#E84A5F"/>
-                <path d="M12 8L17 11V15L12 18L7 15V11L12 8Z" fill="white"/>
-                <path d="M9 12L12 10L15 12V14L12 16L9 14V12Z" fill="#FF6B8A"/>
-                <path d="M12 10L15 12V14L12 12V10Z" fill="#BE2D4A"/>
-                <path d="M15 14V18" stroke="#BE2D4A" stroke-width="1.5"/>
-              </svg>
-              <span class="tech-label">Qdrant</span>
-            </div>
-            <div class="tech-item group" title="Pinecone">
-              <img src="/assets/images/PineCone_Logo.png" alt="Pinecone" width="32" height="32" class="object-contain brightness-0 invert">
-              <span class="tech-label">Pinecone</span>
-            </div>
-            <div class="tech-item group" title="Supabase">
-              <iconify-icon icon="logos:supabase-icon" height="32"></iconify-icon>
-              <span class="tech-label">Supabase</span>
-            </div>
-            <div class="tech-item group" title="GitHub">
-              <iconify-icon icon="logos:github-icon" height="32" class="invert"></iconify-icon>
-              <span class="tech-label">GitHub</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Row 3: Communication & Integration Platforms -->
-        <div class="tech-marquee mb-8">
-          <div class="tech-marquee-track animate-marquee">
-            <!-- First set -->
-            <div class="tech-item group" title="Slack">
-              <iconify-icon icon="logos:slack-icon" height="32"></iconify-icon>
-              <span class="tech-label">Slack</span>
-            </div>
-            <div class="tech-item group" title="Microsoft Teams">
-              <iconify-icon icon="logos:microsoft-teams" height="32"></iconify-icon>
-              <span class="tech-label">Teams</span>
-            </div>
-            <div class="tech-item group" title="WhatsApp">
-              <iconify-icon icon="logos:whatsapp-icon" height="32"></iconify-icon>
-              <span class="tech-label">WhatsApp</span>
-            </div>
-            <div class="tech-item group" title="Twilio">
-              <iconify-icon icon="logos:twilio-icon" height="32"></iconify-icon>
-              <span class="tech-label">Twilio</span>
-            </div>
-            <div class="tech-item group" title="Zapier">
-              <iconify-icon icon="simple-icons:zapier" height="28" style="color: #FF4A00"></iconify-icon>
-              <span class="tech-label">Zapier</span>
-            </div>
-            <div class="tech-item group" title="Make">
-              <iconify-icon icon="simple-icons:make" height="32" style="color: #6D00CC"></iconify-icon>
-              <span class="tech-label">Make</span>
-            </div>
-            <!-- Duplicate for seamless loop -->
-            <div class="tech-item group" title="Slack">
-              <iconify-icon icon="logos:slack-icon" height="32"></iconify-icon>
-              <span class="tech-label">Slack</span>
-            </div>
-            <div class="tech-item group" title="Microsoft Teams">
-              <iconify-icon icon="logos:microsoft-teams" height="32"></iconify-icon>
-              <span class="tech-label">Teams</span>
-            </div>
-            <div class="tech-item group" title="WhatsApp">
-              <iconify-icon icon="logos:whatsapp-icon" height="32"></iconify-icon>
-              <span class="tech-label">WhatsApp</span>
-            </div>
-            <div class="tech-item group" title="Twilio">
-              <iconify-icon icon="logos:twilio-icon" height="32"></iconify-icon>
-              <span class="tech-label">Twilio</span>
-            </div>
-            <div class="tech-item group" title="Zapier">
-              <iconify-icon icon="simple-icons:zapier" height="28" style="color: #FF4A00"></iconify-icon>
-              <span class="tech-label">Zapier</span>
-            </div>
-            <div class="tech-item group" title="Make">
-              <iconify-icon icon="simple-icons:make" height="32" style="color: #6D00CC"></iconify-icon>
-              <span class="tech-label">Make</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Row 4: Development & Databases -->
-        <div class="tech-marquee">
-          <div class="tech-marquee-track animate-marquee-reverse">
-            <!-- First set -->
-            <div class="tech-item group" title="Python">
-              <iconify-icon icon="logos:python" height="32"></iconify-icon>
-              <span class="tech-label">Python</span>
-            </div>
-            <div class="tech-item group" title="TypeScript">
-              <iconify-icon icon="logos:typescript-icon" height="32"></iconify-icon>
-              <span class="tech-label">TypeScript</span>
-            </div>
-            <div class="tech-item group" title="PostgreSQL">
-              <iconify-icon icon="logos:postgresql" height="32"></iconify-icon>
-              <span class="tech-label">PostgreSQL</span>
-            </div>
-            <div class="tech-item group" title="MongoDB">
-              <iconify-icon icon="logos:mongodb-icon" height="32"></iconify-icon>
-              <span class="tech-label">MongoDB</span>
-            </div>
-            <div class="tech-item group" title="Vercel">
-              <iconify-icon icon="logos:vercel-icon" height="28" class="invert"></iconify-icon>
-              <span class="tech-label">Vercel</span>
-            </div>
-            <div class="tech-item group" title="Docker">
-              <iconify-icon icon="logos:docker-icon" height="32"></iconify-icon>
-              <span class="tech-label">Docker</span>
-            </div>
-            <!-- Duplicate for seamless loop -->
-            <div class="tech-item group" title="Python">
-              <iconify-icon icon="logos:python" height="32"></iconify-icon>
-              <span class="tech-label">Python</span>
-            </div>
-            <div class="tech-item group" title="TypeScript">
-              <iconify-icon icon="logos:typescript-icon" height="32"></iconify-icon>
-              <span class="tech-label">TypeScript</span>
-            </div>
-            <div class="tech-item group" title="PostgreSQL">
-              <iconify-icon icon="logos:postgresql" height="32"></iconify-icon>
-              <span class="tech-label">PostgreSQL</span>
-            </div>
-            <div class="tech-item group" title="MongoDB">
-              <iconify-icon icon="logos:mongodb-icon" height="32"></iconify-icon>
-              <span class="tech-label">MongoDB</span>
-            </div>
-            <div class="tech-item group" title="Vercel">
-              <iconify-icon icon="logos:vercel-icon" height="28" class="invert"></iconify-icon>
-              <span class="tech-label">Vercel</span>
-            </div>
-            <div class="tech-item group" title="Docker">
-              <iconify-icon icon="logos:docker-icon" height="32"></iconify-icon>
-              <span class="tech-label">Docker</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- ==================== SECTION 09: TESTIMONIALS ==================== -->
+  <TestimonialsSection lang={lang} sectionNumber="09" id="reference" />
 
-  <!-- ==================== ABOUT / PAVEL SECTION ==================== -->
+  <!-- ==================== SECTION 10: CASE STUDIES ==================== -->
+  <CaseStudiesSection lang={lang} sectionNumber="10" id="pripadove-studie" />
+
+  <!-- ==================== SECTION 11: DATA PREPARATION ==================== -->
+  <DataPreparationSection lang={lang} sectionNumber="11" id="priprava-dat" />
+
+  <!-- ==================== SECTION 12: ABOUT / PAVEL ==================== -->
   <section class="bg-[#050505] border-t border-white/5 py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] grid md:grid-cols-2 gap-12 items-center">
@@ -1035,13 +393,13 @@ const pageDescription = lang === 'cs'
     </div>
   </section>
 
-  <!-- ==================== FAQ SECTION ==================== -->
+  <!-- ==================== SECTION 13: FAQ ==================== -->
   <section id="faq" class="bg-[#050505] border-t border-white/5 py-24">
     <div class="max-w-4xl mx-auto px-4 sm:px-6">
       <!-- Section Header -->
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-400 uppercase tracking-[0.2em] gap-4">
         <div class="flex items-center gap-2">
-          <span class="text-white">09</span>
+          <span class="text-white">13</span>
           <span class="w-12 h-px bg-white/10"></span>
         </div>
         <div class="text-white/40">// FAQ</div>
@@ -1073,13 +431,13 @@ const pageDescription = lang === 'cs'
     </div>
   </section>
 
-  <!-- ==================== FINAL CTA SECTION ==================== -->
+  <!-- ==================== SECTION 14: FINAL CTA / CONTACT ==================== -->
   <section id="kontakt" class="bg-[#050505] border-t border-white/5 py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <!-- Section Header -->
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-400 uppercase tracking-[0.2em] gap-4">
         <div class="flex items-center gap-2">
-          <span class="text-white">10</span>
+          <span class="text-white">14</span>
           <span class="w-12 h-px bg-white/10"></span>
         </div>
         <div class="text-white/40">{t.cta_tag}</div>

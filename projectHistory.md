@@ -1,5 +1,247 @@
 # Project History
 
+## [2026-01-03] Automated Sitemap Generation - Zero-Config Page Discovery
+
+### Summary:
+Implemented fully automated sitemap generation system that dynamically discovers all pages from the `/pages` directory during build time. No more manual configuration needed when adding new pages.
+
+### Problem Solved:
+- **6 service pages were missing** from sitemap: `/sluzby`, `/voicebot`, `/ai-agent`, `/automatizace`, `/vyvoj-aplikaci`, `/web-design`
+- Manual maintenance of page lists in 2 separate files was error-prone
+- Every new page required updates to both `sitemap.xml.ts` and `generate-lastmod.js`
+
+### Automated Solution:
+**New Script: `generate-sitemap-data.js`**
+- Auto-discovers all `.astro` pages recursively in `/pages` directory
+- Excludes special files: `404.astro`, `sitemap.xml.ts`, dynamic routes `[slug].astro`
+- Auto-assigns SEO priorities based on configurable rules (homepage 1.0, services 0.9-0.7, legal 0.3)
+- Auto-assigns change frequencies (homepage/blog: weekly, services: monthly, legal: yearly)
+- Extracts Git commit dates for accurate `lastmod` values
+- Generates unified manifest: `sitemap-data.json` (contains both page list + lastmod dates)
+
+### How It Works:
+1. `npm run prebuild` → runs `generate-sitemap-data.js` before every build
+2. Script scans `/pages` directory → discovers all pages automatically
+3. Queries Git history for each file's last commit date
+4. Generates `src/data/sitemap-data.json` with complete sitemap configuration
+5. `sitemap.xml.ts` imports and uses the auto-generated data
+
+### Benefits:
+- ✅ **Zero configuration** - Add new `.astro` page → sitemap auto-updates on next build
+- ✅ **No forgotten pages** - All pages automatically included
+- ✅ **Git-based lastmod** - Accurate modification dates from commit history
+- ✅ **Single source of truth** - One script, one manifest file
+- ✅ **SEO-friendly** - Proper priorities and change frequencies
+
+### Results:
+- **Before:** 7 static pages in sitemap (6 service pages missing)
+- **After:** 13 static pages auto-discovered + 2 blog posts = 30 total URLs (CS + EN)
+- All 6 missing service pages now correctly indexed
+
+### Files Created:
+- `astro-src/scripts/generate-sitemap-data.js` - New auto-discovery script
+- `astro-src/src/data/sitemap-data.json` - Auto-generated manifest (replaces page-lastmod.json)
+
+### Files Modified:
+- `astro-src/src/pages/sitemap.xml.ts` - Now uses auto-generated data instead of hardcoded arrays
+- `astro-src/package.json` - Updated prebuild script to use new generator
+
+### Files Deleted:
+- `astro-src/scripts/generate-lastmod.js` - Merged into new comprehensive script
+- `astro-src/src/data/page-lastmod.json` - Replaced by sitemap-data.json
+
+---
+
+## [2026-01-03] Badge Positioning Fix - Attached to Cards
+
+### Summary:
+Fixed the floating badge positioning issue where "HLAVNÍ SLUŽBA" and "Novinka" badges were appearing above the header instead of above their respective cards.
+
+### Changes:
+- **Removed floating tags** that were positioned absolutely above the grid
+- **Attached badges directly to cards** - badges now render on cards that have `featured: true` or `hot: true` property
+- Badges positioned at `-top-3 left-3` relative to each card
+- Added `pt-8` padding to grid to make room for badges
+
+### Visual Result:
+- "HLAVNÍ SLUŽBA" badge appears on AI Chatbot card (has `featured: true`)
+- "🔥 Novinka" badge appears on Příprava dat pro AI card (has `hot: true`)
+
+### Files Modified:
+- `astro-src/src/components/sections/ServicesOverviewGrid.astro`
+
+---
+
+## [2026-01-03] Unified "One-Stop AI Partner" Heading & How We Work Sections
+
+### Summary:
+Unified the services section heading across landing page (`/`) and services page (`/sluzby`) to communicate the "One-Stop AI Transformation Partner" positioning. Removed standalone "Náš způsob práce" heading and moved unified header into the `ServicesOverviewGrid` component.
+
+### New Unified Heading:
+- **Czech:** "Vše pro AI transformaci na jednom místě"
+- **English:** "Your One-Stop AI Transformation Partner"
+- **Subheadline (CS):** "Od strategie přes implementaci až po podporu. Komplexní AI řešení od jednoho partnera – žádné koordinování více dodavatelů."
+- **Subheadline (EN):** "From strategy through implementation to ongoing support. Comprehensive AI solutions from a single partner – no coordinating multiple vendors."
+
+### How We Work Section (Unified):
+- **Czech:** "Osvědčený přístup k AI transformaci"
+- **English:** "Proven approach to AI transformation"
+- Both landing page and services page now use the same translation keys
+
+### Changes Made:
+1. **`translations.ts`:** Added new unified translation keys:
+   - `services_hub_badge`, `services_hub_title`, `services_hub_title_2`, `services_hub_subtitle` (updated)
+   - `how_we_work_tag`, `how_we_work_label`, `how_we_work_headline_1`, `how_we_work_headline_2`, `how_we_work_subheadline` (new)
+2. **`ServicesOverviewGrid.astro`:** Added `showHeader` prop to optionally display unified header within component
+3. **`index.astro`:** Removed standalone services section header, now uses `ServicesOverviewGrid` with `showHeader={true}`; updated "How We Work" section to use unified translations
+4. **`sluzby.astro`:** Updated section header bars and "How We Work" section to use unified translations
+
+### Files Modified:
+- `astro-src/src/scripts/translations.ts`
+- `astro-src/src/components/sections/ServicesOverviewGrid.astro`
+- `astro-src/src/pages/index.astro`
+- `astro-src/src/pages/sluzby.astro`
+
+---
+
+## [2026-01-03] Services Overview Component UI Refinements & Deliverables Integration
+- **Card Alignment:** Removed tilted/rotated card transforms from `ServicesOverviewGrid.astro` for clean, professional alignment
+- **CTA Button Style:** Changed from `vf-button` to `shiny-cta` style (matching hero section) with increased spacing (`mt-16`)
+- **"První v České republice" Badge:** Removed from landing page services section (kept only on `/chatbot` page where it belongs)
+- **"What We Deliver" Section:** Extracted from `index.astro` and integrated into `ServicesOverviewGrid.astro` component
+  - Added `showDeliverables` prop (default: true) for flexibility
+  - 6 deliverable cards now appear below service cards on both landing page and `/sluzby`
+  - Cards: Data na jednom místě, Připravená data pro AI, Strategie založená na faktech, Zautomatizované procesy, Tým ovládající AI, Prokazatelné výsledky
+- **`/sluzby` Page Fixes:**
+  - Removed `min-h-screen` from hero section to eliminate empty space below services
+  - Ensured DigitalRain snowing effect is visible (already included via PageLayout)
+- **Section Renumbering:** Updated section numbers in `index.astro` after removing standalone "What We Deliver" section
+- **Files Modified:** `ServicesOverviewGrid.astro`, `index.astro`, `sluzby.astro`
+
+---
+
+## [2026-01-03] Unified Aura-Style ServicesOverviewGrid Component
+- **Refactor**: Unified `ServicesOverviewGrid.astro` component used identically on both landing page and `/sluzby` page
+
+### Visual Design (Aura-Inspired):
+- **4-Column Responsive Grid**: `2 → 3 → 4` columns based on screen size
+- **Playful Card Transforms**: Subtle rotation/translation (`rotate-[-2deg] translate-y-2`) normalizes on hover
+- **Floating Tags**: "Featured" and "Hot" badges positioned above cards like Aura design
+- **Spring Animation**: Smooth bounce effect using `cubic-bezier(0.34, 1.56, 0.64, 1)`
+- **Color-coded Glows**: Each card has radial gradient glow matching service color on hover
+
+### Component Props:
+- `lang`: Language for translations
+- `showCta`: Optional CTA button below grid (default: true)
+- `className`: Optional additional CSS classes
+
+### DRY Principle:
+- Same exact component renders on both `/` (landing) and `/sluzby` pages
+- `/sluzby` has additional hero header and background decorative elements
+- Landing page includes within existing services section structure
+
+---
+
+## [2026-01-03] Services Overview Reusable Components - Aura-Inspired Design
+- **Refactor**: Created reusable components for services overview section, used identically on both landing page and `/sluzby` page.
+
+### New Components Created:
+1. **`ServicesOverviewGrid.astro`** - Reusable services card grid with Aura-inspired design:
+   - Modern dark card aesthetic with gradient borders and glow effects
+   - Featured badge for AI Chatbot, Hot/New badge for Data Preparation
+   - Mouse-tracking glow effect on hover
+   - Smooth animations and transitions
+   - Responsive 3-column grid layout
+
+2. **`WorkMethodsGrid.astro`** - Reusable "How We Work" methodology grid:
+   - 4-card grid showing work methodology (previously duplicated in both pages)
+   - Consistent styling with ServicesOverviewGrid
+   - Mouse-tracking hover effects
+
+### Key Changes:
+- **Removed YouTube video** from AI Chatbot card on landing page (video now only on dedicated `/chatbot` page)
+- **DRY Principle**: Services display logic now in single source of truth
+- **Aura-Style Design**: Cards feature subtle gradient borders, hover glow effects, and smooth transitions
+- **"First in CZ" Badge**: Moved to standalone prominent position above services grid
+
+### Files Created:
+- `astro-src/src/components/sections/ServicesOverviewGrid.astro`
+- `astro-src/src/components/sections/WorkMethodsGrid.astro`
+
+### Files Modified:
+- `astro-src/src/pages/index.astro` - Now uses new reusable components
+- `astro-src/src/pages/sluzby.astro` - Aura-style integrated hero with service cards visible above fold
+
+---
+
+## [2026-01-03] Services Hub Page & Individual Service Pages Implementation
+- **Major Feature**: Created a comprehensive services hub page (`/sluzby`) and 5 new individual service pages.
+
+### New Pages Created:
+1. **`/sluzby`** - Services hub/overview page (rozcestník):
+   - Modern card-based design with all services
+   - "How we work" grid section
+   - Voiceflow Certified Expert section with badge
+   - Tech Stack marquee section
+   - SEO-optimized with ItemList and BreadcrumbList structured data
+
+2. **`/voicebot`** - AI Voicebot service page (purple theme)
+3. **`/ai-agent`** - AI Agent service page (blue theme)
+4. **`/automatizace`** - Workflow Automation service page (orange theme)
+5. **`/vyvoj-aplikaci`** - Application Development service page (cyan theme)
+6. **`/web-design`** - Web Design service page (pink theme)
+
+### Each Service Page Includes:
+- Hero section with service-specific badge and CTA
+- 4 key features grid
+- 4 use cases section
+- CTA section linking to footer calendar (#kontakt)
+- Related services section
+- Tech Stack section
+- SEO structured data (Service, BreadcrumbList)
+
+### Navigation Changes:
+- **Removed dropdown** from desktop Navigation.astro - "Služby" now links directly to `/sluzby`
+- **Removed submenu** from mobile MobileMenu.astro - "Služby" now links directly to `/sluzby`
+- **Updated Footer.astro** - "Služby" link now points to `/sluzby`
+
+### Reusable Components Created:
+- **`TechStackSection.astro`** - Extracted tech stack marquee into reusable component, now used on:
+  - Landing page (index.astro)
+  - Services hub page (sluzby.astro)
+  - All 5 new service pages
+
+### index.astro Updates:
+- Replaced inline tech stack with `TechStackSection` component
+- Service cards (Voicebot, AI Agent, Automatizace, App Dev, Web Design) are now clickable links to their respective pages
+- Added hover effects (icon scale, title color change) to service cards
+- Fixed duplicate YoutubeFacade import
+
+### Translation Keys Added (120+ new keys):
+- Services hub page: `services_hub_*` (8 keys)
+- Voicebot page: `voicebot_*` (16 keys)
+- AI Agent page: `aiagent_*` (16 keys)
+- Automation page: `automation_*` (16 keys)
+- App Development page: `devapps_*` (16 keys)
+- Web Design page: `webdesign_*` (16 keys)
+- Common service elements: `service_related_*`, `service_cta_*` (5 keys)
+
+### Files Created:
+- `astro-src/src/pages/sluzby.astro`
+- `astro-src/src/pages/voicebot.astro`
+- `astro-src/src/pages/ai-agent.astro`
+- `astro-src/src/pages/automatizace.astro`
+- `astro-src/src/pages/vyvoj-aplikaci.astro`
+- `astro-src/src/pages/web-design.astro`
+- `astro-src/src/components/sections/TechStackSection.astro`
+
+### Files Modified:
+- `astro-src/src/scripts/translations.ts` - Added 120+ translation keys
+- `astro-src/src/components/navigation/Navigation.astro` - Removed dropdown
+- `astro-src/src/components/navigation/MobileMenu.astro` - Removed submenu
+- `astro-src/src/components/sections/Footer.astro` - Updated Služby link
+- `astro-src/src/pages/index.astro` - TechStackSection component, clickable service cards
+
 ## [2026-01-01] Sitemap Lastmod Automation - Git-Based Date Tracking
 - **Enhancement**: Implemented automatic `lastmod` date generation for sitemap.xml based on Git commit history.
 - **Problem Solved**: Previously, lastmod dates were hardcoded and required manual updates. Now they automatically reflect when each page was actually last modified and pushed to GitHub.

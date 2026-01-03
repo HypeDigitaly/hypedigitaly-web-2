@@ -1,0 +1,101 @@
+---
+/**
+ * ProcessSection.astro
+ * 
+ * Reusable "Jak probíhá spolupráce" / "How Collaboration Works" section.
+ * Shows the 4-phase collaboration process.
+ * 
+ * Features:
+ * - 4-card grid showing process phases
+ * - Numbered steps with output indicators
+ * - Hover animations
+ */
+import { translations, type Language } from '../../scripts/translations';
+
+interface Props {
+  lang: Language;
+  sectionNumber?: string;
+  className?: string;
+}
+
+const { lang, sectionNumber = '03', className = '' } = Astro.props;
+const t = translations[lang];
+---
+
+<section class:list={["bg-[#050505] border-t border-white/5 py-24", className]}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-400 uppercase tracking-[0.2em] gap-4">
+      <div class="flex items-center gap-2">
+        <span class="text-white">{sectionNumber}</span>
+        <span class="w-12 h-px bg-white/10"></span>
+      </div>
+      <div class="text-white/40">{t.process_tag}</div>
+      <div class="hidden md:block text-right">{t.process_label}</div>
+    </div>
+
+    <div class="text-center max-w-5xl mx-auto mb-20">
+      <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[0.95] md:text-6xl lg:text-7xl text-3xl font-medium text-white tracking-tighter mb-8">
+        <span>{t.process_headline_1}</span>
+        <span class="text-neutral-500 transition-colors hover:text-primary duration-500">{t.process_headline_2}</span>
+      </h2>
+      <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg text-neutral-400 font-light max-w-3xl mx-auto leading-relaxed">
+        {t.process_subheadline}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+        <div class="flex items-center justify-between mb-4">
+          <span class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">1</span>
+          <span class="text-xs text-neutral-500 uppercase tracking-wider">Discovery</span>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-primary transition-colors">{t.phase_1_title}</h3>
+        <p class="text-sm text-neutral-400 leading-relaxed mb-4">{t.phase_1_desc}</p>
+        <div class="pt-4 border-t border-white/5">
+          <div class="text-xs text-primary font-medium">{t.phase_1_output}</div>
+        </div>
+      </div>
+
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+        <div class="flex items-center justify-between mb-4">
+          <span class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">2</span>
+          <span class="text-xs text-neutral-500 uppercase tracking-wider">AI Audit</span>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-primary transition-colors">{t.phase_2_title}</h3>
+        <p class="text-sm text-neutral-400 leading-relaxed mb-4">{t.phase_2_desc}</p>
+        <div class="pt-4 border-t border-white/5">
+          <div class="text-xs text-primary font-medium">{t.phase_2_output}</div>
+        </div>
+      </div>
+
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+        <div class="flex items-center justify-between mb-4">
+          <span class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">3</span>
+          <span class="text-xs text-neutral-500 uppercase tracking-wider">Strategie</span>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-primary transition-colors">{t.phase_3_title}</h3>
+        <p class="text-sm text-neutral-400 leading-relaxed mb-4">{t.phase_3_desc}</p>
+        <div class="pt-4 border-t border-white/5">
+          <div class="text-xs text-primary font-medium">{t.phase_3_output}</div>
+        </div>
+      </div>
+
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both] group relative p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-primary/30 transition-all duration-300">
+        <div class="flex items-center justify-between mb-4">
+          <span class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">4</span>
+          <span class="text-xs text-neutral-500 uppercase tracking-wider">Delivery</span>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-primary transition-colors">{t.phase_4_title}</h3>
+        <p class="text-sm text-neutral-400 leading-relaxed mb-4">{t.phase_4_desc}</p>
+        <div class="pt-4 border-t border-white/5">
+          <div class="text-xs text-primary font-medium">{t.phase_4_output}</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.8s_both] text-center text-sm text-neutral-400 mt-12 max-w-2xl mx-auto">
+      {t.process_note}
+    </p>
+  </div>
+</section>
+

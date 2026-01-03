@@ -1,0 +1,212 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import TechStackSection from '../components/sections/TechStackSection.astro';
+import { translations, type Language } from '../scripts/translations';
+
+export const prerender = false;
+
+const url = Astro.url;
+const langParam = url.searchParams.get('lang');
+
+if (langParam === 'cs') {
+  const cleanUrl = new URL(Astro.url);
+  cleanUrl.searchParams.delete('lang');
+  const redirectPath = cleanUrl.pathname + (cleanUrl.search || '') + (cleanUrl.hash || '');
+  return Astro.redirect(redirectPath || '/', 301);
+}
+
+const cookieLang = Astro.cookies.get('preferredLanguage')?.value;
+const lang: Language = (langParam === 'en' || langParam === 'cs') ? langParam : 
+                       (cookieLang === 'en' || cookieLang === 'cs') ? cookieLang : 'cs';
+const t = translations[lang];
+
+if (langParam && (langParam === 'en' || langParam === 'cs')) {
+  Astro.cookies.set('preferredLanguage', langParam, { 
+    path: '/', 
+    maxAge: 60 * 60 * 24 * 365,
+    sameSite: 'lax'
+  });
+}
+
+const href = (path: string) => lang === 'en' ? `${path}?lang=en` : path;
+const SITE_URL = 'https://hypedigitaly.ai';
+const pageTitle = t.aiagent_meta_title;
+const pageDescription = t.aiagent_meta_desc;
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "AI Agent",
+  "description": pageDescription,
+  "provider": { "@type": "Organization", "name": "HypeDigitaly s.r.o.", "url": SITE_URL },
+  "url": `${SITE_URL}/ai-agent`,
+  "areaServed": { "@type": "Country", "name": "Czech Republic" },
+  "serviceType": "Autonomous AI Agents"
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": lang === 'cs' ? "Domů" : "Home", "item": SITE_URL },
+    { "@type": "ListItem", "position": 2, "name": lang === 'cs' ? "Služby" : "Services", "item": `${SITE_URL}/sluzby` },
+    { "@type": "ListItem", "position": 3, "name": "AI Agent", "item": `${SITE_URL}/ai-agent` }
+  ]
+};
+
+const features = [
+  { icon: "solar:brain-bold", title: t.aiagent_feature_1_title, desc: t.aiagent_feature_1_desc },
+  { icon: "solar:layers-bold", title: t.aiagent_feature_2_title, desc: t.aiagent_feature_2_desc },
+  { icon: "solar:graph-up-bold", title: t.aiagent_feature_3_title, desc: t.aiagent_feature_3_desc },
+  { icon: "solar:widget-bold", title: t.aiagent_feature_4_title, desc: t.aiagent_feature_4_desc },
+];
+
+const useCases = [
+  t.aiagent_usecase_1,
+  t.aiagent_usecase_2,
+  t.aiagent_usecase_3,
+  t.aiagent_usecase_4,
+];
+
+const relatedServices = [
+  { title: t.service_chatbot_title, href: href("/chatbot"), icon: "solar:chat-round-dots-bold", color: "#00C4B4" },
+  { title: t.service_voicebot_title, href: href("/voicebot"), icon: "solar:microphone-3-bold", color: "#a855f7" },
+  { title: t.service_automation_title, href: href("/automatizace"), icon: "solar:settings-bold", color: "#f97316" },
+];
+---
+
+<PageLayout title={pageTitle} description={pageDescription} lang={lang}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <!-- Hero Section -->
+  <section class="relative bg-[#050505] pt-32 pb-20 overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-20 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-20 right-1/4 w-72 h-72 bg-blue-600/5 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
+      <nav class="mb-8 text-sm text-neutral-500" aria-label="Breadcrumb">
+        <ol class="flex items-center gap-2 flex-wrap">
+          <li><a href={href("/")} class="hover:text-primary transition-colors">{lang === 'cs' ? 'Domů' : 'Home'}</a></li>
+          <li><span class="text-neutral-600">/</span></li>
+          <li><a href={href("/sluzby")} class="hover:text-primary transition-colors">{lang === 'cs' ? 'Služby' : 'Services'}</a></li>
+          <li><span class="text-neutral-600">/</span></li>
+          <li class="text-neutral-400">AI Agent</li>
+        </ol>
+      </nav>
+
+      <div class="max-w-4xl">
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.1s_both] inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-8">
+          <iconify-icon icon="mdi:robot-outline" class="text-blue-400"></iconify-icon>
+          <span class="text-xs font-mono text-blue-400 tracking-wider">{t.aiagent_badge}</span>
+        </div>
+        
+        <h1 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] text-4xl md:text-5xl lg:text-6xl font-medium text-white tracking-tight mb-6">
+          {t.aiagent_title}
+        </h1>
+        
+        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg md:text-xl text-neutral-400 max-w-2xl mb-10">
+          {t.aiagent_subtitle}
+        </p>
+
+        <a href="#kontakt" class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] vf-button !py-4 !px-10" style="--vf-bg: #3b82f6; --vf-hover-bg: #60a5fa; --vf-glow-rgb: 59, 130, 246;">
+          <div class="vf-points-wrapper">
+            <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
+            <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
+          </div>
+          <span class="vf-inner !text-lg">
+            <span>{t.aiagent_cta}</span>
+            <svg class="vf-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+              <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section class="bg-[#050505] border-t border-white/5 py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {features.map((feature, index) => (
+          <div 
+            class="animate-on-scroll group p-6 bg-[#0A0A0A] border border-white/5 rounded-2xl hover:border-blue-500/30 transition-all duration-300"
+            style={`animation: animationIn 0.8s ease-out ${0.2 + index * 0.1}s both;`}
+          >
+            <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 mb-4 group-hover:scale-110 transition-transform">
+              <iconify-icon icon={feature.icon} class="text-2xl"></iconify-icon>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-2">{feature.title}</h3>
+            <p class="text-sm text-neutral-400">{feature.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases -->
+  <section class="bg-[#050505] border-t border-white/5 py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] text-3xl md:text-4xl font-medium text-white text-center mb-12">
+        {t.aiagent_usecase_title}
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {useCases.map((useCase, index) => (
+          <div 
+            class="animate-on-scroll flex items-center gap-4 p-4 bg-[#0A0A0A] border border-white/5 rounded-xl"
+            style={`animation: animationIn 0.8s ease-out ${0.3 + index * 0.1}s both;`}
+          >
+            <iconify-icon icon="solar:check-circle-bold" class="text-blue-400 text-xl flex-shrink-0"></iconify-icon>
+            <span class="text-neutral-300">{useCase}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="bg-[#050505] border-t border-white/5 py-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] p-8 md:p-12 rounded-2xl bg-gradient-to-br from-blue-500/10 via-[#0A0A0A] to-[#0A0A0A] border border-blue-500/20">
+        <h2 class="text-2xl md:text-3xl font-medium text-white mb-4">{t.service_cta_title}</h2>
+        <p class="text-neutral-400 mb-8">{t.service_cta_subtitle}</p>
+        <a href="#kontakt" class="vf-button !py-4 !px-10 mx-auto" style="--vf-bg: #3b82f6; --vf-hover-bg: #60a5fa; --vf-glow-rgb: 59, 130, 246;">
+          <div class="vf-points-wrapper">
+            <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
+            <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
+          </div>
+          <span class="vf-inner !text-lg">
+            <span>{t.service_cta_button}</span>
+            <svg class="vf-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+              <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="bg-[#050505] border-t border-white/5 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <h3 class="text-xl font-medium text-white mb-8">{t.service_related_title}</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {relatedServices.map((service) => (
+          <a href={service.href} class="group p-4 bg-[#0A0A0A] border border-white/5 rounded-xl hover:border-primary/30 transition-all duration-300 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center" style={`background: ${service.color}20;`}>
+              <iconify-icon icon={service.icon} class="text-xl" style={`color: ${service.color};`}></iconify-icon>
+            </div>
+            <span class="text-neutral-300 group-hover:text-white transition-colors">{service.title}</span>
+            <iconify-icon icon="solar:arrow-right-bold" class="ml-auto text-neutral-600 group-hover:text-primary group-hover:translate-x-1 transition-all"></iconify-icon>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <TechStackSection lang={lang} />
+</PageLayout>
+

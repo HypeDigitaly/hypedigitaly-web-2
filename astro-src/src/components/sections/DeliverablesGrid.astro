@@ -1,0 +1,138 @@
+---
+/**
+ * DeliverablesGrid.astro
+ * 
+ * Reusable "What We Deliver" / "Co od nás získáte" component.
+ * Extracted from ServicesOverviewGrid for independent use.
+ * 
+ * Features:
+ * - 6-card grid showing deliverables
+ * - Hover animations with scale and glow
+ * - Optional section header and CTA
+ */
+import { translations, type Language } from '../../scripts/translations';
+
+interface Props {
+  lang: Language;
+  showHeader?: boolean;
+  showCta?: boolean;
+  sectionNumber?: string;
+  className?: string;
+}
+
+const { lang, showHeader = true, showCta = true, sectionNumber, className = '' } = Astro.props;
+const t = translations[lang];
+
+// What We Deliver cards configuration
+const deliverables = [
+  {
+    icon: "solar:database-bold",
+    title: t.deliver_1_title,
+    desc: t.deliver_1_desc,
+    delay: 0.3,
+  },
+  {
+    icon: "solar:magic-stick-3-bold",
+    title: t.deliver_2_title,
+    desc: t.deliver_2_desc,
+    delay: 0.4,
+  },
+  {
+    icon: "solar:chart-2-bold",
+    title: t.deliver_3_title,
+    desc: t.deliver_3_desc,
+    delay: 0.5,
+  },
+  {
+    icon: "solar:settings-minimalistic-bold",
+    title: t.deliver_4_title,
+    desc: t.deliver_4_desc,
+    delay: 0.6,
+  },
+  {
+    icon: "solar:users-group-rounded-bold",
+    title: t.deliver_5_title,
+    desc: t.deliver_5_desc,
+    delay: 0.7,
+  },
+  {
+    icon: "solar:graph-up-bold",
+    title: t.deliver_6_title,
+    desc: t.deliver_6_desc,
+    delay: 0.8,
+  },
+];
+---
+
+<section class:list={["bg-[#050505] border-t border-white/5 py-24", className]}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    {/* Section Number Header */}
+    {sectionNumber && (
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 text-[10px] md:text-xs font-mono text-neutral-400 uppercase tracking-[0.2em] gap-4">
+        <div class="flex items-center gap-2">
+          <span class="text-white">{sectionNumber}</span>
+          <span class="w-12 h-px bg-white/10"></span>
+        </div>
+        <div class="text-white/40">// {t.deliver_headline_1}</div>
+        <div class="hidden md:block text-right">{lang === 'cs' ? 'Co získáte' : 'What You Get'}</div>
+      </div>
+    )}
+
+    {/* Section Header */}
+    {showHeader && (
+      <div class="text-center max-w-4xl mx-auto mb-12">
+        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] text-3xl md:text-4xl lg:text-5xl font-medium text-white tracking-tight mb-6">
+          <span>{t.deliver_headline_1}</span>{' '}
+          <span class="text-neutral-500">{t.deliver_headline_2}</span>
+        </h2>
+        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-base md:text-lg text-neutral-400 font-light max-w-2xl mx-auto leading-relaxed">
+          {t.deliver_subheadline}
+        </p>
+      </div>
+    )}
+
+    {/* Deliverables Grid */}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {deliverables.map((item) => (
+        <div 
+          class="animate-on-scroll deliverable-card group relative p-6 bg-[#0A0A0A]/80 ring-1 ring-white/[0.06] rounded-2xl hover:ring-primary/20 transition-all duration-300"
+          style={`animation: animationIn 0.8s ease-out ${item.delay}s both;`}
+        >
+          <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
+            <iconify-icon icon={item.icon} class="text-2xl"></iconify-icon>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
+          <p class="text-sm text-neutral-400 leading-relaxed">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    {/* CTA Below Grid */}
+    {showCta && (
+      <div class="mt-16 text-center">
+        <a href="#kontakt" class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.9s_both] shiny-cta group inline-flex max-w-md mx-auto">
+          <span class="btn-content">
+            <span class="text-lg font-semibold tracking-tight">{t.services_hub_cta}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white/80 group-hover:translate-x-1 transition-transform">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </span>
+        </a>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  /* Deliverable cards hover effect */
+  .deliverable-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .deliverable-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.4);
+  }
+</style>
+

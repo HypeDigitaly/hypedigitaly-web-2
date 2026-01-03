@@ -1,0 +1,268 @@
+---
+import { translations, type Language } from '../../scripts/translations';
+
+export interface Props {
+  lang?: Language;
+}
+
+const { lang = 'cs' } = Astro.props;
+const t = translations[lang];
+---
+
+<section class="bg-[#050505] border-t border-white/5 py-20 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <p class="text-center text-xs text-neutral-500 font-bold tracking-widest mb-4 uppercase">{t.tech_title}</p>
+    <p class="text-center text-sm text-neutral-400 mb-12 max-w-2xl mx-auto">{t.tech_subtitle}</p>
+    
+    <!-- Tech Stack Marquee Container -->
+    <div class="tech-marquee-container relative">
+      <!-- Gradient Fade Left -->
+      <div class="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none bg-gradient-to-r from-[#050505] to-transparent"></div>
+      <!-- Gradient Fade Right -->
+      <div class="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none bg-gradient-to-l from-[#050505] to-transparent"></div>
+      
+      <!-- Row 1: LLM Providers & AI -->
+      <div class="tech-marquee mb-8">
+        <div class="tech-marquee-track animate-marquee">
+          <!-- First set -->
+          <div class="tech-item group" title="OpenAI">
+            <iconify-icon icon="simple-icons:openai" height="36" style="color: #FFFFFF"></iconify-icon>
+            <span class="tech-label">OpenAI</span>
+          </div>
+          <div class="tech-item group" title="Anthropic Claude">
+            <iconify-icon icon="simple-icons:anthropic" height="32" style="color: #D4A574"></iconify-icon>
+            <span class="tech-label">Claude</span>
+          </div>
+          <div class="tech-item group" title="Google Gemini">
+            <iconify-icon icon="simple-icons:googlegemini" height="32" style="color: #8E75B2"></iconify-icon>
+            <span class="tech-label">Gemini</span>
+          </div>
+          <div class="tech-item group" title="Microsoft Azure">
+            <iconify-icon icon="logos:microsoft-azure" height="32"></iconify-icon>
+            <span class="tech-label">Azure AI</span>
+          </div>
+          <div class="tech-item group" title="Google Cloud">
+            <iconify-icon icon="logos:google-cloud" height="28"></iconify-icon>
+            <span class="tech-label">Google Cloud</span>
+          </div>
+          <div class="tech-item group" title="AWS">
+            <iconify-icon icon="logos:aws" height="24"></iconify-icon>
+            <span class="tech-label">AWS</span>
+          </div>
+          <!-- Duplicate for seamless loop -->
+          <div class="tech-item group" title="OpenAI">
+            <iconify-icon icon="simple-icons:openai" height="36" style="color: #FFFFFF"></iconify-icon>
+            <span class="tech-label">OpenAI</span>
+          </div>
+          <div class="tech-item group" title="Anthropic Claude">
+            <iconify-icon icon="simple-icons:anthropic" height="32" style="color: #D4A574"></iconify-icon>
+            <span class="tech-label">Claude</span>
+          </div>
+          <div class="tech-item group" title="Google Gemini">
+            <iconify-icon icon="simple-icons:googlegemini" height="32" style="color: #8E75B2"></iconify-icon>
+            <span class="tech-label">Gemini</span>
+          </div>
+          <div class="tech-item group" title="Microsoft Azure">
+            <iconify-icon icon="logos:microsoft-azure" height="32"></iconify-icon>
+            <span class="tech-label">Azure AI</span>
+          </div>
+          <div class="tech-item group" title="Google Cloud">
+            <iconify-icon icon="logos:google-cloud" height="28"></iconify-icon>
+            <span class="tech-label">Google Cloud</span>
+          </div>
+          <div class="tech-item group" title="AWS">
+            <iconify-icon icon="logos:aws" height="24"></iconify-icon>
+            <span class="tech-label">AWS</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Row 2: No-Code Platforms & Vector Stores -->
+      <div class="tech-marquee mb-8">
+        <div class="tech-marquee-track animate-marquee-reverse">
+          <!-- First set -->
+          <div class="tech-item group" title="Voiceflow">
+            <img src="/assets/images/Voiceflow_Logo.png" alt="Voiceflow" width="32" height="32" class="object-contain">
+            <span class="tech-label">Voiceflow</span>
+          </div>
+          <div class="tech-item group" title="n8n">
+            <iconify-icon icon="simple-icons:n8n" height="32" style="color: #EA4B71"></iconify-icon>
+            <span class="tech-label">n8n</span>
+          </div>
+          <div class="tech-item group" title="Qdrant">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 1L22 7V17L12 23L2 17V7L12 1Z" fill="#E84A5F"/>
+              <path d="M12 1L22 7V17L12 11V1Z" fill="#BE2D4A"/>
+              <path d="M12 1L2 7L12 11V1Z" fill="#FF6B8A"/>
+              <path d="M2 7L12 11V23L2 17V7Z" fill="#E84A5F"/>
+              <path d="M12 8L17 11V15L12 18L7 15V11L12 8Z" fill="white"/>
+              <path d="M9 12L12 10L15 12V14L12 16L9 14V12Z" fill="#FF6B8A"/>
+              <path d="M12 10L15 12V14L12 12V10Z" fill="#BE2D4A"/>
+              <path d="M15 14V18" stroke="#BE2D4A" stroke-width="1.5"/>
+            </svg>
+            <span class="tech-label">Qdrant</span>
+          </div>
+          <div class="tech-item group" title="Pinecone">
+            <img src="/assets/images/PineCone_Logo.png" alt="Pinecone" width="32" height="32" class="object-contain brightness-0 invert">
+            <span class="tech-label">Pinecone</span>
+          </div>
+          <div class="tech-item group" title="Supabase">
+            <iconify-icon icon="logos:supabase-icon" height="32"></iconify-icon>
+            <span class="tech-label">Supabase</span>
+          </div>
+          <div class="tech-item group" title="GitHub">
+            <iconify-icon icon="logos:github-icon" height="32" class="invert"></iconify-icon>
+            <span class="tech-label">GitHub</span>
+          </div>
+          <!-- Duplicate for seamless loop -->
+          <div class="tech-item group" title="Voiceflow">
+            <img src="/assets/images/Voiceflow_Logo.png" alt="Voiceflow" width="32" height="32" class="object-contain">
+            <span class="tech-label">Voiceflow</span>
+          </div>
+          <div class="tech-item group" title="n8n">
+            <iconify-icon icon="simple-icons:n8n" height="32" style="color: #EA4B71"></iconify-icon>
+            <span class="tech-label">n8n</span>
+          </div>
+          <div class="tech-item group" title="Qdrant">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 1L22 7V17L12 23L2 17V7L12 1Z" fill="#E84A5F"/>
+              <path d="M12 1L22 7V17L12 11V1Z" fill="#BE2D4A"/>
+              <path d="M12 1L2 7L12 11V1Z" fill="#FF6B8A"/>
+              <path d="M2 7L12 11V23L2 17V7Z" fill="#E84A5F"/>
+              <path d="M12 8L17 11V15L12 18L7 15V11L12 8Z" fill="white"/>
+              <path d="M9 12L12 10L15 12V14L12 16L9 14V12Z" fill="#FF6B8A"/>
+              <path d="M12 10L15 12V14L12 12V10Z" fill="#BE2D4A"/>
+              <path d="M15 14V18" stroke="#BE2D4A" stroke-width="1.5"/>
+            </svg>
+            <span class="tech-label">Qdrant</span>
+          </div>
+          <div class="tech-item group" title="Pinecone">
+            <img src="/assets/images/PineCone_Logo.png" alt="Pinecone" width="32" height="32" class="object-contain brightness-0 invert">
+            <span class="tech-label">Pinecone</span>
+          </div>
+          <div class="tech-item group" title="Supabase">
+            <iconify-icon icon="logos:supabase-icon" height="32"></iconify-icon>
+            <span class="tech-label">Supabase</span>
+          </div>
+          <div class="tech-item group" title="GitHub">
+            <iconify-icon icon="logos:github-icon" height="32" class="invert"></iconify-icon>
+            <span class="tech-label">GitHub</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Row 3: Communication & Integration Platforms -->
+      <div class="tech-marquee mb-8">
+        <div class="tech-marquee-track animate-marquee">
+          <!-- First set -->
+          <div class="tech-item group" title="Slack">
+            <iconify-icon icon="logos:slack-icon" height="32"></iconify-icon>
+            <span class="tech-label">Slack</span>
+          </div>
+          <div class="tech-item group" title="Microsoft Teams">
+            <iconify-icon icon="logos:microsoft-teams" height="32"></iconify-icon>
+            <span class="tech-label">Teams</span>
+          </div>
+          <div class="tech-item group" title="WhatsApp">
+            <iconify-icon icon="logos:whatsapp-icon" height="32"></iconify-icon>
+            <span class="tech-label">WhatsApp</span>
+          </div>
+          <div class="tech-item group" title="Twilio">
+            <iconify-icon icon="logos:twilio-icon" height="32"></iconify-icon>
+            <span class="tech-label">Twilio</span>
+          </div>
+          <div class="tech-item group" title="Zapier">
+            <iconify-icon icon="simple-icons:zapier" height="28" style="color: #FF4A00"></iconify-icon>
+            <span class="tech-label">Zapier</span>
+          </div>
+          <div class="tech-item group" title="Make">
+            <iconify-icon icon="simple-icons:make" height="32" style="color: #6D00CC"></iconify-icon>
+            <span class="tech-label">Make</span>
+          </div>
+          <!-- Duplicate for seamless loop -->
+          <div class="tech-item group" title="Slack">
+            <iconify-icon icon="logos:slack-icon" height="32"></iconify-icon>
+            <span class="tech-label">Slack</span>
+          </div>
+          <div class="tech-item group" title="Microsoft Teams">
+            <iconify-icon icon="logos:microsoft-teams" height="32"></iconify-icon>
+            <span class="tech-label">Teams</span>
+          </div>
+          <div class="tech-item group" title="WhatsApp">
+            <iconify-icon icon="logos:whatsapp-icon" height="32"></iconify-icon>
+            <span class="tech-label">WhatsApp</span>
+          </div>
+          <div class="tech-item group" title="Twilio">
+            <iconify-icon icon="logos:twilio-icon" height="32"></iconify-icon>
+            <span class="tech-label">Twilio</span>
+          </div>
+          <div class="tech-item group" title="Zapier">
+            <iconify-icon icon="simple-icons:zapier" height="28" style="color: #FF4A00"></iconify-icon>
+            <span class="tech-label">Zapier</span>
+          </div>
+          <div class="tech-item group" title="Make">
+            <iconify-icon icon="simple-icons:make" height="32" style="color: #6D00CC"></iconify-icon>
+            <span class="tech-label">Make</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Row 4: Development & Databases -->
+      <div class="tech-marquee">
+        <div class="tech-marquee-track animate-marquee-reverse">
+          <!-- First set -->
+          <div class="tech-item group" title="Python">
+            <iconify-icon icon="logos:python" height="32"></iconify-icon>
+            <span class="tech-label">Python</span>
+          </div>
+          <div class="tech-item group" title="TypeScript">
+            <iconify-icon icon="logos:typescript-icon" height="32"></iconify-icon>
+            <span class="tech-label">TypeScript</span>
+          </div>
+          <div class="tech-item group" title="PostgreSQL">
+            <iconify-icon icon="logos:postgresql" height="32"></iconify-icon>
+            <span class="tech-label">PostgreSQL</span>
+          </div>
+          <div class="tech-item group" title="MongoDB">
+            <iconify-icon icon="logos:mongodb-icon" height="32"></iconify-icon>
+            <span class="tech-label">MongoDB</span>
+          </div>
+          <div class="tech-item group" title="Vercel">
+            <iconify-icon icon="logos:vercel-icon" height="28" class="invert"></iconify-icon>
+            <span class="tech-label">Vercel</span>
+          </div>
+          <div class="tech-item group" title="Docker">
+            <iconify-icon icon="logos:docker-icon" height="32"></iconify-icon>
+            <span class="tech-label">Docker</span>
+          </div>
+          <!-- Duplicate for seamless loop -->
+          <div class="tech-item group" title="Python">
+            <iconify-icon icon="logos:python" height="32"></iconify-icon>
+            <span class="tech-label">Python</span>
+          </div>
+          <div class="tech-item group" title="TypeScript">
+            <iconify-icon icon="logos:typescript-icon" height="32"></iconify-icon>
+            <span class="tech-label">TypeScript</span>
+          </div>
+          <div class="tech-item group" title="PostgreSQL">
+            <iconify-icon icon="logos:postgresql" height="32"></iconify-icon>
+            <span class="tech-label">PostgreSQL</span>
+          </div>
+          <div class="tech-item group" title="MongoDB">
+            <iconify-icon icon="logos:mongodb-icon" height="32"></iconify-icon>
+            <span class="tech-label">MongoDB</span>
+          </div>
+          <div class="tech-item group" title="Vercel">
+            <iconify-icon icon="logos:vercel-icon" height="28" class="invert"></iconify-icon>
+            <span class="tech-label">Vercel</span>
+          </div>
+          <div class="tech-item group" title="Docker">
+            <iconify-icon icon="logos:docker-icon" height="32"></iconify-icon>
+            <span class="tech-label">Docker</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
