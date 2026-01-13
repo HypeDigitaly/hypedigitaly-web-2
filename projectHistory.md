@@ -1,5 +1,30 @@
 # Project History
 
+## [2026-01-13] Custom HTML Email & In-Page Form Success (Resend Integration)
+- **Goal**: Improve contact form UX by keeping users on the same page after submission and sending beautifully styled HTML notification emails in Czech.
+- **Problem Solved**:
+  1. Netlify Forms default emails are plain-text with poor formatting
+  2. Users were redirected to a separate thank-you page after form submission
+- **Solution - Netlify Function + Resend API**:
+  - Created `netlify/functions/contact.ts` - serverless function for form processing
+  - Designed professional HTML email template with HypeDigitaly branding (dark theme, logo, color-coded sections)
+  - Email includes: Contact info, service interest (highlighted), budget tiers, message, reply CTA button
+  - All email content in Czech (Čeština)
+  - Form now submits via AJAX to the Netlify Function, bypassing SSR interception issue
+  - Success state replaces form in-place (no page redirect)
+  - Error handling with user-friendly messages
+- **Files Created**:
+  - `astro-src/netlify/functions/contact.ts` - Form handler + email sender
+  - `astro-src/netlify/functions/package.json` - Function dependencies
+- **Files Modified**:
+  - `astro-src/src/pages/kontakt.astro` - AJAX submission, success/error UI states
+  - `astro-src/src/scripts/translations.ts` - Added `contact_form_send_another`, `contact_form_back_home` keys
+  - `netlify.toml` - Added functions directory configuration
+- **Setup Required**: Add `RESEND_API_KEY` environment variable in Netlify Dashboard
+- **Email Recipients**: pavelcermak@hypedigitaly.ai, cermakova@hypedigitaly.ai
+
+---
+
 ## [2026-01-13] Fix: Netlify Forms Detection for SSR Contact Page (v3 - FINAL)
 - **Issue**: Contact form submissions on `/kontakt` page were not working - form was detected by Netlify but submissions never reached it.
 - **Root Cause**: With SSR enabled (Astro + Netlify adapter), AJAX fetch() POST requests were being intercepted by the SSR function and returned 200 OK without ever reaching Netlify Forms. The form WAS detected (visible in Netlify Dashboard) but submissions were routed to SSR instead of forms handler.

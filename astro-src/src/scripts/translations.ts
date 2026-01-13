@@ -412,6 +412,8 @@ export interface TranslationKeys {
   contact_form_submitting: string;
   contact_form_success_title: string;
   contact_form_success_desc: string;
+  contact_form_send_another: string;
+  contact_form_back_home: string;
   contact_form_error: string;
   contact_form_required: string;
   contact_info_title: string;
@@ -1509,6 +1511,8 @@ export const translations: Record<Language, TranslationKeys> = {
     contact_form_submitting: "Odesílám...",
     contact_form_success_title: "Zpráva odeslána!",
     contact_form_success_desc: "Děkujeme za vaši zprávu. Ozveme se vám co nejdříve, obvykle do 24 hodin.",
+    contact_form_send_another: "Odeslat další zprávu",
+    contact_form_back_home: "Zpět na hlavní stránku",
     contact_form_error: "Něco se pokazilo. Zkuste to prosím znovu nebo nás kontaktujte přímo.",
     contact_form_required: "Povinné pole",
     contact_info_title: "Kontaktní informace",
@@ -2608,6 +2612,8 @@ export const translations: Record<Language, TranslationKeys> = {
     contact_form_submitting: "Sending...",
     contact_form_success_title: "Message sent!",
     contact_form_success_desc: "Thank you for your message. We'll get back to you as soon as possible, usually within 24 hours.",
+    contact_form_send_another: "Send another message",
+    contact_form_back_home: "Back to homepage",
     contact_form_error: "Something went wrong. Please try again or contact us directly.",
     contact_form_required: "Required field",
     contact_info_title: "Contact information",

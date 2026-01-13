@@ -154,22 +154,67 @@ const calendarId = `contact-cal-${Math.random().toString(36).substring(7)}`;
       
       <!-- LEFT: Contact Form -->
       <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both]">
-        <div class="bg-[#0A0A0A] border border-white/5 rounded-2xl p-6 md:p-8">
-          <div class="mb-6">
-            <h2 class="text-2xl font-bold text-white mb-2">{t.contact_form_title}</h2>
-            <p class="text-neutral-400">{t.contact_form_desc}</p>
+        <div class="bg-[#0A0A0A] border border-white/5 rounded-2xl p-6 md:p-8" id="form-container">
+          
+          <!-- Success State (hidden by default) -->
+          <div id="success-state" class="hidden">
+            <div class="text-center py-8">
+              <!-- Success Icon with Animation -->
+              <div class="relative inline-flex items-center justify-center mb-6">
+                <div class="absolute inset-0 animate-ping rounded-full bg-primary/20" style="animation-duration: 1.5s;"></div>
+                <div class="relative w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 border-2 border-primary/40 flex items-center justify-center">
+                  <iconify-icon icon="solar:check-circle-bold" class="text-5xl text-primary"></iconify-icon>
+                </div>
+              </div>
+              
+              <!-- Success Title -->
+              <h2 class="text-2xl md:text-3xl font-bold text-white mb-3">{t.contact_form_success_title}</h2>
+              
+              <!-- Success Description -->
+              <p class="text-neutral-400 max-w-md mx-auto mb-8 leading-relaxed">{t.contact_form_success_desc}</p>
+              
+              <!-- Action Buttons -->
+              <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button 
+                  id="send-another-btn"
+                  class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary-light transition-colors"
+                >
+                  <iconify-icon icon="solar:pen-new-square-linear" class="text-lg"></iconify-icon>
+                  <span>{t.contact_form_send_another}</span>
+                </button>
+                <a 
+                  href={href('/')}
+                  class="inline-flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 text-neutral-300 font-medium rounded-lg hover:bg-white/10 hover:text-white transition-colors"
+                >
+                  <iconify-icon icon="solar:home-2-linear" class="text-lg"></iconify-icon>
+                  <span>{t.contact_form_back_home}</span>
+                </a>
+              </div>
+            </div>
           </div>
 
-          <!-- Netlify Form - Standard submission (not AJAX) for SSR compatibility -->
-          <form 
-            id="contact-form"
-            name="contact" 
-            method="POST" 
-            action="/thank-you.html"
-            data-netlify="true"
-            netlify-honeypot="bot-field"
-            class="space-y-5"
-          >
+          <!-- Form State -->
+          <div id="form-state">
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold text-white mb-2">{t.contact_form_title}</h2>
+              <p class="text-neutral-400">{t.contact_form_desc}</p>
+            </div>
+
+            <!-- Error Message (hidden by default) -->
+            <div id="error-message" class="hidden mb-5 p-4 bg-red-500/10 border border-red-500/30 rounded-lg">
+              <div class="flex items-start gap-3">
+                <iconify-icon icon="solar:danger-triangle-bold" class="text-xl text-red-400 flex-shrink-0 mt-0.5"></iconify-icon>
+                <p id="error-text" class="text-red-300 text-sm">{t.contact_form_error}</p>
+              </div>
+            </div>
+
+            <!-- Contact Form - AJAX submission to Netlify Function -->
+            <form 
+              id="contact-form"
+              name="contact" 
+              method="POST"
+              class="space-y-5"
+            >
             <!-- Honeypot for spam prevention -->
             <p class="hidden">
               <label>Don't fill this out: <input name="bot-field" /></label>
@@ -309,7 +354,7 @@ const calendarId = `contact-cal-${Math.random().toString(36).substring(7)}`;
             <button 
               type="submit" 
               id="submit-btn"
-              class="w-full py-4 bg-primary text-white font-semibold rounded-lg hover:bg-primary-light transition-colors flex items-center justify-center gap-2 group"
+              class="w-full py-4 bg-primary text-white font-semibold rounded-lg hover:bg-primary-light transition-colors flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span id="btn-text">{t.contact_form_submit}</span>
               <span id="btn-loading" class="hidden">{t.contact_form_submitting}</span>
@@ -317,8 +362,7 @@ const calendarId = `contact-cal-${Math.random().toString(36).substring(7)}`;
               <iconify-icon icon="svg-spinners:ring-resize" class="text-lg hidden" id="btn-spinner"></iconify-icon>
             </button>
           </form>
-
-          <!-- Note: Success/error handled via redirect to /thank-you.html -->
+          </div>
         </div>
       </div>
 
@@ -460,7 +504,7 @@ const calendarId = `contact-cal-${Math.random().toString(36).substring(7)}`;
     })();
   </script>
 
-  <!-- Form Submission Handler - Shows loading state during native form submission -->
+  <!-- Form Submission Handler - AJAX submission to Netlify Function -->
   <script is:inline>
     (function() {
       const form = document.getElementById('contact-form');
@@ -469,20 +513,107 @@ const calendarId = `contact-cal-${Math.random().toString(36).substring(7)}`;
       const btnLoading = document.getElementById('btn-loading');
       const btnIcon = document.getElementById('btn-icon');
       const btnSpinner = document.getElementById('btn-spinner');
+      const formState = document.getElementById('form-state');
+      const successState = document.getElementById('success-state');
+      const errorMessage = document.getElementById('error-message');
+      const errorText = document.getElementById('error-text');
+      const sendAnotherBtn = document.getElementById('send-another-btn');
 
       if (!form) return;
 
-      // Show loading state when form is submitted (native submission, no preventDefault)
-      form.addEventListener('submit', function() {
-        // Show loading state
-        btnText.classList.add('hidden');
-        btnIcon.classList.add('hidden');
-        btnLoading.classList.remove('hidden');
-        btnSpinner.classList.remove('hidden');
-        submitBtn.disabled = true;
-        
-        // Form will submit normally to Netlify Forms, then redirect to /thank-you.html
+      // Show loading state
+      function setLoading(isLoading) {
+        if (isLoading) {
+          btnText.classList.add('hidden');
+          btnIcon.classList.add('hidden');
+          btnLoading.classList.remove('hidden');
+          btnSpinner.classList.remove('hidden');
+          submitBtn.disabled = true;
+        } else {
+          btnText.classList.remove('hidden');
+          btnIcon.classList.remove('hidden');
+          btnLoading.classList.add('hidden');
+          btnSpinner.classList.add('hidden');
+          submitBtn.disabled = false;
+        }
+      }
+
+      // Show error message
+      function showError(message) {
+        errorText.textContent = message;
+        errorMessage.classList.remove('hidden');
+        // Scroll to error
+        errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      // Hide error message
+      function hideError() {
+        errorMessage.classList.add('hidden');
+      }
+
+      // Show success state
+      function showSuccess() {
+        formState.classList.add('hidden');
+        successState.classList.remove('hidden');
+        // Scroll to top of form container
+        document.getElementById('form-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      // Reset form and show form state again
+      function resetForm() {
+        form.reset();
+        successState.classList.add('hidden');
+        formState.classList.remove('hidden');
+        hideError();
+      }
+
+      // Handle form submission via AJAX
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        hideError();
+        setLoading(true);
+
+        // Collect form data
+        const formData = new FormData(form);
+        const data = {
+          name: formData.get('name'),
+          email: formData.get('email'),
+          phone: formData.get('phone') || undefined,
+          website: formData.get('website') || undefined,
+          service: formData.get('service') || undefined,
+          budget_onetime: formData.get('budget_onetime') || undefined,
+          budget_monthly: formData.get('budget_monthly') || undefined,
+          message: formData.get('message') || undefined,
+        };
+
+        try {
+          const response = await fetch('/.netlify/functions/contact', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          });
+
+          const result = await response.json();
+
+          if (response.ok && result.success) {
+            showSuccess();
+          } else {
+            showError(result.error || 'Něco se pokazilo. Zkuste to prosím znovu.');
+          }
+        } catch (error) {
+          console.error('Form submission error:', error);
+          showError('Nepodařilo se odeslat zprávu. Zkontrolujte připojení k internetu a zkuste to znovu.');
+        } finally {
+          setLoading(false);
+        }
       });
+
+      // Handle "Send another message" button
+      if (sendAnotherBtn) {
+        sendAnotherBtn.addEventListener('click', resetForm);
+      }
     })();
   </script>
 </PageLayout>

@@ -4,6 +4,9 @@
   command = "git fetch --unshallow 2>/dev/null || true && npm run build"
   publish = "dist"
 
+[functions]
+  directory = "netlify/functions"
+
 [build.environment]
   NODE_VERSION = "18"
   # Ensure git commands work properly in the build environment
