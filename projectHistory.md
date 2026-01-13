@@ -1,5 +1,14 @@
 # Project History
 
+## [2026-01-13] Fix: Netlify Forms Detection for SSR Contact Page
+- **Issue**: Contact form submissions on `/kontakt` page were not working - Netlify Forms never received submissions.
+- **Root Cause**: The `/kontakt` page uses SSR (`prerender = false`), meaning no static HTML file exists at build time. Netlify's form detection only parses static HTML during deploy, so it never detected or registered the "contact" form.
+- **Solution**: Created `public/netlify-form-detection.html` - a hidden static HTML file containing a form with `data-netlify="true"` and all matching field names. Netlify will detect this at build time and register the form.
+- **Files Added**: `astro-src/public/netlify-form-detection.html`
+- **Post-Deploy Action**: Verify form appears in Netlify Dashboard → Forms, and ensure email notifications are configured.
+
+---
+
 ## [2026-01-13] Standalone Contact Page with Lead Capture Form
 - **Goal**: Create a dedicated contact page (`/kontakt`) with lead capture form, Cal.com calendar widget, and contact information.
 - **New Page Created**: `src/pages/kontakt.astro`

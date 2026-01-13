@@ -1,0 +1,78 @@
+<!-- 
+  ============================================================
+  NETLIFY FORM DETECTION FILE
+  ============================================================
+  
+  Purpose: This file exists ONLY for Netlify's form detection system.
+  
+  Why it's needed:
+  - Netlify parses static HTML files at deploy time to register forms
+  - The /kontakt page uses SSR (prerender = false), so no static HTML exists
+  - Without this file, Netlify never detects or registers the "contact" form
+  - This hidden file allows Netlify to detect and register the form
+  
+  Important: All input "name" attributes must match the actual form on /kontakt
+  
+  DO NOT DELETE THIS FILE - it enables contact form functionality
+  ============================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Form Detection - Do Not Delete</title>
+</head>
+<body>
+  <!-- 
+    Hidden form for Netlify detection
+    Must have same name and field names as /kontakt form
+  -->
+  <form 
+    name="contact" 
+    method="POST"
+    data-netlify="true" 
+    netlify-honeypot="bot-field" 
+    hidden
+  >
+    <!-- Required hidden field for form identification -->
+    <input type="hidden" name="form-name" value="contact" />
+    
+    <!-- Honeypot field for spam prevention -->
+    <input name="bot-field" type="text" />
+    
+    <!-- Contact form fields - must match /kontakt page -->
+    <input name="name" type="text" />
+    <input name="email" type="email" />
+    <input name="phone" type="tel" />
+    <input name="website" type="url" />
+    <select name="service">
+      <option value="chatbot">Chatbot</option>
+      <option value="voicebot">Voicebot</option>
+      <option value="agent">AI Agent</option>
+      <option value="automation">Automation</option>
+      <option value="dev">Development</option>
+      <option value="web">Web Design</option>
+      <option value="consult">Consultation</option>
+      <option value="dataprep">Data Preparation</option>
+      <option value="other">Other</option>
+    </select>
+    <select name="budget_onetime">
+      <option value="tier1">Tier 1</option>
+      <option value="tier2">Tier 2</option>
+      <option value="tier3">Tier 3</option>
+      <option value="tier4">Tier 4</option>
+      <option value="unsure">Unsure</option>
+    </select>
+    <select name="budget_monthly">
+      <option value="tier1">Tier 1</option>
+      <option value="tier2">Tier 2</option>
+      <option value="tier3">Tier 3</option>
+      <option value="tier4">Tier 4</option>
+      <option value="unsure">Unsure</option>
+    </select>
+    <textarea name="message"></textarea>
+  </form>
+</body>
+</html>
+
