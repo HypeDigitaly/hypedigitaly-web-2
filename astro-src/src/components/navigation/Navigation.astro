@@ -30,7 +30,7 @@ const href = (path: string) => getLocalizedHref(path, lang);
         <a href={href("/#reference")} class="hover:text-white transition-colors">{t.nav_cases}</a>
         <a href={href("/blog")} class="hover:text-white transition-colors">{t.nav_case_studies}</a>
         <a href="#ragus" data-ragus-link class="hover:text-white transition-colors">{t.nav_data_prep}</a>
-        <a href="#kontakt" class="hover:text-white transition-colors">{t.nav_contact}</a>
+        <a href={href("/kontakt")} class="hover:text-white transition-colors">{t.nav_contact}</a>
       </div>
     )}
 
@@ -66,7 +66,7 @@ const href = (path: string) => getLocalizedHref(path, lang);
       </div>
 
       <!-- CTA Button -->
-      <a href="#kontakt" class="nav-cta-button hover:bg-white/10 transition-all flex text-sm font-medium text-neutral-200 bg-gradient-to-b from-primary/30 via-primary/10 to-primary/20 px-4 py-2 shadow-[0px_1px_0px_0px_rgba(0,163,154,0.3)_inset] gap-x-2 items-center rounded-lg relative overflow-hidden" style="--border-gradient: linear-gradient(180deg, rgba(0, 163, 154, 0.5), rgba(0, 163, 154, 0), rgba(0, 163, 154, 0.2)); --border-radius-before: 8px">
+      <a href={href("/kontakt")} class="nav-cta-button hover:bg-white/10 transition-all flex text-sm font-medium text-neutral-200 bg-gradient-to-b from-primary/30 via-primary/10 to-primary/20 px-4 py-2 shadow-[0px_1px_0px_0px_rgba(0,163,154,0.3)_inset] gap-x-2 items-center rounded-lg relative overflow-hidden" style="--border-gradient: linear-gradient(180deg, rgba(0, 163, 154, 0.5), rgba(0, 163, 154, 0), rgba(0, 163, 154, 0.2)); --border-radius-before: 8px">
         <!-- Floating bubbles -->
         <span class="nav-bubbles-wrapper">
           <span class="nav-bubble"></span>

@@ -1,0 +1,532 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { translations, type Language, getLocalizedHref } from '../scripts/translations';
+
+// Server-side rendered page - detects language from URL param or cookie
+export const prerender = false;
+
+const url = Astro.url;
+const langParam = url.searchParams.get('lang');
+
+// Redirect ?lang=cs to clean URL (Czech is default - keeps URLs clean)
+if (langParam === 'cs') {
+  const cleanUrl = new URL(Astro.url);
+  cleanUrl.searchParams.delete('lang');
+  const redirectPath = cleanUrl.pathname + (cleanUrl.search || '') + (cleanUrl.hash || '');
+  return Astro.redirect(redirectPath || '/', 301);
+}
+
+const cookieLang = Astro.cookies.get('preferredLanguage')?.value;
+const lang: Language = (langParam === 'en' || langParam === 'cs') ? langParam : 
+                       (cookieLang === 'en' || cookieLang === 'cs') ? cookieLang : 'cs';
+const t = translations[lang];
+
+// Set cookie if language was explicitly selected via URL param
+if (langParam && (langParam === 'en' || langParam === 'cs')) {
+  Astro.cookies.set('preferredLanguage', langParam, { 
+    path: '/', 
+    maxAge: 60 * 60 * 24 * 365, // 1 year
+    sameSite: 'lax'
+  });
+}
+
+// Helper for localized links
+const href = (path: string) => getLocalizedHref(path, lang);
+
+// SEO: Constants
+const SITE_URL = 'https://hypedigitaly.ai';
+
+// SEO: Contact Page Structured Data
+const contactSchema = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": lang === 'cs' ? "Kontakt - HypeDigitaly" : "Contact - HypeDigitaly",
+  "description": t.contact_meta_desc,
+  "url": `${SITE_URL}/kontakt`,
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "HypeDigitaly s.r.o.",
+    "url": SITE_URL,
+    "email": "info@hypedigitaly.ai",
+    "telephone": "+420774996248",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Velká Hradební 2800/54",
+      "addressLocality": "Ústí nad Labem",
+      "postalCode": "400 01",
+      "addressCountry": "CZ"
+    }
+  }
+};
+
+// SEO: BreadcrumbList
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": lang === 'cs' ? "Domů" : "Home",
+      "item": SITE_URL
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": lang === 'cs' ? "Kontakt" : "Contact",
+      "item": `${SITE_URL}/kontakt`
+    }
+  ]
+};
+
+// Service options for the dropdown
+const serviceOptions = [
+  { value: 'chatbot', label: t.contact_form_service_chatbot },
+  { value: 'voicebot', label: t.contact_form_service_voicebot },
+  { value: 'agent', label: t.contact_form_service_agent },
+  { value: 'automation', label: t.contact_form_service_automation },
+  { value: 'dev', label: t.contact_form_service_dev },
+  { value: 'web', label: t.contact_form_service_web },
+  { value: 'consult', label: t.contact_form_service_consult },
+  { value: 'dataprep', label: t.contact_form_service_dataprep },
+  { value: 'other', label: t.contact_form_service_other },
+];
+
+// Budget options
+const budgetOnetimeOptions = [
+  { value: 'tier1', label: t.contact_form_budget_onetime_1 },
+  { value: 'tier2', label: t.contact_form_budget_onetime_2 },
+  { value: 'tier3', label: t.contact_form_budget_onetime_3 },
+  { value: 'tier4', label: t.contact_form_budget_onetime_4 },
+  { value: 'unsure', label: t.contact_form_budget_onetime_unsure },
+];
+
+const budgetMonthlyOptions = [
+  { value: 'tier1', label: t.contact_form_budget_monthly_1 },
+  { value: 'tier2', label: t.contact_form_budget_monthly_2 },
+  { value: 'tier3', label: t.contact_form_budget_monthly_3 },
+  { value: 'tier4', label: t.contact_form_budget_monthly_4 },
+  { value: 'unsure', label: t.contact_form_budget_monthly_unsure },
+];
+
+// Generate unique ID for calendar
+const calendarId = `contact-cal-${Math.random().toString(36).substring(7)}`;
+---
+
+<PageLayout 
+  title={t.contact_meta_title}
+  description={t.contact_meta_desc}
+  lang={lang}
+  showCalendar={false}
+>
+  <!-- Contact Page Structured Data -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(contactSchema)} />
+  
+  <!-- Breadcrumb Structured Data -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="relative max-w-7xl mx-auto px-4 sm:px-6 pt-8 pb-16 overflow-hidden">
+    <div class="text-center max-w-4xl mx-auto relative z-10">
+      
+      <!-- Badge -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.1s_both] inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8">
+        <iconify-icon icon="solar:chat-round-call-bold" class="text-primary text-lg"></iconify-icon>
+        <span class="text-sm text-neutral-300">{t.contact_hero_badge}</span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] leading-[1.1] md:text-5xl lg:text-6xl text-3xl font-medium text-white tracking-tighter mb-6">
+        <span>{t.contact_hero_headline_1}</span><br />
+        <span class="text-neutral-500">{t.contact_hero_headline_2}</span>
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] text-lg text-neutral-400 font-light max-w-2xl mx-auto leading-relaxed">
+        {t.contact_hero_subheadline}
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN CONTENT: FORM + CALENDAR ==================== -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 pb-24">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+      
+      <!-- LEFT: Contact Form -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both]">
+        <div class="bg-[#0A0A0A] border border-white/5 rounded-2xl p-6 md:p-8">
+          <div class="mb-6">
+            <h2 class="text-2xl font-bold text-white mb-2">{t.contact_form_title}</h2>
+            <p class="text-neutral-400">{t.contact_form_desc}</p>
+          </div>
+
+          <!-- Netlify Form -->
+          <form 
+            id="contact-form"
+            name="contact" 
+            method="POST" 
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            class="space-y-5"
+          >
+            <!-- Honeypot for spam prevention -->
+            <p class="hidden">
+              <label>Don't fill this out: <input name="bot-field" /></label>
+            </p>
+            <input type="hidden" name="form-name" value="contact" />
+
+            <!-- Name Field -->
+            <div>
+              <label for="name" class="block text-sm font-medium text-neutral-300 mb-2">
+                {t.contact_form_name} <span class="text-red-400">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                required
+                placeholder={t.contact_form_name_placeholder}
+                class="w-full px-4 py-3 bg-neutral-900/50 border border-white/10 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-colors"
+              />
+            </div>
+
+            <!-- Email Field -->
+            <div>
+              <label for="email" class="block text-sm font-medium text-neutral-300 mb-2">
+                {t.contact_form_email} <span class="text-red-400">*</span>
+              </label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                required
+                placeholder={t.contact_form_email_placeholder}
+                class="w-full px-4 py-3 bg-neutral-900/50 border border-white/10 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-colors"
+              />
+            </div>
+
+            <!-- Phone Field -->
+            <div>
+              <label for="phone" class="block text-sm font-medium text-neutral-300 mb-2">
+                {t.contact_form_phone}
+              </label>
+              <input 
+                type="tel" 
+                id="phone" 
+                name="phone" 
+                placeholder={t.contact_form_phone_placeholder}
+                class="w-full px-4 py-3 bg-neutral-900/50 border border-white/10 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-colors"
+              />
+            </div>
+
+            <!-- Website Field -->
+            <div>
+              <label for="website" class="block text-sm font-medium text-neutral-300 mb-2">
+                {t.contact_form_website}
+              </label>
+              <input 
+                type="url" 
+                id="website" 
+                name="website" 
+                placeholder={t.contact_form_website_placeholder}
+                class="w-full px-4 py-3 bg-neutral-900/50 border border-white/10 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-colors"
+              />
+            </div>
+
+            <!-- Service Dropdown -->
+            <div>
+              <label for="service" class="block text-sm font-medium text-neutral-300 mb-2">
+                {t.contact_form_service}
+              </label>
+              <select 
+                id="service" 
+                name="service"
+                class="w-full px-4 py-3 bg-neutral-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-colors appearance-none cursor-pointer"
+                style="background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239ca3af%22 stroke-width=%222%22><path d=%22M6 9l6 6 6-6%22/></svg>'); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px;"
+              >
+                <option value="" class="bg-neutral-900">{t.contact_form_service_placeholder}</option>
+                {serviceOptions.map(option => (
+                  <option value={option.value} class="bg-neutral-900">{option.label}</option>
+                ))}
+              </select>
+            </div>
+
+            <!-- Budget Row: One-time & Monthly -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- One-time Budget -->
+              <div>
+                <label for="budget_onetime" class="block text-sm font-medium text-neutral-300 mb-2">
+                  {t.contact_form_budget_onetime}
+                </label>
+                <select 
+                  id="budget_onetime" 
+                  name="budget_onetime"
+                  class="w-full px-4 py-3 bg-neutral-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-colors appearance-none cursor-pointer text-sm"
+                  style="background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239ca3af%22 stroke-width=%222%22><path d=%22M6 9l6 6 6-6%22/></svg>'); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px;"
+                >
+                  <option value="" class="bg-neutral-900">{t.contact_form_budget_onetime_placeholder}</option>
+                  {budgetOnetimeOptions.map(option => (
+                    <option value={option.value} class="bg-neutral-900">{option.label}</option>
+                  ))}
+                </select>
+              </div>
+
+              <!-- Monthly Budget -->
+              <div>
+                <label for="budget_monthly" class="block text-sm font-medium text-neutral-300 mb-2">
+                  {t.contact_form_budget_monthly}
+                </label>
+                <select 
+                  id="budget_monthly" 
+                  name="budget_monthly"
+                  class="w-full px-4 py-3 bg-neutral-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-colors appearance-none cursor-pointer text-sm"
+                  style="background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239ca3af%22 stroke-width=%222%22><path d=%22M6 9l6 6 6-6%22/></svg>'); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px;"
+                >
+                  <option value="" class="bg-neutral-900">{t.contact_form_budget_monthly_placeholder}</option>
+                  {budgetMonthlyOptions.map(option => (
+                    <option value={option.value} class="bg-neutral-900">{option.label}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <!-- Message Textarea -->
+            <div>
+              <label for="message" class="block text-sm font-medium text-neutral-300 mb-2">
+                {t.contact_form_message}
+              </label>
+              <textarea 
+                id="message" 
+                name="message" 
+                rows="4"
+                placeholder={t.contact_form_message_placeholder}
+                class="w-full px-4 py-3 bg-neutral-900/50 border border-white/10 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-colors resize-none"
+              ></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button 
+              type="submit" 
+              id="submit-btn"
+              class="w-full py-4 bg-primary text-white font-semibold rounded-lg hover:bg-primary-light transition-colors flex items-center justify-center gap-2 group"
+            >
+              <span id="btn-text">{t.contact_form_submit}</span>
+              <span id="btn-loading" class="hidden">{t.contact_form_submitting}</span>
+              <iconify-icon icon="solar:arrow-right-linear" class="text-lg group-hover:translate-x-1 transition-transform" id="btn-icon"></iconify-icon>
+              <iconify-icon icon="svg-spinners:ring-resize" class="text-lg hidden" id="btn-spinner"></iconify-icon>
+            </button>
+          </form>
+
+          <!-- Success Message (hidden by default) -->
+          <div id="success-message" class="hidden mt-6 p-6 bg-green-500/10 border border-green-500/20 rounded-xl text-center">
+            <iconify-icon icon="solar:check-circle-bold" class="text-4xl text-green-400 mb-3"></iconify-icon>
+            <h3 class="text-xl font-semibold text-white mb-2">{t.contact_form_success_title}</h3>
+            <p class="text-neutral-400">{t.contact_form_success_desc}</p>
+          </div>
+
+          <!-- Error Message (hidden by default) -->
+          <div id="error-message" class="hidden mt-6 p-6 bg-red-500/10 border border-red-500/20 rounded-xl text-center">
+            <iconify-icon icon="solar:danger-triangle-bold" class="text-4xl text-red-400 mb-3"></iconify-icon>
+            <p class="text-neutral-300">{t.contact_form_error}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Calendar -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both]">
+        <div class="bg-[#0A0A0A] border border-white/5 rounded-2xl p-6 md:p-8 h-full">
+          <div class="text-center mb-6">
+            <h2 class="text-2xl font-bold text-white mb-2">{t.contact_calendar_title}</h2>
+            <p class="text-neutral-400">{t.contact_calendar_desc}</p>
+          </div>
+
+          <!-- Cal.com Embed Container -->
+          <div class="cal-embed-container" style="width:100%;min-height:550px;height:auto;overflow:auto" id={calendarId} data-cal-lazy>
+            <!-- Loading placeholder -->
+            <div class="flex items-center justify-center h-full min-h-[550px]">
+              <div class="text-center">
+                <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary mb-4"></div>
+                <p class="text-neutral-400 text-sm">{t.cal_title}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT INFO SECTION ==================== -->
+  <section class="bg-[#080808] border-t border-white/5 py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.1s_both] text-2xl md:text-3xl font-bold text-white mb-4">{t.contact_info_title}</h2>
+        <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] text-neutral-400">{t.contact_info_subtitle}</p>
+      </div>
+
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] flex flex-wrap items-center justify-center gap-6">
+        <!-- Email -->
+        <a href="mailto:info@hypedigitaly.ai" class="flex items-center gap-3 px-6 py-4 bg-white/5 border border-white/10 rounded-xl text-neutral-300 hover:text-white hover:border-primary/30 hover:bg-primary/5 transition-all group">
+          <iconify-icon icon="solar:letter-bold" class="text-2xl text-primary"></iconify-icon>
+          <div class="text-left">
+            <span class="block text-xs text-neutral-500 uppercase tracking-wider">Email</span>
+            <span class="font-medium">info@hypedigitaly.ai</span>
+          </div>
+        </a>
+
+        <!-- Phone -->
+        <a href="tel:+420774996248" class="flex items-center gap-3 px-6 py-4 bg-white/5 border border-white/10 rounded-xl text-neutral-300 hover:text-white hover:border-primary/30 hover:bg-primary/5 transition-all group">
+          <iconify-icon icon="solar:phone-bold" class="text-2xl text-primary"></iconify-icon>
+          <div class="text-left">
+            <span class="block text-xs text-neutral-500 uppercase tracking-wider">{t.contact_form_phone}</span>
+            <span class="font-medium">+420 774 996 248</span>
+          </div>
+        </a>
+
+        <!-- LinkedIn -->
+        <a href="https://linkedin.com/company/hypedigitaly" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-6 py-4 bg-white/5 border border-white/10 rounded-xl text-neutral-300 hover:text-white hover:border-primary/30 hover:bg-primary/5 transition-all group">
+          <iconify-icon icon="mdi:linkedin" class="text-2xl text-primary"></iconify-icon>
+          <div class="text-left">
+            <span class="block text-xs text-neutral-500 uppercase tracking-wider">LinkedIn</span>
+            <span class="font-medium">HypeDigitaly</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Trust badges -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] flex flex-wrap items-center justify-center gap-6 mt-10 text-sm text-neutral-500">
+        <span class="flex items-center gap-2">
+          <iconify-icon icon="solar:shield-check-bold" class="text-primary"></iconify-icon>
+          <span>{t.cta_trust_1}</span>
+        </span>
+        <span class="flex items-center gap-2">
+          <iconify-icon icon="solar:clock-circle-bold" class="text-primary"></iconify-icon>
+          <span>{t.cta_trust_2}</span>
+        </span>
+        <span class="flex items-center gap-2">
+          <iconify-icon icon="solar:map-point-bold" class="text-primary"></iconify-icon>
+          <span>{t.cta_trust_3}</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cal.com Lazy Load Script -->
+  <script is:inline define:vars={{ calendarId }}>
+    // Lazy-load Cal.com embed using Intersection Observer
+    (function() {
+      const calContainer = document.getElementById(calendarId);
+      if (!calContainer) return;
+
+      const observer = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) {
+          // Element is visible, load Cal.com
+          observer.disconnect();
+          
+          // Remove placeholder
+          calContainer.innerHTML = '';
+          
+          // Load Cal.com script and initialize
+          (function (C, A, L) { 
+            let p = function (a, ar) { a.q.push(ar); }; 
+            let d = C.document; 
+            C.Cal = C.Cal || function () { 
+              let cal = C.Cal; 
+              let ar = arguments; 
+              if (!cal.loaded) { 
+                cal.ns = {}; 
+                cal.q = cal.q || []; 
+                d.head.appendChild(d.createElement("script")).src = A; 
+                cal.loaded = true; 
+              } 
+              if (ar[0] === L) { 
+                const api = function () { p(api, arguments); }; 
+                const namespace = ar[1]; 
+                api.q = api.q || []; 
+                if(typeof namespace === "string"){ 
+                  cal.ns[namespace] = cal.ns[namespace] || api; 
+                  p(cal.ns[namespace], ar); 
+                  p(cal, ["initNamespace", namespace]); 
+                } else p(cal, ar); 
+                return;
+              } 
+              p(cal, ar); 
+            }; 
+          })(window, "https://app.cal.com/embed/embed.js", "init");
+          
+          const nsName = "contact-cal-ns";
+          Cal("init", nsName, {origin:"https://app.cal.com"});
+          Cal.ns[nsName]("inline", {
+            elementOrSelector: "#" + calendarId,
+            config: {"layout":"month_view","theme":"light"},
+            calLink: "hypedigitaly-pavelcermak/30-min-online",
+          });
+          Cal.ns[nsName]("ui", {"theme":"light","cssVarsPerTheme":{"light":{"cal-brand":"#00A39A"}},"hideEventTypeDetails":false,"layout":"month_view"});
+        }
+      }, {
+        rootMargin: '100px' // Start loading 100px before it becomes visible
+      });
+
+      observer.observe(calContainer);
+    })();
+  </script>
+
+  <!-- Form Submission Handler -->
+  <script is:inline>
+    (function() {
+      const form = document.getElementById('contact-form');
+      const submitBtn = document.getElementById('submit-btn');
+      const btnText = document.getElementById('btn-text');
+      const btnLoading = document.getElementById('btn-loading');
+      const btnIcon = document.getElementById('btn-icon');
+      const btnSpinner = document.getElementById('btn-spinner');
+      const successMessage = document.getElementById('success-message');
+      const errorMessage = document.getElementById('error-message');
+
+      if (!form) return;
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // Show loading state
+        btnText.classList.add('hidden');
+        btnIcon.classList.add('hidden');
+        btnLoading.classList.remove('hidden');
+        btnSpinner.classList.remove('hidden');
+        submitBtn.disabled = true;
+
+        // Hide any previous messages
+        successMessage.classList.add('hidden');
+        errorMessage.classList.add('hidden');
+
+        try {
+          const formData = new FormData(form);
+          
+          const response = await fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData).toString()
+          });
+
+          if (response.ok) {
+            // Success
+            form.classList.add('hidden');
+            successMessage.classList.remove('hidden');
+          } else {
+            throw new Error('Form submission failed');
+          }
+        } catch (error) {
+          console.error('Form error:', error);
+          errorMessage.classList.remove('hidden');
+          
+          // Reset button state
+          btnText.classList.remove('hidden');
+          btnIcon.classList.remove('hidden');
+          btnLoading.classList.add('hidden');
+          btnSpinner.classList.add('hidden');
+          submitBtn.disabled = false;
+        }
+      });
+    })();
+  </script>
+</PageLayout>
+

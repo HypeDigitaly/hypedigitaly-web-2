@@ -10,7 +10,7 @@
  * - Hover animations with scale and glow
  * - Optional section header and CTA
  */
-import { translations, type Language } from '../../scripts/translations';
+import { translations, type Language, getLocalizedHref } from '../../scripts/translations';
 
 interface Props {
   lang: Language;
@@ -22,6 +22,7 @@ interface Props {
 
 const { lang, showHeader = true, showCta = true, sectionNumber, className = '' } = Astro.props;
 const t = translations[lang];
+const href = (path: string) => getLocalizedHref(path, lang);
 
 // What We Deliver cards configuration
 const deliverables = [
@@ -110,7 +111,7 @@ const deliverables = [
     {/* CTA Below Grid */}
     {showCta && (
       <div class="mt-16 text-center">
-        <a href="#kontakt" class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.9s_both] shiny-cta group inline-flex max-w-md mx-auto">
+        <a href={href("/kontakt")} class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.9s_both] shiny-cta group inline-flex max-w-md mx-auto">
           <span class="btn-content">
             <span class="text-lg font-semibold tracking-tight">{t.services_hub_cta}</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white/80 group-hover:translate-x-1 transition-transform">
@@ -135,5 +136,11 @@ const deliverables = [
     box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.4);
   }
 </style>
+
+
+
+
+
+
 
 

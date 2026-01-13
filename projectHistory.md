@@ -1,5 +1,36 @@
 # Project History
 
+## [2026-01-13] Standalone Contact Page with Lead Capture Form
+- **Goal**: Create a dedicated contact page (`/kontakt`) with lead capture form, Cal.com calendar widget, and contact information.
+- **New Page Created**: `src/pages/kontakt.astro`
+  - Lead capture form using **Netlify Forms** (zero backend required)
+  - Form fields: Name*, Email*, Phone, Website, Service Interest (dropdown), Budget One-time, Budget Monthly, Message
+  - Cal.com calendar widget for booking consultations (lazy-loaded)
+  - Contact information section (email, phone, LinkedIn)
+  - Trust badges and professional styling
+  - Full i18n support (Czech + English)
+  - SEO: Structured data for ContactPage + BreadcrumbList
+- **Navigation Updates**: All `#kontakt` anchor links site-wide now redirect to `/kontakt` page
+- **Files Modified** (16+ files):
+  - `translations.ts` - Added ~60 new translation keys for contact page
+  - `Navigation.astro`, `MobileMenu.astro` - Updated nav links
+  - All service pages: `index.astro`, `chatbot.astro`, `voicebot.astro`, `ai-agent.astro`, `automatizace.astro`, `vyvoj-aplikaci.astro`, `web-design.astro`, `sluzby.astro`, `konzultace.astro`, `priprava-dat.astro`, `blog/[slug].astro`
+  - Section components: `DeliverablesGrid.astro`, `ServicesOverviewGrid.astro`, `Footer.astro`
+- **Post-Deploy Action Required**: Configure Netlify Forms email notifications in Netlify Dashboard to send to `pavelcermak@hypedigitaly.ai` and `cermakova@hypedigitaly.ai`
+
+---
+
+## [2026-01-07] SolarNova Build Proposal
+- **Goal**: Create a professional, structured proposal for the SolarNova v1 build based on client brief.
+- **Deliverables**:
+  - `SolarNova_Proposal_HypeDigitaly.md`: A 2-page equivalent proposal detailing Phase 1 (Core Conversion) and Phase 2 (Voice/Outbound Automation).
+  - Defined tech stack: Voiceflow, n8n, Twilio, ElevenLabs/VAPI, RAGus AI.
+  - Defined pricing structure: Part 1 ($12,500-$16,000), Part 2 ($14,000-$18,500), Total ($26,500-$34,500).
+  - Included onboarding estimates and maintenance options.
+- **Result**: Comprehensive project scope and financial plan delivered as a document.
+
+---
+
 ## [2026-01-03] Internationalized Pricing & CZK to USD Conversion (Premium Rounded)
 - **Goal**: Analyze all CZK/Kč prices throughout the project and properly convert English translations to USD with premium markup, rounded to visually appealing numbers (thousands/hundreds).
 - **Phase 1 - Pricing Table Internationalization**:

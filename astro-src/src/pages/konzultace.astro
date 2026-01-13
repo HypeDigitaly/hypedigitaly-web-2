@@ -1,6 +1,6 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
-import { translations, type Language } from '../scripts/translations';
+import { translations, type Language, getLocalizedHref } from '../scripts/translations';
 
 // Server-side rendered page - detects language from URL param or cookie
 export const prerender = false;
@@ -20,6 +20,7 @@ const cookieLang = Astro.cookies.get('preferredLanguage')?.value;
 const lang: Language = (langParam === 'en' || langParam === 'cs') ? langParam : 
                        (cookieLang === 'en' || cookieLang === 'cs') ? cookieLang : 'cs';
 const t = translations[lang];
+const href = (path: string) => getLocalizedHref(path, lang);
 
 // Set cookie if language was explicitly selected via URL param
 if (langParam && (langParam === 'en' || langParam === 'cs')) {
@@ -149,7 +150,7 @@ const breadcrumbSchema = {
               {t.consult_quick_audit_f4}
             </li>
           </ul>
-          <a href="#kontakt" class="vf-button w-full !py-4" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
+          <a href={href("/kontakt")} class="vf-button w-full !py-4" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
             <div class="vf-points-wrapper">
               <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
               <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
@@ -187,7 +188,7 @@ const breadcrumbSchema = {
               {t.consult_sprint_f5}
             </li>
           </ul>
-          <a href="#kontakt" class="shiny-cta group">
+          <a href={href("/kontakt")} class="shiny-cta group">
             <span class="btn-content">
               <span class="font-semibold">{t.consult_sprint_cta}</span>
             </span>
@@ -223,7 +224,7 @@ const breadcrumbSchema = {
               {t.consult_partner_f5}
             </li>
           </ul>
-          <a href="#kontakt" class="vf-button w-full !py-4" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
+          <a href={href("/kontakt")} class="vf-button w-full !py-4" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
             <div class="vf-points-wrapper">
               <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
               <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
@@ -270,7 +271,7 @@ const breadcrumbSchema = {
               <span>{t.consult_online_f4}</span>
             </li>
           </ul>
-          <a href="#kontakt" class="w-full flex items-center justify-center gap-2 py-3 bg-white/5 border border-white/10 rounded-lg text-white font-medium hover:bg-white/10 transition-colors">
+          <a href={href("/kontakt")} class="w-full flex items-center justify-center gap-2 py-3 bg-white/5 border border-white/10 rounded-lg text-white font-medium hover:bg-white/10 transition-colors">
             {t.consult_online_cta}
           </a>
         </div>
@@ -301,7 +302,7 @@ const breadcrumbSchema = {
               <span>{t.consult_adhoc_f4}</span>
             </li>
           </ul>
-          <a href="#kontakt" class="w-full flex items-center justify-center gap-2 py-3 bg-white/5 border border-white/10 rounded-lg text-white font-medium hover:bg-white/10 transition-colors">
+          <a href={href("/kontakt")} class="w-full flex items-center justify-center gap-2 py-3 bg-white/5 border border-white/10 rounded-lg text-white font-medium hover:bg-white/10 transition-colors">
             {t.consult_adhoc_cta}
           </a>
         </div>
@@ -341,7 +342,7 @@ const breadcrumbSchema = {
               <span>{t.consult_training_f6}</span>
             </li>
           </ul>
-          <a href="#kontakt" class="w-full flex items-center justify-center gap-2 py-3 bg-white/5 border border-white/10 rounded-lg text-white font-medium hover:bg-white/10 transition-colors">
+          <a href={href("/kontakt")} class="w-full flex items-center justify-center gap-2 py-3 bg-white/5 border border-white/10 rounded-lg text-white font-medium hover:bg-white/10 transition-colors">
             {t.consult_training_cta}
           </a>
         </div>
@@ -358,7 +359,7 @@ const breadcrumbSchema = {
             <h3 class="text-2xl font-bold text-white mb-2">{t.consult_free_title}</h3>
             <p class="text-neutral-400">{t.consult_free_desc}</p>
           </div>
-          <a href="#kontakt" class="vf-button" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
+          <a href={href("/kontakt")} class="vf-button" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
             <div class="vf-points-wrapper">
               <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
               <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
@@ -384,7 +385,7 @@ const breadcrumbSchema = {
           <div class="text-center md:text-right">
             <div class="text-2xl font-bold text-white mb-1">{t.consult_audit_price}</div>
             <div class="text-xs text-neutral-400 mb-4">{t.consult_audit_price_desc}</div>
-            <a href="#kontakt" class="vf-button !w-full md:!w-auto !py-3 !px-6" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
+            <a href={href("/kontakt")} class="vf-button !w-full md:!w-auto !py-3 !px-6" style="--vf-bg: #00A39A; --vf-hover-bg: #00C4B4; --vf-glow-rgb: 0, 196, 180;">
               <div class="vf-points-wrapper">
                 <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>
                 <i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i><i class="vf-point"></i>

@@ -50,11 +50,11 @@ const href = (path: string) => getLocalizedHref(path, lang);
         {t.nav_case_studies}
       </a>
       <a href="#ragus" data-ragus-link class="text-xl text-neutral-300 hover:text-white py-3 border-b border-white/5">{t.nav_data_prep}</a>
-      <a href="#kontakt" class="text-xl text-neutral-300 hover:text-white py-3 border-b border-white/5">{t.nav_contact}</a>
+      <a href={href("/kontakt")} class="text-xl text-neutral-300 hover:text-white py-3 border-b border-white/5">{t.nav_contact}</a>
     </nav>
     
     <div class="mt-auto">
-      <a href="#kontakt" class="w-full flex items-center justify-center gap-2 py-4 bg-primary text-white font-semibold rounded-lg">
+      <a href={href("/kontakt")} class="w-full flex items-center justify-center gap-2 py-4 bg-primary text-white font-semibold rounded-lg">
         {t.nav_cta}
       </a>
     <div class="flex flex-col gap-2 mt-6 text-sm text-neutral-400">

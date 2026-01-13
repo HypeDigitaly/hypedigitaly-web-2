@@ -1,5 +1,5 @@
 {
-  "generated": "2026-01-03T15:45:45.511Z",
+  "generated": "2026-01-13T09:55:28.569Z",
   "description": "Auto-generated from /pages directory scan + Git commit dates. Do not edit manually.",
   "staticPages": [
     {
@@ -43,6 +43,11 @@
       "changefreq": "weekly"
     },
     {
+      "path": "/kontakt",
+      "priority": 0.7,
+      "changefreq": "monthly"
+    },
+    {
       "path": "/voicebot",
       "priority": 0.7,
       "changefreq": "monthly"
@@ -70,13 +75,14 @@
   ],
   "lastmod": {
     "/": "2026-01-03",
-    "/chatbot": "2025-12-29",
+    "/chatbot": "2026-01-03",
     "/sluzby": "2026-01-03",
     "/konzultace": "2025-12-29",
-    "/priprava-dat": "2025-12-29",
+    "/priprava-dat": "2026-01-03",
     "/ai-agent": "2026-01-03",
     "/automatizace": "2026-01-03",
     "/blog": "2025-12-29",
+    "/kontakt": "2026-01-13",
     "/voicebot": "2026-01-03",
     "/vyvoj-aplikaci": "2026-01-03",
     "/web-design": "2026-01-03",

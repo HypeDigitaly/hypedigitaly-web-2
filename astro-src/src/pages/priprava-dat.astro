@@ -1,6 +1,6 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
-import { translations, type Language } from '../scripts/translations';
+import { translations, type Language, getLocalizedHref } from '../scripts/translations';
 import AdminPanelUnifiedSection from '../components/sections/AdminPanelUnifiedSection.astro';
 
 // Server-side rendered page - detects language from URL param or cookie
@@ -21,6 +21,7 @@ const cookieLang = Astro.cookies.get('preferredLanguage')?.value;
 const lang: Language = (langParam === 'en' || langParam === 'cs') ? langParam : 
                        (cookieLang === 'en' || cookieLang === 'cs') ? cookieLang : 'cs';
 const t = translations[lang];
+const href = (path: string) => getLocalizedHref(path, lang);
 
 // Set cookie if language was explicitly selected via URL param
 if (langParam && (langParam === 'en' || langParam === 'cs')) {
@@ -168,7 +169,7 @@ const softwareSchema = {
       
       <!-- Hero CTA -->
       <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] max-w-md mx-auto mb-8">
-        <a href="#kontakt" class="shiny-cta group">
+        <a href={href("/kontakt")} class="shiny-cta group">
           <span class="btn-content">
             <span class="text-lg font-semibold tracking-tight">{t.dataprep_hero_cta}</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white/80 group-hover:translate-x-1 transition-transform">
@@ -646,7 +647,7 @@ tel. 123456789 nebo email info@mě...`}</code></pre>
             </li>
           </ul>
           
-          <a href="#kontakt" class="shiny-cta group w-full">
+          <a href={href("/kontakt")} class="shiny-cta group w-full">
             <span class="btn-content">
               <span class="font-semibold">{t.dataprep_service_cta}</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-white/80 group-hover:translate-x-1 transition-transform">
