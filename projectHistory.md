@@ -1,5 +1,15 @@
 # Project History
 
+## [2026-01-13] Fix: Contact Form Email Sending - Use Resend Default Sender
+- **Issue**: Contact form returning 500 error when submitting - emails not being sent
+- **Root Cause**: The custom sender domain `notifications.hypedigitaly.ai` was not verified in Resend dashboard (requires DNS records)
+- **Temporary Fix**: Changed sender email from custom domain to Resend's pre-verified domain `onboarding@resend.dev`
+- **File Modified**: `astro-src/netlify/functions/contact.ts` - Changed `from` field
+- **Next Steps**: For production, verify custom domain `notifications.hypedigitaly.ai` in Resend with proper DNS records (SPF, DKIM) in Namecheap
+- **Note**: `RESEND_API_KEY` environment variable was confirmed set in Netlify Dashboard
+
+---
+
 ## [2026-01-13] Custom HTML Email & In-Page Form Success (Resend Integration)
 - **Goal**: Improve contact form UX by keeping users on the same page after submission and sending beautifully styled HTML notification emails in Czech.
 - **Problem Solved**:
