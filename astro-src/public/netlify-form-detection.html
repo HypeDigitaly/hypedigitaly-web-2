@@ -22,57 +22,74 @@
   <meta charset="UTF-8">
   <meta name="robots" content="noindex, nofollow">
   <title>Form Detection - Do Not Delete</title>
+  <style>
+    /* Hide form visually but keep it in DOM for Netlify detection */
+    body { font-family: system-ui, sans-serif; padding: 20px; background: #f5f5f5; }
+    .info { max-width: 600px; margin: 0 auto; text-align: center; color: #666; }
+    .form-container { display: none; }
+  </style>
 </head>
 <body>
+  <div class="info">
+    <h1>Thank you!</h1>
+    <p>Your message has been received. We will get back to you shortly.</p>
+    <p><a href="/kontakt">← Back to Contact</a></p>
+  </div>
+  
   <!-- 
-    Hidden form for Netlify detection
-    Must have same name and field names as /kontakt form
+    Form for Netlify detection - must have same name and field names as /kontakt form
+    This form is parsed by Netlify at build time to register the "contact" form
   -->
-  <form 
-    name="contact" 
-    method="POST"
-    data-netlify="true" 
-    netlify-honeypot="bot-field" 
-    hidden
-  >
-    <!-- Required hidden field for form identification -->
-    <input type="hidden" name="form-name" value="contact" />
-    
-    <!-- Honeypot field for spam prevention -->
-    <input name="bot-field" type="text" />
-    
-    <!-- Contact form fields - must match /kontakt page -->
-    <input name="name" type="text" />
-    <input name="email" type="email" />
-    <input name="phone" type="tel" />
-    <input name="website" type="url" />
-    <select name="service">
-      <option value="chatbot">Chatbot</option>
-      <option value="voicebot">Voicebot</option>
-      <option value="agent">AI Agent</option>
-      <option value="automation">Automation</option>
-      <option value="dev">Development</option>
-      <option value="web">Web Design</option>
-      <option value="consult">Consultation</option>
-      <option value="dataprep">Data Preparation</option>
-      <option value="other">Other</option>
-    </select>
-    <select name="budget_onetime">
-      <option value="tier1">Tier 1</option>
-      <option value="tier2">Tier 2</option>
-      <option value="tier3">Tier 3</option>
-      <option value="tier4">Tier 4</option>
-      <option value="unsure">Unsure</option>
-    </select>
-    <select name="budget_monthly">
-      <option value="tier1">Tier 1</option>
-      <option value="tier2">Tier 2</option>
-      <option value="tier3">Tier 3</option>
-      <option value="tier4">Tier 4</option>
-      <option value="unsure">Unsure</option>
-    </select>
-    <textarea name="message"></textarea>
-  </form>
+  <div class="form-container">
+    <form 
+      name="contact" 
+      method="POST"
+      data-netlify="true" 
+      netlify-honeypot="bot-field"
+    >
+      <!-- Required hidden field for form identification -->
+      <input type="hidden" name="form-name" value="contact" />
+      
+      <!-- Honeypot field for spam prevention -->
+      <input name="bot-field" type="text" />
+      
+      <!-- Contact form fields - must match /kontakt page -->
+      <input name="name" type="text" />
+      <input name="email" type="email" />
+      <input name="phone" type="tel" />
+      <input name="website" type="url" />
+      <select name="service">
+        <option value="">Select service</option>
+        <option value="chatbot">Chatbot</option>
+        <option value="voicebot">Voicebot</option>
+        <option value="agent">AI Agent</option>
+        <option value="automation">Automation</option>
+        <option value="dev">Development</option>
+        <option value="web">Web Design</option>
+        <option value="consult">Consultation</option>
+        <option value="dataprep">Data Preparation</option>
+        <option value="other">Other</option>
+      </select>
+      <select name="budget_onetime">
+        <option value="">Select budget</option>
+        <option value="tier1">Tier 1</option>
+        <option value="tier2">Tier 2</option>
+        <option value="tier3">Tier 3</option>
+        <option value="tier4">Tier 4</option>
+        <option value="unsure">Unsure</option>
+      </select>
+      <select name="budget_monthly">
+        <option value="">Select budget</option>
+        <option value="tier1">Tier 1</option>
+        <option value="tier2">Tier 2</option>
+        <option value="tier3">Tier 3</option>
+        <option value="tier4">Tier 4</option>
+        <option value="unsure">Unsure</option>
+      </select>
+      <textarea name="message"></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
 </body>
 </html>
 

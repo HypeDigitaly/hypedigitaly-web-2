@@ -1,11 +1,20 @@
 # Project History
 
-## [2026-01-13] Fix: Netlify Forms Detection for SSR Contact Page
-- **Issue**: Contact form submissions on `/kontakt` page were not working - Netlify Forms never received submissions.
-- **Root Cause**: The `/kontakt` page uses SSR (`prerender = false`), meaning no static HTML file exists at build time. Netlify's form detection only parses static HTML during deploy, so it never detected or registered the "contact" form.
-- **Solution**: Created `public/netlify-form-detection.html` - a hidden static HTML file containing a form with `data-netlify="true"` and all matching field names. Netlify will detect this at build time and register the form.
-- **Files Added**: `astro-src/public/netlify-form-detection.html`
-- **Post-Deploy Action**: Verify form appears in Netlify Dashboard → Forms, and ensure email notifications are configured.
+## [2026-01-13] Fix: Netlify Forms Detection for SSR Contact Page (v3 - FINAL)
+- **Issue**: Contact form submissions on `/kontakt` page were not working - form was detected by Netlify but submissions never reached it.
+- **Root Cause**: With SSR enabled (Astro + Netlify adapter), AJAX fetch() POST requests were being intercepted by the SSR function and returned 200 OK without ever reaching Netlify Forms. The form WAS detected (visible in Netlify Dashboard) but submissions were routed to SSR instead of forms handler.
+- **Solution v3 - Native HTML Form Submission**: 
+  1. Removed AJAX submission - using standard HTML form submission instead
+  2. Set form `action="/thank-you.html"` - Netlify handles POST, then redirects to this page
+  3. Created `public/thank-you.html` - Beautiful confirmation page matching site design
+  4. Form detection file still in place for Netlify to register the form
+  5. Simple loading state shown during submission
+- **Why This Works**: Native HTML form submission is intercepted by Netlify at the CDN level BEFORE it can reach SSR functions. AJAX requests go through the full request cycle and get caught by SSR.
+- **Files Modified/Added**: 
+  - `astro-src/public/thank-you.html` - NEW: Confirmation page after form submission
+  - `astro-src/src/pages/kontakt.astro` - Removed AJAX, uses native form submission
+  - `astro-src/public/netlify-form-detection.html` - Still needed for form registration
+- **Post-Deploy Action**: Test form submission, verify submissions appear in Netlify Dashboard → Forms.
 
 ---
 
