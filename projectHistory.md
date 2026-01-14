@@ -1,5 +1,16 @@
 # Project History
 
+## [2026-01-14] Fix: Verified Domain Email Sending (Final Resolution)
+- **Issue**: Contact form returned 403 Forbidden because Resend free tier restricted recipients to the account owner only when using the default `onboarding@resend.dev` sender.
+- **Solution**: 
+  - Verified custom subdomain `notifications.hypedigitaly.ai` in Resend by adding DKIM, SPF, and MX records in Namecheap.
+  - Re-added root domain Gmail MX records manually in Namecheap (since switching to Custom MX clears presets).
+  - Updated `astro-src/netlify/functions/contact.ts` to use `noreply@notifications.hypedigitaly.ai` as the verified sender.
+- **Result**: Emails can now be sent to any recipient, and bounce handling is properly configured for the subdomain.
+- **Verification**: User confirmed DNS verification success in Resend dashboard.
+
+---
+
 ## [2026-01-13] Fix: Contact Form Email Sending - Use Resend Default Sender
 - **Issue**: Contact form returning 500 error when submitting - emails not being sent
 - **Root Cause**: The custom sender domain `notifications.hypedigitaly.ai` was not verified in Resend dashboard (requires DNS records)

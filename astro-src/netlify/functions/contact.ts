@@ -396,7 +396,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "HypeDigitaly <onboarding@resend.dev>",
+        from: "HypeDigitaly <noreply@notifications.hypedigitaly.ai>",
         to: EMAIL_RECIPIENTS,
         reply_to: formData.email,
         subject: `🆕 Nový zájemce: ${formData.name} – ${SERVICE_LABELS[formData.service || ''] || 'Obecný dotaz'}`,
