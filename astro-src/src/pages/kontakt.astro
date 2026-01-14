@@ -81,6 +81,7 @@ const breadcrumbSchema = {
 
 // Service options for the dropdown
 const serviceOptions = [
+  { value: 'audit', label: t.contact_form_service_audit },
   { value: 'chatbot', label: t.contact_form_service_chatbot },
   { value: 'voicebot', label: t.contact_form_service_voicebot },
   { value: 'agent', label: t.contact_form_service_agent },
@@ -220,6 +221,8 @@ const calendarId = `contact-cal-${Math.random().toString(36).substring(7)}`;
               <label>Don't fill this out: <input name="bot-field" /></label>
             </p>
             <input type="hidden" name="form-name" value="contact" />
+            <!-- Language field for bilingual email support -->
+            <input type="hidden" name="language" value={lang} />
 
             <!-- Name Field -->
             <div>
@@ -584,6 +587,7 @@ const calendarId = `contact-cal-${Math.random().toString(36).substring(7)}`;
           budget_onetime: formData.get('budget_onetime') || undefined,
           budget_monthly: formData.get('budget_monthly') || undefined,
           message: formData.get('message') || undefined,
+          language: formData.get('language') || undefined,
         };
 
         try {

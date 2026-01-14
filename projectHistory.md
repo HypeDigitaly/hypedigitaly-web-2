@@ -1,5 +1,22 @@
 # Project History
 
+## [2026-01-14] Feature: Bilingual Emails, AI Audit Service & Booking CTA
+- **Goal**: Enhance confirmation emails with bilingual support (CS/EN), add new "AI Audit" service option, add Google Meet booking button, and update Case Studies styling.
+- **Changes Implemented**:
+  1. **Bilingual Email Support**: Confirmation emails now render in Czech or English based on user's language preference on the contact form.
+  2. **AI Audit Service**: Added "AI Audit" as a new service option in contact form dropdown.
+  3. **Google Meet Booking Button**: Added prominent CTA section in confirmation email for scheduling a free 30-min consultation via Cal.com.
+  4. **Case Studies Styling**: Updated "Case Studies" header with italic Georgia font and brand teal color (`#00A39A`) for branding consistency.
+  5. **Language Detection**: Contact form now passes user's language preference to backend for localized email content.
+- **Files Modified**:
+  - `astro-src/netlify/functions/email-templates.ts`: Added bilingual label mappings, updated `ContactFormData` interface with `language` field, refactored all email templates for i18n support, added booking CTA section.
+  - `astro-src/netlify/functions/contact.ts`: Updated to parse language parameter, use bilingual email subjects.
+  - `astro-src/src/pages/kontakt.astro`: Added hidden `language` field to form, included language in AJAX submission data.
+  - `astro-src/public/netlify-form-detection.html`: Added `audit` service option and `language` hidden field for Netlify form detection.
+- **Result**: Users now receive confirmation emails in their selected language (CS/EN) with a clear booking CTA and professional branding.
+
+---
+
 ## [2026-01-14] Enhancement: Confirmation Email Improvements
 - **Issue 1**: Play button overlay in YouTube video section rendered incorrectly (floating teal circle) due to unsupported CSS (`position: absolute`, `transform`, `display: flex`) in email clients.
 - **Issue 2**: Sender name showed "Pavel z HypeDigitaly" instead of just "HypeDigitaly".

@@ -4,8 +4,10 @@ import {
   generateNotificationEmailText,
   generateConfirmationEmailHTML,
   generateConfirmationEmailText,
-  SERVICE_LABELS,
-  type ContactFormData
+  SERVICE_LABELS_CS,
+  SERVICE_LABELS_EN,
+  type ContactFormData,
+  type EmailLanguage
 } from "./email-templates";
 
 // =============================================================================
@@ -53,6 +55,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
       formData = JSON.parse(event.body || "{}");
     } else if (contentType.includes("application/x-www-form-urlencoded")) {
       const params = new URLSearchParams(event.body || "");
+      const langParam = params.get("language");
       formData = {
         name: params.get("name") || "",
         email: params.get("email") || "",
@@ -62,6 +65,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
         budget_onetime: params.get("budget_onetime") || undefined,
         budget_monthly: params.get("budget_monthly") || undefined,
         message: params.get("message") || undefined,
+        language: (langParam === 'en' || langParam === 'cs') ? langParam : undefined,
       };
     } else {
       formData = JSON.parse(event.body || "{}");
@@ -105,6 +109,14 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
       };
     }
 
+    // Determine language for bilingual support
+    const lang: EmailLanguage = (formData.language === 'en' || formData.language === 'cs') 
+      ? formData.language 
+      : 'cs';
+    
+    // Get service label for notification (always Czech for internal team)
+    const serviceLabel = SERVICE_LABELS_CS[formData.service || ''] || 'Obecný dotaz';
+
     // 1. SEND NOTIFICATION TO TEAM
     const notificationHtml = generateNotificationEmailHTML(formData);
     const notificationText = generateNotificationEmailText(formData);
@@ -119,7 +131,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
         from: "HypeDigitaly <noreply@notifications.hypedigitaly.ai>",
         to: NOTIFICATION_RECIPIENTS,
         reply_to: formData.email,
-        subject: `🆕 Nový zájemce: ${formData.name} – ${SERVICE_LABELS[formData.service || ''] || 'Obecný dotaz'}`,
+        subject: `🆕 Nový zájemce: ${formData.name} – ${serviceLabel}`,
         html: notificationHtml,
         text: notificationText,
       }),
@@ -140,6 +152,11 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
 
     // 2. SEND CONFIRMATION TO USER
     // Must await in serverless environments to prevent premature termination
+    // Subject is bilingual based on user's language preference
+    const confirmationSubject = lang === 'en'
+      ? `Confirmation: Your inquiry to HypeDigitaly has been received`
+      : `Potvrzení: Vaše poptávka pro HypeDigitaly byla přijata`;
+
     try {
       const confirmationHtml = generateConfirmationEmailHTML(formData);
       const confirmationText = generateConfirmationEmailText(formData);
@@ -153,7 +170,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
         body: JSON.stringify({
           from: "HypeDigitaly <noreply@notifications.hypedigitaly.ai>",
           to: formData.email,
-          subject: `Potvrzení: Vaše poptávka pro HypeDigitaly byla přijata`,
+          subject: confirmationSubject,
           html: confirmationHtml,
           text: confirmationText,
         }),

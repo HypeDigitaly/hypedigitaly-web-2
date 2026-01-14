@@ -383,6 +383,7 @@ export interface TranslationKeys {
   contact_form_website_placeholder: string;
   contact_form_service: string;
   contact_form_service_placeholder: string;
+  contact_form_service_audit: string;
   contact_form_service_chatbot: string;
   contact_form_service_voicebot: string;
   contact_form_service_agent: string;
@@ -1482,6 +1483,7 @@ export const translations: Record<Language, TranslationKeys> = {
     contact_form_website_placeholder: "https://vasefirma.cz",
     contact_form_service: "O jakou službu máte zájem?",
     contact_form_service_placeholder: "Vyberte službu...",
+    contact_form_service_audit: "AI Audit",
     contact_form_service_chatbot: "AI Chatbot",
     contact_form_service_voicebot: "AI Voicebot",
     contact_form_service_agent: "AI Agent",
@@ -2583,6 +2585,7 @@ export const translations: Record<Language, TranslationKeys> = {
     contact_form_website_placeholder: "https://yourcompany.com",
     contact_form_service: "Which service are you interested in?",
     contact_form_service_placeholder: "Select a service...",
+    contact_form_service_audit: "AI Audit",
     contact_form_service_chatbot: "AI Chatbot",
     contact_form_service_voicebot: "AI Voicebot",
     contact_form_service_agent: "AI Agent",
