@@ -138,13 +138,13 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
       };
     }
 
-    // 2. SEND CONFIRMATION TO USER (Async, don't wait for response to keep UX snappy)
-    // We wrap it in a try-catch to ensure failure doesn't affect user success response
+    // 2. SEND CONFIRMATION TO USER
+    // Must await in serverless environments to prevent premature termination
     try {
       const confirmationHtml = generateConfirmationEmailHTML(formData);
       const confirmationText = generateConfirmationEmailText(formData);
 
-      fetch("https://api.resend.com/emails", {
+      const confirmationResponse = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${RESEND_API_KEY}`,
@@ -157,9 +157,14 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
           html: confirmationHtml,
           text: confirmationText,
         }),
-      }).catch(err => console.error("Async confirmation email error:", err));
+      });
+
+      if (!confirmationResponse.ok) {
+        const errorData = await confirmationResponse.json();
+        console.error("Confirmation email failed (non-blocking):", errorData);
+      }
     } catch (confError) {
-      console.error("Error generating/sending confirmation email:", confError);
+      console.error("Error sending confirmation email (non-blocking):", confError);
     }
 
     return {

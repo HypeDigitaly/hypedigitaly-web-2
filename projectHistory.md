@@ -1,5 +1,21 @@
 # Project History
 
+## [2026-01-14] Fix: Email Logo Dimensions & Confirmation Email Delivery
+- **Issue 1**: Logo in email body was displayed with wrong dimensions (squished into 60x60 square instead of natural 3:1 aspect ratio).
+- **Issue 2**: Confirmation email to form submitters was not being sent due to async race condition in serverless environment.
+- **Root Cause 1**: `width="60" height="60"` forced the wide logo into a square.
+- **Root Cause 2**: Confirmation email `fetch()` was not awaited, causing Netlify Function to terminate before the request completed.
+- **Solution**:
+  - Updated logo dimensions to `width="180"` with `height: auto` to maintain proper aspect ratio.
+  - Added `await` to confirmation email fetch to ensure it completes before function returns.
+  - Added proper error logging for confirmation email failures (non-blocking).
+- **Files Modified**:
+  - `astro-src/netlify/functions/email-templates.ts`: Fixed logo dimensions in both notification and confirmation templates.
+  - `astro-src/netlify/functions/contact.ts`: Fixed async race condition by awaiting confirmation email fetch.
+- **Result**: Both notification and confirmation emails now send correctly with properly sized logo.
+
+---
+
 ## [2026-01-14] Branding: Updated Email Logo to HD_Color_white.png
 - **Goal**: Update the brand logo in automated emails to the new white version for better contrast and modern aesthetic.
 - **Solution**: Replaced the previous `HD_Color_logo.png` with `HD_Color_white.png` in both Notification and Confirmation email templates.

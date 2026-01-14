@@ -83,7 +83,7 @@ export function generateNotificationEmailHTML(data: ContactFormData): string {
           <!-- Header with Logo -->
           <tr>
             <td style="background: linear-gradient(135deg, #0d3d56 0%, #0a2a3d 100%); padding: 32px 40px; text-align: center; border-bottom: 1px solid rgba(0,163,154,0.3);">
-              <img src="https://hypedigitaly.ai/assets/images/HD_Color_white.png" alt="HypeDigitaly" width="60" height="60" style="display: block; margin: 0 auto 16px auto;">
+              <img src="https://hypedigitaly.ai/assets/images/HD_Color_white.png" alt="HypeDigitaly" width="180" style="display: block; margin: 0 auto 16px auto; height: auto;">
               <h1 style="margin: 0; font-size: 24px; font-weight: 600; color: #ffffff; letter-spacing: -0.5px;">
                 📬 Nový zájemce z webu
               </h1>
@@ -312,7 +312,7 @@ export function generateConfirmationEmailHTML(data: ContactFormData): string {
           <!-- Header with Logo -->
           <tr>
             <td style="background: linear-gradient(135deg, #0d3d56 0%, #0a2a3d 100%); padding: 32px 40px; text-align: center; border-bottom: 1px solid rgba(0,163,154,0.3);">
-              <img src="https://hypedigitaly.ai/assets/images/HD_Color_white.png" alt="HypeDigitaly" width="60" height="60" style="display: block; margin: 0 auto 16px auto;">
+              <img src="https://hypedigitaly.ai/assets/images/HD_Color_white.png" alt="HypeDigitaly" width="180" style="display: block; margin: 0 auto 16px auto; height: auto;">
               <h1 style="margin: 0; font-size: 24px; font-weight: 600; color: #ffffff; letter-spacing: -0.5px;">
                 🎉 Děkujeme za Váš dotaz!
               </h1>
