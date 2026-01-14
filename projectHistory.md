@@ -1,5 +1,14 @@
 # Project History
 
+## [2026-01-14] Branding: Updated Email Logo to HD_Color_white.png
+- **Goal**: Update the brand logo in automated emails to the new white version for better contrast and modern aesthetic.
+- **Solution**: Replaced the previous `HD_Color_logo.png` with `HD_Color_white.png` in both Notification and Confirmation email templates.
+- **Files Modified**:
+  - `astro-src/netlify/functions/email-templates.ts`: Updated logo URLs in `generateNotificationEmailHTML` and `generateConfirmationEmailHTML`.
+- **Result**: Emails now feature the sleek white logo consistent with updated branding guidelines.
+
+---
+
 ## [2026-01-14] Feature: Automated Confirmation Email for Form Submitters
 - **Goal**: Send a professional confirmation email to users after they submit the contact form, including social media links and engagement content.
 - **Solution**:

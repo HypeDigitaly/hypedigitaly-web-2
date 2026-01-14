@@ -1,3 +1,7 @@
+## [2026-01-14] Branding: Updated Email Logo
+- Updated the logo in both Notification and Confirmation email templates from `HD_Color_logo.png` to `HD_Color_white.png`.
+- Improved visual contrast in email headers by using the white version of the brand logo.
+
 ## [2026-01-14] Feature: Automated Confirmation Email for Form Submitters
 - Implemented a professional confirmation email for users submitting the contact form.
 - The email includes a "thank you" message, 24-hour response promise, featured YouTube video ("AI v praxi"), and links to social media (LinkedIn, Instagram, Facebook, YouTube).
