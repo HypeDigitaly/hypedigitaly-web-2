@@ -1,5 +1,22 @@
 # Project History
 
+## [2026-01-14] Enhancement: Confirmation Email Improvements
+- **Issue 1**: Play button overlay in YouTube video section rendered incorrectly (floating teal circle) due to unsupported CSS (`position: absolute`, `transform`, `display: flex`) in email clients.
+- **Issue 2**: Sender name showed "Pavel z HypeDigitaly" instead of just "HypeDigitaly".
+- **Issue 3**: Missing Case Studies section with links to blog content.
+- **Solution**:
+  - Removed problematic play button overlay; YouTube thumbnail now displays cleanly without rendering errors.
+  - Changed sender name from "Pavel z HypeDigitaly" to "HypeDigitaly" for professional branding.
+  - Added new "Case Studies" section with handwritten-style header linking to `/blog/pripadova-studie-5-kraju-cr` case study.
+  - Restructured YouTube video section using email-safe table-based layout.
+  - Updated plain text email version with case study links.
+- **Files Modified**:
+  - `astro-src/netlify/functions/contact.ts`: Updated sender name.
+  - `astro-src/netlify/functions/email-templates.ts`: Added Case Studies section, removed broken play button, restructured layouts.
+- **Result**: Confirmation emails now render correctly across all email clients with professional branding and engaging case study content.
+
+---
+
 ## [2026-01-14] Fix: Email Logo Dimensions & Confirmation Email Delivery
 - **Issue 1**: Logo in email body was displayed with wrong dimensions (squished into 60x60 square instead of natural 3:1 aspect ratio).
 - **Issue 2**: Confirmation email to form submitters was not being sent due to async race condition in serverless environment.

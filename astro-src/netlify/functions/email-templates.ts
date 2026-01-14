@@ -342,24 +342,46 @@ export function generateConfirmationEmailHTML(data: ContactFormData): string {
             </td>
           </tr>
 
-          <!-- YouTube Video Section -->
+          <!-- Case Studies Section -->
           <tr>
             <td style="padding: 32px 40px 24px 40px;">
-              <h2 style="margin: 0 0 16px 0; font-size: 16px; font-weight: 600; color: #00A39A; text-transform: uppercase; letter-spacing: 1px;">
-                📺 Podívejte se, jak tvoříme AI budoucnost
+              <h2 style="margin: 0 0 8px 0; font-family: 'Brush Script MT', 'Segoe Script', cursive; font-size: 32px; font-weight: 400; color: #E85D5D; letter-spacing: 2px;">
+                Case Studies
               </h2>
-              <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background-color: #000000; position: relative;">
-                <a href="https://www.youtube.com/watch?v=bHMZn4ga9DE" target="_blank" style="display: block; text-decoration: none;">
-                  <img src="https://i.ytimg.com/vi/bHMZn4ga9DE/maxresdefault.jpg" alt="Pavel Čermák - AI v praxi" style="width: 100%; display: block;">
-                  <div style="padding: 16px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);">
-                    <p style="margin: 0; color: #ffffff; font-size: 14px; font-weight: 500;">Pavel Čermák - AI v praxi (HypeDigitaly)</p>
-                  </div>
-                  <!-- Play Button Overlay -->
-                  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 64px; height: 64px; background-color: rgba(0, 163, 154, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                    <div style="width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 18px solid white; margin-left: 5px;"></div>
-                  </div>
-                </a>
-              </div>
+              <p style="margin: 0 0 16px 0; font-size: 14px; font-weight: 600; color: #00A39A; text-transform: uppercase; letter-spacing: 1px;">
+                📊 Podívejte se, jak tvoříme AI budoucnost
+              </p>
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background-color: #000000;">
+                    <a href="https://hypedigitaly.ai/blog/pripadova-studie-5-kraju-cr" target="_blank" style="display: block; text-decoration: none;">
+                      <img src="https://hypedigitaly.ai/assets/images/blog/pripadova-studie-5-kraju-cr/hero.png" alt="Případová studie: 5 regionů ČR" style="width: 100%; display: block;">
+                      <div style="padding: 16px; background-color: #111111;">
+                        <p style="margin: 0 0 4px 0; color: #ffffff; font-size: 14px; font-weight: 600;">Případová studie: 5 regionů ČR</p>
+                        <p style="margin: 0; color: #00A39A; font-size: 12px;">35,095 AI odpovědí • 102% ROI • 4.57/5 spokojenost</p>
+                      </div>
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- YouTube Video Section -->
+          <tr>
+            <td style="padding: 16px 40px 24px 40px;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background-color: #000000;">
+                    <a href="https://www.youtube.com/watch?v=bHMZn4ga9DE" target="_blank" style="display: block; text-decoration: none;">
+                      <img src="https://i.ytimg.com/vi/bHMZn4ga9DE/maxresdefault.jpg" alt="Pavel Čermák - AI v praxi" style="width: 100%; display: block;">
+                      <div style="padding: 16px; background-color: #111111;">
+                        <p style="margin: 0; color: #ffffff; font-size: 14px; font-weight: 500;">📺 Pavel Čermák - AI v praxi (HypeDigitaly)</p>
+                      </div>
+                    </a>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
 
@@ -429,7 +451,15 @@ Vaši zprávu jsme v pořádku obdrželi a náš tým ji právě zpracovává. B
 
 Mezitím se můžete podívat na naše novinky:
 
-- YouTube: https://www.youtube.com/watch?v=bHMZn4ga9DE
+CASE STUDIES - Podívejte se, jak tvoříme AI budoucnost:
+- Případová studie: 5 regionů ČR (35,095 AI odpovědí, 102% ROI)
+  https://hypedigitaly.ai/blog/pripadova-studie-5-kraju-cr
+
+VIDEO:
+- Pavel Čermák - AI v praxi (HypeDigitaly)
+  https://www.youtube.com/watch?v=bHMZn4ga9DE
+
+Sledujte nás:
 - LinkedIn: https://linkedin.com/company/hypedigitaly
 - Instagram: https://www.instagram.com/hypedigitaly_ai/
 

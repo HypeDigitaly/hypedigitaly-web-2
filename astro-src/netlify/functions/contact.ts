@@ -151,7 +151,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "Pavel z HypeDigitaly <noreply@notifications.hypedigitaly.ai>",
+          from: "HypeDigitaly <noreply@notifications.hypedigitaly.ai>",
           to: formData.email,
           subject: `Potvrzení: Vaše poptávka pro HypeDigitaly byla přijata`,
           html: confirmationHtml,
