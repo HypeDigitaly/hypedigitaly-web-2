@@ -1,5 +1,19 @@
 # Project History
 
+## [2026-01-14] Feature: Automated Confirmation Email for Form Submitters
+- **Goal**: Send a professional confirmation email to users after they submit the contact form, including social media links and engagement content.
+- **Solution**:
+  - Implemented a second email dispatch in the contact form handler.
+  - Created a new professional HTML template for user confirmation.
+  - Included direct links to LinkedIn, Instagram, Facebook, and a featured YouTube video ("AI v praxi").
+  - Refactored the backend logic to separate email templates from the main handler to maintain modularity and stay under file line limits.
+- **Files Created/Modified**:
+  - `astro-src/netlify/functions/email-templates.ts`: NEW - Modular email templates and label mappings.
+  - `astro-src/netlify/functions/contact.ts`: Refactored to use the new templates and send dual emails (Notification + Confirmation).
+- **Result**: Users now receive immediate branded feedback with helpful resources after submitting a quote request, improving lead engagement.
+
+---
+
 ## [2026-01-14] Fix: Verified Domain Email Sending (Final Resolution)
 - **Issue**: Contact form returned 403 Forbidden because Resend free tier restricted recipients to the account owner only when using the default `onboarding@resend.dev` sender.
 - **Solution**: 
