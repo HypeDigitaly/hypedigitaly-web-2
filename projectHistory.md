@@ -1,5 +1,12 @@
 # Project History
 
+## [2026-01-15] Fix: Netlify Build - jspdf Dependency Resolution
+- **Issue**: Build failed because `jspdf` was not found during Netlify Functions bundling.
+- **Solution**: Added `jspdf` to the root `astro-src/package.json` as a production dependency to ensure it's available for function bundling.
+- **Files Modified**: `astro-src/package.json`, `astro-src/package-lock.json`.
+
+---
+
 ## [2026-01-15] Refinement: Interactive Highlight for Audit Form Headline
 
 ### Overview
