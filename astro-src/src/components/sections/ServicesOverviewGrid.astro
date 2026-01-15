@@ -68,13 +68,21 @@ const deliverables = [
 // Service cards configuration
 const services = [
   {
+    id: "audit",
+    icon: "solar:chart-2-bold",
+    title: t.service_audit_title,
+    desc: t.service_audit_desc,
+    href: href("/audit"),
+    colorHex: "#f97316",
+    recommended: true,
+  },
+  {
     id: "chatbot",
     icon: "solar:chat-round-dots-bold",
     title: t.service_chatbot_title,
     desc: t.service_chatbot_desc,
     href: href("/chatbot"),
     colorHex: "#00C4B4",
-    featured: true,
   },
   {
     id: "voicebot",
@@ -189,6 +197,21 @@ const exploreText = t.services_hub_explore || (lang === 'cs' ? 'Zjistit více' :
         style={`animation: animationIn 0.6s ease-out ${0.3 + index * 0.06}s both;`}
         data-service-id={service.id}
       >
+        {/* Recommended Badge - attached to card (for AI Audit) */}
+        {service.recommended && (
+          <div class="absolute -top-3 left-3 z-20 flex flex-col sm:flex-row gap-1.5">
+            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-gradient-to-r from-orange-500 to-orange-600 rounded-full py-1 px-3 shadow-lg shadow-orange-500/40">
+              {t.service_recommended}
+              <iconify-icon icon="solar:star-bold" class="text-white/90 text-sm"></iconify-icon>
+            </span>
+            {service.freePreaudit && (
+              <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-orange-100 bg-orange-500/80 rounded-full py-0.5 px-2">
+                {t.service_free_preaudit}
+              </span>
+            )}
+          </div>
+        )}
+
         {/* Featured Badge - attached to card */}
         {service.featured && (
           <div class="absolute -top-3 left-3 z-20">

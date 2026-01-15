@@ -1,5 +1,250 @@
 # Project History
 
+## [2026-01-15] Refinement: Interactive Highlight for Audit Form Headline
+
+### Overview
+Added an interactive hover effect to the "in 5 minutes" part of the audit form headline, matching the design language of the landing page hero section.
+
+### UI & UX Changes
+- **Audit Page Form**:
+  - Wrapped "do 5 minut" (and "in 5 minutes") in a span with hover transition classes.
+  - The text now changes from neutral-400 to orange-400 on hover with a smooth 500ms transition.
+  - Correctly implemented via `set:html` in `audit.astro` to allow nested HTML in translation strings.
+
+---
+
+## [2026-01-15] Refinement: Audit Form Headline Layout Optimization
+
+### Overview
+Improved the visual hierarchy of the AI audit lead capture form by splitting the headline into two lines, making the "in 5 minutes" promise more prominent.
+
+### UI & Copywriting Changes
+- **Audit Page Form**:
+  - Updated the headline to split onto two lines:
+    - Line 1: "AI audit zdarma" (prominent SEO keyword)
+    - Line 2: "do 5 minut" (promising quick results)
+  - Implemented `set:html` in the Astro component to correctly render the line break from translation strings.
+- **English Consistency**: Updated the English version to "Free AI Audit <br /> in 5 minutes" to match the improved layout.
+
+---
+
+## [2026-01-15] Refinement: Complete Jargon Removal for AI Audit
+
+### Overview
+Final pass on removing technical jargon from all user-facing strings related to the audit service, replacing "AI Audit" with more descriptive and benefit-driven labels.
+
+### Copywriting Updates (Czech)
+- **Lead Capture Form**:
+  - Title: "AI audit zdarma do 5 minut"
+  - Description: "Vyplňte krátký formulář a do 5 minut vám pošleme předběžný audit na míru, jak využít AI ve Vaší společnosti - ukážeme vám, kde konkrétně ve vaší firmě AI pomůže nejvíce a přinese největší užitek."
+- **Services Grid**:
+  - Service Title: "AI audit zdarma"
+- **Contact Form**:
+  - Dropdown Option: "AI audit zdarma"
+
+---
+
+## [2026-01-15] Refinement: Non-Jargon Copywriting for Audit Form
+
+### Overview
+Replaced technical-sounding headlines with descriptive, benefit-driven Czech copy to eliminate jargon and maximize clarity for business owners.
+
+### Copywriting Updates (Czech)
+- **Form Headline**: 
+  - Old: "AI Audit"
+  - New: "AI audit zdarma do 5 minut"
+- **Form Description**:
+  - Old: "Získejte svůj audit zdarma. Vyplňte krátký formulář a do 5 minut vám pošleme personalizovaný report. Ukážeme vám, kde konkrétně ve vaší firmě AI pomůže nejvíce."
+  - New: "Vyplňte krátký formulář a do 5 minut vám pošleme předběžný audit na míru, jak využít AI ve Vaší společnosti - ukážeme vám, kde konkrétně ve vaší firmě AI pomůže nejvíce a přinese největší užitek."
+
+---
+
+## [2026-01-15] Refinement: SEO Optimization & Conversational Copy Cleanup
+
+### Overview
+Maximized SEO prominence for "AI Audit" on the landing page and further refined conversational copy for the process roadmap.
+
+### SEO & UI Changes
+- **Audit Page**:
+  - Promoted "AI Audit" to the main headline of the lead capture form with significantly larger typography (`text-4xl md:text-5xl`).
+  - Updated form title and description to be more direct and concise.
+
+### Copywriting Updates (Czech)
+- **Audit Roadmap Step 4**: Refined the description to precisely match the desired conversational tone:
+  - "Vytvoříme vám detailní 12měsíční plán zapojení AI do vašich systémů tak, aby vám přinesla co nejrychleji přidanou hodnotu, vrátila se investice a váš byznys běžel automaticky jako hodinky a nepropalovali jste peníze manuálními procesy jako doposud."
+
+### Consistency Improvements
+- Updated English translations for the audit form and roadmap to match the improved Czech messaging and SEO focus.
+
+---
+
+## [2026-01-15] Refinement: AI Audit & Services UI Cleanup
+
+### Overview
+Refined the UI of the services grid and improved the messaging for the final step of the AI audit process.
+
+### UI Changes
+- **Services Grid**:
+  - Removed "Předběžný audit zdarma" badge from the AI Audit card.
+  - Removed the result link ("Zjistěte, kolik ušetříte →") from the AI Audit card for a cleaner look.
+  - Removed "HLAVNÍ SLUŽBA" badge from the AI Chatbot card.
+
+### Copywriting Updates (Czech)
+- **Audit Roadmap Step 4**: Rewrote "Plán a první kroky" description to be more compelling:
+  - Old: "Dostanete kompletní plán na 12 měsíců. Ukážeme vám, co řešit hned a co může počkat. Bez zbytečného žargonu."
+  - New: "Vytvoříme vám detailní 12měsíční plán zapojení AI do vašich systémů tak, aby vám přinesla co nejrychleji přidanou hodnotu a investice se vám začala okamžitě vracet. Váš byznys díky tomu poběží automaticky jako hodinky a vy už nebudete propalovat peníze na manuálních procesech jako doposud."
+
+---
+
+## [2026-01-15] Enhancement: AI Audit Conversion Copywriting Optimization
+
+### Overview
+Rewrote all Czech copy on the AI Audit page using conversion-focused "Inizio style" copywriting - conversational first-person plural tone, pain-focused headlines, benefit-first approach.
+
+### Copywriting Changes (Czech)
+- **Hero**: "Dnes děláte manuální procesy naposledy." - creates urgency and speaks directly to the reader
+- **Subheadline**: "Zmapujeme vaše procesy a ukážeme vám přesně, kde AI ušetří nejvíce času a peněz."
+- **Form title**: "Získejte svůj audit zdarma" → "Chci svůj audit zdarma →"
+- **Process steps**: Rewritten in first-person plural ("Podíváme se...", "Probereme...", "Ponoříme se...")
+- **Value propositions**: Benefit-first ("Zmapujeme vaše procesy", "Spočítáme vám úspory")
+- **Pain points**: Conversational Czech ("Nestíháme odpovídat zákazníkům včas", "Trávíme hodiny ručním zadáváním dat")
+- **CTA buttons**: Action-oriented with arrows ("Chci svůj audit zdarma →")
+
+### Key Style Changes
+- First-person plural ("my vám...") instead of impersonal tone
+- Pain-focused headlines that create urgency
+- Benefit-first approach (what they get, not what we do)
+- Conversational Czech without technical jargon
+- Clear, simple language - no corporate speak
+
+---
+
+## [2026-01-15] Enhancement: AI Audit Page Improvements & Services Integration
+
+### Overview
+Major improvements to the AI Audit page including jargon replacement, animated roadmap, and services grid integration.
+
+### Changes Implemented
+
+**1. Czech Jargon Replacement (Plain Language)**
+- Replaced all technical jargon with business-owner-friendly Czech:
+  - "Pre-Audit" → "Předběžný audit"
+  - "ROI" → "návratnost investice"
+  - "Impact Matrix" → "Matice priorit"
+  - "Process Mapping" → "Mapování procesů"
+  - "Stakeholder" → "klíčoví lidé"
+  - "Quick Wins" → "Rychlé úspěchy"
+  - "Roadmap" → "Plán realizace"
+  - "Bottleneck" → "Úzké místo"
+  - "Lead Magnet" → "Vstupní nabídka"
+  - "Enterprise" → "Pro velké firmy"
+  - "Quick Strike Audit" → "Rychlý audit"
+  - "Full Transformation Audit" → "Kompletní transformační audit"
+
+**2. AI Audit Service Card Added to Landing/Services Pages**
+- Added AI Audit as **first service** in `ServicesOverviewGrid.astro`
+- Features dual badges: "DOPORUČUJEME" + "Předběžný audit zdarma"
+- Orange color theme (#f97316) consistent with audit page branding
+- Links to `/audit` page
+
+**3. New Animated Road Roadmap Component**
+- Created `AuditRoadmapAnimated.astro` with:
+  - SVG winding road path that draws progressively on scroll
+  - Gradient color transition (teal → blue → purple → orange)
+  - 4 numbered milestone circles at road bends
+  - Step content cards adjacent to milestones
+  - Intersection Observer-based scroll animations
+  - Mobile-responsive vertical layout
+
+**4. Accessibility & Readability Improvements**
+- Improved text contrasts: `text-neutral-400` → `text-neutral-300`
+- Added `leading-relaxed` for better line spacing
+- Enhanced badge text visibility
+
+### Files Modified
+- `src/scripts/translations.ts`: ~30 jargon replacements + 5 new keys
+- `src/components/sections/ServicesOverviewGrid.astro`: Added AI Audit service card
+- `src/pages/audit.astro`: Updated to use new roadmap, improved accessibility
+
+### Files Created
+- `src/components/sections/AuditRoadmapAnimated.astro`: New animated road component
+
+### Translation Keys Added
+- `service_recommended`: "DOPORUČUJEME" / "RECOMMENDED"
+- `service_free_preaudit`: "Předběžný audit zdarma" / "Free Pre-Audit"
+- `service_audit_title`: "AI Audit"
+- `service_audit_desc`: Service description
+- `service_audit_result`: "Zjistěte svou návratnost" / "Calculate your ROI"
+
+---
+
+## [2026-01-15] Feature: AI Audit Landing Page & Automated Pre-Audit System
+
+### Overview
+Comprehensive AI Audit system implementation including:
+- CRO-optimized landing page at `/audit`
+- Automated pre-audit workflow with AI analysis
+- Jina AI web research integration
+- OpenRouter (Gemini) AI report generation
+- PDF report generation and email delivery
+
+### Backend (Phase 1)
+Created new Netlify Functions and services:
+
+**New Files:**
+- `netlify/functions/audit-services/jina-search.ts`: Jina AI search service for company and industry research
+- `netlify/functions/audit-services/openrouter-analysis.ts`: OpenRouter API integration for AI-powered report generation using Google Gemini
+- `netlify/functions/audit-services/pdf-generator.ts`: jsPDF-based PDF report generator with HypeDigitaly branding
+- `netlify/functions/audit-templates.ts`: Bilingual email templates for audit notifications and confirmations
+- `netlify/functions/audit.ts`: Main audit handler orchestrating the entire workflow
+
+**Dependencies Added:**
+- `jspdf`: PDF generation library
+
+### Frontend (Phase 2)
+Created new Astro components and pages:
+
+**New Files:**
+- `src/pages/audit.astro`: Main AI Audit landing page with:
+  - Hero section with lead capture form
+  - Process roadmap with animated steps
+  - Value proposition section
+  - Pricing tiers (Pre-Audit, Quick Strike, Full Transformation)
+  - Final CTA section
+- `src/components/sections/AuditProcessRoadmap.astro`: Animated 4-step process visualization
+
+**Translations Added (~110 new keys in CS + EN):**
+- Form fields (website, email, company, industry, employees, revenue, pain points, tools, AI experience, dream outcome)
+- Process steps (Pre-Audit → Initial Meeting → Full Audit → Output)
+- Value propositions (Process Mapping, Impact Matrix, ROI Calculation, Roadmap)
+- Pricing tiers with features
+- CTA sections
+
+### Workflow Summary
+1. User fills out audit form on `/audit`
+2. Form submits to `/.netlify/functions/audit`
+3. Jina AI performs web research on company/industry
+4. OpenRouter generates comprehensive AI analysis report
+5. jsPDF creates branded PDF report
+6. Resend sends notification to team + confirmation with PDF to user
+7. User receives personalized pre-audit report with ROI estimates
+
+### Environment Variables Required
+```
+RESEND_API_KEY=xxx
+JINA_AI_API_KEY=xxx
+OPENROUTER_API_KEY=xxx
+```
+
+### Key Design Decisions
+- **Hormozi-style copy**: Direct, pain-focused, quantified ROI messaging
+- **Orange accent color**: Distinct from primary teal, conveys urgency
+- **Three-tier pricing**: Free lead magnet → Quick Strike ($3.5-6.5K) → Full Audit ($6.5-16K)
+- **Bilingual**: Full CS/EN support via existing i18n system
+- **Fallback handling**: Graceful degradation if APIs fail
+
+---
+
 ## [2026-01-14] Feature: Bilingual Emails, AI Audit Service & Booking CTA
 - **Goal**: Enhance confirmation emails with bilingual support (CS/EN), add new "AI Audit" service option, add Google Meet booking button, and update Case Studies styling.
 - **Changes Implemented**:

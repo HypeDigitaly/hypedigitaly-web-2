@@ -1,0 +1,198 @@
+---
+/**
+ * AuditProcessRoadmap Component
+ * 
+ * Animated roadmap showing the AI audit process steps:
+ * 1. Pre-Audit (Lead Magnet)
+ * 2. Initial Meeting
+ * 3. Full Audit
+ * 4. Output & Roadmap
+ * 
+ * Features:
+ * - Intersection Observer-based scroll animations
+ * - Steps appear sequentially as user scrolls
+ * - Connecting lines animate between steps
+ * - Mobile responsive
+ */
+
+interface Props {
+  lang: 'cs' | 'en';
+  t: Record<string, string>;
+}
+
+const { lang, t } = Astro.props;
+
+// Process steps configuration
+const steps = [
+  {
+    number: '01',
+    title: t.audit_process_step1_title,
+    description: t.audit_process_step1_desc,
+    icon: 'solar:document-text-bold',
+    color: 'primary',
+    features: lang === 'cs' 
+      ? ['Automatická analýza webu', 'AI trend research', 'PDF report'] 
+      : ['Automated website analysis', 'AI trend research', 'PDF report']
+  },
+  {
+    number: '02',
+    title: t.audit_process_step2_title,
+    description: t.audit_process_step2_desc,
+    icon: 'solar:chat-round-call-bold',
+    color: 'blue',
+    features: lang === 'cs'
+      ? ['30min konzultace', 'Stanovení priorit', 'Scope definice']
+      : ['30min consultation', 'Priority setting', 'Scope definition']
+  },
+  {
+    number: '03',
+    title: t.audit_process_step3_title,
+    description: t.audit_process_step3_desc,
+    icon: 'solar:clipboard-check-bold',
+    color: 'purple',
+    features: lang === 'cs'
+      ? ['15+ rozhovorů', 'Process mapping', 'ROI kalkulace']
+      : ['15+ interviews', 'Process mapping', 'ROI calculation']
+  },
+  {
+    number: '04',
+    title: t.audit_process_step4_title,
+    description: t.audit_process_step4_desc,
+    icon: 'solar:chart-2-bold',
+    color: 'orange',
+    features: lang === 'cs'
+      ? ['Impact Matrix', '12měs. roadmap', 'Quick Wins']
+      : ['Impact Matrix', '12-mo roadmap', 'Quick Wins']
+  }
+];
+
+const colorMap: Record<string, { bg: string; border: string; text: string; glow: string }> = {
+  primary: { bg: 'bg-primary/10', border: 'border-primary/30', text: 'text-primary', glow: 'shadow-primary/20' },
+  blue: { bg: 'bg-blue-500/10', border: 'border-blue-500/30', text: 'text-blue-400', glow: 'shadow-blue-500/20' },
+  purple: { bg: 'bg-purple-500/10', border: 'border-purple-500/30', text: 'text-purple-400', glow: 'shadow-purple-500/20' },
+  orange: { bg: 'bg-orange-500/10', border: 'border-orange-500/30', text: 'text-orange-400', glow: 'shadow-orange-500/20' }
+};
+---
+
+<section id="audit-process" class="py-24 bg-[#050505] border-t border-white/5">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.1s_both] text-3xl md:text-4xl lg:text-5xl font-medium text-white tracking-tighter mb-6">
+        {t.audit_process_title}
+      </h2>
+      <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] text-lg text-neutral-400">
+        {t.audit_process_subtitle}
+      </p>
+    </div>
+
+    <!-- Process Roadmap -->
+    <div class="relative">
+      <!-- Connecting Line (Desktop) -->
+      <div class="hidden lg:block absolute top-24 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent z-0"></div>
+      
+      <!-- Steps Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+        {steps.map((step, index) => {
+          const colors = colorMap[step.color];
+          const delay = 0.2 + (index * 0.15);
+          
+          return (
+            <div 
+              class={`roadmap-step animate-on-scroll [animation:animationIn_0.8s_ease-out_${delay}s_both] relative`}
+              data-step={index + 1}
+            >
+              <!-- Step Card -->
+              <div class={`relative p-6 rounded-2xl ${colors.bg} border ${colors.border} hover:shadow-lg ${colors.glow} transition-all duration-300 group h-full`}>
+                
+                <!-- Step Number Badge -->
+                <div class={`absolute -top-4 left-6 px-3 py-1 rounded-full ${colors.bg} border ${colors.border} ${colors.text} text-sm font-bold`}>
+                  {step.number}
+                </div>
+                
+                <!-- Icon -->
+                <div class={`w-14 h-14 rounded-xl ${colors.bg} border ${colors.border} flex items-center justify-center mb-4 mt-2 group-hover:scale-110 transition-transform`}>
+                  <iconify-icon icon={step.icon} class={`text-2xl ${colors.text}`}></iconify-icon>
+                </div>
+                
+                <!-- Title -->
+                <h3 class="text-xl font-bold text-white mb-3">
+                  {step.title}
+                </h3>
+                
+                <!-- Description -->
+                <p class="text-neutral-400 text-sm mb-4 leading-relaxed">
+                  {step.description}
+                </p>
+                
+                <!-- Features -->
+                <ul class="space-y-2">
+                  {step.features.map((feature) => (
+                    <li class="flex items-center gap-2 text-sm text-neutral-300">
+                      <iconify-icon icon="solar:check-circle-bold" class={`${colors.text} flex-shrink-0`}></iconify-icon>
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                
+                <!-- Arrow to next (Desktop only, not on last) -->
+                {index < steps.length - 1 && (
+                  <div class="hidden lg:flex absolute -right-4 top-1/2 -translate-y-1/2 z-20">
+                    <div class={`w-8 h-8 rounded-full bg-[#0A0A0A] border ${colors.border} flex items-center justify-center`}>
+                      <iconify-icon icon="solar:arrow-right-linear" class={`${colors.text}`}></iconify-icon>
+                    </div>
+                  </div>
+                )}
+              </div>
+              
+              <!-- Mobile Arrow (between cards) -->
+              {index < steps.length - 1 && (
+                <div class="lg:hidden flex justify-center my-4">
+                  <iconify-icon icon="solar:arrow-down-linear" class="text-2xl text-neutral-600"></iconify-icon>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+
+    <!-- Bottom Note -->
+    <div class="mt-16 text-center">
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.8s_both] inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10">
+        <iconify-icon icon="solar:clock-circle-bold" class="text-primary text-xl"></iconify-icon>
+        <span class="text-neutral-300 text-sm">
+          {lang === 'cs' 
+            ? 'Pre-Audit: 5 minut | Quick Strike: 2 týdny | Full Audit: 4-6 týdnů'
+            : 'Pre-Audit: 5 minutes | Quick Strike: 2 weeks | Full Audit: 4-6 weeks'}
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Roadmap step animation */
+  .roadmap-step {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  .roadmap-step.animate {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  /* Staggered animation delays */
+  .roadmap-step[data-step="1"] { transition-delay: 0.1s; }
+  .roadmap-step[data-step="2"] { transition-delay: 0.2s; }
+  .roadmap-step[data-step="3"] { transition-delay: 0.3s; }
+  .roadmap-step[data-step="4"] { transition-delay: 0.4s; }
+  
+  /* Hover effect for cards */
+  .roadmap-step:hover .group-hover\:scale-110 {
+    transform: scale(1.1);
+  }
+</style>

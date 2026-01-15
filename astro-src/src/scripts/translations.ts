@@ -99,6 +99,11 @@ export interface TranslationKeys {
   work_method_4_title: string;
   work_method_4_desc: string;
   service_featured: string;
+  service_recommended: string;
+  service_free_preaudit: string;
+  service_audit_title: string;
+  service_audit_desc: string;
+  service_audit_result: string;
   service_chatbot_title: string;
   service_chatbot_desc: string;
   service_chatbot_f1: string;
@@ -1095,6 +1100,112 @@ export interface TranslationKeys {
   error_404_or_go_home: string;
   error_404_back_home: string;
 
+  // AI Audit Page
+  audit_meta_title: string;
+  audit_meta_desc: string;
+  audit_hero_badge: string;
+  audit_hero_headline_1: string;
+  audit_hero_headline_2: string;
+  audit_hero_subheadline: string;
+  audit_hero_stat_1: string;
+  audit_hero_stat_2: string;
+  audit_hero_stat_3: string;
+  audit_form_title: string;
+  audit_form_desc: string;
+  audit_form_website: string;
+  audit_form_website_placeholder: string;
+  audit_form_email: string;
+  audit_form_email_placeholder: string;
+  audit_form_company: string;
+  audit_form_company_placeholder: string;
+  audit_form_industry: string;
+  audit_form_industry_placeholder: string;
+  audit_form_industry_ecommerce: string;
+  audit_form_industry_healthcare: string;
+  audit_form_industry_finance: string;
+  audit_form_industry_manufacturing: string;
+  audit_form_industry_professional: string;
+  audit_form_industry_government: string;
+  audit_form_industry_realestate: string;
+  audit_form_industry_other: string;
+  audit_form_employees: string;
+  audit_form_employees_placeholder: string;
+  audit_form_revenue: string;
+  audit_form_revenue_placeholder: string;
+  audit_form_painpoint: string;
+  audit_form_painpoint_placeholder: string;
+  audit_form_painpoint_lead_response: string;
+  audit_form_painpoint_manual_data: string;
+  audit_form_painpoint_support_volume: string;
+  audit_form_painpoint_repetitive_tasks: string;
+  audit_form_painpoint_slow_decisions: string;
+  audit_form_painpoint_legacy_systems: string;
+  audit_form_painpoint_other: string;
+  audit_form_tools: string;
+  audit_form_tools_placeholder: string;
+  audit_form_ai_experience: string;
+  audit_form_ai_experience_placeholder: string;
+  audit_form_ai_never: string;
+  audit_form_ai_failed: string;
+  audit_form_ai_basic: string;
+  audit_form_ai_strategy: string;
+  audit_form_dream: string;
+  audit_form_dream_placeholder: string;
+  audit_form_submit: string;
+  audit_form_submitting: string;
+  audit_form_success_title: string;
+  audit_form_success_desc: string;
+  audit_form_error: string;
+  audit_process_title: string;
+  audit_process_subtitle: string;
+  audit_process_step1_title: string;
+  audit_process_step1_desc: string;
+  audit_process_step2_title: string;
+  audit_process_step2_desc: string;
+  audit_process_step3_title: string;
+  audit_process_step3_desc: string;
+  audit_process_step4_title: string;
+  audit_process_step4_desc: string;
+  audit_value_title: string;
+  audit_value_subtitle: string;
+  audit_value_1_title: string;
+  audit_value_1_desc: string;
+  audit_value_2_title: string;
+  audit_value_2_desc: string;
+  audit_value_3_title: string;
+  audit_value_3_desc: string;
+  audit_value_4_title: string;
+  audit_value_4_desc: string;
+  audit_pricing_title: string;
+  audit_pricing_subtitle: string;
+  audit_pricing_preaudit_title: string;
+  audit_pricing_preaudit_price: string;
+  audit_pricing_preaudit_desc: string;
+  audit_pricing_preaudit_f1: string;
+  audit_pricing_preaudit_f2: string;
+  audit_pricing_preaudit_f3: string;
+  audit_pricing_preaudit_f4: string;
+  audit_pricing_quickstrike_title: string;
+  audit_pricing_quickstrike_price: string;
+  audit_pricing_quickstrike_desc: string;
+  audit_pricing_quickstrike_f1: string;
+  audit_pricing_quickstrike_f2: string;
+  audit_pricing_quickstrike_f3: string;
+  audit_pricing_quickstrike_f4: string;
+  audit_pricing_quickstrike_f5: string;
+  audit_pricing_full_title: string;
+  audit_pricing_full_price: string;
+  audit_pricing_full_desc: string;
+  audit_pricing_full_f1: string;
+  audit_pricing_full_f2: string;
+  audit_pricing_full_f3: string;
+  audit_pricing_full_f4: string;
+  audit_pricing_full_f5: string;
+  audit_pricing_full_f6: string;
+  audit_cta_title: string;
+  audit_cta_desc: string;
+  audit_cta_button: string;
+
   [key: string]: string;
 }
 
@@ -1199,6 +1310,11 @@ export const translations: Record<Language, TranslationKeys> = {
     work_method_4_title: "Ověřitelný přínos",
     work_method_4_desc: "Každá úprava je podložena daty a měřitelnými ukazateli.",
     service_featured: "HLAVNÍ SLUŽBA",
+    service_recommended: "DOPORUČUJEME",
+    service_free_preaudit: "Předběžný audit zdarma",
+    service_audit_title: "AI audit zdarma",
+    service_audit_desc: "Ukážeme vám, kde ve firmě ztrácíte čas a peníze. Předběžný audit zdarma – report do 5 minut.",
+    service_audit_result: "Zjistěte, kolik ušetříte →",
     service_chatbot_title: "AI Chatbot",
     service_chatbot_desc: "Inteligentní AI chat řešení, která zpracovávají dotazy a kvalifikují leady za vás 24/7. Web, Instagram, WhatsApp, Messenger.",
     service_chatbot_f1: "24/7/365 automatizovaná komunikace",
@@ -1483,7 +1599,7 @@ export const translations: Record<Language, TranslationKeys> = {
     contact_form_website_placeholder: "https://vasefirma.cz",
     contact_form_service: "O jakou službu máte zájem?",
     contact_form_service_placeholder: "Vyberte službu...",
-    contact_form_service_audit: "AI Audit",
+    contact_form_service_audit: "AI audit zdarma",
     contact_form_service_chatbot: "AI Chatbot",
     contact_form_service_voicebot: "AI Voicebot",
     contact_form_service_agent: "AI Agent",
@@ -2200,6 +2316,112 @@ export const translations: Record<Language, TranslationKeys> = {
     error_404_click_here: "klikněte zde pro okamžité přesměrování",
     error_404_or_go_home: "nebo se vraťte na",
     error_404_back_home: "Zpět na úvodní stránku",
+
+    // AI Audit Page
+    audit_meta_title: "AI Audit | Zjistěte, kde ve firmě ztrácíte čas a peníze | HypeDigitaly",
+    audit_meta_desc: "Dnes děláte manuální procesy naposledy. Zdarma vám ukážeme, kde ve vaší firmě AI ušetří nejvíce času a peněz. Report do 5 minut.",
+    audit_hero_badge: "Předběžný audit zdarma",
+    audit_hero_headline_1: "Dnes děláte manuální procesy",
+    audit_hero_headline_2: "naposledy.",
+    audit_hero_subheadline: "Zmapujeme vaše procesy a ukážeme vám přesně, kde AI ušetří nejvíce času a peněz. Žádné hádání – konkrétní čísla a doporučení do 5 minut.",
+    audit_hero_stat_1: "Bez auditu 80 % AI projektů selže",
+    audit_hero_stat_2: "Průměrná úspora 150 000 Kč/rok",
+    audit_hero_stat_3: "Report máte do 5 minut",
+    audit_form_title: "AI audit zdarma<br /><span class='text-neutral-400 transition-colors hover:text-orange-400 duration-500'>do 5 minut</span>",
+    audit_form_desc: "Vyplňte krátký formulář a do 5 minut vám pošleme předběžný audit na míru, jak využít AI ve Vaší společnosti - ukážeme vám, kde konkrétně ve vaší firmě AI pomůže nejvíce a přinese největší užitek.",
+    audit_form_website: "Webová stránka *",
+    audit_form_website_placeholder: "https://vasefirma.cz",
+    audit_form_email: "E-mail *",
+    audit_form_email_placeholder: "vas@email.cz",
+    audit_form_company: "Název společnosti",
+    audit_form_company_placeholder: "Vaše firma s.r.o.",
+    audit_form_industry: "Odvětví",
+    audit_form_industry_placeholder: "Vyberte odvětví...",
+    audit_form_industry_ecommerce: "E-commerce",
+    audit_form_industry_healthcare: "Zdravotnictví",
+    audit_form_industry_finance: "Finance & Bankovnictví",
+    audit_form_industry_manufacturing: "Výroba & Průmysl",
+    audit_form_industry_professional: "Profesionální služby",
+    audit_form_industry_government: "Veřejná správa",
+    audit_form_industry_realestate: "Reality & Stavebnictví",
+    audit_form_industry_other: "Jiné",
+    audit_form_employees: "Počet zaměstnanců",
+    audit_form_employees_placeholder: "Vyberte rozmezí...",
+    audit_form_revenue: "Roční obrat",
+    audit_form_revenue_placeholder: "Vyberte rozmezí...",
+    audit_form_painpoint: "Co vás nejvíce trápí?",
+    audit_form_painpoint_placeholder: "Vyberte...",
+    audit_form_painpoint_lead_response: "Nestíháme odpovídat zákazníkům včas",
+    audit_form_painpoint_manual_data: "Trávíme hodiny ručním zadáváním dat",
+    audit_form_painpoint_support_volume: "Zákaznická podpora nás zahlcuje",
+    audit_form_painpoint_repetitive_tasks: "Děláme pořád dokola to samé",
+    audit_form_painpoint_slow_decisions: "Rozhodování trvá příliš dlouho",
+    audit_form_painpoint_legacy_systems: "Staré systémy nám komplikují život",
+    audit_form_painpoint_other: "Něco jiného",
+    audit_form_tools: "Jaké nástroje denně používáte?",
+    audit_form_tools_placeholder: "Excel, CRM, účetní systém...",
+    audit_form_ai_experience: "Zkoušeli jste už AI?",
+    audit_form_ai_experience_placeholder: "Vyberte...",
+    audit_form_ai_never: "Zatím ne, jsme na začátku",
+    audit_form_ai_failed: "Ano, ale moc to nefungovalo",
+    audit_form_ai_basic: "Používáme ChatGPT a podobné",
+    audit_form_ai_strategy: "Máme AI strategii a tým",
+    audit_form_dream: "Čeho chcete dosáhnout?",
+    audit_form_dream_placeholder: "Napište svým vlastním slovem, co by vám nejvíc pomohlo...",
+    audit_form_submit: "Chci svůj audit zdarma →",
+    audit_form_submitting: "Připravujeme váš report...",
+    audit_form_success_title: "Hotovo! Kontrolujte e-mail.",
+    audit_form_success_desc: "Váš personalizovaný report je na cestě. Najdete v něm konkrétní příležitosti a doporučení přímo pro vaši firmu.",
+    audit_form_error: "Něco se pokazilo. Zkuste to prosím znovu.",
+    audit_process_title: "Jak vás provedeme celým procesem",
+    audit_process_subtitle: "Od prvního kliknutí k reálným úsporám – krok za krokem",
+    audit_process_step1_title: "Předběžný audit",
+    audit_process_step1_desc: "Podíváme se na váš web a odvětví. Během 5 minut vám pošleme report s prvními příležitostmi, kde AI pomůže nejvíce.",
+    audit_process_step2_title: "Bezplatná konzultace",
+    audit_process_step2_desc: "Probereme spolu výsledky auditu. Řekneme vám na rovinu, co dává smysl řešit jako první a kde vidíme největší potenciál.",
+    audit_process_step3_title: "Hloubkový audit",
+    audit_process_step3_desc: "Ponoříme se do vašich procesů. Mluvíme s vašimi lidmi, mapujeme pracovní postupy a počítáme, kolik vám AI reálně ušetří.",
+    audit_process_step4_title: "Plán a první kroky",
+    audit_process_step4_desc: "Vytvoříme vám detailní 12měsíční plán zapojení AI do vašich systémů tak, aby vám přinesla co nejrychleji přidanou hodnotu, vrátila se investice a váš byznys běžel automaticky jako hodinky a nepropalovali jste peníze manuálními procesy jako doposud.",
+    audit_value_title: "Co všechno pro vás připravíme",
+    audit_value_subtitle: "Žádné obecné fráze. Konkrétní doporučení přímo pro vaši firmu.",
+    audit_value_1_title: "Zmapujeme vaše procesy",
+    audit_value_1_desc: "Projdeme s vámi všechny pracovní postupy a najdeme místa, kde se práce zasekává nebo zbytečně opakuje.",
+    audit_value_2_title: "Seřadíme priority",
+    audit_value_2_desc: "Ukážeme vám, co řešit jako první a co může počkat. U každé příležitosti uvidíte, kolik vám přinese a jak je náročná.",
+    audit_value_3_title: "Spočítáme vám úspory",
+    audit_value_3_desc: "Žádné odhady od oka. Dostanete konkrétní čísla – kolik ušetříte a jak rychle se vám investice vrátí.",
+    audit_value_4_title: "Připravíme plán na rok",
+    audit_value_4_desc: "Dostanete jasný plán s termíny a rozpočtem. Budete přesně vědět, kdo co dělá a kdy to bude hotové.",
+    audit_pricing_title: "Vyberte si hloubku analýzy",
+    audit_pricing_subtitle: "Začněte zdarma a uvidíte, jestli vám to dává smysl. Bez závazků.",
+    audit_pricing_preaudit_title: "Předběžný audit",
+    audit_pricing_preaudit_price: "Zdarma",
+    audit_pricing_preaudit_desc: "Ideální pro první seznámení. Ukážeme vám, kde ve vaší firmě vidíme největší potenciál.",
+    audit_pricing_preaudit_f1: "Analýza vašeho webu a odvětví",
+    audit_pricing_preaudit_f2: "Přehled AI trendů ve vašem oboru",
+    audit_pricing_preaudit_f3: "3-5 konkrétních příležitostí",
+    audit_pricing_preaudit_f4: "PDF report do 5 minut",
+    audit_pricing_quickstrike_title: "Rychlý audit",
+    audit_pricing_quickstrike_price: "80 000 - 150 000 Kč",
+    audit_pricing_quickstrike_desc: "Pro firmy, které chtějí začít co nejdříve. Výsledky do 2 týdnů.",
+    audit_pricing_quickstrike_f1: "Rozhovory s 5-8 klíčovými lidmi",
+    audit_pricing_quickstrike_f2: "Zmapujeme vaše hlavní procesy",
+    audit_pricing_quickstrike_f3: "Seřadíme příležitosti podle priority",
+    audit_pricing_quickstrike_f4: "Spočítáme návratnost top projektů",
+    audit_pricing_quickstrike_f5: "Plán na prvních 90 dní",
+    audit_pricing_full_title: "Kompletní audit",
+    audit_pricing_full_price: "150 000 - 400 000 Kč",
+    audit_pricing_full_desc: "Pro firmy, které to myslí vážně. Probereme každý proces a připravíme vás na celý rok.",
+    audit_pricing_full_f1: "Rozhovory s 15+ lidmi napříč firmou",
+    audit_pricing_full_f2: "Zmapujeme všechny procesy do detailu",
+    audit_pricing_full_f3: "Detailní přehled všech příležitostí",
+    audit_pricing_full_f4: "Kompletní výpočet úspor a návratnosti",
+    audit_pricing_full_f5: "Plán na celý rok s konkrétními kroky",
+    audit_pricing_full_f6: "Poradíme, jak změny představit týmu",
+    audit_cta_title: "Chcete vědět, kolik můžete ušetřit?",
+    audit_cta_desc: "Začněte zdarma. Report vám pošleme do 5 minut a uvidíte, jestli vám to dává smysl.",
+    audit_cta_button: "Chci svůj audit zdarma →",
   },
   en: {
     // Navigation
@@ -2301,6 +2523,11 @@ export const translations: Record<Language, TranslationKeys> = {
     work_method_4_title: "Verifiable impact",
     work_method_4_desc: "Every adjustment is backed by data and measurable indicators.",
     service_featured: "MAIN SERVICE",
+    service_recommended: "RECOMMENDED",
+    service_free_preaudit: "Free Pre-Audit",
+    service_audit_title: "AI Audit",
+    service_audit_desc: "Discover where AI brings the biggest savings. Free pre-audit with ROI calculation in 5 minutes.",
+    service_audit_result: "Calculate your ROI",
     service_chatbot_title: "AI Chatbot",
     service_chatbot_desc: "Intelligent AI chat solutions that process inquiries and qualify leads for you 24/7. Web, Instagram, WhatsApp, Messenger.",
     service_chatbot_f1: "24/7/365 automated communication",
@@ -3302,6 +3529,112 @@ export const translations: Record<Language, TranslationKeys> = {
     error_404_click_here: "click here for immediate redirect",
     error_404_or_go_home: "or go back to",
     error_404_back_home: "Back to Homepage",
+
+    // AI Audit Page
+    audit_meta_title: "AI Audit | Discover Hidden AI Opportunities | HypeDigitaly",
+    audit_meta_desc: "Free AI pre-audit that reveals how much money you're losing due to inefficiency. Get a personalized report with ROI analysis and specific recommendations.",
+    audit_hero_badge: "Free AI Pre-Audit",
+    audit_hero_headline_1: "How much money are you",
+    audit_hero_headline_2: "burning due to inefficiency?",
+    audit_hero_subheadline: "80% of AI projects fail because companies solve the wrong problems. Our AI audit finds the right ones – and calculates your exact ROI.",
+    audit_hero_stat_1: "80% projects fail without audit",
+    audit_hero_stat_2: "Avg. $6,000/year saved",
+    audit_hero_stat_3: "Report in 5 minutes",
+    audit_form_title: "Free AI Audit<br /><span class='text-neutral-400 transition-colors hover:text-orange-400 duration-500'>in 5 minutes</span>",
+    audit_form_desc: "Get your free audit. Fill out the short form and receive a personalized report in 5 minutes. We'll show you exactly where AI will help your company most.",
+    audit_form_website: "Website *",
+    audit_form_website_placeholder: "https://yourcompany.com",
+    audit_form_email: "Email *",
+    audit_form_email_placeholder: "your@email.com",
+    audit_form_company: "Company Name",
+    audit_form_company_placeholder: "Your Company Inc.",
+    audit_form_industry: "Industry",
+    audit_form_industry_placeholder: "Select industry...",
+    audit_form_industry_ecommerce: "E-commerce",
+    audit_form_industry_healthcare: "Healthcare",
+    audit_form_industry_finance: "Finance & Banking",
+    audit_form_industry_manufacturing: "Manufacturing",
+    audit_form_industry_professional: "Professional Services",
+    audit_form_industry_government: "Government/Public",
+    audit_form_industry_realestate: "Real Estate",
+    audit_form_industry_other: "Other",
+    audit_form_employees: "Number of Employees",
+    audit_form_employees_placeholder: "Select range...",
+    audit_form_revenue: "Annual Revenue",
+    audit_form_revenue_placeholder: "Select range...",
+    audit_form_painpoint: "Biggest Pain Point",
+    audit_form_painpoint_placeholder: "What bothers you most?",
+    audit_form_painpoint_lead_response: "Slow Lead Response Time",
+    audit_form_painpoint_manual_data: "Manual Data Entry",
+    audit_form_painpoint_support_volume: "High Customer Support Volume",
+    audit_form_painpoint_repetitive_tasks: "Repetitive Tasks",
+    audit_form_painpoint_slow_decisions: "Slow Decision Making",
+    audit_form_painpoint_legacy_systems: "Legacy System Integration",
+    audit_form_painpoint_other: "Other",
+    audit_form_tools: "What tools do you use?",
+    audit_form_tools_placeholder: "CRM, ERP, Excel, Slack...",
+    audit_form_ai_experience: "AI Experience",
+    audit_form_ai_experience_placeholder: "Select option...",
+    audit_form_ai_never: "Never tried",
+    audit_form_ai_failed: "Tried and failed",
+    audit_form_ai_basic: "Using basic tools",
+    audit_form_ai_strategy: "Have AI strategy",
+    audit_form_dream: "Your Dream Outcome",
+    audit_form_dream_placeholder: "What would you like to achieve with AI?",
+    audit_form_submit: "Get Free Pre-Audit",
+    audit_form_submitting: "Generating report...",
+    audit_form_success_title: "Report Sent!",
+    audit_form_success_desc: "Check your email. Your personalized AI Pre-Audit Report is on its way.",
+    audit_form_error: "Something went wrong. Please try again.",
+    audit_process_title: "How We Work",
+    audit_process_subtitle: "From first contact to measurable results",
+    audit_process_step1_title: "Pre-Audit",
+    audit_process_step1_desc: "Automated website analysis, industry research, and opportunity identification. PDF report in 5 minutes.",
+    audit_process_step2_title: "Initial Meeting",
+    audit_process_step2_desc: "30-min free consultation. We discuss pre-audit results and set priorities.",
+    audit_process_step3_title: "Full Audit",
+    audit_process_step3_desc: "4-6 weeks of deep analysis. 15+ stakeholder interviews, process mapping, ROI calculation.",
+    audit_process_step4_title: "Output & Roadmap",
+    audit_process_step4_desc: "We'll create a detailed 12-month roadmap for integrating AI into your systems to deliver value as quickly as possible and ensure an immediate return on investment. Your business will run automatically like clockwork, and you'll stop burning money on manual processes.",
+    audit_value_title: "What You Get in a Full Audit",
+    audit_value_subtitle: "Everything you need for successful AI transformation",
+    audit_value_1_title: "Process Mapping",
+    audit_value_1_desc: "Complete mapping of all processes and identification of bottlenecks and automation opportunities.",
+    audit_value_2_title: "Impact Matrix",
+    audit_value_2_desc: "Opportunity prioritization by value and complexity. Quick Wins vs. Big Swings.",
+    audit_value_3_title: "ROI Calculation",
+    audit_value_3_desc: "Precise return on investment calculation. Cost of Inaction and potential savings.",
+    audit_value_4_title: "12-Month Roadmap",
+    audit_value_4_desc: "Detailed implementation plan with milestones, responsibilities, and budget.",
+    audit_pricing_title: "AI Audit Pricing",
+    audit_pricing_subtitle: "Choose the depth of analysis based on your needs",
+    audit_pricing_preaudit_title: "Pre-Audit",
+    audit_pricing_preaudit_price: "Free",
+    audit_pricing_preaudit_desc: "Automated analysis and PDF report with initial opportunity overview.",
+    audit_pricing_preaudit_f1: "Automated website analysis",
+    audit_pricing_preaudit_f2: "Industry and AI trend analysis",
+    audit_pricing_preaudit_f3: "Identification of 3-5 opportunities",
+    audit_pricing_preaudit_f4: "PDF report in 5 minutes",
+    audit_pricing_quickstrike_title: "Quick Strike Audit",
+    audit_pricing_quickstrike_price: "$3,500 - $6,500",
+    audit_pricing_quickstrike_desc: "2-week deep dive for companies that want to start fast.",
+    audit_pricing_quickstrike_f1: "5-8 stakeholder interviews",
+    audit_pricing_quickstrike_f2: "Process mapping of key areas",
+    audit_pricing_quickstrike_f3: "Impact Matrix with prioritization",
+    audit_pricing_quickstrike_f4: "ROI calculation of top opportunities",
+    audit_pricing_quickstrike_f5: "90-day implementation roadmap",
+    audit_pricing_full_title: "Full Transformation Audit",
+    audit_pricing_full_price: "$6,500 - $16,000",
+    audit_pricing_full_desc: "Complete 4-6 week audit for comprehensive AI transformation.",
+    audit_pricing_full_f1: "15+ stakeholder interviews",
+    audit_pricing_full_f2: "Complete process mapping",
+    audit_pricing_full_f3: "Detailed Impact Matrix",
+    audit_pricing_full_f4: "Full ROI calculation of all opportunities",
+    audit_pricing_full_f5: "12-month implementation roadmap",
+    audit_pricing_full_f6: "AI change management strategy",
+    audit_cta_title: "Ready to find out how much you can save?",
+    audit_cta_desc: "Start with a free pre-audit and get a personalized report in 5 minutes.",
+    audit_cta_button: "Get Free Pre-Audit",
   }
 };
 
